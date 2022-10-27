@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @Service
 public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements IRegisterService {
     @Autowired
@@ -28,9 +31,11 @@ public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements I
         String check = "select count(*) from user_info where phone = '" + phone_num+ "'";
         int checked = jdbcTemplate.queryForObject(check, Integer.class);
         if(checked == 1){
-            return 808;
+            return 806;
         }
         else {
+            user.setAuthority(1);
+            user.setRegisterDate(new Date());
             userDao.insert(user);
             int success = jdbcTemplate.queryForObject(check, Integer.class);
             if(success == 1){

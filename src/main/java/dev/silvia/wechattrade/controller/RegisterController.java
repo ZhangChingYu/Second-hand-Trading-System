@@ -37,7 +37,11 @@ public class RegisterController {
     @RequestMapping(value = "register")
     public Integer register(@RequestBody Map<String, Object> param){
         // 用戶輸入手機號&密碼即可完成註冊
-
-        return 800;
+        String phone = param.get("phone").toString();
+        String password = param.get("password").toString();
+        User user = new User();
+        user.setPhone(phone);
+        user.setPassword(password);
+        return service.Register(user);
     }
 }
