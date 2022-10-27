@@ -1,4 +1,7 @@
 package dev.silvia.wechattrade.dao;
 
-public interface UserDao {
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import dev.silvia.wechattrade.entity.User;
+
+public interface UserDao extends BaseMapper<User> {
 }

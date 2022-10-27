@@ -3,7 +3,28 @@ server:
 
 spring:
   datasource:
-    password: root
-    name: root
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/idlebugs?userUnicode=true&characterEncoding-UTF-8
+    password: root
+    username: root
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template-location: true
+    encoding: UTF-8
+    servlet:
+      content-type: text/html
+    mode: HTML
+    cache: false
+    suffix: .html
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20MB
+      max-request-size: 20MB
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      logic-not-delete-value: 0
+      logic-delete-value: 1
