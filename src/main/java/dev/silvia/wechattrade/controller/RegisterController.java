@@ -36,12 +36,14 @@ public class RegisterController {
 
     @RequestMapping(value = "register")
     public Integer register(@RequestBody Map<String, Object> param){
-        // 用戶輸入手機號&密碼即可完成註冊
+        // 用戶輸入手機號&密碼即可完成註冊，email可選
         String phone = param.get("phone").toString();
         String password = param.get("password").toString();
+        String email = param.get("email").toString();
         User user = new User();
         user.setPhone(phone);
         user.setPassword(password);
+        user.setEmail(email);
         return service.Register(user);
     }
 }
