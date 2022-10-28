@@ -16,4 +16,5 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
    1. impl 服務層實現
 5. controller 控制層
 6. vo 數據傳輸處理中介 前端 -> service
+7. handler 工具包(一些常調用的功能類)
 
