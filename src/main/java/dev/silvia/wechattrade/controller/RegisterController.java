@@ -7,9 +7,7 @@ import dev.silvia.wechattrade.service.IRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.tags.Param;
 
 import javax.annotation.Resource;
 import java.util.Map;
@@ -27,14 +25,14 @@ public class RegisterController {
         return 800;
     }
 
-    @RequestMapping(value = "userInfo")
+    @RequestMapping(value = "/userInfo")
     public String userInfo(@RequestBody Map<String, Object> param){
         Integer id = Integer.parseInt(param.get("id").toString());
         User user = service.getUserById(id);
         return gson.toJson(user);
     }
 
-    @RequestMapping(value = "register")
+    @RequestMapping(value = "/register")
     public Integer register(@RequestBody Map<String, Object> param){
         // 用戶輸入手機號&密碼即可完成註冊，email可選
         String phone = param.get("phone").toString();
