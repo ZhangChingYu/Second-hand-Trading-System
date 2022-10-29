@@ -110,6 +110,35 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var l0 = _vm.__map(_vm.mostbookItem, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g0 = item.price.toFixed(2)
+    return {
+      $orig: $orig,
+      g0: g0
+    }
+  })
+
+  var l1 = _vm.__map(_vm.newProductItem, function(item, index) {
+    var $orig = _vm.__get_orig(item)
+
+    var g1 = item.price.toFixed(2)
+    return {
+      $orig: $orig,
+      g1: g1
+    }
+  })
+
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        l0: l0,
+        l1: l1
+      }
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -172,6 +201,65 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -181,10 +269,56 @@ var _default =
       'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F13950518577%2F1000&refer=http%3A%2F%2Finews.gtimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1669533057&t=180b6b372cd71022722b3d8c3ccbc068',
       'https://img2.baidu.com/it/u=4293062902,2076102987&fm=253&fmt=auto&app=138&f=JPG?w=750&h=500'],
 
-      indicatorDots: true,
-      autoplay: true,
-      interval: 2000,
-      duration: 500 };
+
+      mostbookItem: [
+      {
+        text: '参加培训班',
+        url: 'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
+        price: 1250 },
+
+      {
+        text: '使图片的宽高完全拉伸至填满 image 元素',
+        url: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
+        price: 268 }],
+
+
+      newProductItem: [
+      {
+        url: 'https://gw.alicdn.com/bao/uploaded/i1/2869884912/O1CN01pnqXeC1m9kBQAFWwv_!!2869884912.jpg_300x300q90.jpg_.webp',
+        text: '学习Web前端',
+        price: 25.86 },
+
+      {
+        url: 'https://gw.alicdn.com/bao/uploaded/i3/2209455393991/O1CN01w2u3sB1fLvTc4DaYa_!!2-item_pic.png_300x300q90.jpg_.webp',
+        text: '正在差量编译',
+        price: 32.3 },
+
+      {
+        url: 'https://gw.alicdn.com/bao/uploaded/i3/2206648906412/O1CN01nGURSL1xEkLdUnnms_!!0-item_pic.jpg_300x300q90.jpg_.webp',
+        text: '请另行在小程序开发工具的控制台查看。',
+        price: 250 },
+
+      {
+        url: 'https://gw.alicdn.com/bao/uploaded/i4/2209455393991/O1CN01ig4rrm1fLvTb86nrL_!!2-item_pic.png_300x300q90.jpg_.webp',
+        text: 'Second-hand-Trading-System',
+        price: 22 },
+
+      {
+        url: 'https://gw.alicdn.com/bao/uploaded/i2/3300766192/O1CN015xihja1vbzAnY7Vlh_!!0-item_pic.jpg_300x300q90.jpg_.webp',
+        text: '小程序开发工具',
+        price: 45 },
+
+      {
+        url: 'https://gw.alicdn.com/bao/uploaded/i3/45059216/O1CN01jsF6GU2HwytZZHX0I_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
+        text: '我是怎么调试 Element UI 源码的',
+        price: 65 },
+
+      {
+        url: 'https://gw.alicdn.com/bao/uploaded/i3/6000000001089/O1CN01dkomiG1Juo60CPfEQ_!!6000000001089-0-yinhe.jpg_300x300q90.jpg_.webp',
+        text: '全是技巧没有感情！',
+        price: 7 }] };
+
+
 
   },
   methods: {
