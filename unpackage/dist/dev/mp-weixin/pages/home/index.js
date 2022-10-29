@@ -265,7 +265,7 @@ var _default =
   data: function data() {
     return {
       swiperItem: [
-      'https://img2.baidu.com/it/u=120693445,2125794843&fm=253&fmt=auto&app=120&f=JPEG?w=350&h=449',
+      'https://t11.baidu.com/it/app=49&f=JPEG&fm=173&fmt=auto&u=766431721%2C238945871?w=640&h=512&s=3B7D76866CF7F4C20E9A567F03009078',
       'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F13950518577%2F1000&refer=http%3A%2F%2Finews.gtimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1669533057&t=180b6b372cd71022722b3d8c3ccbc068',
       'https://img2.baidu.com/it/u=4293062902,2076102987&fm=253&fmt=auto&app=138&f=JPG?w=750&h=500'],
 
@@ -313,6 +313,15 @@ var _default =
         text: '我是怎么调试 Element UI 源码的',
         price: 65 },
 
+      {
+        url: 'https://gw.alicdn.com/bao/uploaded/i3/6000000001089/O1CN01dkomiG1Juo60CPfEQ_!!6000000001089-0-yinhe.jpg_300x300q90.jpg_.webp',
+        text: '全是技巧没有感情！',
+        price: 7 },
+
+      {
+        url: 'https://gw.alicdn.com/bao/uploaded/i3/6000000001089/O1CN01dkomiG1Juo60CPfEQ_!!6000000001089-0-yinhe.jpg_300x300q90.jpg_.webp',
+        text: '全是技巧没有感情！',
+        price: 7 },
       {
         url: 'https://gw.alicdn.com/bao/uploaded/i3/6000000001089/O1CN01dkomiG1Juo60CPfEQ_!!6000000001089-0-yinhe.jpg_300x300q90.jpg_.webp',
         text: '全是技巧没有感情！',
