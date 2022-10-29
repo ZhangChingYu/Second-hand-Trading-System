@@ -6,10 +6,10 @@
 	> ......
 
 - pages 项目页面文件
-	> home
+	> home  
 		>> index.vue
 
-	> login
+	> login  
 		>> index.vue
 
 	> ......
