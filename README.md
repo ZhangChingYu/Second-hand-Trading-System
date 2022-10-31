@@ -8,21 +8,21 @@ The "Idle Bugs" is a Campus Second-hand Trading System that designed for a unive
 The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 卜凡凡
 ***
 ## 後端項目結構
-1. entity 實體層 
+- entity 實體層 
    > User.java
-2. dao 實體層映射
+- dao 實體層映射
    > UserDao.java
-3. dto 數據傳輸處理中介 service -> 前端 
+- dto 數據傳輸處理中介 service -> 前端 
    > UserDto.java
-4. service 服務層抽象 
+- service 服務層抽象 
    > IRegisterService.java
-   a. Impl 服務層實現
+   - Impl 服務層實現
       > RegisterServiceImpl.java
-5. controller 控制層
+- controller 控制層
    > RegisterController.java
-6. vo 數據傳輸處理中介 前端 -> service
+- vo 數據傳輸處理中介 前端 -> service
    > UserVo.java
-7. handlers 工具包(一些常調用的功能類)
+- handlers 工具包(一些常調用的功能類)
    > TransferUTF8.java
 ***
 ## 註冊功能
