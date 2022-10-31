@@ -10,20 +10,36 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 ## 後端項目結構
 - entity 實體層 
    > User.java
+     
+   > ......
 - dao 實體層映射
    > UserDao.java
+     
+   > ......
 - dto 數據傳輸處理中介 service -> 前端 
    > UserDto.java
+     
+   > ......
 - service 服務層抽象 
    > IRegisterService.java
+     
+   > ......
    - Impl 服務層實現
       > RegisterServiceImpl.java
+        
+      > ......
 - controller 控制層
    > RegisterController.java
+     
+   > ......
 - vo 數據傳輸處理中介 前端 -> service
    > UserVo.java
+     
+   > ......
 - handlers 工具包(一些常調用的功能類)
    > TransferUTF8.java
+  
+   > ......
 ***
 ## 註冊功能
 由用戶輸入手機號、郵箱及密碼來完成註冊，且一個手機號只能註冊一次，若手機號被重複註冊則會判定註冊失敗。
