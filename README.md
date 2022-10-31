@@ -38,7 +38,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 手機號須為11位手機號，其他型號本系統不予支持。註冊功能後端暫定api為/register，所有前後端交互數據皆由UTF-8進行編碼與解碼。
 為避免中英文混和而產生亂碼，數據庫除日期、純數字、純英文數據外，接先進行UTF-8編碼後存入數據庫，讀取時再進行相應的解碼顯示。
 ### RegisterController.java
-``` 
+``` Java
     @RequestMapping(value = "/register")
     public Integer register(@RequestBody Map<String, Object> param){
         // 用戶輸入手機號&密碼即可完成註冊，email可選
@@ -54,7 +54,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 ```
 
 ### RegisterServiceImpl.java
-``` 
+``` Java
     @Override
     public int Register(User user) {
         String phone_num = user.getPhone();
