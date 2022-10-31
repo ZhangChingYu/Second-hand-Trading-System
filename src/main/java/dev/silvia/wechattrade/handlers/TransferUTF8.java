@@ -38,7 +38,8 @@ public class TransferUTF8 {
 
     // 將UTF-8格式字串轉為中文字串
     public String UTF8toC(String utf8){
-        if(utf8 == null || utf8.equals("")){
+        // 不知道為什麼從數據庫讀出來的時候null數據會變成字串的"null"
+        if(utf8 == null || utf8.equals("") || utf8.equals("null")){
             return null;
         }
         try{

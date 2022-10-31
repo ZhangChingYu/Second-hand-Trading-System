@@ -21,6 +21,23 @@ public class DemoController {
 
     Gson gson = new Gson();
 
+    // 將UTF8數據進行解碼在發送給前端
+    @RequestMapping(value = "/showUI")
+    public String dataShowUI(@RequestBody Map<String, Object> param){
+        Integer id = Integer.parseInt(param.get("id").toString());
+        User user = service.dataShowUI(id);
+        return gson.toJson(user);
+    }
+
+    // 將數據庫中可能含有中文的數據都轉換為UTF-8編碼
+    // (user_name, real_name, default_addr, addr_one, addr_two, addr_three)
+    @RequestMapping(value = "/data")
+    public String dataTransUTF8(@RequestBody Map<String, Object> param){
+        Integer id = Integer.parseInt(param.get("id").toString());
+        User user = service.dataTransUTF8(id);
+        return gson.toJson(user);
+    }
+
     // 測試轉換成UTF-8的字串是否能正常存入數據庫中
     @RequestMapping(value = "/test")
     public String chineseOutput(@RequestBody Map<String, Object> param){
