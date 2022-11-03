@@ -34,7 +34,7 @@ public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements I
         String check = "select count(*) from user_info where phone = '" + phone_num+ "'";
         int checked = jdbcTemplate.queryForObject(check, Integer.class);
         if(checked == 1){
-            return 806;
+            return 422;     // 該手機號已被註冊，不可重複註冊
         }
         else {
             user.setAuthority(1);
@@ -42,9 +42,9 @@ public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements I
             userDao.insert(user);
             int success = jdbcTemplate.queryForObject(check, Integer.class);
             if(success == 1){
-                return 800;
+                return 201; // 註冊成功
             }
-            return 808;
+            return 404;     // 註冊失敗，信息未成功添加
         }
     }
 
