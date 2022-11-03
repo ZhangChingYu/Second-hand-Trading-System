@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductCatalogService extends ServiceImpl<ProductCatalogDao, ProductCatalog> implements IProductCatalogService {
+public class ProductCatalogServiceImpl extends ServiceImpl<ProductCatalogDao, ProductCatalog> implements IProductCatalogService {
 
     @Autowired
     private ProductCatalogDao productCatalogDao;

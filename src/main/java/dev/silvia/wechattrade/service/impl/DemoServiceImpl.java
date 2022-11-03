@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 @Service
-public class DemoService extends ServiceImpl<UserDao, User> implements IDemoService {
+public class DemoServiceImpl extends ServiceImpl<UserDao, User> implements IDemoService {
     @Autowired
     private UserDao userDao;
 

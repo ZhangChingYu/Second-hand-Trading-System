@@ -11,25 +11,39 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 - entity 實體層 
    > User.java
      
+   > Product.java
+
+   > ProductCatalog.java
+
    > ......
 - dao 實體層映射
    > UserDao.java
+
+   > ProductDao.java
+
+   > ProductCatalogDao.java
      
    > ......
 - dto 數據傳輸處理中介 service -> 前端 
    > UserDto.java
-     
+  
    > ......
 - service 服務層抽象 
    > IRegisterService.java
-     
+
+   > IProductCatalogService.java
+
    > ......
    - Impl 服務層實現
       > RegisterServiceImpl.java
         
+      > ProductCatalogServiceImpl.java
+   
       > ......
 - controller 控制層
    > RegisterController.java
+
+   > ProductCatalogController.java
      
    > ......
 - vo 數據傳輸處理中介 前端 -> service
@@ -84,3 +98,13 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
         }
     }
 ```
+## 商品分類功能
+目前本系統的商品分類為如下，同樣已UTF-8編碼後存儲含中文內容的數據。其中，以各項分類的英文名稱首字母大寫作為商品的分類編號。
+商品分類功能主要包含商品份類的增、刪、改、查。
+1. 書籍 Book
+2. 美妝 Makeup
+3. 數碼 Digital
+4. 家居 Furniture
+5. 電器 Electronic
+6. 服裝 Clothes
+7. 其他 Others
