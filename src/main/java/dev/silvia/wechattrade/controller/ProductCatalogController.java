@@ -3,7 +3,7 @@ package dev.silvia.wechattrade.controller;
 
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.entity.ProductCatalog;
-import dev.silvia.wechattrade.service.IProductCatalogService;
+import dev.silvia.wechattrade.service.ICatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,7 +18,7 @@ import java.util.Map;
 public class ProductCatalogController {
     @Autowired
     @Resource
-    private IProductCatalogService service;
+    private ICatalogService service;
 
     Gson gson = new Gson();
 

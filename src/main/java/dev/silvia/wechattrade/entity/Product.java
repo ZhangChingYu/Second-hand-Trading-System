@@ -20,7 +20,7 @@ public class Product implements Serializable {
 
     private String name;
 
-    private String s_phone;
+    private String sPhone;
 
     private String number;
 
@@ -34,11 +34,11 @@ public class Product implements Serializable {
 
     private Integer status;
 
-    private Integer report_count;
+    private Integer reportCount;
 
-    private Integer catalog;
+    private String catalog;
 
     private String address;
 
-    private Integer like_count;
+    private Integer likeCount;
 }

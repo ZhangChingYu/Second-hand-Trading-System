@@ -5,7 +5,7 @@ import com.google.gson.Gson;
 import dev.silvia.wechattrade.dao.ProductCatalogDao;
 import dev.silvia.wechattrade.entity.ProductCatalog;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
-import dev.silvia.wechattrade.service.IProductCatalogService;
+import dev.silvia.wechattrade.service.ICatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ProductCatalogServiceImpl extends ServiceImpl<ProductCatalogDao, ProductCatalog> implements IProductCatalogService {
+public class CatalogServiceImpl extends ServiceImpl<ProductCatalogDao, ProductCatalog> implements ICatalogService {
 
     @Autowired
     private ProductCatalogDao productCatalogDao;
