@@ -27,32 +27,44 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
    > ......
 - dto 數據傳輸處理中介 service -> 前端 
    > UserDto.java
+   
+   > ProductDetailDto.java
+
+   > ProductOutlineDto.java
   
    > ......
 - service 服務層抽象 
    > IRegisterService.java
 
-   > IProductCatalogService.java
+   > ICatalogService.java
+
+   > IProductService.java
 
    > ......
    - Impl 服務層實現
       > RegisterServiceImpl.java
         
-      > ProductCatalogServiceImpl.java
+      > CatalogServiceImpl.java
+   
+      > ProductServiceImpl.java
    
       > ......
 - controller 控制層
    > RegisterController.java
 
-   > ProductCatalogController.java
+   > CatalogController.java
+
+   > ProductSearchController.java
      
    > ......
 - vo 數據傳輸處理中介 前端 -> service
-   > UserVo.java
+   > ProductVo.java
      
    > ......
 - handlers 工具包(一些常調用的功能類)
    > TransferUTF8.java
+
+   > ReadFile.java
   
    > ......
 ***
@@ -109,6 +121,48 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 5. 電器 Electronic
 6. 服裝 Clothes
 7. 其他 Others
+## 商品查詢及詳細信息顯示功能
+本系統主頁面的商品推送算法尚在開發中，為測試其他功能是否能正常運行，暫時使用後端api **GET** /homepage，作為主頁面的商品顯示。
+商品查詢共分為分類查詢和搜索欄輸入兩種，分類檢索由用戶點選商品分類後，前端返回商品編碼(B,M,E...)給後端接收，
+後端api為**GET** /catalog/products，json語句內容為{"catalog":"商品編碼"}。
+搜索欄檢索則是由用戶在首頁搜索欄中輸入查詢信息，前端調用api為**GET** /search/products，json語句內容為{"keyword":"輸入內容"}。
+以上檢索所返回的數據形式為json: {"number":"商品編碼","coverPic":"商品封面照片","name":"商品名稱","price":"商品價格"}
+商品詳細信息的顯示是由用戶點選某一商品後，由前端返回商品的編碼(number)給後端，後端api為**GET** /product/detail，
+json語句內容為{"number":"商品編碼"}。 檢索後返回的數據形式為 json:{"name":"商品名稱","seller_name":"賣家名稱","address":"地址"
+,"date":"發布時間(yyyy-MM-dd,hh:mm:ss)","price":"價格","intro":"商品介紹","like_count":"收藏數","picture_count":"照片數",
+"pictures"L"照片的base64編碼list"}。
+
+**注意**所有後端傳給前端的圖片都是base64的編碼，前端再渲染時請加上標示，例如:
+``` html
+    <!-- 這裡是顯示商品封面的範例 -->
+    <img width="400" height="200" src="data:image/jpg;base64,{{response.coverPic}}" />
+```
+### ProductSearchController.java
+``` Java
+    // 通過商品編號查詢商品詳細信息
+    @RequestMapping(value = "/product/detail", method = RequestMethod.GET)
+    public String getProductDetail(@RequestBody Map<String, Object> param){
+        String number = param.get("number").toString();
+        return gson.toJson(service.getProductDetail(number));
+    }
+    // 分類查找
+    @RequestMapping(value = "/catalog/products", method = RequestMethod.GET)
+    public String getProductByCatalog(@RequestBody Map<String, Object> param){
+        String catalog = param.get("catalog").toString();
+        return gson.toJson(service.getProductByCatalog(catalog));
+    }
+    // 關鍵字查詢商品
+    @RequestMapping(value = "/search/products", method = RequestMethod.GET)
+    public String getProductByKeyword(@RequestBody Map<String, Object> param){
+        String keyword = param.get("keyword").toString();
+        return gson.toJson(service.searchProductByKey(keyword));
+    }
+    // 首頁商品推送(暫時)
+    @RequestMapping(value = "/homepage", method = RequestMethod.GET)
+    public String homepageProduct(){
+        return gson.toJson(service.homepageProductPromote());
+    }
+```
 ***
 # 關於RestFul api的一些規範
 什么是RestFul架构：
