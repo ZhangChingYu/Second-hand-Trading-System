@@ -22,17 +22,18 @@ public class ProductCatalogController {
 
     Gson gson = new Gson();
 
+    // 根據分類id顯示對應的分類(測試用)
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
     public String getById(@RequestBody Map<String, Object> param){
         Integer id = Integer.parseInt(param.get("id").toString());
         return gson.toJson(service.getById(id));
     }
-
+    // 顯示所有分類，一個分類的結構為{"id":int, "number":"分類編碼", "name":"分類名稱"}
     @RequestMapping(value = "/catalogs", method = RequestMethod.GET)
     public String getAll(){
         return gson.toJson(service.showAllCatalog());
     }
-
+    // 添加分類，請求報文body的json格式為{"name":"分類名稱", "number":"分類編碼"}
     @RequestMapping(value = "/catalog", method = RequestMethod.POST)
     public Integer addCatalog(@RequestBody Map<String, Object> param){
         String name = param.get("name").toString();
@@ -42,7 +43,7 @@ public class ProductCatalogController {
         productCatalog.setNumber(number);
         return service.addProductCatalog(productCatalog);
     }
-
+    // 更新分類，請求報文body的json格式為{"id":int, "name":"分類名稱", "number":"分類編碼"}
     @RequestMapping(value = "/catalog", method = RequestMethod.PUT)
     public Integer updateCatalog(@RequestBody Map<String, Object> param){
         Integer id = Integer.parseInt(param.get("id").toString());
@@ -54,7 +55,7 @@ public class ProductCatalogController {
         productCatalog.setNumber(number);
         return service.updateProductCatalog(productCatalog);
     }
-
+    // 刪除分類，請求報文body的json格式為{"id":int}
     @RequestMapping(value = "/catalog", method = RequestMethod.DELETE)
     public Integer deleteCatalog(@RequestBody Map<String, Object> param){
         Integer id = Integer.parseInt(param.get("id").toString());

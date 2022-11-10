@@ -53,9 +53,9 @@ public class CatalogServiceImpl extends ServiceImpl<ProductCatalogDao, ProductCa
     public int deleteProductCatalog(Integer id) {
         Integer check = productCatalogDao.deleteById(id);
         if(check == 1){
-            return 800;
+            return 204; // 刪除成功
         }
-        return 808;
+        return 400; // 沒有選中的對象，數據庫為發生改動
     }
 
     @Override

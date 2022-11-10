@@ -49,7 +49,7 @@ public class DemoService2Impl extends ServiceImpl<ProductDao, Product> implement
             product.setSPhone(productVo.getS_phone());
             product.setNumber(productVo.getNumber());
             product.setStorage(productVo.getStorage());
-            product.setPicture(productVo.getPicture().size()+"");
+            product.setPicture(productVo.getPicture().size());
             product.setIntro(transferUTF8.CtoUTF8(productVo.getIntro()));
             product.setPrice(productVo.getPrice());
             product.setStatus(0);   // 都設置為已上架
