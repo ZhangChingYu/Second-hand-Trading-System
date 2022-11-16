@@ -3,6 +3,7 @@ package dev.silvia.wechattrade.controller;
 import dev.silvia.wechattrade.dto.logindto.LoginRequestDto;
 import dev.silvia.wechattrade.dto.logindto.LoginResponseDto;
 import dev.silvia.wechattrade.dto.logindto.LostPasswordDto;
+import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.ILoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -33,7 +34,8 @@ public class LoginController {
         }
     }
 
-    @RequestMapping(value ="/lost",method = RequestMethod.GET)
+    @UserLoginToken
+    @RequestMapping(value ="/lost",method = RequestMethod.POST)
     public int lostpassword(@RequestBody LostPasswordDto request){
         if(Objects.equals(captcha, request.getCaptcha())){
             return service.lostPassward(request.getPhone(),request.getPassword());
