@@ -1,11 +1,13 @@
 package dev.silvia.wechattrade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import dev.silvia.wechattrade.dto.logindto.LoginResponseDto;
 import dev.silvia.wechattrade.entity.User;
 
-public interface ILoginService extends IService<User> {
-    User Login(String phone,String password);//登录，输入电话和密码，输出用户信息
-    int LostPasswaod(String phone,String password);//忘记密码
+import java.util.Optional;
 
+public interface ILoginService extends IService<User> {
+    Optional<LoginResponseDto> login(String phone, String password, Integer authority);
+    int lostPassward(String phone, String password);//忘记密码
 }
 

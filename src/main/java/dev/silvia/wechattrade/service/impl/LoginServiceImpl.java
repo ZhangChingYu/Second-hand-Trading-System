@@ -3,19 +3,20 @@ package dev.silvia.wechattrade.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dao.UserDao;
+import dev.silvia.wechattrade.dto.logindto.LoginDto;
+import dev.silvia.wechattrade.dto.logindto.LoginResponseDto;
 import dev.silvia.wechattrade.entity.User;
-import dev.silvia.wechattrade.handlers.TransferUTF8;
+import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
+import dev.silvia.wechattrade.handlers.common.cryto.Sign;
 import dev.silvia.wechattrade.service.ILoginService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import springfox.documentation.swagger2.mappers.ModelMapper;
 
 import java.util.Objects;
 import java.util.Optional;
-import java.util.UUID;
 
 
 @Service
@@ -24,7 +25,10 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
     private UserDao userDao;
 
     private static final String SALT = "123456";
+    @Autowired
+    private  UserRepository accountRepository;
 
+    private static final ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     private JdbcTemplate jdbcTemplate;
@@ -32,35 +36,60 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
     @Autowired
     private Gson gson = new Gson();
 
-    @Autowired
-    TransferUTF8 transferUTF8 = new TransferUTF8();
-    private Optional<Object> modelMapper;
+    @Override
+    public Optional<LoginResponseDto> login(String phone, String password, Integer authority) {
+        return this.verifyAccount(phone, password,authority)
+                .map(loginDto -> {
+                    LoginResponseDto user = this.modelMapper.map(loginDto, LoginResponseDto.class);
+                    user.setToken(Sign.generateToken(
+                            user.getId(),
+                            user.getUserName(),
+                            user.getAuthority(),
+                            1000 * 60 * 60 * 24
+                    ));
+                    return user;
+                });
+    }
 
-    public LoginServiceImpl() {
+    private Optional<LoginDto> verifyAccount(String phone, String password,Integer authority) {
+        return this.accountRepository.findByPhone(phone)
+                .filter(account -> {
+                    try {
+                         //System.out.println(Objects.equals(account.getPassword_hash(), Hash.encode(SALT, password)));
+                        return true;
+                        //return Objects.equals(account.getPassword_hash(), Hash.encode(SALT, password));
+                    } catch (Exception e) {
+                        return false;
+                    }
+                }).map(account ->{
+                    LoginDto user=new LoginDto();
+                    user.setAuthority(account.getAuthority());
+                    user.setUserName(account.getUserName());
+                    user.setId(account.getId());
+                    if(!Objects.equals(account.getAuthority(), authority)){
+                        if(!Objects.equals(account.getPassword(), password)){
+                            user.setMsg("444");//密码错误和权限错误
+                        }
+                        else{
+                            user.setMsg("333");//权限错误
+                        }
+                    }
+                    else {
+                        user.setMsg("666");//登陆成功
+                    }
+                    return user;
+                } );
     }
 
     @Override
-    public User Login(String phone, String password) {
-        User user=null;
-        //创建sql
-        try{
-            String sql="select * from user_info where phone = '" + phone+ "'";
-            user=jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
-        }catch (Exception e){
-
-        }
-        return user;
-    }
-
-    @Override
-    public int LostPasswaod(String phone,String password) {
+    public int lostPassward(String phone, String password) {
         try{
             int succeed=2;
             String sql="select * from user_info where phone = '" + phone+ "'";
             String pa= Objects.requireNonNull(jdbcTemplate.queryForObject(sql,
                     new BeanPropertyRowMapper<>(User.class))).getPassword();
             if(Objects.equals(pa, password)){
-                return succeed;//密码为旧密码
+                return succeed;//密码为旧密码,返回2
             }
             else{
                 String sql1="update user_info set password='"+ password +"' " +
@@ -70,6 +99,6 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
         }catch (Exception e){
 
         }
-        return 0;//电话号码不存在,
+        return 0;//电话号码不存在,返回0
     }
 }

@@ -5,7 +5,7 @@ spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/idlebugs?userUnicode=true&characterEncoding-UTF-8
-    password: root
+    password: 123456
     username: root
   thymeleaf:
     prefix: classpath:/templates/
@@ -21,10 +21,13 @@ spring:
       enabled: true
       max-file-size: 20MB
       max-request-size: 20MB
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-  global-config:
-    db-config:
-      logic-not-delete-value: 0
-      logic-delete-value: 1
+  mybatis-plus:
+    configuration:
+      log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    global-config:
+      db-config:
+        logic-not-delete-value: 0
+        logic-delete-value: 1
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
