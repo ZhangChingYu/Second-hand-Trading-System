@@ -7,9 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 @MapperScan("dev/silvia/wechattrade/dao")
 public class WechatTradeApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(WechatTradeApplication.class, args);
     }
-
 }
