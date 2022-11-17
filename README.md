@@ -8,9 +8,6 @@ The "Idle Bugs" is a Campus Second-hand Trading System that designed for a unive
 The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 卜凡凡
 ***
 ## 後端項目結構
-- common token相关
-- config 配置文件  
-
 - entity 實體層 
    > User.java
      
@@ -76,15 +73,16 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 
    > ......
 - handlers 工具包(一些常調用的功能類)
-   > TransferUTF8.java
+   >   TransferUTF8.java
 
-   > ReadFile.java
+   >   ReadFile.java
 
-   > ProductPacking.java  
+   >   ProductPacking.java  
 
-   > ......
+   >   ......
+  - common token相关
+  - config 配置文件
 ***
-
 ## token相关
     token 有效时间为一小时
     @Passtoken 
@@ -94,30 +92,6 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
             要求前端请求Headers中带有token    
             后端在需验证token的api前加@UserLoginToken
 ### LoginServiceImpl.xml
-## 註冊功能
-由用戶輸入手機號、郵箱及密碼來完成註冊，且一個手機號只能註冊一次，若手機號被重複註冊則會判定註冊失敗。
-手機號須為11位手機號，其他型號本系統不予支持。所有前後端交互數據皆由UTF-8進行編碼與解碼。
-為避免中英文混和而產生亂碼，數據庫除日期、純數字、純英文數據外，接先進行UTF-8編碼後存入數據庫，讀取時再進行相應的解碼顯示。
-* 後端api: **POST**  /user
-* json語句: {"phone":"手機號", "password":"密碼", "email":"郵箱"}
-* 返回信息(int): 201(用戶創建成功), 422(手機號已存在), 404(註冊失敗，信息未成功添加)
-### RegisterController.java
-``` Java
-    @RequestMapping(value = "/user", method = RequestMethod.POST)
-    public Integer register(@RequestBody Map<String, Object> param){
-        // 用戶輸入手機號&密碼即可完成註冊，email可選
-        String phone = param.get("phone").toString();
-        String password = param.get("password").toString();
-        String email = param.get("email").toString();
-        User user = new User();
-        user.setPhone(phone);
-        user.setPassword(password);
-        user.setEmail(email);
-        return service.Register(user);
-    }eturn service.Register(user);
-```
-
-### RegisterServiceImpl.java
 ``` Java
     @Override
     public Optional<LoginResponseDto> login(LoginRequestDto request) {
@@ -163,21 +137,6 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
             {
                 "code": "438647",  
                 "msg": "验证码发送成功" 
-    public int Register(User user) {
-        String phone_num = user.getPhone();
-        // make sure that the phone number haven't been registered before.
-        String check = "select count(*) from user_info where phone = '" + phone_num+ "'";
-        int checked = jdbcTemplate.queryForObject(check, Integer.class);
-        if(checked == 1){
-            return 422;     // 該手機號已被註冊，不可重複註冊
-        }
-        else {
-            user.setAuthority(1);
-            user.setRegisterDate(new Date());
-            userDao.insert(user);
-            int success = jdbcTemplate.queryForObject(check, Integer.class);
-            if(success == 1){
-                return 201; // 註冊成功
             }
         code: 
             code        msg
@@ -191,7 +150,6 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
             "captcha": "438647",   //验证码
             "password": "211",
             "phone": "15083729338"  //手机号
-            return 404;     // 註冊失敗，信息未成功添加
         }
         responsebody:
         {
@@ -216,7 +174,52 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-    }
+
+        <dependency>
+            <groupId>org.modelmapper</groupId>
+            <artifactId>modelmapper</artifactId>
+            <version>2.3.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15on</artifactId>
+            <version>1.60</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>2.9.2</version>
+        </dependency>
+```
+## 註冊功能
+由用戶輸入手機號、郵箱及密碼來完成註冊，且一個手機號只能註冊一次，若手機號被重複註冊則會判定註冊失敗。
+手機號須為11位手機號，其他型號本系統不予支持。所有前後端交互數據皆由UTF-8進行編碼與解碼。
+為避免中英文混和而產生亂碼，數據庫除日期、純數字、純英文數據外，接先進行UTF-8編碼後存入數據庫，讀取時再進行相應的解碼顯示。
+* 後端api: **POST**  /user
+* json語句: {"phone":"手機號", "password":"密碼", "email":"郵箱"}
+* 返回信息(int): 201(用戶創建成功), 422(手機號已存在), 404(註冊失敗，信息未成功添加)
+### RegisterController.java
+``` Java
+    @RequestMapping(value = "/user", method = RequestMethod.POST)
+    public Integer register(@RequestBody Map<String, Object> param){
+        // 用戶輸入手機號&密碼即可完成註冊，email可選
+        String phone = param.get("phone").toString();
+        String password = param.get("password").toString();
+        String email = param.get("email").toString();
+        User user = new User();
+        user.setPhone(phone);
+        user.setPassword(password);
+        user.setEmail(email);
+        return service.Register(user);
+    }eturn service.Register(user);
 ```
 ## 商品分類功能
 目前本系統的商品分類為如下，同樣已UTF-8編碼後存儲含中文內容的數據。其中，以各項分類的英文名稱首字母大寫作為商品的分類編號。
@@ -369,30 +372,6 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * json語句: {"phone":"用戶手機號", "numbers": ["商品編碼1", "商品編碼2",...,"商品編碼N"]}
 * 返回信息(int): 204(取消收藏成功), 404(取消收藏失敗)
 
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>2.3.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.bouncycastle</groupId>
-            <artifactId>bcprov-jdk15on</artifactId>
-            <version>1.60</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
-        </dependency>
-```
 ### LikeController.java
 ``` Java
     // 查看該商品是否已被收藏，True(以收藏)/False(未收藏)
