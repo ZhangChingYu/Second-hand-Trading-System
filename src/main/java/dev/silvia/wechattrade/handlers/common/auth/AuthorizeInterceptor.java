@@ -5,9 +5,10 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
+import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
-import dev.silvia.wechattrade.entity.User;
+import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
 import dev.silvia.wechattrade.service.IRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -18,11 +19,18 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
+import java.util.Objects;
 
 //拦截器
 public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
+    private static final String TOKEN = "123456";
+    private static final Algorithm algorithm = Algorithm.HMAC512(TOKEN);
     @Autowired
     IRegisterService userService;
+
+    @Autowired
+    private UserRepository accountRepository;
+
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response,
@@ -53,21 +61,35 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
                 if (token == null) {
                     throw new RuntimeException("无token，请重新登录");
                 }
-
                 // 获取 token 中的 user id
-                Integer userId;
+                Integer id;
                 try {
-                    userId = Integer.valueOf(JWT.decode(token).getAudience().get(0));
+                    id= JWT.decode(token).getClaims().get("id").asInt();
                 } catch (JWTDecodeException j) {
                     throw new RuntimeException("401");
                 }
 
-                User user = userService.getUserById(userId);
+                Integer auth;
+                try {
+                    auth= JWT.decode(token).getClaims().get("authority").asInt();
+                } catch (JWTDecodeException j) {
+                    throw new RuntimeException("401");
+                }
+
+                User user = userService.getUserById(id);
                 if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登录");
                 }
-                // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getPassword())).build();
+
+                if (!Objects.equals(user.getId(), id)) {
+                    throw new RuntimeException("用户不存在，请重新登录");
+                }
+
+                if (!Objects.equals(user.getAuthority(), auth)) {
+                    throw new RuntimeException("用户错误，请重新登录");
+                }
+                //验证token
+                JWTVerifier jwtVerifier = JWT.require(algorithm).build();
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException e) {
@@ -77,16 +99,13 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
             }
         }
 
-
-
-
         Authorize authorize = handlerMethod.getMethod().getAnnotation(Authorize.class);
         if (authorize == null) {
             return true;
         }
 
-        String auth = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (StringUtils.isEmpty(auth)) {
+        String auth1 = request.getHeader(HttpHeaders.AUTHORIZATION);
+        if (StringUtils.isEmpty(auth1)) {
             return true;
         }
         return true;

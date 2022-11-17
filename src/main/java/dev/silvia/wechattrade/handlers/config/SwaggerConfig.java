@@ -1,6 +1,6 @@
 package dev.silvia.wechattrade.handlers.config;
 
-import dev.silvia.wechattrade.controller.LoginController;
+import dev.silvia.wechattrade.dto.controller.LoginController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;

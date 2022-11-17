@@ -1,4 +1,4 @@
-package dev.silvia.wechattrade.controller;
+package dev.silvia.wechattrade.dto.controller;
 
 
 import com.google.gson.Gson;

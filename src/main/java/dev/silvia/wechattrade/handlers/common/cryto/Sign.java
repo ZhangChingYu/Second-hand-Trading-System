@@ -21,9 +21,9 @@ public class Sign {
                                        Integer authority,
                                        long duration) {
         return JWT.create()
-                .withClaim(String.valueOf(AuthConstant.CLAIM_USER_ID), id)
+                .withClaim(AuthConstant.CLAIM_USER_ID, id)
                 .withClaim(AuthConstant.CLAIM_USER_NAME, userName)
-                .withClaim(String.valueOf(AuthConstant.CLAIM_ROLE), authority)
+                .withClaim(AuthConstant.CLAIM_ROLE, authority)
                 .withExpiresAt(new Date(System.currentTimeMillis() + duration))
                 .sign(algorithm);
     }
