@@ -1,7 +1,12 @@
 import App from './App'
 
-import store from 'store/index.js';
+import store from 'store/index.js'
 import './common/uni.css'
+
+// 引入自己封装的api
+import api from './common/api.js'
+Vue.prototype.api = api
+
 
 
 // #ifndef VUE3

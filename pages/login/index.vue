@@ -4,9 +4,9 @@
 		<h1 class="title">{{title}}</h1>
 		
 		<view class="main">
-			<view class="username">
-				<input type="text" v-model="forms.username"  @blur="checkInput" @focus="err.username = false" auto-focus placeholder="手机号/邮箱">
-				<text v-if="err.username">×</text>
+			<view class="usename">
+				<input type="text" v-model="forms.usename"  @blur="checkInput" @focus="err.usename = false" auto-focus placeholder="手机号/邮箱">
+				<text v-if="err.usename">×</text>
 			</view> 
 			<view class="password">
 				<input type="password" v-model="forms.password" @blur="checkPsd" @focus="err.password = false" placeholder="密码">
@@ -39,15 +39,15 @@
 			return{
 				title:'欢迎来到闲置虫虫',
 				forms:{
-					username:'',
-					password:'',
+					usename:'1234567890@qq.com',
+					password:'lKpJ5CnBry',
 				},
 				// 判断是邮箱还是手机号/微信号
 				userType:'',			
 				// 记录账号或密码填写是否符合要求
 				err:{
 					password:false,
-					username:false
+					usename:false
 				}
 			}
 		},
@@ -69,7 +69,7 @@
 				
 				// 验证手机号
 				let r = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
-				if(r.test(this.forms.username))
+				if(r.test(this.forms.usename))
 				 {
 					 this.userType = 'tel';
 					 return true;
@@ -77,13 +77,13 @@
 				
 				// 验证邮箱
 				r = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-				if(r.test(this.forms.username)){
+				if(r.test(this.forms.usename)){
 					this.userType = 'email';
 					return true;
 				}
 				else{
 					this.userType = '';
-					this.err.username = true;
+					this.err.usename = true;
 					return false;
 				}
 			},
@@ -97,26 +97,17 @@
 			login(){
 				let that = this;
 					// 判断账号密码是否填写合法
-				if(!this.err.password && !this.err.username){
-					
+				if(!this.err.password && !this.err.usename){
+					console.log({...that.forms})
 					this.logining();
-					// 访问api
-					uni.request({
-					    url: 'http://127.0.0.1:5000/login',
-						method:'GET',
-					    data: {
-					        ...that.forms,
-							userType:that.userType
-					    },  
-					    success: (res) => {
-					        console.log(res.data);
-							//TODO 处理后端数据
-														
-							that.getlogin(res);
-							
-							
-					    }
-					});
+					
+										
+					// 我自己封装的api
+					that.api.post('/login',that.forms).then(res=>{
+						that.getlogin(res);
+					})
+					
+					
 				}else {
 					if(this.err.password) this.$toast('密码8-16位数字或字母');
 					else this.$toast('填写不符合要求')
@@ -133,28 +124,35 @@
 			},
 			
 			getlogin(res){
-				console.log(res.data.data);
+				console.log(res);
 				this.logined();
-				if(res.data.data.code === 666){
-					let userid = res.data.data.userid;
-					let token = res.data.data.token;
+				
+				if(res.code === "666"){
+					let user = res.user;
+					let token = res.token;
 				
 				// 在store中存登录信息
-				this.tologin(userid,token);
+				this.tologin(user,token);
 				
 				// 在本地存储登录信息
-				// localStorage.setItem('userid',userid);
-				// sessionStorage.setItem('token',token);
+				
+				uni.setStorage({
+					key:'user',data:JSON.stringify(user)
+				})
+				uni.setStorage({
+					key:'token',data:token
+				})
 				
 				this.$toast('登录成功！',1270);
 				// 跳转主页
 				setTimeout(()=>{
 					uni.redirectTo({
-						url: `/pages/home/index?id=${userid}&token=${token}`
+						url: `/pages/home/index?user=${user}&token=${token}`
 					});
 				},500);
+				
 				}
-				else this.$toast('登录失败！',1270);
+				else  this.$toast(res.msg,1270);
 				
 				
 			},
@@ -186,17 +184,10 @@
 								code = loginRes.code;
 								
 								// 发送登录请求
-								uni.request({
-									url:'http://127.0.0.1:5000/wxlogin',
-									method:'GET',
-									data:{
-										raw_Data,
-										code
-									},
-									// TODO成功回调
-									success(res){
-										that.getlogin(res);
-									}
+								
+								// 用我自己封装的api
+								that.api.get('/wxlogin',{raw_Data,code}).then(res=>{
+									that.getlogin(res);
 								})
 							}
 						
@@ -253,12 +244,12 @@
 		padding: 1rem;
 		
 	}
-	.main .username,.main .password {
+	.main .usename,.main .password {
 		width: 90%;
 		position: relative;
 		
 	}
-	.main .username > text,.main .password > text {
+	.main .usename > text,.main .password > text {
 		position: absolute;
 		top:1.24rem;
 		right: 0.16rem;

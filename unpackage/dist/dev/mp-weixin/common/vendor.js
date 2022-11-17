@@ -1464,7 +1464,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8556,7 +8556,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8577,14 +8577,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8670,7 +8670,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9243,18 +9243,17 @@ var store = new _vuex.default.Store({
     isLogin: false,
     tel: '',
     userType: '',
-    userid: '',
+    user: {},
     token: '' },
 
   actions: {
-    tologin: function tologin(context, userid, loginToken) {
-      context.commit('LoGIN', userid, loginToken);
+    tologin: function tologin(context, user, loginToken) {
+      context.commit('LoGIN', user, loginToken);
     } },
 
   mutations: {
-    LoGIN: function LoGIN(state, userid, loginToken) {
-      state.isLogin = true;
-      state.userid = userid;
+    LoGIN: function LoGIN(state, user, loginToken) {
+      state.user = user;
       state.token = loginToken;
     } },
 
@@ -10532,6 +10531,127 @@ module.exports = index_cjs;
 // extracted by mini-css-extract-plugin
     if(false) { var cssReload; }
   
+
+/***/ }),
+/* 15 */
+/*!***************************************************************************************!*\
+  !*** E:/Hbuilder/Second-hand-Trading-System/Second-hand-Trading-System/common/api.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {var commoneUrl = "http://localhost:8080"; //公共路径 
+
+var userId = uni.getStorageSync("user").id; //用户id
+
+//post请求封装
+function postRequest(url, data, type) {
+  var promise = new Promise(function (resolve, reject) {
+    var postData = data;
+    uni.request({
+      url: commoneUrl + url,
+      data: postData,
+      method: 'POST',
+      // dataType:"jsonp",
+      // jsonp:"callbackparam",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名
+      // jsonpCallback:"success_jsonpCallback",
+
+      header: {
+        'content-type': type || 'application/json;charset=UTF-8',
+        'token': uni.getStorageSync('token') //token可以不要，看后端
+      },
+
+      success: function success(res) {
+        resolve(res.data);
+
+      },
+      error: function error(e)
+      {
+        reject('网络出错');
+      } });
+
+  });
+  return promise;
+}
+
+//get请求封装
+function getRequest(url, data, type) {
+  var promise = new Promise(function (resolve, reject) {
+    var postData = data;
+    uni.request({
+      url: commoneUrl + url,
+      data: postData,
+      method: "GET",
+      dataType: 'json',
+      header: { 'content-type': type || 'application/json',
+        'token': uni.getStorageSync('token') },
+
+      success: function success(res) {
+        resolve(res.data);
+
+      },
+      error: function error(e)
+      {
+        reject('网络出错');
+      } });
+
+  });
+  return promise;
+}
+//put请求封装
+function putRequest(url, data) {
+  var promise = new Promise(function (resolve, reject) {
+    var postData = data;
+    uni.request({
+      url: commoneUrl + url,
+      data: postData,
+      method: "PUT",
+      dataType: 'json',
+      header: {
+        'content-type': 'application/json',
+        'token': uni.getStorageSync('token') },
+
+      success: function success(res) {
+        resolve(res.data);
+
+      }, error: function error(e) {
+        reject('网络出错');
+      } });
+
+  });
+  return promise;
+}
+//del请求封装
+function delRequest(url, data) {
+  var promise = new Promise(function (resolve, reject) {
+    var postData = data;
+    uni.request({
+      url: commoneUrl + url,
+      data: postData,
+      method: "DELETE",
+      dataType: 'json',
+      header: {
+        'content-type': 'application/json',
+        'token': uni.getStorageSync('token') },
+
+      success: function success(res) {
+        resolve(res.data);
+
+      }, error: function error(e) {
+        reject('网络出错');
+      } });
+
+  });
+  return promise;
+}
+module.exports = {
+  post: postRequest,
+  get: getRequest,
+  put: putRequest,
+  del: delRequest,
+  ip: commoneUrl,
+  userId: userId };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ })
 ]]);

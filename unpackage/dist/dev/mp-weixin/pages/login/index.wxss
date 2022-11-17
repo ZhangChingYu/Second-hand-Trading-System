@@ -22,11 +22,11 @@
 		height: 16.48rem;
 		padding: 1rem;
 }
-.main .username.data-v-4586967a,.main .password.data-v-4586967a {
+.main .usename.data-v-4586967a,.main .password.data-v-4586967a {
 		width: 90%;
 		position: relative;
 }
-.main .username > text.data-v-4586967a,.main .password > text.data-v-4586967a {
+.main .usename > text.data-v-4586967a,.main .password > text.data-v-4586967a {
 		position: absolute;
 		top:1.24rem;
 		right: 0.16rem;

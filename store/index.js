@@ -7,18 +7,17 @@ const store = new Vuex.Store({
 		isLogin:false,
 		tel:'',
 		userType:'',
-		userid:'',
+		user:{},
 		token:''
 	},
 	actions:{
-		tologin(context,userid,loginToken){
-			context.commit('LoGIN',userid,loginToken);
+		tologin(context,user,loginToken){
+			context.commit('LoGIN',user,loginToken);
 		}
 	},
 	mutations:{
-		LoGIN(state,userid,loginToken){
-			state.isLogin = true;
-			state.userid = userid;
+		LoGIN(state,user,loginToken){
+			state.user = user;
 			state.token = loginToken;
 		}
 	},
