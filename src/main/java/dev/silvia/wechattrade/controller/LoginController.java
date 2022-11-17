@@ -1,4 +1,4 @@
-package dev.silvia.wechattrade.dto.controller;
+package dev.silvia.wechattrade.controller;
 
 import dev.silvia.wechattrade.dto.logindto.LoginRequestDto;
 import dev.silvia.wechattrade.dto.logindto.LoginResponseDto;
