@@ -3,6 +3,8 @@ package dev.silvia.wechattrade.controller;
 
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.entity.ProductCatalog;
+import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
+import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.ICatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,6 +31,7 @@ public class ProductCatalogController {
         return gson.toJson(service.getById(id));
     }
     // 顯示所有分類，一個分類的結構為{"id":int, "number":"分類編碼", "name":"分類名稱"}
+    @PassToken
     @RequestMapping(value = "/catalogs", method = RequestMethod.GET)
     public String getAll(){
         return gson.toJson(service.showAllCatalog());
