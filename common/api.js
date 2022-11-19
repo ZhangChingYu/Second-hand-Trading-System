@@ -17,13 +17,13 @@ function postRequest(url,data,type){
 			header:{
 				'content-type': type || 'application/json;charset=UTF-8',
 				'token':uni.getStorageSync('token')//token可以不要，看后端
-			}, 
+			},
 				
 			success:function(res){
 				resolve(res.data);
 				
 			},
-			error:function(e)
+			fail:function(e)
 			{
 				reject('网络出错');
 			}
@@ -41,15 +41,14 @@ function getRequest(url,data,type){
 				data:postData,
 				method:"GET",
 				dataType:'json',
-				header:{'content-type': type || 'application/json',
+				header:{
+					'content-type': type || 'application/json',
 					'token':uni.getStorageSync('token')
 				},
 				success:function(res){
-					resolve(res.data);
-					
+					resolve(res.data);	
 				},
-				error:function(e)
-				{
+				fail:function(e){
 					reject('网络出错');
 				}
 			});
@@ -71,8 +70,8 @@ function putRequest(url,data){
 				},
 				success:function(res){
 					resolve(res.data);
-					
-				},error:function(e){
+				},
+				fail:function(e){
 					reject('网络出错');
 				}
 			});
@@ -94,8 +93,8 @@ function delRequest(url,data){
 				},
 				success:function(res){
 					resolve(res.data);
-				
-				},error:function(e){
+				},
+				fail:function(e){
 					reject('网络出错');
 				}
 			});

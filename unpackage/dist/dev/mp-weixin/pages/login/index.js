@@ -203,9 +203,10 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
         title: '正在登录...' });
 
     },
-    logined: function logined() {
+    loginHide: function loginHide() {
       uni.hideLoading();
     },
+
 
     // 检查用户名
     checkInput: function checkInput() {
@@ -237,17 +238,19 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
     },
 
     // 登录/注册/忘记密码
-    login: function login() {
+    login: function login() {var _this = this;
       var that = this;
       // 判断账号密码是否填写合法
       if (!this.err.password && !this.err.usename) {
-        console.log(_objectSpread({}, that.forms));
         this.logining();
 
 
         // 我自己封装的api
         that.api.post('/login', that.forms).then(function (res) {
           that.getlogin(res);
+        }).catch(function (err) {
+          _this.loginHide();
+          that.$toast(err);
         });
 
 
@@ -268,7 +271,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
 
     getlogin: function getlogin(res) {
       console.log(res);
-      this.logined();
+      this.loginHide();
 
       if (res.code === "666") {
         var user = res.user;
@@ -329,16 +332,15 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
                 // 发送登录请求
 
                 // 用我自己封装的api
-                that.api.get('/wxlogin', { raw_Data: raw_Data, code: code }).then(function (res) {
+                that.api.get('/wxlogin', { code: code }).
+                then(function (res) {
                   that.getlogin(res);
+                }).catch(function (err) {
+                  that.$toast(err);
                 });
               }
-
-              that.$toast('登录成功！', 1270, 'success');
             } });
 
-
-          that.logined();
         },
         // 用户取消登录后的提示
         fail: function fail(res) {
@@ -347,7 +349,6 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
             // 是否显示取消按钮，默认为 true
             showCancel: false });
 
-          that.logined();
         } });
 
 

@@ -17,16 +17,42 @@
 				"navigationBarTitleText": "登录"
 			}
 		},
-		
         {
-            "path" : "pages/me/index",
+            "path" : "pages/classify/index",
             "style" :                                                                                    
             {
-                "navigationBarTitleText": "",
+                "navigationBarTitleText": "分类",
                 "enablePullDownRefresh": false
             }
             
-        }
+        },
+        {
+            "path" : "pages/publish/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "发布",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+        {
+            "path" : "pages/message/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "消息",
+                "enablePullDownRefresh": true
+            }
+            
+        },
+		{
+		    "path" : "pages/me/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的",
+		        "enablePullDownRefresh": true
+		    }
+		    
+		}
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -56,6 +82,27 @@
 					"selectedIconPath": "static/image/home_selected.png",
 					"text": "首页"
 				},
+				{
+					"pagePath": "pages/classify/index",
+					"iconPath": "static/image/classify.png",
+					"selectedIconPath": "static/image/classify_selected.png",
+					"text": "分类"
+				},
+				
+				{
+					"pagePath": "pages/publish/index",
+					"iconPath": "static/image/publish.png",
+					"selectedIconPath": "static/image/publish_selected.png",
+					"text": "发布"
+				},
+				
+				{
+					"pagePath": "pages/message/index",
+					"iconPath": "static/image/message.png",
+					"selectedIconPath": "static/image/message_selected.png",
+					"text": "信息"
+				},
+				
 				{
 					"pagePath": "pages/me/index",
 					"iconPath": "static/image/me.png",

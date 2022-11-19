@@ -60,9 +60,10 @@
 					title: '正在登录...'
 				});
 			},
-			logined(){
+			loginHide(){
 				uni.hideLoading();
 			},
+		
 			
 			// 检查用户名
 			checkInput(){
@@ -98,13 +99,15 @@
 				let that = this;
 					// 判断账号密码是否填写合法
 				if(!this.err.password && !this.err.usename){
-					console.log({...that.forms})
 					this.logining();
 					
 										
 					// 我自己封装的api
 					that.api.post('/login',that.forms).then(res=>{
 						that.getlogin(res);
+					}).catch(err=>{
+						this.loginHide();
+						that.$toast(err);
 					})
 					
 					
@@ -125,7 +128,7 @@
 			
 			getlogin(res){
 				console.log(res);
-				this.logined();
+				this.loginHide();
 				
 				if(res.code === "666"){
 					let user = res.user;
@@ -186,16 +189,15 @@
 								// 发送登录请求
 								
 								// 用我自己封装的api
-								that.api.get('/wxlogin',{raw_Data,code}).then(res=>{
+								that.api.get('/wxlogin',{code})
+								.then(res=>{
 									that.getlogin(res);
+								}).catch(err=>{
+									that.$toast(err);
 								})
 							}
-						
-							that.$toast('登录成功！',1270,'success');
 						  }
 						});
-						
-						that.logined();
 					},
 					 // 用户取消登录后的提示
 					fail: (res)=>{
@@ -204,7 +206,6 @@
 							// 是否显示取消按钮，默认为 true
 							showCancel:false
 						});
-						that.logined();
 					 }
 					});
 					

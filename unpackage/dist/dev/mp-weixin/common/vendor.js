@@ -10565,7 +10565,7 @@ function postRequest(url, data, type) {
         resolve(res.data);
 
       },
-      error: function error(e)
+      fail: function fail(e)
       {
         reject('网络出错');
       } });
@@ -10583,15 +10583,14 @@ function getRequest(url, data, type) {
       data: postData,
       method: "GET",
       dataType: 'json',
-      header: { 'content-type': type || 'application/json',
+      header: {
+        'content-type': type || 'application/json',
         'token': uni.getStorageSync('token') },
 
       success: function success(res) {
         resolve(res.data);
-
       },
-      error: function error(e)
-      {
+      fail: function fail(e) {
         reject('网络出错');
       } });
 
@@ -10613,8 +10612,8 @@ function putRequest(url, data) {
 
       success: function success(res) {
         resolve(res.data);
-
-      }, error: function error(e) {
+      },
+      fail: function fail(e) {
         reject('网络出错');
       } });
 
@@ -10636,8 +10635,8 @@ function delRequest(url, data) {
 
       success: function success(res) {
         resolve(res.data);
-
-      }, error: function error(e) {
+      },
+      fail: function fail(e) {
         reject('网络出错');
       } });
 

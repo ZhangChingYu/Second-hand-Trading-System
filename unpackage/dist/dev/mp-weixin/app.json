@@ -2,6 +2,9 @@
   "pages": [
     "pages/home/index",
     "pages/login/index",
+    "pages/classify/index",
+    "pages/publish/index",
+    "pages/message/index",
     "pages/me/index"
   ],
   "subPackages": [],
@@ -22,6 +25,24 @@
         "iconPath": "static/image/home.png",
         "selectedIconPath": "static/image/home_selected.png",
         "text": "首页"
+      },
+      {
+        "pagePath": "pages/classify/index",
+        "iconPath": "static/image/classify.png",
+        "selectedIconPath": "static/image/classify_selected.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/publish/index",
+        "iconPath": "static/image/publish.png",
+        "selectedIconPath": "static/image/publish_selected.png",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/message/index",
+        "iconPath": "static/image/message.png",
+        "selectedIconPath": "static/image/message_selected.png",
+        "text": "信息"
       },
       {
         "pagePath": "pages/me/index",
