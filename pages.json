@@ -12,6 +12,16 @@
             
         },
 		{
+		    "path" : "pages/search/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "搜索",
+		        "enablePullDownRefresh": true
+		    }
+		    
+		},
+		
+		{
 			"path": "pages/login/index",
 			"style": {
 				"navigationBarTitleText": "登录"

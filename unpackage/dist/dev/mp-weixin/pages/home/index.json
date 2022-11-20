@@ -1,5 +1,7 @@
 {
   "navigationBarTitleText": "主页",
   "enablePullDownRefresh": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "goods": "/components/goods/index"
+  }
 }

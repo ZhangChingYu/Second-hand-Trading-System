@@ -1,0 +1,75 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 商品展示公共 */
+	
+	/* 商品信息边框 */
+.goods-box.data-v-0120026e{
+		width: 100%; 
+		/* height: 6.8rem; */
+		 height: 100%; 
+		
+		background-color: #fff;
+		position: relative;
+		border-right: 1px solid darkgray;
+		border-bottom: 1px solid darkgray;
+}
+	
+	/* 商品图片 */
+.goods-img.data-v-0120026e {
+		height: 70%;
+		overflow: hidden;
+}
+.goods-img image.data-v-0120026e {
+		width: 100%;
+}
+	
+	/* 商品文字描述 */
+.detail-text.data-v-0120026e{
+		display: inline-block;
+		width: 70%;
+		height: 2rem;
+		font-size: 0.88rem;
+		line-height: 2rem;
+		padding-left: 2px;
+		text-overflow:ellipsis;
+		white-space: nowrap;
+		overflow: hidden;
+}
+	
+	/* 价格 */
+.price.data-v-0120026e{
+		position: absolute;
+		bottom: 0.24rem;
+		right: 0.24rem;
+		color: red;
+		font-weight: 700;
+		font-size: 1rem;
+		background-color: #fff;
+}
+

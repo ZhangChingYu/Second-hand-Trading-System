@@ -1,7 +1,7 @@
 <template>
 	<view>
 		<!-- 搜索框 -->
-		<view class="top-search" confirm-type="search">
+		<view class="top-search" @click="toSearch">
 			<text></text>
 			<input placeholder="寻找宝贝"/>
 		</view>
@@ -48,13 +48,13 @@
 				</text>
 			</view>
 			<view class="book-detail">
-				<view class="detail-item" v-for="(item,index) of mostbookItem" :key="index">
-					<image :src="item.url" mode="aspectFill"></image>
-					<view>
-						<text class="detail-text">{{item.text}}</text>
-						<text class="price">￥{{item.price.toFixed(2)}}</text>
-					</view>
-				</view>
+				
+				 <Goods class="goods"
+					v-for="(item,index) of mostbookItem" 
+					:key="index"
+					:goods="item"
+				  >
+				  </Goods>
 				
 			</view>
 		</view>
@@ -68,20 +68,18 @@
 				</text>
 				
 			</view>
+			
 			<!-- 子项 -->
-		<view class="new-detail">
-				
-				<view class="detail-item" v-for="(item,index) of newProductItem" :key="index">
-					<image :src="item.url" mode="aspectFill"></image>
-					<view>
-						<text class="detail-text">{{item.text}}</text>
-						<text class="price">￥{{item.price.toFixed(2)}}</text>
-					</view>
-				</view>
-				
+			<view class="new-detail">
+			
+				<Goods class="goods"
+					v-for="(item,index) of newProductItem" 
+					:key="index"
+					:goods="item"
+				 >
+				 </Goods>
+				 
 			</view>
-			
-			
 		</view>
 		
 		
@@ -89,7 +87,9 @@
 </template>
 
 <script>
+	import Goods from "@/components/goods/index.vue"
 	export default {
+		components:{Goods},
 	    data() {
 	        return {
 	            swiperItem: [
@@ -159,23 +159,17 @@
 	        }
 	    },
 	    methods: {
-	        changeIndicatorDots(e) {
-	            this.indicatorDots = !this.indicatorDots
-	        },
-	        changeAutoplay(e) {
-	            this.autoplay = !this.autoplay
-	        },
-	        intervalChange(e) {
-	            this.interval = e.target.value
-	        },
-	        durationChange(e) {
-	            this.duration = e.target.value
-	        }
+	        toSearch(){
+				console.log(this.mostbookItem[0])
+				uni.redirectTo({
+					url:'/pages/search/index'
+				})
+			}
 	    }
 	}
 </script>
 
-<style>	
+<style scoped>	
 	/* 顶部搜索 */
 	
 	.top-search {
@@ -262,7 +256,7 @@
 	/* 预约 */
 	.most-book {
 		width: 95vw;
-		height: 10rem;
+		height: 11.68rem;
 		margin: 0.48rem auto;
 		background-color: #efefef;
 	}
@@ -316,7 +310,13 @@
 		height: 7rem;
 		display: flex;
 		justify-content: space-between;
-	}	
+	}
+	.goods{
+		width: 47.5%;
+		height: 8.8rem;
+		margin-top: 0.68rem;
+	}
+		
 	
 	
 	/* 最新物品 */
