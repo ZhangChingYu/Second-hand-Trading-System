@@ -188,6 +188,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -196,7 +200,8 @@ var _default =
       historyWords: [],
       popularWords: [],
       searchValue: '',
-      isIndex: true };
+      isIndex: true,
+      exitTitle: '返回' };
 
 
   },
@@ -230,7 +235,7 @@ var _default =
       var that = this;
       uni.showModal({ // 弹框询问是否进行下一步事件
         title: '提示',
-        content: '是否删除该评论',
+        content: '是否删除该记录',
         success: function success(res) {
           if (res.confirm) {
             that.historyWords = [];
@@ -264,7 +269,7 @@ var _default =
 
       uni.showModal({ // 弹框询问是否进行下一步事件
         title: '提示',
-        content: '是否删除该评论',
+        content: '是否删除该记录',
         success: function success(res) {
           if (res.confirm) {
             that.historyWords.splice(index, 1);
@@ -277,6 +282,9 @@ var _default =
         } });
 
 
+    },
+    toSearchIndex: function toSearchIndex() {
+      this.isIndex = true;
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

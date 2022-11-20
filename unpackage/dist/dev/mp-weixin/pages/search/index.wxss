@@ -150,10 +150,34 @@
 
 
 
+
+
+
+
+
+
+
+
+
 /* 顶部搜索 */
+.top-box {
+	display: flex;
+	justify-content: space-around;
+}
+.top-box .top-exit {
+	display: inline-block;
+	margin: 0.48rem auto;
+	height: 2rem;
+	width: 2.2rem;
+	border-radius: 5px;
+	background-color: #dddddd;
+	text-align: center;
+	line-height: 2rem;
+}
 .top-search {
 	display: flex;
 	align-items: center;
+	justify-content: space-around;
 	margin: 0.48rem auto;
 	width: 90%;
 	height: 2rem;
@@ -173,7 +197,6 @@
 	height: 100%;
 	font-size: 1rem;
 }
-
 /* ------------------- */
 .search-page {
   box-sizing: border-box;

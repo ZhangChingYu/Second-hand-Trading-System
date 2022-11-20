@@ -26,6 +26,13 @@
 
 
 
+
+
+
+
+
+
+
 /* 商品展示公共 */
 	
 	/* 商品信息边框 */
@@ -42,7 +49,7 @@
 	
 	/* 商品图片 */
 .goods-img.data-v-0120026e {
-		height: 70%;
+		height: 80%;
 		overflow: hidden;
 }
 .goods-img image.data-v-0120026e {

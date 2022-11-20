@@ -1,5 +1,5 @@
 <template>
-	<view class="goods-box">
+	<view class="goods-box" @click="toGoodsDetail">
 		<!-- 图片 -->
 			<view class="goods-img">
 				<image :src="goods.url" mode="aspectFill"></image>
@@ -21,6 +21,13 @@
 			return {
 				
 			};
+		},
+		methods:{
+			toGoodsDetail(){
+				uni.redirectTo({
+					url:'/pages/detail/index'
+				})
+			}
 		}
 	}
 </script>
@@ -42,7 +49,7 @@
 	
 	 /* 商品图片 */
 	.goods-img {
-		height: 70%;
+		height: 80%;
 		overflow: hidden;
 	}
 	.goods-img image {

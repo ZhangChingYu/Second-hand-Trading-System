@@ -160,7 +160,6 @@
 	    },
 	    methods: {
 	        toSearch(){
-				console.log(this.mostbookItem[0])
 				uni.redirectTo({
 					url:'/pages/search/index'
 				})

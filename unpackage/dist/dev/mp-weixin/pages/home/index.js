@@ -304,7 +304,6 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     toSearch: function toSearch() {
-      console.log(this.mostbookItem[0]);
       uni.redirectTo({
         url: '/pages/search/index' });
 

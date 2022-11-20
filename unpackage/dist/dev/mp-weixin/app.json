@@ -6,7 +6,8 @@
     "pages/classify/index",
     "pages/publish/index",
     "pages/message/index",
-    "pages/me/index"
+    "pages/me/index",
+    "pages/detail/index"
   ],
   "subPackages": [],
   "window": {

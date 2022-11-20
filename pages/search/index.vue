@@ -1,10 +1,14 @@
 <template>
 	<view class="search-page">
 		<!-- 搜索框 -->
-		<view class="top-search" >
+		<view class="top-box">
+			<span v-if="!isIndex" class="top-exit" @click="toSearchIndex"> {{exitTitle}}</span>
+			<view class="top-search" >
 			<text @click="search"></text>
 			<input placeholder="寻找宝贝" v-model="searchValue" confirm-type="search" @confirm="search">
 		</view>
+		</view>
+		
 		
 		
 		<view class="search-wrap" v-if="isIndex">
@@ -62,7 +66,8 @@
 				historyWords: [],
 				popularWords: [],
 				searchValue: '',
-				isIndex : true
+				isIndex : true,
+				exitTitle:'返回'
 				    
 			}
 		},
@@ -96,7 +101,7 @@
 				const that = this;
 				uni.showModal({    // 弹框询问是否进行下一步事件
 				        title: '提示',
-				        content: '是否删除该评论',
+				        content: '是否删除该记录',
 				        success: function(res) {
 				            if (res.confirm) {
 				                that.historyWords = [];
@@ -130,7 +135,7 @@
 				
 				uni.showModal({    // 弹框询问是否进行下一步事件
 				        title: '提示',
-				        content: '是否删除该评论',
+				        content: '是否删除该记录',
 				        success: function(res) {
 				            if (res.confirm) {
 				                that.historyWords.splice(index,1);
@@ -143,6 +148,9 @@
 				        }
 				    });
 				
+			},
+			toSearchIndex(){
+				this.isIndex = true
 			}
 		}		
 	}
@@ -150,11 +158,28 @@
 </script>
 
 <style>
-	/* 顶部搜索 */
 	
+	/* 顶部搜索 */
+	.top-box {
+		display: flex;
+		justify-content: space-around;
+	}
+	.top-box .top-exit {
+		display: inline-block;
+		margin: 0.48rem auto;
+		height: 2rem;
+		width: 2.2rem;
+		border-radius: 5px;
+		background-color: #dddddd;
+		text-align: center;
+		line-height: 2rem;
+		
+		
+	}
 	.top-search {
 		display: flex;
 		align-items: center;
+		justify-content: space-around;
 		margin: 0.48rem auto;
 		width: 90%;
 		height: 2rem;

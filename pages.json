@@ -62,7 +62,16 @@
 		        "enablePullDownRefresh": true
 		    }
 		    
-		}
+		},
+        {
+            "path" : "pages/detail/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品详情",
+                "enablePullDownRefresh": true
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
