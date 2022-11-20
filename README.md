@@ -5,7 +5,7 @@
     > uni.css   
 	> ......
 - components 项目组件
-	> goods
+	> goods   
 		> index.vue
 - pages 项目页面文件
 	> home  
