@@ -16,9 +16,9 @@
 /* 14 */,
 /* 15 */,
 /* 16 */
-/*!*****************************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-hand-Trading-System/Second-hand-Trading-System/main.js?{"page":"pages%2Fhome%2Findex"} ***!
-  \*****************************************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** E:/Hbuilder/Second-hand-Trading-System/main.js?{"page":"pages%2Fhome%2Findex"} ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -33,9 +33,9 @@ wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;createPage(_index.def
 
 /***/ }),
 /* 17 */
-/*!**********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-hand-Trading-System/Second-hand-Trading-System/pages/home/index.vue ***!
-  \**********************************************************************************************/
+/*!*******************************************************************!*\
+  !*** E:/Hbuilder/Second-hand-Trading-System/pages/home/index.vue ***!
+  \*******************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -73,9 +73,9 @@ component.options.__file = "pages/home/index.vue"
 
 /***/ }),
 /* 18 */
-/*!*****************************************************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-hand-Trading-System/Second-hand-Trading-System/pages/home/index.vue?vue&type=template&id=71e217db&scoped=true& ***!
-  \*****************************************************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** E:/Hbuilder/Second-hand-Trading-System/pages/home/index.vue?vue&type=template&id=71e217db&scoped=true& ***!
+  \**************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -94,9 +94,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 /* 19 */
-/*!*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/Hbuilder/Second-hand-Trading-System/Second-hand-Trading-System/pages/home/index.vue?vue&type=template&id=71e217db&scoped=true& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/Hbuilder/Second-hand-Trading-System/pages/home/index.vue?vue&type=template&id=71e217db&scoped=true& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -120,9 +120,9 @@ render._withStripped = true
 
 /***/ }),
 /* 20 */
-/*!***********************************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-hand-Trading-System/Second-hand-Trading-System/pages/home/index.vue?vue&type=script&lang=js& ***!
-  \***********************************************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** E:/Hbuilder/Second-hand-Trading-System/pages/home/index.vue?vue&type=script&lang=js& ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -135,14 +135,14 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 /* 21 */
-/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/Hbuilder/Second-hand-Trading-System/Second-hand-Trading-System/pages/home/index.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/Hbuilder/Second-hand-Trading-System/pages/home/index.vue?vue&type=script&lang=js& ***!
+  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 66));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 70));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -244,60 +244,66 @@ __webpack_require__.r(__webpack_exports__);
 
       mostbookItem: [
       {
-        text: '参加培训班',
-        url: 'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
+        number: "B3267559776586",
+        name: '参加培训班',
+        coverPic: 'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
         price: 1250 },
 
       {
-        text: '使图片的宽高完全拉伸至填满 image 元素',
-        url: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
+        number: "B1637559776586",
+        name: '使图片的宽高完全拉伸至填满 image 元素',
+        coverPic: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
         price: 268 }],
 
 
       newProductItem: [
       {
-        url: 'https://gw.alicdn.com/bao/uploaded/i1/2869884912/O1CN01pnqXeC1m9kBQAFWwv_!!2869884912.jpg_300x300q90.jpg_.webp',
-        text: '学习Web前端',
+        number: "B1667553776586",
+        coverPic: 'https://gw.alicdn.com/bao/uploaded/i1/2869884912/O1CN01pnqXeC1m9kBQAFWwv_!!2869884912.jpg_300x300q90.jpg_.webp',
+        name: '学习Web前端',
         price: 25.86 },
 
       {
-        url: 'https://gw.alicdn.com/bao/uploaded/i3/2209455393991/O1CN01w2u3sB1fLvTc4DaYa_!!2-item_pic.png_300x300q90.jpg_.webp',
-        text: '正在差量编译',
+        number: "B1664559776586",
+        coverPic: 'https://gw.alicdn.com/bao/uploaded/i3/2209455393991/O1CN01w2u3sB1fLvTc4DaYa_!!2-item_pic.png_300x300q90.jpg_.webp',
+        name: '正在差量编译',
         price: 32.3 },
 
       {
-        url: 'https://gw.alicdn.com/bao/uploaded/i3/2206648906412/O1CN01nGURSL1xEkLdUnnms_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-        text: '请另行在小程序开发工具的控制台查看。',
+        number: "B1667559776526",
+        coverPic: 'https://gw.alicdn.com/bao/uploaded/i3/2206648906412/O1CN01nGURSL1xEkLdUnnms_!!0-item_pic.jpg_300x300q90.jpg_.webp',
+        name: '请另行在小程序开发工具的控制台查看。',
         price: 250 },
 
       {
-        url: 'https://gw.alicdn.com/bao/uploaded/i4/2209455393991/O1CN01ig4rrm1fLvTb86nrL_!!2-item_pic.png_300x300q90.jpg_.webp',
-        text: 'Second-hand-Trading-System',
+        number: "B1667559776325",
+        coverPic: 'https://gw.alicdn.com/bao/uploaded/i4/2209455393991/O1CN01ig4rrm1fLvTb86nrL_!!2-item_pic.png_300x300q90.jpg_.webp',
+        name: 'Second-hand-Trading-System',
         price: 22 },
 
       {
-        url: 'https://gw.alicdn.com/bao/uploaded/i2/3300766192/O1CN015xihja1vbzAnY7Vlh_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-        text: '小程序开发工具',
+        number: "B1667559766686",
+        coverPic: 'https://gw.alicdn.com/bao/uploaded/i2/3300766192/O1CN015xihja1vbzAnY7Vlh_!!0-item_pic.jpg_300x300q90.jpg_.webp',
+        name: '小程序开发工具',
         price: 45 },
 
       {
-        url: 'https://gw.alicdn.com/bao/uploaded/i3/45059216/O1CN01jsF6GU2HwytZZHX0I_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-        text: '我是怎么调试 Element UI 源码的',
+        number: "B1612339776586",
+        coverPic: 'https://gw.alicdn.com/bao/uploaded/i3/45059216/O1CN01jsF6GU2HwytZZHX0I_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
+        name: '我是怎么调试 Element UI 源码的',
         price: 65 },
 
       {
-        url: 'https://gw.alicdn.com/bao/uploaded/i3/6000000001089/O1CN01dkomiG1Juo60CPfEQ_!!6000000001089-0-yinhe.jpg_300x300q90.jpg_.webp',
-        text: '全是技巧没有感情！',
+        number: "B1667552376586",
+        coverPic: 'https://gw.alicdn.com/bao/uploaded/i3/6000000001089/O1CN01dkomiG1Juo60CPfEQ_!!6000000001089-0-yinhe.jpg_300x300q90.jpg_.webp',
+        name: '全是技巧没有感情！',
         price: 7 },
 
       {
-        url: 'https://gw.alicdn.com/bao/uploaded/i3/6000000001089/O1CN01dkomiG1Juo60CPfEQ_!!6000000001089-0-yinhe.jpg_300x300q90.jpg_.webp',
-        text: '全是技巧没有感情！',
-        price: 7 },
-      {
-        url: 'https://gw.alicdn.com/bao/uploaded/i3/6000000001089/O1CN01dkomiG1Juo60CPfEQ_!!6000000001089-0-yinhe.jpg_300x300q90.jpg_.webp',
-        text: '全是技巧没有感情！',
-        price: 7 }] };
+        "number": "B1667559776586",
+        "coverPic": "/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)",
+        "name": "學生心理健康教育第二版",
+        "price": 7.9 }] };
 
 
 
@@ -312,9 +318,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 /* 22 */
-/*!*******************************************************************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-hand-Trading-System/Second-hand-Trading-System/pages/home/index.vue?vue&type=style&index=0&id=71e217db&scoped=true&lang=css& ***!
-  \*******************************************************************************************************************************************************/
+/*!****************************************************************************************************************************!*\
+  !*** E:/Hbuilder/Second-hand-Trading-System/pages/home/index.vue?vue&type=style&index=0&id=71e217db&scoped=true&lang=css& ***!
+  \****************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -327,9 +333,9 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 /* 23 */
-/*!***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/Hbuilder/Second-hand-Trading-System/Second-hand-Trading-System/pages/home/index.vue?vue&type=style&index=0&id=71e217db&scoped=true&lang=css& ***!
-  \***********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/Hbuilder/Second-hand-Trading-System/pages/home/index.vue?vue&type=style&index=0&id=71e217db&scoped=true&lang=css& ***!
+  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

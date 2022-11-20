@@ -2,12 +2,12 @@
 	<view class="goods-box" @click="toGoodsDetail">
 		<!-- 图片 -->
 			<view class="goods-img">
-				<image :src="goods.url" mode="aspectFill"></image>
+				<image :src="cover" mode="widthFix" @error="doDefault"></image>
 			</view>
 			
 			<!-- 信息 -->
 			<view class="goods-msg">
-				<text class="detail-text">{{goods.text}}</text>
+				<text class="detail-text">{{goods.name}}</text>
 				<text class="price">￥{{goods.price.toFixed(2)}}</text>
 			</view>
 	</view>
@@ -19,20 +19,28 @@
 		props:['goods'],
 		data() {
 			return {
-				
+				noCoverUrl:'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fkxmic.com%2FUploads%2Fproduct%2Fdefault%2Fprod_0316195442362.jpeg&refer=http%3A%2F%2Fkxmic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671518632&t=e47ac78682011bcbacd5075d519a459a',
+				cover:''
 			};
+		},
+		created() {
+			this.cover = this.goods.coverPic;
 		},
 		methods:{
 			toGoodsDetail(){
 				uni.redirectTo({
 					url:'/pages/detail/index'
 				})
+			},
+			doDefault(){
+				this.cover = 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fkxmic.com%2FUploads%2Fproduct%2Fdefault%2Fprod_0316195442362.jpeg&refer=http%3A%2F%2Fkxmic.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671518632&t=e47ac78682011bcbacd5075d519a459a"';
 			}
 		}
 	}
 </script>
 
 <style scoped>
+	
 /* 商品展示公共 */
 	
 	/* 商品信息边框 */
