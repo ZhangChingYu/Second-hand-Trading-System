@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -27,8 +28,9 @@ public class RegisterController {
     }
 
     @RequestMapping(value = "/user", method = RequestMethod.GET)
-    public String userInfo(@RequestBody Map<String, Object> param){
-        Integer id = Integer.parseInt(param.get("id").toString());
+    public String userInfo(HttpServletRequest request){
+        Integer id = Integer.parseInt(request.getParameter("id"));
+        //Integer id = Integer.parseInt(param.get("id").toString());
         User user = service.getUserById(id);
         return gson.toJson(user);
     }

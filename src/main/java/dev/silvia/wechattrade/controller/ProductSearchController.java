@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -25,24 +26,24 @@ public class ProductSearchController {
     // 通過商品編號查詢商品詳細信息
     @UserLoginToken
     @RequestMapping(value = "/product/detail", method = RequestMethod.GET)
-    public String getProductDetail(@RequestBody Map<String, Object> param){
-        String number = param.get("number").toString();
+    public String getProductDetail(HttpServletRequest request){
+        String number = request.getParameter("number");
         return gson.toJson(service.getProductDetail(number));
     }
 
     // 分類查找
     @UserLoginToken
     @RequestMapping(value = "/catalog/products", method = RequestMethod.GET)
-    public String getProductByCatalog(@RequestBody Map<String, Object> param){
-        String catalog = param.get("catalog").toString();
+    public String getProductByCatalog(HttpServletRequest request){
+        String catalog = request.getParameter("catalog");
         return gson.toJson(service.getProductByCatalog(catalog));
     }
 
     // 關鍵字查詢商品
     @UserLoginToken
     @RequestMapping(value = "/search/products", method = RequestMethod.GET)
-    public String getProductByKeyword(@RequestBody Map<String, Object> param){
-        String keyword = param.get("keyword").toString();
+    public String getProductByKeyword(HttpServletRequest request){
+        String keyword = request.getParameter("keyword");
         return gson.toJson(service.searchProductByKey(keyword));
     }
 
@@ -70,8 +71,8 @@ public class ProductSearchController {
     // 根據用戶數據推薦的商品(top 10)
     @UserLoginToken
     @RequestMapping(value = "/homepage/promote/products", method = RequestMethod.GET)
-    public String homepageProductsPromote(@RequestBody Map<String, Object> param){
-        String number = param.get("number").toString();
+    public String homepageProductsPromote(HttpServletRequest request){
+        String number = request.getParameter("number");
         return gson.toJson(service.homepageProductPromote(number));
     }
 }

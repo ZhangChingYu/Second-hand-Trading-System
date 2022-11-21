@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 @RestController
@@ -26,8 +27,8 @@ public class ProductCatalogController {
 
     // 根據分類id顯示對應的分類(測試用)
     @RequestMapping(value = "/catalog", method = RequestMethod.GET)
-    public String getById(@RequestBody Map<String, Object> param){
-        Integer id = Integer.parseInt(param.get("id").toString());
+    public String getById(HttpServletRequest request){
+        Integer id = Integer.parseInt(request.getParameter("id"));
         return gson.toJson(service.getById(id));
     }
     // 顯示所有分類，一個分類的結構為{"id":int, "number":"分類編碼", "name":"分類名稱"}
