@@ -1,8 +1,9 @@
 package dev.silvia.wechattrade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import dev.silvia.wechattrade.dto.Address;
+import dev.silvia.wechattrade.dto.AddressCreateDto;
 import dev.silvia.wechattrade.entity.User;
+import dev.silvia.wechattrade.vo.AddressVo;
 import dev.silvia.wechattrade.vo.AuthenticationVo;
 
 import java.util.List;
@@ -18,11 +19,10 @@ public interface IUserSettingService extends IService<User> {
     /** 消息接收設置 */
 
     /** 地址設置 */
-    int addAddress(Integer type, String address);       // 添加地址
+    int addAddress(String phone, AddressCreateDto addressCreateDto);       // 添加地址
     int AddressSetting(Integer type, String address);    // 更新指定地址，type: 0(default), 1(備用1), 2(備用2), 3(備用3)
-    int shiftAddressOrder(int[] order);     // 改動地址的排序
     int deleteAddress(Integer type);    // 刪除地址
-    List<Address> showAllAddress(String phone);     // 顯示用戶所有地址
+    List<AddressVo> showAllAddress(String phone);     // 顯示用戶所有地址
 
     /** 常見問題 */
     List<String> getQuestions(String catalog);  // 根據問題分類顯示常見的問題
