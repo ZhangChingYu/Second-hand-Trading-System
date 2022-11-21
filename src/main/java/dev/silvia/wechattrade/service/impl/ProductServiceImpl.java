@@ -152,6 +152,11 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     }
 
     private void promoteAlgorithm(){    // 商品推送的算法
-
+        // 考慮的要素有5個:
+        // 1. 搜索紀錄;
+        // 2. 瀏覽紀錄;
+        // 3. 收藏紀錄;
+        // 4. 下單紀錄;
+        // 5. 下單過的商家紀錄
     }
 }
