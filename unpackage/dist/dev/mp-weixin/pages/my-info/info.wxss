@@ -1,0 +1,14 @@
+
+.info-content.data-v-047bf487{
+	font-size: medium;
+	margin: 30rpx 0;
+	padding: 0 30rpx;
+}
+.info-content-item.data-v-047bf487{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 30rpx 0;
+	border-bottom: 1px solid #cccccc;
+}
+

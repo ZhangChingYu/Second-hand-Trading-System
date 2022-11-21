@@ -1,0 +1,1 @@
+<view><button data-event-opts="{{[['tap',[['tologin',['$event']]]]]}}" bindtap="__e">立即登录</button></view>

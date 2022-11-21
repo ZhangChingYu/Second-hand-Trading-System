@@ -1,0 +1,40 @@
+
+.add-path.data-v-0c0262f1{
+	padding: 20rpx 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+}
+.add-path-btn.data-v-0c0262f1{
+	border: 2rpx solid #d04b41;
+	color: #d04b41;
+	font-size: medium;
+	border-radius: 30rpx;
+	padding: 6rpx 60rpx;
+}
+.path-list.data-v-0c0262f1{
+	font-size: medium;
+	padding-left: 20rpx ;
+	padding-top: 10rpx;
+}
+.path-item.data-v-0c0262f1{
+	padding: 10rpx 10rpx;
+	border:1rpx solid #d04b41;
+	border-radius: 10rpx;
+}
+.item-main.data-v-0c0262f1{
+	display: flex;
+	align-items: center;
+	padding: 10rpx 10rpx;
+}
+.item-name.data-v-0c0262f1{
+	padding-right: 10rpx;
+}
+.active.data-v-0c0262f1{
+	padding: 2rpx 10rpx;
+	background-color: #d04b41;
+	color: white;
+	border-radius: 15rpx;
+	text-align: center;
+}
+

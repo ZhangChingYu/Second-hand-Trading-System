@@ -1,0 +1,27 @@
+
+.add-address {
+	padding-left: 30rpx;
+	padding-right: 30rpx;
+	font-size: medium;
+}
+.address-item {
+	display: flex;
+	justify-content: space-between; /*左右排开 */
+	align-items: center; /*垂直居中 */
+	padding: 25rpx 0;
+	width: 100%;
+	border-bottom: 2rpx solid #cccccc;
+}
+.address-item input {
+	flex: 1;
+	text-align: left;
+	padding-left: 10rpx;
+}
+.commitbtn {
+	color: white;
+	background-color: #d04b41;
+	width: 30%;
+	justify-content: center;
+	margin-top: 30%;
+}
+

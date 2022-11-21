@@ -1,0 +1,14 @@
+
+.setup-content.data-v-1480b183{
+	font-size: medium;
+	margin: 30rpx 0;
+	padding: 0 20rpx;
+}
+.setup-content-item.data-v-1480b183{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 30rpx 0;
+	border-bottom: 2px solid #cccccc;
+}
+
