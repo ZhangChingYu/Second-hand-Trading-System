@@ -63,7 +63,7 @@ public class LoginController {
     }
 
     //获取验证码
-    @UserLoginToken
+
     @RequestMapping(value ="/captcha",method = RequestMethod.GET)
     public ResponseEntity<?> captcha(@RequestParam String phone){
         ResponseDto redto=new ResponseDto();

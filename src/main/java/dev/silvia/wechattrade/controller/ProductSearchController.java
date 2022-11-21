@@ -2,6 +2,7 @@ package dev.silvia.wechattrade.controller;
 
 
 import com.google.gson.Gson;
+import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,28 @@ public class ProductSearchController {
     @UserLoginToken
     @RequestMapping(value = "/homepage", method = RequestMethod.GET)
     public String homepageProduct(){
-        return gson.toJson(service.homepageProductPromote());
+        return gson.toJson(service.homepageProducts());
+    }
+
+    // 最新商品(top 10)
+    @PassToken
+    @RequestMapping(value = "/homepage/new/products", method = RequestMethod.GET)
+    public String homepageProductNew(){
+        return gson.toJson(service.homepageProductNew());
+    }
+
+    // 最多商品收藏(top 10)
+    @PassToken
+    @RequestMapping(value = "/homepage/like/products", method = RequestMethod.GET)
+    public String homepageProductsLike(){
+        return gson.toJson(service.homepageProductLike());
+    }
+
+    // 根據用戶數據推薦的商品(top 10)
+    @UserLoginToken
+    @RequestMapping(value = "/homepage/promote/products", method = RequestMethod.GET)
+    public String homepageProductsPromote(@RequestBody Map<String, Object> param){
+        String number = param.get("number").toString();
+        return gson.toJson(service.homepageProductPromote(number));
     }
 }

@@ -18,6 +18,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -81,11 +82,76 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     }
 
     @Override
-    public List<ProductOutlineDto> homepageProductPromote() {
+    public List<ProductOutlineDto> homepageProducts() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
-        wrapper.between("id", 10, 20);
+        //wrapper.between("id", 10, 20);
         List<Product> products = productDao.selectList(wrapper);
         List<ProductOutlineDto> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
+    }
+
+    @Override
+    public List<ProductOutlineDto> homepageProductOrder(String type) {
+        List<ProductOutlineDto> products = homepageProducts();
+        List<ProductOutlineDto> temp = new ArrayList<>();
+        switch (type){
+            case "all":
+                return products;
+            case "promote":
+                return products;
+            case "new":
+                for(int i = products.size()-1; i >=0 ; i--){
+                    temp.add(products.get(i));
+                }
+                return temp;
+            case "like":
+                QueryWrapper<Product> wrapper = new QueryWrapper<>();
+                wrapper.orderByDesc("like_count");
+                List<Product> product = productDao.selectList(wrapper);
+                List<ProductOutlineDto> outline = productPacking.ProductToOutline(product);
+                return outline;
+        }
+        return null;
+    }
+
+    @Override
+    public List<ProductOutlineDto> homepageProductPromote(String number) {
+        return null;
+    }
+
+    @Override
+    public List<ProductOutlineDto> homepageProductNew() {
+        QueryWrapper<Product> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("id");
+        List<Product> products = productDao.selectList(wrapper);
+        return get10Outline(products);
+    }
+
+    @Override
+    public List<ProductOutlineDto> homepageProductLike() {
+        QueryWrapper<Product> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("like_count");
+        List<Product> products = productDao.selectList(wrapper);
+        return get10Outline(products);
+    }
+
+    @Override
+    public List<ProductOutlineDto> homepagePromote(String number) {
+        QueryWrapper<Product> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("like_count");
+        List<Product> products = productDao.selectList(wrapper);
+        return get10Outline(products);
+    }
+
+    private List<ProductOutlineDto> get10Outline(List<Product> products){
+        List<ProductOutlineDto> outlines = new ArrayList<>();
+        for(int i = 0; i < 10; i++){
+            outlines.add(productPacking.ProductToOutline(products.get(i)));
+        }
+        return outlines;
+    }
+
+    private void promoteAlgorithm(){    // 商品推送的算法
+
     }
 }
