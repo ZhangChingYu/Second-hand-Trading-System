@@ -69,7 +69,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
         // 用户状态: 2 已被永久封禁
         int two = 2;
 
-        String username=request.getUsename();
+        String username=request.getUsername();
 
         // 如果用户输入的用户名，格式符合邮箱，为邮箱登陆
         if (username.matches(em)) {

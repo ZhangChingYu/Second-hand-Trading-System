@@ -50,7 +50,7 @@ public class LoginController {
     }
 
     @RequestMapping(value ="/lost",method = RequestMethod.POST)
-    public ResponseEntity<?> lostpassword(@RequestBody LostPasswordDto request){
+    public ResponseEntity<?> lostPassword(@RequestBody LostPasswordDto request){
         ResponseDto redto=new ResponseDto();
         if(Objects.equals(captcha, request.getCaptcha())){
             return ResponseEntity.ok(service.lostPassward(request));
@@ -62,8 +62,8 @@ public class LoginController {
         }
     }
 
+    @UserLoginToken
     //获取验证码
-
     @RequestMapping(value ="/captcha",method = RequestMethod.GET)
     public ResponseEntity<?> captcha(@RequestParam String phone){
         ResponseDto redto=new ResponseDto();
