@@ -3,6 +3,7 @@ package dev.silvia.wechattrade.controller;
 
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.entity.User;
+import dev.silvia.wechattrade.handlers.UserNameGenerator;
 import dev.silvia.wechattrade.service.IRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,10 +42,12 @@ public class RegisterController {
         String phone = param.get("phone").toString();
         String password = param.get("password").toString();
         String email = param.get("email").toString();
+        String userName = param.get("userName").toString();
         User user = new User();
         user.setPhone(phone);
         user.setPassword(password);
         user.setEmail(email);
+        user.setUserName(userName);
         return service.Register(user);
     }
 }
