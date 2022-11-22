@@ -48,7 +48,7 @@ public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements I
             for(int i = 0; i < nameList.size(); i++){
                 nameList.set(i, transferUTF8.UTF8toC(nameList.get(i)));
             }
-            user.setUserName(nameGenerator.generateRandomName(user.getUserName(), nameList));
+            user.setUserName(transferUTF8.CtoUTF8(nameGenerator.generateRandomName(user.getUserName(), nameList)));
             user.setAuthority(1);
             user.setRegisterDate(new Date());
             userDao.insert(user);
