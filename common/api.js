@@ -6,16 +6,14 @@ const userId = uni.getStorageSync("user").id //用户id
 function postRequest(url,data,type){
 	var promise = new Promise((resolve,reject) => {
 		var postData = data;
+		const that = this;
 		uni.request({
 			url:commoneUrl + url,
 			data:postData,
 			method:'POST',
-			// dataType:"jsonp",
-			// jsonp:"callbackparam",//传递给请求处理程序或页面的，用以获得jsonp回调函数名的参数名
-			// jsonpCallback:"success_jsonpCallback",
-
+			
 			header:{
-				'content-type': type || 'application/json;charset=UTF-8',
+				'content-type': 'application/json',
 				'token':uni.getStorageSync('token')//token可以不要，看后端
 			},
 				
@@ -42,7 +40,7 @@ function getRequest(url,data,type){
 				method:"GET",
 				dataType:'json',
 				header:{
-					'content-type': type || 'application/json',
+					'content-type':'application/json',
 					'token':uni.getStorageSync('token')
 				},
 				success:function(res){

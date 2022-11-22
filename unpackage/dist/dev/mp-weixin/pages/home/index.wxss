@@ -146,35 +146,6 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /* 顶部搜索 */
 .top-search.data-v-71e217db {
 	display: flex;
@@ -331,6 +302,11 @@
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-between;
+}
+.footer.data-v-71e217db {
+	margin: 2px auto;
+	text-align: center;
+	color: #cacaca;
 }
 
 

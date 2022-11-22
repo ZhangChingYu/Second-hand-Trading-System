@@ -4,9 +4,9 @@
 		<h1 class="title">{{title}}</h1>
 		
 		<view class="main">
-			<view class="usename">
-				<input type="text" v-model="forms.usename"  @blur="checkInput" @focus="err.usename = false" auto-focus placeholder="手机号/邮箱">
-				<text v-if="err.usename">×</text>
+			<view class="username">
+				<input type="text" v-model="forms.username"  @blur="checkInput" @focus="err.username = false" auto-focus placeholder="手机号/邮箱">
+				<text v-if="err.username">×</text>
 			</view> 
 			<view class="password">
 				<input type="password" v-model="forms.password" @blur="checkPsd" @focus="err.password = false" placeholder="密码">
@@ -39,15 +39,15 @@
 			return{
 				title:'欢迎来到闲置虫虫',
 				forms:{
-					usename:'1234567890@qq.com',
-					password:'lKpJ5CnBry',
+					username:'15023591218@qq.com',
+					password:'111111111',
 				},
 				// 判断是邮箱还是手机号/微信号
 				userType:'',			
 				// 记录账号或密码填写是否符合要求
 				err:{
 					password:false,
-					usename:false
+					username:false
 				}
 			}
 		},
@@ -70,7 +70,7 @@
 				
 				// 验证手机号
 				let r = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
-				if(r.test(this.forms.usename))
+				if(r.test(this.forms.username))
 				 {
 					 this.userType = 'tel';
 					 return true;
@@ -78,13 +78,13 @@
 				
 				// 验证邮箱
 				r = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
-				if(r.test(this.forms.usename)){
+				if(r.test(this.forms.username)){
 					this.userType = 'email';
 					return true;
 				}
 				else{
 					this.userType = '';
-					this.err.usename = true;
+					this.err.username = true;
 					return false;
 				}
 			},
@@ -98,7 +98,7 @@
 			login(){
 				let that = this;
 					// 判断账号密码是否填写合法
-				if(!this.err.password && !this.err.usename){
+				if(!this.err.password && !this.err.username){
 					this.logining();
 					
 										
@@ -160,44 +160,20 @@
 				
 			},
 			
+				
+			
 						
 			// 第三方登录
-			WXLogin(){
+			async WXLogin(){
 				// this.notImplMsg();
 				// 获取code 小程序专有，用户登录凭证。
-				let raw_Data = '';
-				let code = '';
+				
 				let that = this;
-				uni.getUserProfile({
+				
+				let {encryptedData, iv} = await uni.getUserProfile({
 					desc: "获取用户基本资料",
 					success : (res)=>{
-						
-						console.log(res)
-						raw_Data = res.rawData;
-						
-						//获取成功基本资料后开启登录，基本资料首先要授权
-						
-						that.logining();
-						uni.login({
-						  provider: 'weixin',
-						  success: function (loginRes) {
-						    console.log(loginRes);
-							
-							if(loginRes.errMsg === "login:ok"){
-								code = loginRes.code;
-								
-								// 发送登录请求
-								
-								// 用我自己封装的api
-								that.api.get('/wxlogin',{code})
-								.then(res=>{
-									that.getlogin(res);
-								}).catch(err=>{
-									that.$toast(err);
-								})
-							}
-						  }
-						});
+						resolve(res);
 					},
 					 // 用户取消登录后的提示
 					fail: (res)=>{
@@ -206,8 +182,28 @@
 							// 是否显示取消按钮，默认为 true
 							showCancel:false
 						});
-					 }
-					});
+					}
+				});
+				// 开始登录
+				that.logining();
+				
+				let {code} = await uni.login({
+					provider: 'weixin',
+					success: (loginRes) =>{			
+						if(loginRes.errMsg === "login:ok"){
+							resolve(loginRes);
+						}
+					}
+				});
+				
+				//发送code,获取sissionId
+				let {sessionId} = await that.api.get('/weixin/sessionId',{code});
+				
+				// 发送其他信息,正式登录
+				let res = await that.api.post('/weixin/authLogin',{encryptedData,iv,sessionId})
+				
+				// 登录前的操作
+				that.getlogin(res);
 					
 			},
 			QQLogin(){
@@ -245,12 +241,12 @@
 		padding: 1rem;
 		
 	}
-	.main .usename,.main .password {
+	.main .username,.main .password {
 		width: 90%;
 		position: relative;
 		
 	}
-	.main .usename > text,.main .password > text {
+	.main .username > text,.main .password > text {
 		position: absolute;
 		top:1.24rem;
 		right: 0.16rem;

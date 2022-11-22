@@ -62,7 +62,7 @@
 	export default {
 		data() {
 			return {
-				// historyWords: ['鸡','电脑','iPhone12','车载手表','自然堂','小米10','华为','氢跑鞋','娃娃'],
+				
 				historyWords: [],
 				popularWords: [],
 				searchValue: '',
@@ -72,16 +72,18 @@
 			}
 		},
 		mounted(){
+			console.log(123456)
 			// uni.setStorageSync('historyWords',['鸡','电脑','iPhone12','车载手表','自然堂','小米10','华为','氢跑鞋','娃娃']);
 			// uni.setStorageSync('popularWords',['iPhone12','车载手表','自然堂','小米10']);
 			this.queryHistory();
 			this.queryPopular();
+			console.log(this.popularWords)
 		},
 		
 		methods:{
 			queryHistory() {
 				try{
-					this.historyWords = uni.getStorageSync('historyWords');
+					this.historyWords = uni.getStorageSync('historyWords') || [];
 				}catch(e){
 					//TODO handle the exception
 					this.historyWords = [];
@@ -90,7 +92,7 @@
 			
 			queryPopular() {
 				try{
-					this.popularWords = uni.getStorageSync('popularWords');
+					this.popularWords = uni.getStorageSync('popularWords') || [];
 				}catch(e){
 					//TODO handle the exception
 					this.popularWords = [];
@@ -105,7 +107,7 @@
 				        success: function(res) {
 				            if (res.confirm) {
 				                that.historyWords = [];
-				                uni.clearStorageSync('historyWords');
+				                uni.removeStorageSync('historyWords');
 				
 				            } else if (res.cancel) {
 				                console.log('用户点击取消');
@@ -122,7 +124,6 @@
 			
 			search(){
 				let keyWords = this.searchValue;
-				// this.searchValue = '';
 				this.isIndex = false;
 				this.historyWords = this.historyWords.filter(item=>item != keyWords);
 				this.historyWords.unshift(keyWords);

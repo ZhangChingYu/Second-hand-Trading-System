@@ -18,7 +18,7 @@
 				
 				<swiper-item v-for="(item,index) of swiperItem" :key="index">
 					<view class="swiper-item">
-						<image :src="item"></image>
+						<image :src="item" mode="widthFix"></image>
 					</view>
 				</swiper-item>
 				
@@ -34,7 +34,7 @@
 		</view>
 		
 		<!-- 预约物品 -->
-		<view class="most-book">
+		<view class="most-book" v-if="mostbookItem.length != 0">
 			<view class="title">
 				
 				<text class="title-main">
@@ -49,18 +49,14 @@
 			</view>
 			<view class="book-detail">
 				
-				 <Goods class="goods"
-					v-for="(item,index) of mostbookItem" 
-					:key="index"
-					:goods="item"
-				  >
-				  </Goods>
+				<Goods v-if="mostbookItem.length > 0" class="goods" :goods="mostbookItem[0]"></Goods>
+				<Goods v-if="mostbookItem.length > 1" class="goods" :goods="mostbookItem[1]"></Goods>
 				
 			</view>
 		</view>
 		
 		<!-- 最新物品 -->
-		<view class="new-product">
+		<view class="new-product" v-if="newProductItem.length != 0">
 			<view class="title">		
 				<text class="title-main">
 					<text class="new-bg main-icon"></text>
@@ -82,7 +78,10 @@
 			</view>
 		</view>
 		
-		
+		<!-- 底部 -->
+		<view class="footer">
+			<text>{{footerMsg}}</text>
+		</view>
 	</view>
 </template>
 
@@ -96,79 +95,51 @@
 					'https://t11.baidu.com/it/app=49&f=JPEG&fm=173&fmt=auto&u=766431721%2C238945871?w=640&h=512&s=3B7D76866CF7F4C20E9A567F03009078',
 					'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Finews.gtimg.com%2Fnewsapp_bt%2F0%2F13950518577%2F1000&refer=http%3A%2F%2Finews.gtimg.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1669533057&t=180b6b372cd71022722b3d8c3ccbc068',
 					'https://img2.baidu.com/it/u=4293062902,2076102987&fm=253&fmt=auto&app=138&f=JPG?w=750&h=500'
-					  ],
-					  
-	            mostbookItem:[
-					{
-						number:"B3267559776586",
-						name:'参加培训班',
-						coverPic:'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-						price:1250
-					},
-					{
-						number:"B1637559776586",
-						name:'使图片的宽高完全拉伸至填满 image 元素',
-						coverPic:'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-						price:268,
-					}
 				],
-				newProductItem:[
-					{
-						number:"B1667553776586",
-						coverPic:'https://gw.alicdn.com/bao/uploaded/i1/2869884912/O1CN01pnqXeC1m9kBQAFWwv_!!2869884912.jpg_300x300q90.jpg_.webp',
-						name:'学习Web前端',
-						price:25.86
-					},
-					{
-						number:"B1664559776586",
-						coverPic:'https://gw.alicdn.com/bao/uploaded/i3/2209455393991/O1CN01w2u3sB1fLvTc4DaYa_!!2-item_pic.png_300x300q90.jpg_.webp',
-						name:'正在差量编译',
-						price:32.3
-					},
-					{
-						number:"B1667559776526",
-						coverPic:'https://gw.alicdn.com/bao/uploaded/i3/2206648906412/O1CN01nGURSL1xEkLdUnnms_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-						name:'请另行在小程序开发工具的控制台查看。',
-						price:250
-					},
-					{
-						number:"B1667559776325",
-						coverPic:'https://gw.alicdn.com/bao/uploaded/i4/2209455393991/O1CN01ig4rrm1fLvTb86nrL_!!2-item_pic.png_300x300q90.jpg_.webp',
-						name:'Second-hand-Trading-System',
-						price:22
-					},
-					{
-						number:"B1667559766686",
-						coverPic:'https://gw.alicdn.com/bao/uploaded/i2/3300766192/O1CN015xihja1vbzAnY7Vlh_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-						name:'小程序开发工具',
-						price:45
-					},
-					{
-						number:"B1612339776586",
-						coverPic:'https://gw.alicdn.com/bao/uploaded/i3/45059216/O1CN01jsF6GU2HwytZZHX0I_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-						name:'我是怎么调试 Element UI 源码的',
-						price:65
-					},
-					{
-						number:"B1667552376586",
-						coverPic:'https://gw.alicdn.com/bao/uploaded/i3/6000000001089/O1CN01dkomiG1Juo60CPfEQ_!!6000000001089-0-yinhe.jpg_300x300q90.jpg_.webp',
-						name:'全是技巧没有感情！',
-						price:7
-					},
-					{
-						"number":"B1667559776586",
-						"coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)",
-						"name":"學生心理健康教育第二版",
-						"price":7.9
-					   },
-				]
+				  
+	            mostbookItem:[],
+				newProductItem:[],
+				footerMsg:'-----没有更多数据了-----'
 	        }
 	    },
+		created() {
+			this.getMostbookItem();
+			this.getNewProduct();
+		},
 	    methods: {
 	        toSearch(){
 				uni.redirectTo({
 					url:'/pages/search/index'
 				})
+			},
+			async getNewProduct(){
+				const that  = this;
+				try{
+					let res = await this.api.get('/homepage/new/products')
+					that.mostbookItem = res;
+					that.mostbookItem.forEach(item=>{
+						item.coverPic = "data:image/jpg;base64," + item.coverPic;
+					})
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+				
+			},
+			async getMostbookItem(){
+				const that  = this;
+				try{
+					let res = await this.api.get('/homepage/like/products')
+					that.newProductItem = res;
+					that.newProductItem.forEach(item=>{
+						item.coverPic = "data:image/jpg;base64," + item.coverPic;
+					})
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+				
+				
 			}
 	    }
 	}
@@ -322,8 +293,6 @@
 		margin-top: 0.68rem;
 	}
 		
-	
-	
 	/* 最新物品 */
 	
 	.new-product {
@@ -343,6 +312,12 @@
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
+	}
+	
+	.footer {
+		margin: 2px auto;
+		text-align: center;
+		color: #cacaca;
 	}
 	
 	
