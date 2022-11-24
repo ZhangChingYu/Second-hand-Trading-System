@@ -470,7 +470,7 @@
  * @apiParam {String} phone 用戶手機號
  * @apiParam {Integer} rank 要設為默認地址的序列號
  *
- * @apiSuccessExample 更改成功
+ * @apiSuccessExample 更改地址成功
  *     {
  *        800
  *     }
