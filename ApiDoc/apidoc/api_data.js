@@ -55,7 +55,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品分類管理"
   },
   {
@@ -80,7 +80,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品分類管理"
   },
   {
@@ -127,7 +127,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品分類管理"
   },
   {
@@ -188,7 +188,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品分類管理"
   },
   {
@@ -226,7 +226,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品收藏"
   },
   {
@@ -271,7 +271,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品收藏"
   },
   {
@@ -321,7 +321,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品收藏"
   },
   {
@@ -375,7 +375,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品收藏"
   },
   {
@@ -420,7 +420,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品收藏"
   },
   {
@@ -484,7 +484,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品收藏"
   },
   {
@@ -522,7 +522,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品查詢"
   },
   {
@@ -547,7 +547,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品查詢"
   },
   {
@@ -585,7 +585,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品查詢"
   },
   {
@@ -623,8 +623,389 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "商品查詢"
+  },
+  {
+    "type": "POST",
+    "url": "/setting/address",
+    "title": "添加地址",
+    "name": "AddAddress",
+    "group": "地址管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>添加地址</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>當前用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "isDefaultAddress",
+            "description": "<p>是否需要設置為默認地址(需要:1,不需要:0)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>收件者的稱呼</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "receiverPhone",
+            "description": "<p>收件者的手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "region",
+            "description": "<p>地區</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "addressDetail",
+            "description": "<p>詳細地址</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "添加成功(因為算是數據庫更新，所以返回800)",
+          "content": "{\n   800\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "添加失敗",
+          "content": "{\n   400\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "地址管理"
+  },
+  {
+    "type": "DELETE",
+    "url": "/setting/address",
+    "title": "刪除某地址",
+    "name": "DeleteAddress",
+    "group": "地址管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>刪除某地址</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "rank",
+            "description": "<p>要刪除的地址序列號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "刪除地址成功",
+          "content": "{\n   800\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "刪除失敗(沒有更新的數據or要刪除的地址不存在)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "地址管理"
+  },
+  {
+    "type": "GET",
+    "url": "/default/address",
+    "title": "獲取默認地址",
+    "name": "GetDefaultAddress",
+    "group": "地址管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取用戶的默認地址</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回地址信息(例子)",
+          "content": "{\n   \"receiverName\":\"喵薄荷\",\n   \"receiverPhone\":\"15078818663\",\n   \"region\":\"重慶\",\n   \"addressDetail\":\"重慶大學虎溪校區松園5棟102室\",\n   \"rank\":0\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "默認地址不存在",
+          "content": "{\n   null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "地址管理"
+  },
+  {
+    "type": "PUT",
+    "url": "/setting/default/address",
+    "title": "將某地址設為默認地址",
+    "name": "SetAsDefaultAddress",
+    "group": "地址管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>將某地址設為默認地址</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "rank",
+            "description": "<p>要設為默認地址的序列號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "更改成功",
+          "content": "{\n   800\n}",
+          "type": "json"
+        },
+        {
+          "title": "更改成功(rank=0)",
+          "content": "{\n   200\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "更改失敗(沒有更新數據or地址不存在)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "地址管理"
+  },
+  {
+    "type": "GET",
+    "url": "/setting/addresses",
+    "title": "顯示用戶所有地址",
+    "name": "ShowAllAddress",
+    "group": "地址管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>顯示用戶所有地址，返回信息rank是更新與刪除地址所需要的參數</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子)",
+          "content": "[\n   {\n        \"receiverName\":\"喵薄荷\",\n        \"receiverPhone\":\"15078818663\",\n        \"region\":\"重慶\",\n        \"addressDetail\":\"重慶大學虎溪校區松園5棟102室\",\n        \"rank\":0\n   },\n   {\n        \"receiverName\":\"大頭兒子\",\n        \"receiverPhone\":\"15078818663\",\n        \"region\":\"重慶\",\n        \"addressDetail\":\"重慶大學虎溪校區松園5棟102室\",\n        \"rank\":1\n   },\n   {\n        \"receiverName\":\"神奇寶可夢\",\n        \"receiverPhone\":\"15078818663\",\n        \"region\":\"重慶\",\n        \"addressDetail\":\"重慶大學虎溪校區松園5棟102室\",\n        \"rank\":2\n    }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "若沒有任何地址存在",
+          "content": "{\n   null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "地址管理"
+  },
+  {
+    "type": "PUT",
+    "url": "/setting/address",
+    "title": "編輯地址",
+    "name": "UpdateAddress",
+    "group": "地址管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>編輯地址</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "rank",
+            "description": "<p>地址序列號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>收件者的稱呼</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "receiverPhone",
+            "description": "<p>收件者的手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "region",
+            "description": "<p>地區</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "addressDetail",
+            "description": "<p>詳細地址</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "更新成功",
+          "content": "{\n   800\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "更新失敗(沒有更新)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        },
+        {
+          "title": "請求數據不存在(默認地址)",
+          "content": "{\n   4001",
+          "type": "json"
+        },
+        {
+          "title": "請求數據不存在(其他地址)",
+          "content": "{\n   4002\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "地址管理"
   },
   {
     "type": "post",
@@ -689,7 +1070,7 @@ define({ "api": [
       ]
     },
     "version": "0.0.0",
-    "filename": "Src/example.js",
+    "filename": "src/example.js",
     "groupTitle": "用戶註冊"
   }
 ] });

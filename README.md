@@ -236,7 +236,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
  | 7 | O | 其他 |
 
 1. 顯示所有分類:
-* 後端api: **GET**  /catalogs
+* 後端api: **GET**  /catalog/catalogs
 * 返回信息(Object): {"id":int, "number":"分類編碼", "name":"分類名稱"},{},...,{}
 2. 添加分類
 * 後端api: **POST**  /catalog

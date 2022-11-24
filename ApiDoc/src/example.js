@@ -337,3 +337,170 @@
  *        404
  *     }
  */
+
+/**  
+ * @api {GET} /default/address 獲取默認地址
+ * @apiName GetDefaultAddress
+ * @apiGroup 地址管理
+ * @apiPermission none
+ * 
+ * @apiDescription 獲取用戶的默認地址
+ * 
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 成功返回地址信息(例子)
+ *     {
+ *        "receiverName":"喵薄荷",
+ *        "receiverPhone":"15078818663",
+ *        "region":"重慶",
+ *        "addressDetail":"重慶大學虎溪校區松園5棟102室",
+ *        "rank":0
+ *     }
+ * @apiErrorExample 默認地址不存在
+ *     {
+ *        null
+ *     }
+ */
+
+/**  
+ * @api {GET} /setting/addresses 顯示用戶所有地址
+ * @apiName ShowAllAddress
+ * @apiGroup 地址管理
+ * @apiPermission none
+ * 
+ * @apiDescription 顯示用戶所有地址，返回信息rank是更新與刪除地址所需要的參數
+ * 
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 請求成功(例子)
+ *     [
+ *        {
+ *             "receiverName":"喵薄荷",
+ *             "receiverPhone":"15078818663",
+ *             "region":"重慶",
+ *             "addressDetail":"重慶大學虎溪校區松園5棟102室",
+ *             "rank":0
+ *        },
+ *        {
+ *             "receiverName":"大頭兒子",
+ *             "receiverPhone":"15078818663",
+ *             "region":"重慶",
+ *             "addressDetail":"重慶大學虎溪校區松園5棟102室",
+ *             "rank":1
+ *        },
+ *        {
+ *             "receiverName":"神奇寶可夢",
+ *             "receiverPhone":"15078818663",
+ *             "region":"重慶",
+ *             "addressDetail":"重慶大學虎溪校區松園5棟102室",
+ *             "rank":2
+ *         }
+ *     ]
+ * @apiErrorExample 若沒有任何地址存在
+ *     {
+ *        null
+ *     }
+ */
+
+/**  
+ * @api {POST} /setting/address 添加地址
+ * @apiName AddAddress
+ * @apiGroup 地址管理
+ * @apiPermission none
+ * 
+ * @apiDescription 添加地址
+ * 
+ * @apiParam {String} phone 當前用戶手機號
+ * @apiParam {Integer} isDefaultAddress 是否需要設置為默認地址(需要:1,不需要:0)
+ * @apiParam {String} name 收件者的稱呼
+ * @apiParam {String} receiverPhone 收件者的手機號
+ * @apiParam {String} region 地區
+ * @apiParam {String} addressDetail 詳細地址
+ *
+ * @apiSuccessExample 添加成功(因為算是數據庫更新，所以返回800)
+ *     {
+ *        800
+ *     }
+ * @apiErrorExample 添加失敗
+ *     {
+ *        400
+ *     }
+ */
+
+/**  
+ * @api {PUT} /setting/address 編輯地址
+ * @apiName UpdateAddress
+ * @apiGroup 地址管理
+ * @apiPermission none
+ * 
+ * @apiDescription 編輯地址
+ * 
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {Integer} rank 地址序列號 
+ * @apiParam {String} name 收件者的稱呼
+ * @apiParam {String} receiverPhone 收件者的手機號
+ * @apiParam {String} region 地區
+ * @apiParam {String} addressDetail 詳細地址
+ *
+ * @apiSuccessExample 更新成功
+ *     {
+ *        800
+ *     }
+ * @apiErrorExample 更新失敗(沒有更新)
+ *     {
+ *        400
+ *     }
+ * @apiErrorExample 請求數據不存在(默認地址)
+ *     {
+ *        4001
+ * @apiErrorExample 請求數據不存在(其他地址)
+ *     {
+ *        4002
+ *     }
+ */
+
+/**  
+ * @api {PUT} /setting/default/address 將某地址設為默認地址
+ * @apiName SetAsDefaultAddress
+ * @apiGroup 地址管理
+ * @apiPermission none
+ * 
+ * @apiDescription 將某地址設為默認地址
+ * 
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {Integer} rank 要設為默認地址的序列號
+ *
+ * @apiSuccessExample 更改成功
+ *     {
+ *        800
+ *     }
+ * @apiSuccessExample 更改成功(rank=0)
+ *     {
+ *        200
+ *     }
+ * @apiErrorExample 更改失敗(沒有更新數據or地址不存在)
+ *     {
+ *        400
+ *     }
+ */
+
+/**  
+ * @api {DELETE} /setting/address 刪除某地址
+ * @apiName DeleteAddress
+ * @apiGroup 地址管理
+ * @apiPermission none
+ * 
+ * @apiDescription 刪除某地址
+ * 
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {Integer} rank 要刪除的地址序列號
+ *
+ * @apiSuccessExample 刪除地址成功
+ *     {
+ *        800
+ *     }
+ * @apiErrorExample 刪除失敗(沒有更新的數據or要刪除的地址不存在)
+ *     {
+ *        400
+ *     }
+ */
