@@ -1,5 +1,7 @@
 {
   "pages": [
+    "pages/login/index",
+    "pages/findback/findback",
     "pages/my/index",
     "pages/home/index",
     "pages/my-address/address",
@@ -8,9 +10,7 @@
     "pages/my-realname/realname",
     "pages/my-setup/setup",
     "pages/my-info/info",
-    "pages/findback/findback",
     "pages/search/index",
-    "pages/login/index",
     "pages/classify/index",
     "pages/publish/index",
     "pages/message/index",

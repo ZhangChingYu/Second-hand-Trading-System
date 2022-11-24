@@ -2,6 +2,18 @@
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		
 		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/findback/findback",
+			"style": {
+				"navigationBarTitleText": "找回密码"
+			}
+		},
+		{
 		    "path" : "pages/my/index",
 		    "style" :                                                                                    
 		    {
@@ -101,12 +113,6 @@
 		    
 		},
 		{
-			"path": "pages/findback/findback",
-			"style": {
-				"navigationBarTitleText": "找回密码"
-			}
-		},
-		{
 		    "path" : "pages/search/index",
 		    "style" :                                                                                    
 		    {
@@ -116,12 +122,6 @@
 		    
 		},
 		
-		{
-			"path": "pages/login/index",
-			"style": {
-				"navigationBarTitleText": "登录"
-			}
-		},
         {
             "path" : "pages/classify/index",
             "style" :                                                                                    

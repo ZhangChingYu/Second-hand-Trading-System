@@ -24,7 +24,7 @@
 			<view class="userid">
 				<input type="text" @blur="captchaInput" placeholder="请输入验证码" placeholder-style="color:#999999" />
 			</view>
-			<button type="primary" class="getcaptchaBtn" :disabled="captchaBtnState" @blur="sendcode" size="mini"
+			<button type="primary" class="getcaptchaBtn" :disabled="captchaBtnState" @click="sendcode" size="mini"
 				style="background-color: rgb(236, 102, 102);">获取验证码</button>
 		</view>
 		<!-- 分割线-->
@@ -60,8 +60,8 @@
 				var val = e.detail.value;
 				let r = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/;
 				if (r.test(val)) {
+					this.captchaBtnState = false;
 					this.username = val;
-					this.captchaBtnState = false
 				}
 			},
 			passwordInput(e) {
@@ -118,14 +118,19 @@
 
 			sendcode() {
 				let that = this;
-				let username = this.data.username;
-				console.log(username)
+				let phone = this.username;
+				console.log(phone)
+				that.api.get('/captcha',phone).then(res=>{
+					//获取验证码，短信发送
+					console.log(res);
+				})
 				//像后端发送请求，期间后端先向用户发送验证码，前端将用户输入的手机号和验证码发给后端进行对比，前端根据返回参数决定下一步
-				wx.request({
-					url: 'url', //后端接口
+				/*wx.request({
+					url: '/captcha', //后端接口
 					method: 'get',
 					data: {
-						username: that.data.phone,
+						msg:that.data.msg,
+						phone: that.data.phone,
 						code: that.data.code
 					},
 					header: {
@@ -133,10 +138,8 @@
 					},
 					success(res) {
 						console.log(res);
-						if (res.data.code == "10000") { //验证通过
-							wx.switchTab({
-								url: '../login/login',
-							})
+						if (res.data.msg == "验证码发送成功") { //验证通过
+							this.$toast(res.data.msg)
 						} else { //验证不通过
 							wx.showToast({
 								title: res.data.msg,
@@ -145,7 +148,7 @@
 							})
 						}
 					}
-				})
+				})*/
 			}
 		}
 	}
