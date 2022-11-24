@@ -44,13 +44,9 @@ public class User implements Serializable {
 
     private Integer violationCount;
 
-    private String defaultAddr;
+    private String defaultAddress;
 
-    private String addrOne;
-
-    private String addrTwo;
-
-    private String addrThree;
+    private String address;
 
     private String email;
 

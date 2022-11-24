@@ -37,6 +37,8 @@ public class ProductCatalogController {
     public String getAll(){
         return gson.toJson(service.showAllCatalog());
     }
+
+
     // 添加分類，請求報文body的json格式為{"name":"分類名稱", "number":"分類編碼"}
     @RequestMapping(value = "/catalog", method = RequestMethod.POST)
     public Integer addCatalog(@RequestBody Map<String, Object> param){
