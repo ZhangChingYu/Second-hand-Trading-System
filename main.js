@@ -26,6 +26,7 @@ const app = new Vue({
     ...App
 })
 app.$store = store;
+// app.$store = store;
 app.$mount()
 // #endif
 

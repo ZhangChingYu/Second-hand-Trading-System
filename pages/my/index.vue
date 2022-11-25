@@ -6,8 +6,9 @@
 			</view>
 			<view>
 				<view class="my-text">
-					<view name="user-name" style="font-weight: 900; font-size: 200%; ">用户名</view>
-					<view name="user-info" style="padding-left: 200rpx; padding-top: 30rpx;padding-bottom: 10rpx;" @click="info">个人信息></view>
+					<view name="user-name" style="font-weight: 900; font-size: 200%; ">{{user.userName}}</view>
+					<view name="user-info" style="padding-left: 200rpx; padding-top: 30rpx;padding-bottom: 10rpx;"
+						@click="info">个人信息></view>
 				</view>
 				<view class="hr"></view>
 				<view class="my-text" style="padding-top: 20rpx;">已交易：24</view>
@@ -53,35 +54,55 @@
 </template>
 
 <script>
-	import {mapActions} from 'vuex'
-	export default{
-		data(){
-			return{}
+	import {
+		ref
+	} from 'vue'
+	import {
+		mapActions
+	} from 'vuex'
+	export default {
+		data() {
+			return {
+				user: {
+					userName: ""
+				}
+			}
 		},
-		methods:{
-			collect(){
+
+		mounted() {
+			let res = uni.getStorageSync('user');
+			console.log(res);
+			this.user.userName = res.userName;
+
+		},
+
+		methods: {
+			get(res) {
+
+			},
+			collect() {
 				wx.navigateTo({
-					url:"../my-like/like"
+					url: "../my-like/like"
 				});
 			},
-			setup(){
+			setup() {
 				wx.navigateTo({
-					url:"../my-setup/setup"
+					url: "../my-setup/setup"
 				});
 			},
-			realname(){
+			realname() {
 				wx.navigateTo({
-					url:"../my-realname/realname"
+					url: "../my-realname/realname"
 				});
 			},
-			address(){
+			address() {
 				wx.navigateTo({
-					url:"../my-address/address"
+					url: "../my-address/address"
 				});
 			},
-			info(){
+			info() {
 				wx.navigateTo({
-					url:"../my-info/info"
+					url: "../my-info/info"
 				});
 			},
 		}

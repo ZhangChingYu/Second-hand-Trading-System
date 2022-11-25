@@ -62,7 +62,7 @@
 	export default {
 		data() {
 			return {
-				// historyWords: ['鸡','电脑','iPhone12','车载手表','自然堂','小米10','华为','氢跑鞋','娃娃'],
+				
 				historyWords: [],
 				popularWords: [],
 				searchValue: '',
@@ -72,16 +72,18 @@
 			}
 		},
 		mounted(){
+			console.log(123456)
 			// uni.setStorageSync('historyWords',['鸡','电脑','iPhone12','车载手表','自然堂','小米10','华为','氢跑鞋','娃娃']);
 			// uni.setStorageSync('popularWords',['iPhone12','车载手表','自然堂','小米10']);
 			this.queryHistory();
 			this.queryPopular();
+			console.log(this.popularWords)
 		},
 		
 		methods:{
 			queryHistory() {
 				try{
-					this.historyWords = uni.getStorageSync('historyWords');
+					this.historyWords = uni.getStorageSync('historyWords') || [];
 				}catch(e){
 					//TODO handle the exception
 					this.historyWords = [];
@@ -90,7 +92,7 @@
 			
 			queryPopular() {
 				try{
-					this.popularWords = uni.getStorageSync('popularWords');
+					this.popularWords = uni.getStorageSync('popularWords') || [];
 				}catch(e){
 					//TODO handle the exception
 					this.popularWords = [];
@@ -105,7 +107,7 @@
 				        success: function(res) {
 				            if (res.confirm) {
 				                that.historyWords = [];
-				                uni.clearStorageSync('historyWords');
+				                uni.removeStorageSync('historyWords');
 				
 				            } else if (res.cancel) {
 				                console.log('用户点击取消');
@@ -122,7 +124,6 @@
 			
 			search(){
 				let keyWords = this.searchValue;
-				// this.searchValue = '';
 				this.isIndex = false;
 				this.historyWords = this.historyWords.filter(item=>item != keyWords);
 				this.historyWords.unshift(keyWords);
@@ -154,7 +155,6 @@
 			}
 		}		
 	}
-
 </script>
 
 <style>
@@ -209,23 +209,19 @@
 	  height: 100vh;
 	  padding: 0 30rpx;
 	}
-
 	
 	.search-page .search-wrap {
 	  margin-top: 44rpx;
 	}
-
 	.search-page .history-wrap {
 	  margin-bottom: 20px;
 	}
-
 	.search-page .search-header {
 	  display: flex;
 	  flex-flow: row nowrap;
 	  justify-content: space-between;
 	  align-items: center;
 	}
-
 	.search-page .search-title {
 	  font-size: 30rpx;
 	  font-family: PingFangSC-Semibold, PingFang SC;
@@ -233,7 +229,6 @@
 	  color: rgba(51, 51, 51, 1);
 	  line-height: 42rpx;
 	}
-
 	.search-page .search-clear {
 	  font-size: 24rpx;
 	  font-family: PingFang SC;
@@ -241,7 +236,6 @@
 	  color: #999999;
 	  font-weight: normal;
 	}
-
 	.search-page .search-content {
 	  overflow: hidden;
 	  display: flex;
@@ -250,7 +244,6 @@
 	  align-items: flex-start;
 	  margin-top: 24rpx;
 	}
-
 	.search-page .search-item {
 	  color: #333333;
 	  font-size: 24rpx;
@@ -262,16 +255,13 @@
 	  border-radius: 38rpx;
 	  padding: 12rpx 24rpx;
 	}
-
 	.search-page .hover-history-item {
 	  position: relative;
 	  top: 3rpx;
 	  left: 3rpx;
 	  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1) inset;
 	}
-
 	.add-notes__confirm {
 	  color: #fa4126 !important;
 	}
-
 </style>

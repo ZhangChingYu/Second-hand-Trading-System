@@ -37,6 +37,7 @@ var app = new _vue.default(_objectSpread({
 _App.default));
 
 app.$store = _index.default;
+// app.$store = store;
 createApp(app).$mount();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
 

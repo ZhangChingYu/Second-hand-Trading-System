@@ -48,6 +48,15 @@
 				isNavBar: false,
 			}
 		},
+		mounted() {
+			let that = this;
+			let phone=uni.getStorageSync('user').phone;
+			console.log(phone);
+			that.api.get('/all/likes',{phone}).then(res=>{
+				console.log(res);
+				that.getLikes(res);
+			}).catch(err=>{});
+		},
 		computed: {
 			...mapState({
 				list: state => state.like.list
@@ -55,8 +64,13 @@
 			...mapGetters(['checkedAll'])
 		},
 		methods: {
+			
 			...mapActions(['checkedAllFn','deleteFn']),
-			...mapMutations(['selectedItem'])
+			...mapMutations(['selectedItem']),
+			
+			getLikes(res){
+				console.log(res);
+			}
 		}
 	}
 </script>

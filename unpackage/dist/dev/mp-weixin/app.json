@@ -3,13 +3,13 @@
     "pages/login/index",
     "pages/findback/findback",
     "pages/my/index",
-    "pages/home/index",
     "pages/my-address/address",
     "pages/my-address/add-address",
     "pages/my-like/like",
     "pages/my-realname/realname",
     "pages/my-setup/setup",
     "pages/my-info/info",
+    "pages/home/index",
     "pages/search/index",
     "pages/classify/index",
     "pages/publish/index",
@@ -55,7 +55,7 @@
         "text": "信息"
       },
       {
-        "pagePath": "pages/me/index",
+        "pagePath": "pages/my/index",
         "iconPath": "static/image/me.png",
         "selectedIconPath": "static/image/me_selected.png",
         "text": "我的"

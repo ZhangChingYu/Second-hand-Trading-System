@@ -11,4 +11,11 @@
 	padding: 30rpx 0;
 	border-bottom: 1px solid #cccccc;
 }
+.commitbtn.data-v-047bf487{
+	background-color: #d04b41;
+	width: 30%;
+	justify-content: center;
+	margin-top: 5%;
+	color: white;
+}
 
