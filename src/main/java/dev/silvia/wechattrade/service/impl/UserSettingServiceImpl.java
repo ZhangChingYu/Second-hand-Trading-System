@@ -3,10 +3,11 @@ package dev.silvia.wechattrade.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import dev.silvia.wechattrade.dao.UserDao;
-import dev.silvia.wechattrade.dto.AddressCreateDto;
-import dev.silvia.wechattrade.dto.AddressUpdateDto;
+import dev.silvia.wechattrade.dto.address.AddressCreateDto;
+import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.AddressPacking;
+import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.service.IUserSettingService;
 import dev.silvia.wechattrade.vo.AddressVo;
@@ -26,7 +27,10 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
-    TransferUTF8 transferUTF8 = new TransferUTF8();
+    TransferUTF8 transferUTF8;
+    @Autowired
+    private CheckUserAuthority CUA;
+
     @Override
     public int swapRelatedPhone(String phone) {
         return 0;
@@ -56,6 +60,9 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     // 不同地址用"#"區隔
     @Override
     public int addAddress(AddressCreateDto dto) {   // 格式是 add1#add2#add3#add4#.....addN#
+        if(!CUA.isAuthorized(dto.getPhone())){
+            return 403; // 用戶無權限
+        }
         String sql;
         String new_address;
         User user = getUser(dto.getPhone());
@@ -121,6 +128,9 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
 
     @Override
     public List<AddressVo> showAllAddress(String phone) {
+        if(!CUA.isAuthorized(phone)){
+            return null;
+        }
         User user = getUser(phone);
         String address = transferUTF8.UTF8toC(user.getAddress());
         String default_address = transferUTF8.UTF8toC(user.getDefaultAddress());

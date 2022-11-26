@@ -1,12 +1,11 @@
 package dev.silvia.wechattrade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import dev.silvia.wechattrade.dto.AddressCreateDto;
-import dev.silvia.wechattrade.dto.AddressUpdateDto;
+import dev.silvia.wechattrade.dto.address.AddressCreateDto;
+import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.vo.AddressVo;
 import dev.silvia.wechattrade.vo.AuthenticationVo;
-import io.swagger.models.auth.In;
 
 import java.util.List;
 
@@ -19,6 +18,7 @@ public interface IUserSettingService extends IService<User> {
     List<String> AccountLog(String phone);  // 顯示帳號日誌(了解帳號登入、綁定的詳細信息，若發現異常請儘快處理)
 
     /** 消息接收設置 */
+
 
     /** 地址設置 */
     int addAddress(AddressCreateDto addressCreateDto);       // 添加地址

@@ -1,4 +1,4 @@
-package dev.silvia.wechattrade.dto;
+package dev.silvia.wechattrade.dto.address;
 
 import lombok.Data;
 

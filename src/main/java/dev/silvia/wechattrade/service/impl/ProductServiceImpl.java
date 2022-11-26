@@ -5,8 +5,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dao.ProductDao;
-import dev.silvia.wechattrade.dto.ProductDetailDto;
-import dev.silvia.wechattrade.dto.ProductOutlineDto;
+import dev.silvia.wechattrade.vo.product.ProductDetailVo;
+import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.ProductPacking;
@@ -39,8 +39,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
 
 
     @Override
-    public ProductDetailDto getProductDetail(String number) {
-        ProductDetailDto detail = new ProductDetailDto();
+    public ProductDetailVo getProductDetail(String number) {
+        ProductDetailVo detail = new ProductDetailVo();
         // 查詢product_manage表
         QueryWrapper<Product> productWrapper = new QueryWrapper<>();
         productWrapper.eq("number", number);
@@ -63,37 +63,37 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     }
 
     @Override
-    public List<ProductOutlineDto> getProductByCatalog(String c_number) {
+    public List<ProductOutlineVo> getProductByCatalog(String c_number) {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.eq("catalog", c_number);
         List<Product> products = productDao.selectList(wrapper);
-        List<ProductOutlineDto> productOutlines = productPacking.ProductToOutline(products);
+        List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
     }
 
     @Override
-    public List<ProductOutlineDto> searchProductByKey(String keyword) {
+    public List<ProductOutlineVo> searchProductByKey(String keyword) {
         String key = transferUTF8.CtoUTF8(keyword);
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.like("name", key);
         List<Product> products = productDao.selectList(wrapper);
-        List<ProductOutlineDto> productOutlines = productPacking.ProductToOutline(products);
+        List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
     }
 
     @Override
-    public List<ProductOutlineDto> homepageProducts() {
+    public List<ProductOutlineVo> homepageProducts() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         //wrapper.between("id", 10, 20);
         List<Product> products = productDao.selectList(wrapper);
-        List<ProductOutlineDto> productOutlines = productPacking.ProductToOutline(products);
+        List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
     }
 
     @Override
-    public List<ProductOutlineDto> homepageProductOrder(String type) {
-        List<ProductOutlineDto> products = homepageProducts();
-        List<ProductOutlineDto> temp = new ArrayList<>();
+    public List<ProductOutlineVo> homepageProductOrder(String type) {
+        List<ProductOutlineVo> products = homepageProducts();
+        List<ProductOutlineVo> temp = new ArrayList<>();
         switch (type){
             case "all":
                 return products;
@@ -108,19 +108,19 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
                 QueryWrapper<Product> wrapper = new QueryWrapper<>();
                 wrapper.orderByDesc("like_count");
                 List<Product> product = productDao.selectList(wrapper);
-                List<ProductOutlineDto> outline = productPacking.ProductToOutline(product);
+                List<ProductOutlineVo> outline = productPacking.ProductToOutline(product);
                 return outline;
         }
         return null;
     }
 
     @Override
-    public List<ProductOutlineDto> homepageProductPromote(String number) {
+    public List<ProductOutlineVo> homepageProductPromote(String number) {
         return null;
     }
 
     @Override
-    public List<ProductOutlineDto> homepageProductNew() {
+    public List<ProductOutlineVo> homepageProductNew() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("id");
         List<Product> products = productDao.selectList(wrapper);
@@ -128,7 +128,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     }
 
     @Override
-    public List<ProductOutlineDto> homepageProductLike() {
+    public List<ProductOutlineVo> homepageProductLike() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("like_count");
         List<Product> products = productDao.selectList(wrapper);
@@ -136,15 +136,15 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     }
 
     @Override
-    public List<ProductOutlineDto> homepagePromote(String number) {
+    public List<ProductOutlineVo> homepagePromote(String number) {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("like_count");
         List<Product> products = productDao.selectList(wrapper);
         return get10Outline(products);
     }
 
-    private List<ProductOutlineDto> get10Outline(List<Product> products){
-        List<ProductOutlineDto> outlines = new ArrayList<>();
+    private List<ProductOutlineVo> get10Outline(List<Product> products){
+        List<ProductOutlineVo> outlines = new ArrayList<>();
         for(int i = 0; i < 10; i++){
             outlines.add(productPacking.ProductToOutline(products.get(i)));
         }

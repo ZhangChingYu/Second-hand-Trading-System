@@ -1,8 +1,7 @@
 package dev.silvia.wechattrade.handlers;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import dev.silvia.wechattrade.dto.ProductDetailDto;
-import dev.silvia.wechattrade.dto.ProductOutlineDto;
+import dev.silvia.wechattrade.vo.product.ProductDetailVo;
+import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.User;
 import org.springframework.stereotype.Component;
@@ -16,20 +15,20 @@ public class ProductPacking {
 
     TransferUTF8 transferUTF8 = new TransferUTF8();
 
-    // 將List<Product>類包裝成List<ProductOutlineDto>的方法
-    public List<ProductOutlineDto> ProductToOutline(List<Product> products){
-        List<ProductOutlineDto> productOutlines = new ArrayList<>();
+    // 將List<Product>類包裝成List<ProductOutlineVo>的方法
+    public List<ProductOutlineVo> ProductToOutline(List<Product> products){
+        List<ProductOutlineVo> productOutlines = new ArrayList<>();
         for(int i = 0; i < products.size(); i++){
             Product product = products.get(i);
-            ProductOutlineDto outline = ProductToOutline(product);
+            ProductOutlineVo outline = ProductToOutline(product);
             productOutlines.add(outline);
         }
         return productOutlines;
     }
 
     // 將Product類包裝成ProductOutlineDto的方法
-    public ProductOutlineDto ProductToOutline(Product product){
-        ProductOutlineDto outline = new ProductOutlineDto();
+    public ProductOutlineVo ProductToOutline(Product product){
+        ProductOutlineVo outline = new ProductOutlineVo();
         outline.setName(transferUTF8.UTF8toC(product.getName()));
         outline.setNumber(product.getNumber());
         outline.setPrice(product.getPrice());
@@ -41,8 +40,8 @@ public class ProductPacking {
     }
 
     // 將Product類和User類封裝成ProductDetailDto類的方法
-    public ProductDetailDto ProductUserToDetail(Product product, User seller, List<String> pictures){
-        ProductDetailDto detail = new ProductDetailDto();
+    public ProductDetailVo ProductUserToDetail(Product product, User seller, List<String> pictures){
+        ProductDetailVo detail = new ProductDetailVo();
         // 開始準備商品信息
         detail.setName(transferUTF8.UTF8toC(product.getName()));
         detail.setSeller_name(transferUTF8.UTF8toC(seller.getUserName()));

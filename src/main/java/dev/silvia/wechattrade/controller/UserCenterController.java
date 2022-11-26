@@ -1,12 +1,10 @@
 package dev.silvia.wechattrade.controller;
 
 import com.google.gson.Gson;
-import dev.silvia.wechattrade.dto.AddressCreateDto;
-import dev.silvia.wechattrade.dto.AddressUpdateDto;
+import dev.silvia.wechattrade.dto.address.AddressCreateDto;
+import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.service.IUserSettingService;
-import dev.silvia.wechattrade.vo.AddressVo;
-import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

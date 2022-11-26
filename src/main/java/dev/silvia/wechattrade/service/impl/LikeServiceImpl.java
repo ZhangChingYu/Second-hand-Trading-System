@@ -4,7 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dao.FavoriteInfoDao;
-import dev.silvia.wechattrade.dto.ProductOutlineDto;
+import dev.silvia.wechattrade.handlers.CheckUserAuthority;
+import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
 import dev.silvia.wechattrade.entity.FavoriteInfo;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.User;
@@ -29,13 +30,11 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
-    private Gson gson = new Gson();
+    TransferUTF8 transferUTF8;
     @Autowired
-    TransferUTF8 transferUTF8 = new TransferUTF8();
+    private ProductPacking productPacking;
     @Autowired
-    private ReadFile readFile = new ReadFile();
-    @Autowired
-    private ProductPacking productPacking = new ProductPacking();
+    private CheckUserAuthority CUA;
 
 
     @Override
@@ -50,7 +49,7 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
     @Override
     public int PressLikeButton(String phone, String number) {
 
-        if(authorizedUser(phone)){
+        if(CUA.isAuthorized(phone)){
             if(!checkLike(phone, number)){  // 如果未收藏該商品
                 FavoriteInfo favoriteInfo = new FavoriteInfo();
                 favoriteInfo.setNumber(number);
@@ -77,44 +76,44 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
     }
 
     @Override
-    public List<ProductOutlineDto> showAllLike(String phone) {
-        if(!authorizedUser(phone)){ // 檢測用戶使否有權限
+    public List<ProductOutlineVo> showAllLike(String phone) {
+        if(!CUA.isAuthorized(phone)){ // 檢測用戶使否有權限
             return null;
         }
         QueryWrapper<FavoriteInfo> wrapper = new QueryWrapper<>();
         wrapper.eq("phone", phone);
         List<FavoriteInfo> favoriteList = favoriteInfoDao.selectList(wrapper);
         // 將順序由最新到最舊進行排序
-        List<ProductOutlineDto> outlines = new ArrayList<>();
+        List<ProductOutlineVo> outlines = new ArrayList<>();
         for(int i = favoriteList.size()-1; i >= 0; i--){
             Product product = getProductByNumber(favoriteList.get(i).getNumber());
-            ProductOutlineDto productOutline = productPacking.ProductToOutline(product);
+            ProductOutlineVo productOutline = productPacking.ProductToOutline(product);
             outlines.add(productOutline);
         }
         return outlines;
     }
 
     @Override
-    public List<ProductOutlineDto> showLikeByOrder(String phone, Integer type) {
-        List<ProductOutlineDto> outlines = showAllLike(phone);
+    public List<ProductOutlineVo> showLikeByOrder(String phone, Integer type) {
+        List<ProductOutlineVo> outlines = showAllLike(phone);
         switch (type){
             case 0: // 添加日期:新-->舊
                 return outlines;
             case 1: // 添加日期:舊-->新
-                List<ProductOutlineDto> reverseOutlines = new ArrayList<>();
+                List<ProductOutlineVo> reverseOutlines = new ArrayList<>();
                 for(int i = outlines.size()-1; i >= 0; i--){
                     reverseOutlines.add(outlines.get(i));
                 }
                 return reverseOutlines;
             case 2: // 商品價格:低-->高
-                List<ProductOutlineDto> LowToHighOutline = new ArrayList<>();
+                List<ProductOutlineVo> LowToHighOutline = new ArrayList<>();
                 LowToHighOutline = outlines;
-                LowToHighOutline.sort(Comparator.comparingDouble(ProductOutlineDto::getPrice));
+                LowToHighOutline.sort(Comparator.comparingDouble(ProductOutlineVo::getPrice));
                 return LowToHighOutline;
             case 3: // 商品價格:高-->低
-                List<ProductOutlineDto> HighToLowOutline = new ArrayList<>();
+                List<ProductOutlineVo> HighToLowOutline = new ArrayList<>();
                 HighToLowOutline = outlines;
-                HighToLowOutline.sort(Comparator.comparingDouble(ProductOutlineDto::getPrice).reversed());
+                HighToLowOutline.sort(Comparator.comparingDouble(ProductOutlineVo::getPrice).reversed());
                 return HighToLowOutline;
             default: break;
         }
@@ -122,9 +121,9 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
     }
 
     @Override
-    public List<ProductOutlineDto> showLikeByCatalog(String phone, String catalog) {
-        List<ProductOutlineDto> allLikes = showAllLike(phone);
-        List<ProductOutlineDto> filtered = new ArrayList<>();
+    public List<ProductOutlineVo> showLikeByCatalog(String phone, String catalog) {
+        List<ProductOutlineVo> allLikes = showAllLike(phone);
+        List<ProductOutlineVo> filtered = new ArrayList<>();
         for(int i = 0; i < allLikes.size(); i++){
             if(allLikes.get(i).getNumber().contains(catalog)){
                 filtered.add(allLikes.get(i));
@@ -155,16 +154,6 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
         String sql = "select * from product_manage where number='"+number+"'";
         Product product = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(Product.class));
         return product;
-    }
-
-    boolean authorizedUser(String phone){  // check if the user is authorized.
-        String findUser = "select * from user_info where phone='"+phone+"'";
-        User user = jdbcTemplate.queryForObject(findUser, new BeanPropertyRowMapper<>(User.class));
-        boolean authorization = false;
-        if(user.getAuthority() == 0){
-            authorization = true;
-        }
-        return authorization;
     }
 
     void changeProductLikeCount(String number, String type){

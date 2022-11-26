@@ -1,11 +1,11 @@
-package dev.silvia.wechattrade.dto;
+package dev.silvia.wechattrade.vo.product;
 
 import lombok.Data;
 
 import java.util.List;
 
 @Data
-public class ProductDetailDto {     // 商品信息顯示用
+public class ProductDetailVo {     // 商品信息顯示用
     private String name;        // 商品名稱
     private String seller_name; // 賣家
     private String address;     // 地址
