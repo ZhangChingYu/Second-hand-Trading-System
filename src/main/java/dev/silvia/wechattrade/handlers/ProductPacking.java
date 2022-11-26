@@ -55,7 +55,7 @@ public class ProductPacking {
         likeVo.setNumber(product.getNumber());
         likeVo.setPrice(product.getPrice());
         likeVo.setCoverPic(getCoverPic(product));
-        likeVo.setIntro(product.getIntro());
+        likeVo.setIntro(transferUTF8.UTF8toC(product.getIntro()));
         return likeVo;
     }
 
