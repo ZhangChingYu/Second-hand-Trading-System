@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dao.FavoriteInfoDao;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
+import dev.silvia.wechattrade.vo.product.ProductLikeVo;
 import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
 import dev.silvia.wechattrade.entity.FavoriteInfo;
 import dev.silvia.wechattrade.entity.Product;
@@ -76,7 +77,7 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
     }
 
     @Override
-    public List<ProductOutlineVo> showAllLike(String phone) {
+    public List<ProductLikeVo> showAllLike(String phone) {
         if(!CUA.isAuthorized(phone)){ // 檢測用戶使否有權限
             return null;
         }
@@ -84,46 +85,46 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
         wrapper.eq("phone", phone);
         List<FavoriteInfo> favoriteList = favoriteInfoDao.selectList(wrapper);
         // 將順序由最新到最舊進行排序
-        List<ProductOutlineVo> outlines = new ArrayList<>();
+        List<ProductLikeVo> likeVos = new ArrayList<>();
         for(int i = favoriteList.size()-1; i >= 0; i--){
             Product product = getProductByNumber(favoriteList.get(i).getNumber());
-            ProductOutlineVo productOutline = productPacking.ProductToOutline(product);
-            outlines.add(productOutline);
+            ProductLikeVo productLikeVo = productPacking.ProductToProductLike(product);
+            likeVos.add(productLikeVo);
         }
-        return outlines;
+        return likeVos;
     }
 
     @Override
-    public List<ProductOutlineVo> showLikeByOrder(String phone, Integer type) {
-        List<ProductOutlineVo> outlines = showAllLike(phone);
+    public List<ProductLikeVo> showLikeByOrder(String phone, Integer type) {
+        List<ProductLikeVo> likeVos = showAllLike(phone);
         switch (type){
             case 0: // 添加日期:新-->舊
-                return outlines;
+                return likeVos;
             case 1: // 添加日期:舊-->新
-                List<ProductOutlineVo> reverseOutlines = new ArrayList<>();
-                for(int i = outlines.size()-1; i >= 0; i--){
-                    reverseOutlines.add(outlines.get(i));
+                List<ProductLikeVo> reverseLikeVos = new ArrayList<>();
+                for(int i = likeVos.size()-1; i >= 0; i--){
+                    reverseLikeVos.add(likeVos.get(i));
                 }
-                return reverseOutlines;
+                return reverseLikeVos;
             case 2: // 商品價格:低-->高
-                List<ProductOutlineVo> LowToHighOutline = new ArrayList<>();
-                LowToHighOutline = outlines;
-                LowToHighOutline.sort(Comparator.comparingDouble(ProductOutlineVo::getPrice));
-                return LowToHighOutline;
+                List<ProductLikeVo> LowToHighLikeVos = new ArrayList<>();
+                LowToHighLikeVos = likeVos;
+                LowToHighLikeVos.sort(Comparator.comparingDouble(ProductLikeVo::getPrice));
+                return LowToHighLikeVos;
             case 3: // 商品價格:高-->低
-                List<ProductOutlineVo> HighToLowOutline = new ArrayList<>();
-                HighToLowOutline = outlines;
-                HighToLowOutline.sort(Comparator.comparingDouble(ProductOutlineVo::getPrice).reversed());
-                return HighToLowOutline;
+                List<ProductLikeVo> HighToLowLikeVos = new ArrayList<>();
+                HighToLowLikeVos = likeVos;
+                HighToLowLikeVos.sort(Comparator.comparingDouble(ProductLikeVo::getPrice).reversed());
+                return HighToLowLikeVos;
             default: break;
         }
         return null;
     }
 
     @Override
-    public List<ProductOutlineVo> showLikeByCatalog(String phone, String catalog) {
-        List<ProductOutlineVo> allLikes = showAllLike(phone);
-        List<ProductOutlineVo> filtered = new ArrayList<>();
+    public List<ProductLikeVo> showLikeByCatalog(String phone, String catalog) {
+        List<ProductLikeVo> allLikes = showAllLike(phone);
+        List<ProductLikeVo> filtered = new ArrayList<>();
         for(int i = 0; i < allLikes.size(); i++){
             if(allLikes.get(i).getNumber().contains(catalog)){
                 filtered.add(allLikes.get(i));
