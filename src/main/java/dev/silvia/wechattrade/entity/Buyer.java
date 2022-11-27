@@ -19,7 +19,7 @@ public class Buyer implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String number;
+    private Integer exchangeId;
 
     private String phone;
 

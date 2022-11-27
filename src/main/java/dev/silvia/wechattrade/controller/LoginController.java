@@ -6,17 +6,16 @@ import dev.silvia.wechattrade.dto.logindto.LostPasswordDto;
 import dev.silvia.wechattrade.dto.response.Result;
 import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.User;
-import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
 import dev.silvia.wechattrade.entity.WXAuth;
-import dev.silvia.wechattrade.service.IWeixinService;
+import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
 import dev.silvia.wechattrade.service.ILoginService;
+import dev.silvia.wechattrade.service.IWeixinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
-import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -83,9 +82,8 @@ public class LoginController {
     }
 
     //获取验证码
-    @RequestMapping(value ="/captcha",method = RequestMethod.GET)
-    public ResponseEntity<?> captcha(@RequestBody Map<String, Object> param){
-        String phone = param.get("phone").toString();
+    @RequestMapping(value ="/captcha/{phone}",method = RequestMethod.GET)
+    public ResponseEntity<?> captcha(@RequestParam String phone){
         String captcha;
         // 如果用户输入的用户名，格式符合邮箱，为邮箱登陆
         if (phone.matches(em)) {

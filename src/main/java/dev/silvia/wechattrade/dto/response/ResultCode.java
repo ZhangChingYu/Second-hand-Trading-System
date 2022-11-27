@@ -23,17 +23,9 @@ public enum ResultCode {
     USER_PASSWORD_EXIST("555", "用户密码为旧密码"),
 
     /* 数据错误：50001-599999 */
-    AUTH_CODE_ERROR("111", "验证码错误"),
+    AUTH_CODE_ERROR("111", "验证码错误");
 
 
-    /* 权限错误：70001-79999 */
-    PERMISSION_UNAUTHENTICATED("70001", "此操作需要登陆系统！"),
-    PERMISSION_UNAUTHORISE("70002", "权限不足，无权操作！"),
-    PERMISSION_EXPIRE("70003", "登录状态过期！"),
-    PERMISSION_TOKEN_EXPIRED("70004", "token已过期"),
-    PERMISSION_LIMIT("70005", "访问次数受限制"),
-    PERMISSION_TOKEN_INVALID("70006", "无效token"),
-    PERMISSION_SIGNATURE_ERROR("70007", "签名失败");
     //操作代码
     String code;
     //提示信息
