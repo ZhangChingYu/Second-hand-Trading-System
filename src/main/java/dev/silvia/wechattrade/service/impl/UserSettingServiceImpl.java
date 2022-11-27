@@ -56,7 +56,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
         return null;
     }
 
-    // 地址在數據庫中的統一格式(收件人-手機號-所在地區-詳細地址)
+    // 地址在數據庫中的統一格式(收件人%手機號%所在地區%詳細地址)
     // 不同地址用"#"區隔
     @Override
     public int addAddress(AddressCreateDto dto) {   // 格式是 add1#add2#add3#add4#.....addN#
@@ -67,7 +67,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
         String new_address;
         User user = getUser(dto.getPhone());
         String old_address = user.getAddress();
-        String address = transferUTF8.CtoUTF8(new AddressPacking().ObjectToAddress(dto.getName(), dto.getReceiverPhone(), dto.getRegion(), dto.getAddressDetail()));
+        String address = transferUTF8.CtoUTF8(new AddressPacking().ObjectToAddress(dto.getReceiverName(), dto.getReceiverPhone(), dto.getRegion(), dto.getAddressDetail()));
         if(dto.getIsDefaultAddress() == 1){
             if(checkDefaultExist(dto.getPhone())){  // 如果是空的
                 sql = "update user_info set default_address='"+address+"' where phone='"+dto.getPhone()+"'";
@@ -86,7 +86,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     public int addressEditing(AddressUpdateDto dto) {   // 更新地址
         User user = getUser(dto.getPhone());
         String sql;
-        String new_address = new AddressPacking().ObjectToAddress(dto.getName(), dto.getReceiverPhone(), dto.getRegion(), dto.getAddressDetail());
+        String new_address = new AddressPacking().ObjectToAddress(dto.getReceiverName(), dto.getReceiverPhone(), dto.getRegion(), dto.getAddressDetail());
         if(dto.getRank()==0){   // 直接更新
             if(user.getDefaultAddress() == null || user.getDefaultAddress().isEmpty()){
                 return 4001; // 請求數據不存在

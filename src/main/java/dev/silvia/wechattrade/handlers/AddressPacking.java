@@ -11,7 +11,7 @@ public class AddressPacking {
     public AddressVo StringToAddressVo(String address_str, Integer rank){
         if(address_str != null){
             AddressVo addressVo = new AddressVo();
-            String[] address_parts = address_str.split("-");
+            String[] address_parts = address_str.split("%");
             addressVo.setReceiverName(address_parts[0]);
             addressVo.setReceiverPhone(address_parts[1]);
             addressVo.setRegion(address_parts[2]);
@@ -37,7 +37,7 @@ public class AddressPacking {
     }
 
     public String ObjectToAddress(String name, String phone, String region, String detail){
-        String address = name+"-"+phone+"-"+region+"-"+detail;
+        String address = name+"%"+phone+"%"+region+"%"+detail;
         return address;
     }
 }
