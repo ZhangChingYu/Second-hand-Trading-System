@@ -159,6 +159,42 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 顶部搜索 */
 .top-box {
 	display: flex;
@@ -258,4 +294,23 @@
 .add-notes__confirm {
   color: #fa4126 !important;
 }
+/* 搜索结果 */
+.search-result {
+	/* margin: 2rem auto; */
+}
+.search-res-page .res-title {
+	margin: 1rem 0;
+	font-size: 1.2rem;
+	text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+}
+.search-result .result-item {
+	margin: 2rem auto;
+	width: 100%;
+	height: 50vw;
+	border-radius: 1rem 1rem 0 0;
+	background-color: #ffffff;
+	border-bottom: 2px solid #dddddd ;
+	border-right: 2px solid #dddddd ;
+}
+
 

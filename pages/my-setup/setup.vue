@@ -1,7 +1,7 @@
 <template>
 	<view class='setup-content'>
 		<view class="setup-content-list">
-			<view class="setup-content-item">
+			<view class="setup-content-item" @click="logout">
 				<view>退出登录</view>
 				<view>></view>
 			</view>
@@ -22,6 +22,22 @@
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+				
+			}
+		
+		},
+		methods: {
+			logout(){
+				uni.removeStorageSync('user');
+				uni.redirectTo({
+					url:'/pages/login/index'
+				})	
+			}
+		},
+		}
 </script>
 
 <style scoped>

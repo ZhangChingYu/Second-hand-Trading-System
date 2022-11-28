@@ -6,15 +6,6 @@ Vue.use(Vuex)
 import address from './modules/address.js'
 //收藏
 import like from './modules/like.js'
-
-export default new Vuex.Store({
-	
-	modules:{
-		address,
-		like,
-	}
-})
-
 const store = new Vuex.Store({
 	state:{
 		isLogin:false,
@@ -38,4 +29,11 @@ const store = new Vuex.Store({
 		
 	}
 	
+})
+export default new Vuex.Store({
+	
+	modules:{
+		address,
+		like,
+	}
 })

@@ -1,5 +1,5 @@
 <template>
-	<view>
+	<view class="home">
 		<!-- 搜索框 -->
 		<view class="top-search" @click="toSearch">
 			<text></text>
@@ -27,10 +27,10 @@
 		
 		<!-- 主页分类 -->
 		<view class="type-home">
-			<text><text>书籍</text></text>
-			<text><text>数码</text></text>
-			<text><text>零食</text></text>
-			<text><text>日用</text></text>
+			<text @click="toCatalog('B')"><text>书籍</text></text>
+			<text @click="toCatalog('D')"><text>数码</text></text>
+			<text @click="toCatalog('M')"><text>美妆</text></text>
+			<text @click="toCatalog('F')"><text>日用</text></text>
 		</view>
 		
 		<!-- 预约物品 -->
@@ -80,15 +80,16 @@
 		
 		<!-- 底部 -->
 		<view class="footer">
-			<text>{{footerMsg}}</text>
+			<Nomore notips="没有更多了.."></Nomore>
 		</view>
 	</view>
 </template>
 
 <script>
 	import Goods from "@/components/goods/index.vue"
+	import Nomore from "@/components/nomore/index.vue"
 	export default {
-		components:{Goods},
+		components:{Goods,Nomore},
 	    data() {
 	        return {
 	            swiperItem: [
@@ -102,13 +103,22 @@
 				footerMsg:'-----没有更多数据了-----'
 	        }
 	    },
-		created() {
+		onShow() {
 			this.getMostbookItem();
 			this.getNewProduct();
+			
 		},
 	    methods: {
+			toCatalog(type){
+				uni.switchTab({
+					// TODO 此处不支持传值，待解决
+					// url: `/pages/classify/index?cnumber=${type}`
+					url: "/pages/classify/index"
+				});
+			},
+			
 	        toSearch(){
-				uni.redirectTo({
+				uni.navigateTo({
 					url:'/pages/search/index'
 				})
 			},
@@ -117,9 +127,7 @@
 				try{
 					let res = await this.api.get('/homepage/new/products')
 					that.mostbookItem = res;
-					that.mostbookItem.forEach(item=>{
-						item.coverPic = "data:image/jpg;base64," + item.coverPic;
-					})
+					
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -131,9 +139,7 @@
 				try{
 					let res = await this.api.get('/homepage/like/products')
 					that.newProductItem = res;
-					that.newProductItem.forEach(item=>{
-						item.coverPic = "data:image/jpg;base64," + item.coverPic;
-					})
+					
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -180,6 +186,7 @@
 		margin: 1rem auto;
 	}
 	.swiper {
+
 		height: 300rpx;
 	}
 	.swiper-item  {
@@ -210,11 +217,11 @@
 		background-image: url('../../static/image/book.png');	
 	}
 	.type-home > text:nth-child(2){
-		background-image: url('../../static/image/earphone.png');
+		background-image: url('../../static/image/camera.png');
 	}
 	
 	.type-home > text:nth-child(3){
-		background-image: url('../../static/image/chicken.png');
+		background-image: url('../../static/image/meizhuang.png');
 	}
 	.type-home > text:nth-child(4){
 		background-image: url('../../static/image/paper.png');
@@ -313,11 +320,7 @@
 		justify-content: space-between;
 	}
 	
-	.footer {
-		margin: 2px auto;
-		text-align: center;
-		color: #cacaca;
-	}
+	
 	
 	
 </style>

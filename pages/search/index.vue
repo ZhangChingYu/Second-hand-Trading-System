@@ -51,7 +51,21 @@
 			</view>
 		</view>
 			
-		<view v-else>详情</view>
+		<view v-else class="search-res-page">
+			
+			<view class="res-title">共找到{{searchResult.length}}条结果</view>
+			<view class="search-result">
+				<!-- 每个搜索结果 -->
+				<view 
+					class="result-item"
+					v-for="(item,index) of searchResult"
+					:key="index"
+				>
+					<Search :goods="item"></Search>
+				</view>	
+			</view>
+			<Nomore notips="没有更多了...."></Nomore>
+		</view>
 		
 	</view>
 	
@@ -59,12 +73,18 @@
 </template>
 
 <script>
+	import Goods from '@/components/goods/index.vue'
+	import Search from '@/components/search/index.vue'
+	import Nomore from '@/components/nomore/index.vue'
+	
 	export default {
+		components:{Goods,Search,Nomore},
 		data() {
 			return {
 				
 				historyWords: [],
 				popularWords: [],
+				searchResult:[],
 				searchValue: '',
 				isIndex : true,
 				exitTitle:'返回'
@@ -86,6 +106,7 @@
 					this.historyWords = uni.getStorageSync('historyWords') || [];
 				}catch(e){
 					//TODO handle the exception
+					this.$toast(e);
 					this.historyWords = [];
 				}
 			},
@@ -96,6 +117,7 @@
 				}catch(e){
 					//TODO handle the exception
 					this.popularWords = [];
+					this.$toast(e);
 				}
 			},
 		
@@ -122,13 +144,26 @@
 				this.search();
 			},
 			
-			search(){
-				let keyWords = this.searchValue;
+			async search(){
+				let keyword = this.searchValue;
 				this.isIndex = false;
-				this.historyWords = this.historyWords.filter(item=>item != keyWords);
-				this.historyWords.unshift(keyWords);
-				// 存储
-				uni.setStorageSync('historyWords',this.historyWords);
+				if(keyword.trim() !== ''){
+					this.historyWords = this.historyWords.filter(item=>item != keyword);
+					this.historyWords.unshift(keyword);
+					// 存储
+					uni.setStorageSync('historyWords',this.historyWords);
+				}
+				
+				// 发送请求
+				try{
+					let res = await this.api.get('/search/products',{keyword});
+					this.searchResult = res;
+					console.log(this.searchResult);
+				}catch(e){
+					//TODO handle the exception
+					this.$toast(e)
+				}
+				
 				
 			},
 			clearOneHistory(index){
@@ -155,9 +190,10 @@
 			}
 		}		
 	}
+
 </script>
 
-<style>
+<style >
 	
 	/* 顶部搜索 */
 	.top-box {
@@ -209,19 +245,23 @@
 	  height: 100vh;
 	  padding: 0 30rpx;
 	}
+
 	
 	.search-page .search-wrap {
 	  margin-top: 44rpx;
 	}
+
 	.search-page .history-wrap {
 	  margin-bottom: 20px;
 	}
+
 	.search-page .search-header {
 	  display: flex;
 	  flex-flow: row nowrap;
 	  justify-content: space-between;
 	  align-items: center;
 	}
+
 	.search-page .search-title {
 	  font-size: 30rpx;
 	  font-family: PingFangSC-Semibold, PingFang SC;
@@ -229,6 +269,7 @@
 	  color: rgba(51, 51, 51, 1);
 	  line-height: 42rpx;
 	}
+
 	.search-page .search-clear {
 	  font-size: 24rpx;
 	  font-family: PingFang SC;
@@ -236,6 +277,7 @@
 	  color: #999999;
 	  font-weight: normal;
 	}
+
 	.search-page .search-content {
 	  overflow: hidden;
 	  display: flex;
@@ -244,6 +286,7 @@
 	  align-items: flex-start;
 	  margin-top: 24rpx;
 	}
+
 	.search-page .search-item {
 	  color: #333333;
 	  font-size: 24rpx;
@@ -255,13 +298,39 @@
 	  border-radius: 38rpx;
 	  padding: 12rpx 24rpx;
 	}
+
 	.search-page .hover-history-item {
 	  position: relative;
 	  top: 3rpx;
 	  left: 3rpx;
 	  box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1) inset;
 	}
+
 	.add-notes__confirm {
 	  color: #fa4126 !important;
 	}
+	
+	/* 搜索结果 */
+	
+	
+	.search-result {
+		/* margin: 2rem auto; */
+	}
+	
+	.search-res-page .res-title {
+		margin: 1rem 0;
+		font-size: 1.2rem;
+		text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+	}
+	.search-result .result-item {
+		margin: 2rem auto;
+		width: 100%;
+		height: 50vw;
+		border-radius: 1rem 1rem 0 0;
+		background-color: #ffffff;
+		border-bottom: 2px solid #dddddd ;
+		border-right: 2px solid #dddddd ;
+		
+	}
+
 </style>

@@ -1,0 +1,7 @@
+
+.no-more {
+	margin: 2px auto;
+	text-align: center;
+	color: #cacaca;
+}
+

@@ -1464,7 +1464,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -2668,9 +2668,9 @@ function normalizeComponent (
 /***/ }),
 
 /***/ 12:
-/*!*******************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/store/index.js ***!
-  \*******************************************************************************/
+/*!***********************************************!*\
+  !*** D:/毕业实习/second-hand/test/store/index.js ***!
+  \***********************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2683,15 +2683,6 @@ var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 13));
 var _address = _interopRequireDefault(__webpack_require__(/*! ./modules/address.js */ 14));
 
 var _like = _interopRequireDefault(__webpack_require__(/*! ./modules/like.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}_vue.default.use(_vuex.default); //地址
-var _default =
-new _vuex.default.Store({
-
-  modules: {
-    address: _address.default,
-    like: _like.default } });exports.default = _default;
-
-
-
 var store = new _vuex.default.Store({
   state: {
     isLogin: false,
@@ -2711,7 +2702,16 @@ var store = new _vuex.default.Store({
       state.token = loginToken;
     } },
 
-  getters: {} });
+  getters: {} });var _default =
+
+
+
+
+new _vuex.default.Store({
+
+  modules: {
+    address: _address.default,
+    like: _like.default } });exports.default = _default;
 
 /***/ }),
 
@@ -3973,31 +3973,16 @@ module.exports = index_cjs;
 /***/ }),
 
 /***/ 14:
-/*!*****************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/store/modules/address.js ***!
-  \*****************************************************************************************/
+/*!*********************************************************!*\
+  !*** D:/毕业实习/second-hand/test/store/modules/address.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
   state: {
-    list: [
-    {
-      name: "王一",
-      tel: "18511773322",
-      city: "北京市海淀区",
-      detail: "3号楼",
-      isDefault: false },
-
-    {
-      name: "王二",
-      tel: "18511773311",
-      city: "北京市朝阳区",
-      detail: "1号楼",
-      isDefault: true }] },
-
-
+    list: [] },
 
   getters: {},
 
@@ -4036,10 +4021,212 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 
-/***/ 146:
-/*!**********************************************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/components/uni/mpvue-citypicker/city-data/province.js ***!
-  \**********************************************************************************************************************/
+/***/ 15:
+/*!******************************************************!*\
+  !*** D:/毕业实习/second-hand/test/store/modules/like.js ***!
+  \******************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  state: {
+    LikeList: [],
+    selectedList: [] },
+
+  getters: {
+    //判断是否全选
+    checkedAll: function checkedAll(state) {
+      return LikeList.length === state.selectedList.length;
+    } },
+
+  mutations: {
+    //全选
+    checkAll: function checkAll(state) {
+      state.selectedList = LikeList.map(function (v) {
+        v.checked = true;
+        return v.id;
+      });
+    },
+    //全不选
+    unCheckAll: function unCheckAll(state) {
+      LikeList.forEach(function (v) {
+        v.checked = false;
+      });
+      state.selectedList = [];
+    },
+    //单选
+    selectedItem: function selectedItem(index) {
+      var id = index;
+      var i = state.selectedList.indexOf(id);
+      //如果selectedList数组里已经存在就代表他之前就是选中状态，checked=false，并且selectedList删除
+      if (i > -1) {
+        LikeList[index].checked = false;
+        return state.selectedList.splice(i, 1);
+      }
+      //如果之前没有选中，把当前id添加到list
+      LikeList[index].checked = true;
+      state.selectedList.push(id);
+    },
+    delete: function _delete(state) {
+      LikeList = LikeList.filter(function (v) {
+        return state.selectedList.indexOf(v.id) === -1;
+      });
+    } },
+
+  actions: {
+    checkedAllFn: function checkedAllFn(_ref) {var commit = _ref.commit,getters = _ref.getters;
+      getters.checkedAll ? commit("unCheckAll") : commit("checkAll");
+    },
+    deleteFn: function deleteFn(_ref2) {var commit = _ref2.commit;
+      commit('delete');
+      commit('unCheckAll');
+      uni.showToast({
+        title: '删除成功',
+        icon: 'none' });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 16:
+/*!***********************************************!*\
+  !*** D:/毕业实习/second-hand/test/common/uni.css ***!
+  \***********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
+
+/***/ }),
+
+/***/ 17:
+/*!**********************************************!*\
+  !*** D:/毕业实习/second-hand/test/common/api.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function(uni) {var commoneUrl = "http://localhost:8080"; //公共路径 
+// const commoneUrl  = "http://192.168.137.1:8080"; //手机测试公共路径 
+
+var userId = uni.getStorageSync("user").id; //用户id
+
+//post请求封装
+function postRequest(url, data, type) {var _this = this;
+  var promise = new Promise(function (resolve, reject) {
+    var postData = data;
+    var that = _this;
+    uni.request({
+      url: commoneUrl + url,
+      data: postData,
+      method: 'POST',
+
+      header: {
+        'content-type': 'application/json',
+        'token': uni.getStorageSync('token') //token可以不要，看后端
+      },
+
+      success: function success(res) {
+        resolve(res.data);
+
+      },
+      fail: function fail(e)
+      {
+        reject('网络出错');
+      } });
+
+  });
+  return promise;
+}
+
+//get请求封装
+function getRequest(url, data, type) {
+  var promise = new Promise(function (resolve, reject) {
+    var postData = data;
+    uni.request({
+      url: commoneUrl + url,
+      data: postData,
+      method: "GET",
+      dataType: 'json',
+      header: {
+        'content-type': 'application/json',
+        'token': uni.getStorageSync('token') },
+
+      success: function success(res) {
+        resolve(res.data);
+      },
+      fail: function fail(e) {
+        reject('网络出错');
+      } });
+
+  });
+  return promise;
+}
+//put请求封装
+function putRequest(url, data) {
+  var promise = new Promise(function (resolve, reject) {
+    var postData = data;
+    uni.request({
+      url: commoneUrl + url,
+      data: postData,
+      method: "PUT",
+      dataType: 'json',
+      header: {
+        'content-type': 'application/json',
+        'token': uni.getStorageSync('token') },
+
+      success: function success(res) {
+        resolve(res.data);
+      },
+      fail: function fail(e) {
+        reject('网络出错');
+      } });
+
+  });
+  return promise;
+}
+//del请求封装
+function delRequest(url, data) {
+  var promise = new Promise(function (resolve, reject) {
+    var postData = data;
+    uni.request({
+      url: commoneUrl + url,
+      data: postData,
+      method: "DELETE",
+      dataType: 'json',
+      header: {
+        'content-type': 'application/json',
+        'token': uni.getStorageSync('token') },
+
+      success: function success(res) {
+        resolve(res.data);
+      },
+      fail: function fail(e) {
+        reject('网络出错');
+      } });
+
+  });
+  return promise;
+}
+module.exports = {
+  post: postRequest,
+  get: getRequest,
+  put: putRequest,
+  del: delRequest,
+  ip: commoneUrl,
+  userId: userId };
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
+
+/***/ 173:
+/*!**************************************************************************************!*\
+  !*** D:/毕业实习/second-hand/test/components/uni/mpvue-citypicker/city-data/province.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -4186,10 +4373,10 @@ provinceData;exports.default = _default;
 
 /***/ }),
 
-/***/ 147:
-/*!******************************************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/components/uni/mpvue-citypicker/city-data/city.js ***!
-  \******************************************************************************************************************/
+/***/ 174:
+/*!**********************************************************************************!*\
+  !*** D:/毕业实习/second-hand/test/components/uni/mpvue-citypicker/city-data/city.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -5700,10 +5887,10 @@ cityData;exports.default = _default;
 
 /***/ }),
 
-/***/ 148:
-/*!******************************************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/components/uni/mpvue-citypicker/city-data/area.js ***!
-  \******************************************************************************************************************/
+/***/ 175:
+/*!**********************************************************************************!*\
+  !*** D:/毕业实习/second-hand/test/components/uni/mpvue-citypicker/city-data/area.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18253,227 +18440,6 @@ areaData;exports.default = _default;
 
 /***/ }),
 
-/***/ 15:
-/*!**************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/store/modules/like.js ***!
-  \**************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  state: {
-    list: [
-    {
-      checked: false,
-      id: 1,
-      name: "拉面1",
-      intro: "简介按时把说不定",
-      address: "地址碍事梨ofhad两艘if",
-      price: "35",
-      imgUrl: "../../static/image/shop3.jfif" },
-
-    {
-      checked: false,
-      id: 2,
-      name: "拉面2",
-      intro: "简介抒发感受梵蒂冈",
-      address: "地址能覆盖那些承诺",
-      price: "30",
-      imgUrl: "../../static/image/shop1.jpg" }],
-
-
-    selectedList: [] },
-
-  getters: {
-    //判断是否全选
-    checkedAll: function checkedAll(state) {
-      return state.list.length === state.selectedList.length;
-    } },
-
-  mutations: {
-    //全选
-    checkAll: function checkAll(state) {
-      state.selectedList = state.list.map(function (v) {
-        v.checked = true;
-        return v.id;
-      });
-    },
-    //全不选
-    unCheckAll: function unCheckAll(state) {
-      state.list.forEach(function (v) {
-        v.checked = false;
-      });
-      state.selectedList = [];
-    },
-    //单选
-    selectedItem: function selectedItem(state, index) {
-      var id = state.list[index].id;
-      var i = state.selectedList.indexOf(id);
-      //如果selectedList数组里已经存在就代表他之前就是选中状态，checked=false，并且selectedList删除
-      if (i > -1) {
-        state.list[index].checked = false;
-        return state.selectedList.splice(i, 1);
-      }
-      //如果之前没有选中，把当前id添加到list
-      state.list[index].checked = true;
-      state.selectedList.push(id);
-    },
-    delete: function _delete(state) {
-      state.list = state.list.filter(function (v) {
-        return state.selectedList.indexOf(v.id) === -1;
-      });
-    } },
-
-  actions: {
-    checkedAllFn: function checkedAllFn(_ref) {var commit = _ref.commit,getters = _ref.getters;
-      getters.checkedAll ? commit("unCheckAll") : commit("checkAll");
-    },
-    deleteFn: function deleteFn(_ref2) {var commit = _ref2.commit;
-      commit('delete');
-      commit('unCheckAll');
-      uni.showToast({
-        title: '删除成功',
-        icon: 'none' });
-
-    } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
-/***/ 16:
-/*!*******************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/common/uni.css ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-// extracted by mini-css-extract-plugin
-    if(false) { var cssReload; }
-  
-
-/***/ }),
-
-/***/ 17:
-/*!******************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/common/api.js ***!
-  \******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function(uni) {var commoneUrl = "http://localhost:8080"; //公共路径 
-// const commoneUrl  = "http://192.168.137.1:8080"; //手机测试公共路径 
-
-var userId = uni.getStorageSync("user").id; //用户id
-
-//post请求封装
-function postRequest(url, data, type) {var _this = this;
-  var promise = new Promise(function (resolve, reject) {
-    var postData = data;
-    var that = _this;
-    uni.request({
-      url: commoneUrl + url,
-      data: postData,
-      method: 'POST',
-
-      header: {
-        'content-type': 'application/json',
-        'token': uni.getStorageSync('token') //token可以不要，看后端
-      },
-
-      success: function success(res) {
-        resolve(res.data);
-
-      },
-      fail: function fail(e)
-      {
-        reject('网络出错');
-      } });
-
-  });
-  return promise;
-}
-
-//get请求封装
-function getRequest(url, data, type) {
-  var promise = new Promise(function (resolve, reject) {
-    var postData = data;
-    uni.request({
-      url: commoneUrl + url,
-      data: postData,
-      method: "GET",
-      dataType: 'json',
-      header: {
-        'content-type': 'application/json',
-        'token': uni.getStorageSync('token') },
-
-      success: function success(res) {
-        resolve(res.data);
-      },
-      fail: function fail(e) {
-        reject('网络出错');
-      } });
-
-  });
-  return promise;
-}
-//put请求封装
-function putRequest(url, data) {
-  var promise = new Promise(function (resolve, reject) {
-    var postData = data;
-    uni.request({
-      url: commoneUrl + url,
-      data: postData,
-      method: "PUT",
-      dataType: 'json',
-      header: {
-        'content-type': 'application/json',
-        'token': uni.getStorageSync('token') },
-
-      success: function success(res) {
-        resolve(res.data);
-      },
-      fail: function fail(e) {
-        reject('网络出错');
-      } });
-
-  });
-  return promise;
-}
-//del请求封装
-function delRequest(url, data) {
-  var promise = new Promise(function (resolve, reject) {
-    var postData = data;
-    uni.request({
-      url: commoneUrl + url,
-      data: postData,
-      method: "DELETE",
-      dataType: 'json',
-      header: {
-        'content-type': 'application/json',
-        'token': uni.getStorageSync('token') },
-
-      success: function success(res) {
-        resolve(res.data);
-      },
-      fail: function fail(e) {
-        reject('网络出错');
-      } });
-
-  });
-  return promise;
-}
-module.exports = {
-  post: postRequest,
-  get: getRequest,
-  put: putRequest,
-  del: delRequest,
-  ip: commoneUrl,
-  userId: userId };
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-
 /***/ 2:
 /*!***********************************!*\
   !*** (webpack)/buildin/global.js ***!
@@ -25286,7 +25252,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -25307,14 +25273,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -25400,7 +25366,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"Second-hand-Trading-System","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -25815,13 +25781,26 @@ internalMixin(Vue);
 /***/ }),
 
 /***/ 5:
-/*!***************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/pages.json ***!
-  \***************************************************************************/
+/*!*******************************************!*\
+  !*** D:/毕业实习/second-hand/test/pages.json ***!
+  \*******************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
 
+
+/***/ }),
+
+/***/ 51:
+/*!****************************************************!*\
+  !*** D:/毕业实习/second-hand/test/static/iconfont.css ***!
+  \****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+// extracted by mini-css-extract-plugin
+    if(false) { var cssReload; }
+  
 
 /***/ })
 

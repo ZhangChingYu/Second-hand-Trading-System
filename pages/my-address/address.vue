@@ -1,14 +1,14 @@
 <template>
 	<view class="my-path-list">
 		<view class="path-list">
-			<view class="path-item" v-for='(item,index) in list' :key='index' @tap="toAddAddress(index)">
+			<view class="path-item" v-for='(item,index) in addressList' :key='index' @tap="toAddAddress(index)">
 				<view class="item-main">
-					<view class="item-name" style="padding-right: 10rpx;" >{{item.name}}</view>
-					<view>{{item.tel}}</view>
+					<view class="item-name" style="padding-right: 10rpx;" >{{item.receiverName}}</view>
+					<view>{{item.receiverPhone}}</view>
+					<view class="active" v-if='item.isDefault'>默认</view>
 				</view>
 				<view class="item-main">
-					<view class="active" v-if='item.isDefault'>默认</view>
-					<view>{{item.city}} {{item.detail}}</view>
+					<view>{{item.region}} {{item.addressDetail}}</view>
 				</view>
 			</view>
 		</view>
@@ -24,12 +24,23 @@
 	export default{
 		data(){
 			return{
-				
+				addressList:[],
 			}
 		},
-		computed:{
-			...mapState({
-				list:state=>state.address.list
+		mounted() {
+			let that = this;
+			let phone=uni.getStorageSync('user').phone;
+			//获取地址列表
+			that.api.get('/setting/addresses',{phone}).then(res=>{
+				this.addressList=res;
+				this.addressList.forEach(item=>{
+					this.$set(item,'isDefault',false);
+				})
+				
+				//设置默认地址
+				that.api.get('/default/address',{phone}).then(res=>{
+					this.addressList[res.rank].isDefault=true;
+				})
 			})
 		},
 		methods:{
@@ -38,7 +49,7 @@
 				
 				let addressObj=JSON.stringify({
 					index:index,
-					item:this.list[index]
+					item:this.addressList[index]
 				})
 				
 				uni.navigateTo({
@@ -75,6 +86,7 @@
 		padding-top: 10rpx;
 	}
 	.path-item{
+		margin-top: 10rpx;
 		padding: 10rpx 10rpx;
 		border:1rpx solid #d04b41;
 		border-radius: 10rpx;
@@ -93,5 +105,7 @@
 		color: white;
 		border-radius: 15rpx;
 		text-align: center;
+		width: 100rpx;
+		margin-left: 50rpx;
 	}
 </style>

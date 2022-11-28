@@ -2,6 +2,7 @@
   "navigationBarTitleText": "主页",
   "enablePullDownRefresh": true,
   "usingComponents": {
-    "goods": "/components/goods/index"
+    "goods": "/components/goods/index",
+    "nomore": "/components/nomore/index"
   }
 }

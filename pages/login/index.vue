@@ -39,8 +39,8 @@
 			return{
 				title:'欢迎来到闲置虫虫',
 				forms:{
-					username:'15023591218@qq.com',
-					password:'123456789',
+					username:'15078818663',
+					password:'tony1234',
 				},
 				// 判断是邮箱还是手机号/微信号
 				userType:'',			
@@ -95,21 +95,21 @@
 			},
 			
 			// 登录/注册/忘记密码
-			login(){
+			async login(){
 				let that = this;
 					// 判断账号密码是否填写合法
 				if(!this.err.password && !this.err.username){
 					this.logining();
 					
-										
-					// 我自己封装的api
-					that.api.post('/login',that.forms).then(res=>{
+					try{
+						let res = await that.api.post('/login',that.forms);
 						that.getlogin(res);
-					}).catch(err=>{
+						
+					}catch(e){
+						//TODO handle the exception
 						this.loginHide();
 						that.$toast(err);
-					})
-					
+					}
 					
 				}else {
 					if(this.err.password) this.$toast('密码8-16位数字或字母');
@@ -117,21 +117,17 @@
 				}
 				
 				
-				
 			},
 			register(){
 				this.$toast('注册');
 			},
 			forgetPsd(){
-				wx.navigateTo({
-					url: "../findback/findback"
-				});
+				this.$toast('忘记密码');
 			},
 			
 			getlogin(res){
 				console.log(res);
 				this.loginHide();
-				
 				if(res.code === "666"){
 					let user = res.user;
 					let token = res.token;
@@ -147,12 +143,13 @@
 				uni.setStorage({
 					key:'token',data:token
 				})
-				
 				this.$toast('登录成功！',1270);
-				//
+				
+				// 跳转主页
 				setTimeout(()=>{
 					uni.switchTab({
-						url: '/pages/my/index'
+						url: `/pages/home/index`
+						
 					});
 				},500);
 				
@@ -162,20 +159,45 @@
 				
 			},
 			
-				
-			
 						
 			// 第三方登录
 			async WXLogin(){
-				// this.notImplMsg();
-				// 获取code 小程序专有，用户登录凭证。
 				
 				let that = this;
 				
-				let {encryptedData, iv} = await uni.getUserProfile({
+				// 定义发送的数据
+				let encryptedData = '';
+				let iv = '';
+				let code = '';
+				
+				
+				uni.getUserProfile({
 					desc: "获取用户基本资料",
 					success : (res)=>{
-						resolve(res);
+						encryptedData = res.encryptedData;
+						iv = res.iv;
+						
+						// 开始登录
+						that.logining();
+						
+						// 获取code
+						uni.login({
+							provider: 'weixin',
+							success: (loginRes) =>{			
+								if(loginRes.errMsg === "login:ok"){
+									code = loginRes.code;
+									
+									// 发送登录请求
+									that.sendwcLoginReq(encryptedData,iv,code);
+									
+								}
+							},
+							fail() {
+								that.$toast('登陆失败');
+							}
+						});
+					
+						
 					},
 					 // 用户取消登录后的提示
 					fail: (res)=>{
@@ -185,31 +207,33 @@
 							showCancel:false
 						});
 					}
-				});
-				// 开始登录
-				that.logining();
+				})
 				
-				let {code} = await uni.login({
-					provider: 'weixin',
-					success: (loginRes) =>{			
-						if(loginRes.errMsg === "login:ok"){
-							resolve(loginRes);
-						}
-					}
-				});
 				
-				//发送code,获取sissionId
-				let {sessionId} = await that.api.get('/weixin/sessionId',{code});
 				
-				// 发送其他信息,正式登录
-				let res = await that.api.post('/weixin/authLogin',{encryptedData,iv,sessionId})
-				
-				// 登录前的操作
-				that.getlogin(res);
 					
 			},
 			QQLogin(){
 				this.$toast('功能开发中');
+			},
+			
+			async sendwcLoginReq(encryptedData,iv,code){
+				const that = this;
+				
+				try{
+					//发送code,获取sissionId
+					let {sessionId} = await that.api.get('/weixin/sessionId',{code});
+					
+					// 发送其他信息,正式登录
+					let res = await that.api.post('/weixin/authLogin',{encryptedData,iv,sessionId});
+					
+					// 登录前的操作
+					that.getlogin(res);
+					
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
 			}
 			
 		},

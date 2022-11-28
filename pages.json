@@ -1,110 +1,13 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		
-
+		
 		{
 			"path": "pages/login/index",
 			"style": {
 				"navigationBarTitleText": "登录"
 			}
 		},
-		{
-			"path": "pages/findback/findback",
-			"style": {
-				"navigationBarTitleText": "找回密码"
-			}
-		},
-		{
-		    "path" : "pages/my/index",
-		    "style" :                                                                                    
-		    {
-				"navigationBarTitleText": "个人中心",
-				"navigationBarBackgroundColor": "#d04b41",
-		        "app-plus": {
-		        	"titleNView": false,
-					"scrollIndicator": "none"
-		        }
-		    }
-		    
-		},
-		{
-		    "path" : "pages/my-address/address",
-		    "style" :                                                                                    
-		    {
-				"navigationBarTitleText": "收货地址",
-				"navigationBarBackgroundColor": "#d04b41",
-		        "app-plus": {
-		        	"titleNView": false,
-					"scrollIndicator": "none"
-		        }
-		    }
-		    
-		},
-		{
-		    "path" : "pages/my-address/add-address",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "新增地址",
-		        "navigationBarBackgroundColor": "#d04b41",
-		        "app-plus": {
-					"scrollIndicator": "none"
-		        }
-		    }
-		    
-		},
-		{
-		    "path" : "pages/my-like/like",
-		    "style" :                                                                                    
-		    {
-				"navigationBarTitleText": "我的收藏",
-				"navigationBarBackgroundColor": "#d04b41",
-		        "app-plus": {
-		        	"titleNView": false,
-					"scrollIndicator": "none"
-		        }
-		    }
-		    
-		},
-		{
-		    "path" : "pages/my-realname/realname",
-		    "style" :                                                                                    
-		    {
-				"navigationBarTitleText": "实名认证",
-				"navigationBarBackgroundColor": "#d04b41",
-		        "app-plus": {
-		        	"titleNView": false,
-					"scrollIndicator": "none"
-		        }
-		    }
-		    
-		},
-		{
-		    "path" : "pages/my-setup/setup",
-		    "style" :                                                                                    
-		    {
-				"navigationBarTitleText": "设置",
-				"navigationBarBackgroundColor": "#d04b41",
-		        "app-plus": {
-		        	"titleNView": false,
-					"scrollIndicator": "none"
-		        }
-		    }
-		    
-		},
-		{
-		    "path" : "pages/my-info/info",
-		    "style" :                                                                                    
-		    {
-				"navigationBarTitleText": "个人信息",
-				"navigationBarBackgroundColor": "#d04b41",
-		        "app-plus": {
-		        	"titleNView": false,
-					"scrollIndicator": "none"
-		        }
-		    }
-		    
-		},
-		
 	    {
             "path" : "pages/home/index",
             "style" :                                                                                    
@@ -123,6 +26,7 @@
 		    }
 		    
 		},
+		
         {
             "path" : "pages/classify/index",
             "style" :                                                                                    
@@ -150,15 +54,109 @@
             }
             
         },
+		// 我的
+		
 		{
-		    "path" : "pages/me/index",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "我的",
-		        "enablePullDownRefresh": true
-		    }
-		    
+			"path": "pages/findback/findback",
+			"style": {
+				"navigationBarTitleText": "找回密码"
+			}
 		},
+		{
+			"path" : "pages/my/index",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "个人中心",
+				"navigationBarBackgroundColor": "#d04b41",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+			
+		},
+		{
+			"path" : "pages/my-address/address",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "收货地址",
+				"navigationBarBackgroundColor": "#d04b41",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+			
+		},
+		{
+			"path" : "pages/my-address/add-address",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "新增地址",
+				"navigationBarBackgroundColor": "#d04b41",
+				"app-plus": {
+					"scrollIndicator": "none"
+				}
+			}
+			
+		},
+		{
+			"path" : "pages/my-like/like",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "我的收藏",
+				"navigationBarBackgroundColor": "#d04b41",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+			
+		},
+		{
+			"path" : "pages/my-realname/realname",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "实名认证",
+				"navigationBarBackgroundColor": "#d04b41",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+			
+		},
+		{
+			"path" : "pages/my-setup/setup",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "设置",
+				"navigationBarBackgroundColor": "#d04b41",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+			
+		},
+		{
+			"path" : "pages/my-info/info",
+			"style" :                                                                                    
+			{
+				"navigationBarTitleText": "个人信息",
+				"navigationBarBackgroundColor": "#d04b41",
+				"app-plus": {
+					"titleNView": false,
+					"scrollIndicator": "none"
+				}
+			}
+			
+		},
+		
+		
+		
+		
+		//------------------------------------
         {
             "path" : "pages/detail/index",
             "style" :                                                                                    

@@ -18,6 +18,7 @@
 	padding-top: 10rpx;
 }
 .path-item.data-v-0c0262f1{
+	margin-top: 10rpx;
 	padding: 10rpx 10rpx;
 	border:1rpx solid #d04b41;
 	border-radius: 10rpx;
@@ -36,5 +37,7 @@
 	color: white;
 	border-radius: 15rpx;
 	text-align: center;
+	width: 100rpx;
+	margin-left: 50rpx;
 }
 

@@ -1,0 +1,87 @@
+<template>
+	<view class="goods-search" @click="toGoodsDetail">
+		
+		<view class="pic">
+			<image v-if="goods.coverPic" :src="'data:image/jpg;base64,' + goods.coverPic" ></image>
+			<image v-else :src="noCoverUrl" ></image>
+		</view>
+		
+		<view class="msg">
+			<h2 class="title">{{goods.name}}对方金克拉的肌肤发简历的发点击发</h2>
+		
+			<view class="price">￥{{goods.price.toFixed(2)}}</view>
+		</view>
+		
+	</view>
+</template>
+
+<script>
+	export default {
+		props:['goods'],
+		name:"search",
+		data() {
+			return {
+				
+			};
+		},
+		methods:{
+			toGoodsDetail(){
+				const that = this;
+				uni.navigateTo({
+					url:`/pages/detail/index?number=${that.goods.number}`
+				})
+			},
+		}
+	}
+</script>
+
+<style>
+	.goods-search {
+		position: relative;
+		margin-top: 2rem;
+		height: 50vw;
+		overflow: hidden;
+	}
+	.goods-search .pic {
+		float: left;
+		height: 100%;
+		width: 50%;
+		border-radius: 1rem 0 0 1rem;
+		overflow: hidden;
+	}
+	.goods-search .pic image {
+		width: 100%;
+		height: 100%;
+		background-color: antiquewhite;
+	}
+	
+	
+	.goods-search .msg {
+		float: right;
+		width: 50%;
+		height: 100%;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+		align-items: center;
+		width: 50%;
+		
+	}
+	.goods-search .title {
+		margin: 0 0.5rem;
+		max-height: 50%;
+		font-size: 1rem;
+		font-weight: 450;
+		word-break: break-all;
+		overflow: hidden;
+		-webkit-line-clamp: 2;
+		text-overflow: ellipsis;
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+	}
+	.goods-search .price {
+		color: red;
+		font-size: 1rem;
+	}
+	
+</style>

@@ -28,11 +28,13 @@
 	border: 2rpx solid coral;
 	width: 200rpx;
 	height: 150rpx;
+	text-overflow: ellipsis;
 }
 .shop-info.data-v-3e458e27 {
 	margin-left: 20rpx;
 }
 .shop-name.data-v-3e458e27 {
+	width: 400rpx;
 	font-weight: 500;
 	font-size: large;
 }
@@ -65,7 +67,7 @@
 	font-size: large;
 	line-height: 100rpx;
 }
-.shop-else-list.data-v-3e458e27{
+.shop-else-list.data-v-3e458e27 {
 	background-color: #F7F7F7;
 	display: flex;
 	align-items: center;
@@ -73,7 +75,7 @@
 	position: absolute;
 	left: 0;
 	right: 0;
-	top:0;
+	top: 0;
 	bottom: 0;
 }
 

@@ -6,8 +6,9 @@
 			</view>
 			<view>
 				<view class="my-text">
-					<view name="user-name" style="font-weight: 900; font-size: 200%; ">{{user.userName}}</view>
-					<view name="user-info" style="padding-left: 200rpx; padding-top: 30rpx;padding-bottom: 10rpx;"
+					<view name="user-name" style="font-weight: 900; font-size: 200%; " v-if="user.userName.length>10">{{user.userName.substr(0,10)}}...</view>
+					<view v-else>{{user.userName}}</view>
+					<view name="user-info" style=" padding-top: 30rpx;padding-bottom: 10rpx;"
 						@click="info">个人信息></view>
 				</view>
 				<view class="hr"></view>
@@ -69,9 +70,9 @@
 			}
 		},
 
-		mounted() {
+		onLoad() {
 			let res = uni.getStorageSync('user');
-			console.log(res);
+			console.log(123);
 			this.user.userName = res.userName;
 
 		},
@@ -114,7 +115,7 @@
 		color: white;
 		padding-top: 70rpx;
 		padding-left: 20rpx;
-		display: flex;
+		justify-content: space-between;
 		font-size: 150%;
 	}
 

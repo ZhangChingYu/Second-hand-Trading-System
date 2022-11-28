@@ -1,21 +1,6 @@
 export default{
 	state:{
-		list:[
-			{
-				name:"王一",
-				tel:"18511773322",
-				city:"北京市海淀区",
-				detail:"3号楼",
-				isDefault:false
-			},
-			{
-				name:"王二",
-				tel:"18511773311",
-				city:"北京市朝阳区",
-				detail:"1号楼",
-				isDefault:true
-			},
-		]
+		list:[]
 	},
 	getters:{
 		

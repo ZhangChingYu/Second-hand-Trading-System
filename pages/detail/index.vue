@@ -1,5 +1,6 @@
 <template>
 	<view class="detail" v-if="product">
+		<!-- <view class="top-exit" @click="back1">{{exit}}</view> -->
 		<view class="top-message">
 			<view class="saller">
 				<image class="avatar" :src="src"></image>
@@ -11,7 +12,7 @@
 			</view>
 			
 			<view class="publish-message">
-				<view class="publish-time">{{product.date}}发布</view>
+				<view v-if="product.date" class="publish-time">{{product.date}}发布</view>
 				
 				<view class="publish-address">
 					<text class="iconfont">&#xe8ff;</text>
@@ -38,7 +39,7 @@
 					
 					<swiper-item v-for="(item,index) of product.pictures" :key="index">
 						<view class="swiper-item">
-							<image :src="'data:image/jpg;base64,' +item" mode="aspectFit"></image>
+							<image :src="'data:image/jpg;base64,' + item" mode="aspectFit"></image>
 						</view>
 					</swiper-item>
 					
@@ -48,10 +49,10 @@
 		</view>
 		
 		<view class="goods-otherMsg">
-			<view class="report">
+			<view class="report" @click="report">
 				{{reportText}}
 			</view>
-			<view >收藏：3</view>
+			<view >收藏：{{product.like_count}}</view>
 			<view >留言：1</view>
 			<view >浏览：42</view>
 		</view>
@@ -68,15 +69,19 @@
 		</view>
 		
 		<view class="footer-operator">
-			<view class="like">
+			<view class="like" @click="like" v-if="!isLike">
 				<text class="iconfont">&#xe643;</text>
 				<text >收藏</text>
 			</view>
-			<view class="contact">
+			<view class="notlike" @click="like" v-else>
+				<text class="iconfont hasLiake">&#xe625;</text>
+				<text >取消收藏</text>
+			</view>
+			<view class="contact" @click="contact">
 				<text class="iconfont">&#xe66f;</text>
 				<text>联系卖家</text>
 			</view>
-			<view class="book-goods">预约商品</view>
+			<view class="book-goods" @click="book">预约商品</view>
 			
 		</view>
 	</view>
@@ -88,8 +93,13 @@
 			return {
 					number:'',
 					product:{},
+					user:{},
+					isLike:false,
+					
 					priceType:'一口价',
 					reportText:'举报',
+					exit:"返回",
+					
 					src:'https://gw.alicdn.com/bao/uploaded/i1/409278028/O1CN01FvxEsF29AsLyowUSq_!!409278028.jpg_300x300q90.jpg_.webp',
 					src1:'https://t10.baidu.com/it/u=957786636,1203753998&fm=58'
 				}
@@ -98,20 +108,74 @@
 			this.number = option.number
 		},
 		mounted() {
+			this.user = uni.getStorageSync('user');
 			this.getMessage();
 			
 		},
 		methods: {
+			back1(){
+				uni.navigateBack({
+						delta:1,//返回层数
+					})
+			},
 			async getMessage(){
 				const that = this;			
 				try{
-					let res = await this.api.get('/product/detail',{'number':this.number});
-					console.log(res)
-					this.product = res
+					this.product = await this.api.get('/product/detail',{'number':this.number});
+					this.isLike = await this.api.get('/like',{number:this.number,phone:this.user.phone})
 				}catch(e){
 					//TODO handle the exception
+					this.$toast(e)
 				}
+			},
+			// 举报
+			report(){
+				this.$toast('举报');
+			},
+			// 收藏
+			async like(){
+				let that = this;
+				
+				this.isLike = !this.isLike;
+				try{
+					let res = await this.api.post('/like',{number:this.number,phone:this.user.phone});
+					let title = '';
+					switch(res){
+						case 201:
+							title = '收藏成功！';
+							break;
+							
+						case 204:
+							title = '取消收藏成功！';
+							break;
+							
+						case 403:
+							title = '用户无权限！';
+							this.isLike = !this.isLike;
+							break;
+							
+						case 404:
+							title = '收藏失败！';
+							this.isLike = !this.isLike;
+							break;
+					}
+					that.$toast(title);
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e);
+				}
+			},
+			
+			// 联系卖家
+			contact(){
+				this.$toast('联系卖家');
+			},
+			
+			// 预约商品
+			book(){
+				this.$toast('预约商品');
 			}
+			
 		},
 	}
 </script>
@@ -133,18 +197,26 @@
 	}
 	
 	.detail {
-		
+		min-height: 100vh;
+	}
+	.detail .top-exit {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 3em;
+		height: 1.5em;
+		font-size: 1rem;
+		background-color: #c13535;
+		color: #fff;
+		border-radius: 0 0 1.5em 0;
 	}
 	/* 顶部基本信息 */
 	.top-message {
-		/* display:flex; */
-		/* justify-content: space-around; */
-		/* align-items: center; */
 		
 		height: 9rem;
 	}
 	.top-message .saller {
-		margin-left: 1rem;
+		margin-left: 3rem;
 		display: flex;
 		align-items: center;
 		height: 6rem;
@@ -339,16 +411,19 @@
 	.footer-operator .iconfont{
 		font-size: 1.2rem;
 	}
-	.footer-operator .like {
-		width: 5rem;
+	.footer-operator .like,.footer-operator .notlike {
+		width: 7rem;
 		background-color: #fff;
 	}
+	.hasLiake {
+		color: red;
+	},
 	.footer-operator .contact {
 		width: 7rem;
 		background-color: #fff;
 	}
 	.footer-operator .book-goods {
-		width: 12rem;
+		width: 10rem;
 		background-color: #c13535;
 		border-radius: 0.5rem;
 		color: #fff;

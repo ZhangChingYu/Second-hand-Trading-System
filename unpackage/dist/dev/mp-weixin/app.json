@@ -1,6 +1,11 @@
 {
   "pages": [
     "pages/login/index",
+    "pages/home/index",
+    "pages/search/index",
+    "pages/classify/index",
+    "pages/publish/index",
+    "pages/message/index",
     "pages/findback/findback",
     "pages/my/index",
     "pages/my-address/address",
@@ -9,12 +14,6 @@
     "pages/my-realname/realname",
     "pages/my-setup/setup",
     "pages/my-info/info",
-    "pages/home/index",
-    "pages/search/index",
-    "pages/classify/index",
-    "pages/publish/index",
-    "pages/message/index",
-    "pages/me/index",
     "pages/detail/index"
   ],
   "subPackages": [],
@@ -62,5 +61,6 @@
       }
     ]
   },
-  "usingComponents": {}
+  "usingComponents": {},
+  "sitemapLocation": "sitemap.json"
 }

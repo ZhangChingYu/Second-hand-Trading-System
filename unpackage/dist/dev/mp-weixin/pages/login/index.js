@@ -1,9 +1,9 @@
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/login/index"],{
 
 /***/ 18:
-/*!*********************************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/main.js?{"page":"pages%2Flogin%2Findex"} ***!
-  \*********************************************************************************************************/
+/*!*************************************************************************!*\
+  !*** D:/毕业实习/second-hand/test/main.js?{"page":"pages%2Flogin%2Findex"} ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19,9 +19,9 @@ wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;createPage(_index.def
 /***/ }),
 
 /***/ 19:
-/*!**************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/pages/login/index.vue ***!
-  \**************************************************************************************/
+/*!******************************************************!*\
+  !*** D:/毕业实习/second-hand/test/pages/login/index.vue ***!
+  \******************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -60,9 +60,9 @@ component.options.__file = "pages/login/index.vue"
 /***/ }),
 
 /***/ 20:
-/*!*********************************************************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/pages/login/index.vue?vue&type=template&id=4586967a&scoped=true& ***!
-  \*********************************************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** D:/毕业实习/second-hand/test/pages/login/index.vue?vue&type=template&id=4586967a&scoped=true& ***!
+  \*************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -82,9 +82,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 21:
-/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/pages/login/index.vue?vue&type=template&id=4586967a&scoped=true& ***!
-  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/毕业实习/second-hand/test/pages/login/index.vue?vue&type=template&id=4586967a&scoped=true& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns, recyclableRender, components */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -118,9 +118,9 @@ render._withStripped = true
 /***/ }),
 
 /***/ 22:
-/*!***************************************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/pages/login/index.vue?vue&type=script&lang=js& ***!
-  \***************************************************************************************************************/
+/*!*******************************************************************************!*\
+  !*** D:/毕业实习/second-hand/test/pages/login/index.vue?vue&type=script&lang=js& ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -134,9 +134,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 23:
-/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/pages/login/index.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--12-1!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/script.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/毕业实习/second-hand/test/pages/login/index.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -182,8 +182,8 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
     return {
       title: '欢迎来到闲置虫虫',
       forms: {
-        username: '15023591218@qq.com',
-        password: '123456789' },
+        username: '15078818663',
+        password: 'tony1234' },
 
       // 判断是邮箱还是手机号/微信号
       userType: '',
@@ -238,26 +238,25 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
     },
 
     // 登录/注册/忘记密码
-    login: function login() {var _this = this;
-      var that = this;
-      // 判断账号密码是否填写合法
-      if (!this.err.password && !this.err.username) {
-        this.logining();
+    login: function login() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                that = _this;
+                // 判断账号密码是否填写合法
+                if (!(!_this.err.password && !_this.err.username)) {_context.next = 16;break;}
+                _this.logining();_context.prev = 3;_context.next = 6;return (
 
 
-        // 我自己封装的api
-        that.api.post('/login', that.forms).then(function (res) {
-          that.getlogin(res);
-        }).catch(function (err) {
-          _this.loginHide();
-          that.$toast(err);
-        });
+                  that.api.post('/login', that.forms));case 6:res = _context.sent;
+                that.getlogin(res);_context.next = 14;break;case 10:_context.prev = 10;_context.t0 = _context["catch"](3);
 
 
-      } else {
-        if (this.err.password) this.$toast('密码8-16位数字或字母');else
-        this.$toast('填写不符合要求');
-      }
+                //TODO handle the exception
+                _this.loginHide();
+                that.$toast(err);case 14:_context.next = 17;break;case 16:
+
+
+
+                if (_this.err.password) _this.$toast('密码8-16位数字或字母');else
+                _this.$toast('填写不符合要求');case 17:case "end":return _context.stop();}}}, _callee, null, [[3, 10]]);}))();
 
 
 
@@ -266,15 +265,12 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
       this.$toast('注册');
     },
     forgetPsd: function forgetPsd() {
-      wx.navigateTo({
-        url: "../findback/findback" });
-
+      this.$toast('忘记密码');
     },
 
     getlogin: function getlogin(res) {
       console.log(res);
       this.loginHide();
-
       if (res.code === "666") {
         var user = res.user;
         var token = res.token;
@@ -290,12 +286,13 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
         uni.setStorage({
           key: 'token', data: token });
 
-
         this.$toast('登录成功！', 1270);
-        //
+
+        // 跳转主页
         setTimeout(function () {
           uni.switchTab({
-            url: '/pages/my/index' });
+            url: "/pages/home/index" });
+
 
         }, 500);
 
@@ -306,62 +303,89 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
     },
 
 
-
-
     // 第三方登录
-    WXLogin: function WXLogin() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, _yield$uni$getUserPro, encryptedData, iv, _yield$uni$login, code, _yield$that$api$get, sessionId, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                // this.notImplMsg();
-                // 获取code 小程序专有，用户登录凭证。
+    WXLogin: function WXLogin() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, encryptedData, iv, code;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
 
-                that = _this2;_context.next = 3;return (
+                that = _this2;
 
-                  uni.getUserProfile({
-                    desc: "获取用户基本资料",
-                    success: function success(res) {
-                      resolve(res);
-                    },
-                    // 用户取消登录后的提示
-                    fail: function fail(res) {
-                      uni.showModal({
-                        title: "授权用户信息失败！",
-                        // 是否显示取消按钮，默认为 true
-                        showCancel: false });
-
-                    } }));case 3:_yield$uni$getUserPro = _context.sent;encryptedData = _yield$uni$getUserPro.encryptedData;iv = _yield$uni$getUserPro.iv;
-
-                // 开始登录
-                that.logining();_context.next = 9;return (
-
-                  uni.login({
-                    provider: 'weixin',
-                    success: function success(loginRes) {
-                      if (loginRes.errMsg === "login:ok") {
-                        resolve(loginRes);
-                      }
-                    } }));case 9:_yield$uni$login = _context.sent;code = _yield$uni$login.code;_context.next = 13;return (
+                // 定义发送的数据
+                encryptedData = '';
+                iv = '';
+                code = '';
 
 
+                uni.getUserProfile({
+                  desc: "获取用户基本资料",
+                  success: function success(res) {
+                    encryptedData = res.encryptedData;
+                    iv = res.iv;
 
-                  that.api.get('/weixin/sessionId', { code: code }));case 13:_yield$that$api$get = _context.sent;sessionId = _yield$that$api$get.sessionId;_context.next = 17;return (
+                    // 开始登录
+                    that.logining();
+
+                    // 获取code
+                    uni.login({
+                      provider: 'weixin',
+                      success: function success(loginRes) {
+                        if (loginRes.errMsg === "login:ok") {
+                          code = loginRes.code;
+
+                          // 发送登录请求
+                          that.sendwcLoginReq(encryptedData, iv, code);
+
+                        }
+                      },
+                      fail: function fail() {
+                        that.$toast('登陆失败');
+                      } });
 
 
-                  that.api.post('/weixin/authLogin', { encryptedData: encryptedData, iv: iv, sessionId: sessionId }));case 17:res = _context.sent;
 
-                // 登录前的操作
-                that.getlogin(res);case 19:case "end":return _context.stop();}}}, _callee);}))();
+                  },
+                  // 用户取消登录后的提示
+                  fail: function fail(res) {
+                    uni.showModal({
+                      title: "授权用户信息失败！",
+                      // 是否显示取消按钮，默认为 true
+                      showCancel: false });
+
+                  } });case 5:case "end":return _context2.stop();}}}, _callee2);}))();
+
+
+
+
 
     },
     QQLogin: function QQLogin() {
       this.$toast('功能开发中');
+    },
+
+    sendwcLoginReq: function sendwcLoginReq(encryptedData, iv, code) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var that, _yield$that$api$get, sessionId, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                that = _this3;_context3.prev = 1;_context3.next = 4;return (
+
+
+
+                  that.api.get('/weixin/sessionId', { code: code }));case 4:_yield$that$api$get = _context3.sent;sessionId = _yield$that$api$get.sessionId;_context3.next = 8;return (
+
+
+                  that.api.post('/weixin/authLogin', { encryptedData: encryptedData, iv: iv, sessionId: sessionId }));case 8:res = _context3.sent;
+
+                // 登录前的操作
+                that.getlogin(res);_context3.next = 15;break;case 12:_context3.prev = 12;_context3.t0 = _context3["catch"](1);
+
+
+                //TODO handle the exception
+                that.$toast(_context3.t0);case 15:case "end":return _context3.stop();}}}, _callee3, null, [[1, 12]]);}))();
+
     } }) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
 /***/ 27:
-/*!***********************************************************************************************************************************************!*\
-  !*** D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/pages/login/index.vue?vue&type=style&index=0&id=4586967a&scoped=true&lang=css& ***!
-  \***********************************************************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** D:/毕业实习/second-hand/test/pages/login/index.vue?vue&type=style&index=0&id=4586967a&scoped=true&lang=css& ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -375,9 +399,9 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 28:
-/*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/毕业实习/second-hand/Second-hand-Trading-System-client-ui/pages/login/index.vue?vue&type=style&index=0&id=4586967a&scoped=true&lang=css& ***!
-  \***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/*!*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/mini-css-extract-plugin/dist/loader.js??ref--6-oneOf-1-0!./node_modules/css-loader/dist/cjs.js??ref--6-oneOf-1-1!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--6-oneOf-1-2!./node_modules/postcss-loader/src??ref--6-oneOf-1-3!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!D:/毕业实习/second-hand/test/pages/login/index.vue?vue&type=style&index=0&id=4586967a&scoped=true&lang=css& ***!
+  \*******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

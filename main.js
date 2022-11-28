@@ -1,7 +1,6 @@
 import App from './App'
 
 import store from 'store/index.js'
-Vue.prototype.$store=store;
 import './common/uni.css'
 
 // 引入自己封装的api
@@ -25,7 +24,6 @@ const app = new Vue({
 	store,
     ...App
 })
-app.$store = store;
 // app.$store = store;
 app.$mount()
 // #endif
