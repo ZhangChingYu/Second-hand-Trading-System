@@ -6,6 +6,8 @@ import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.IUserSettingService;
+import dev.silvia.wechattrade.vo.help.HelpCatalogVo;
+import dev.silvia.wechattrade.vo.help.HelpQuestionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -66,12 +68,12 @@ public class UserCenterController {
 
     @PassToken
     @RequestMapping(value = "/setting/help", method = RequestMethod.GET)
-    public List<String> getHelpCatalogs(){
+    public List<HelpCatalogVo> getHelpCatalogs(){
         return service.getQuestionCatalog();
     }
     @PassToken
     @RequestMapping(value = "/setting/help/catalog", method = RequestMethod.GET)
-    public List<String> getHelpQuestions(HttpServletRequest request){
+    public List<HelpQuestionVo> getHelpQuestions(HttpServletRequest request){
         h_catalog = request.getParameter("catalog");
         return service.getQuestions(h_catalog);
     }

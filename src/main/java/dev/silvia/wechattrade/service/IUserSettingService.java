@@ -6,6 +6,8 @@ import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.vo.AddressVo;
 import dev.silvia.wechattrade.vo.AuthenticationVo;
+import dev.silvia.wechattrade.vo.help.HelpCatalogVo;
+import dev.silvia.wechattrade.vo.help.HelpQuestionVo;
 
 import java.util.List;
 
@@ -29,8 +31,8 @@ public interface IUserSettingService extends IService<User> {
     int setAsDefaultAddress(String phone, Integer rank);    // 將某一地址設置成默認地址
 
     /** 幫助 */
-    List<String> getQuestionCatalog();     // 獲取問題分類
-    List<String> getQuestions(String catalog);  // 根據問題分類顯示常見的問題
+    List<HelpCatalogVo> getQuestionCatalog();     // 獲取問題分類
+    List<HelpQuestionVo> getQuestions(String catalog);  // 根據問題分類顯示常見的問題
     String getAnswer(String catalog, String question);     // 根據常見問題查找相應的解答
 
     /** 意見反饋 */

@@ -15,11 +15,14 @@ import dev.silvia.wechattrade.service.IUserSettingService;
 import dev.silvia.wechattrade.vo.AddressVo;
 import dev.silvia.wechattrade.vo.AuthenticationVo;
 import dev.silvia.wechattrade.vo.FeedbackVo;
+import dev.silvia.wechattrade.vo.help.HelpCatalogVo;
+import dev.silvia.wechattrade.vo.help.HelpQuestionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -184,21 +187,32 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     }
 
     @Override
-    public List<String> getQuestionCatalog(){
+    public List<HelpCatalogVo> getQuestionCatalog(){
+        List<HelpCatalogVo> catalogVos = new ArrayList<>();
         List<String> catalogs = readFile.getSubFileNames(HELP_URL);
-        return catalogs;
+        for(int i = 0 ; i < catalogs.size(); i++){
+            HelpCatalogVo catalog = new HelpCatalogVo();
+            catalog.setIndex(i);
+            catalog.setCatalog(catalogs.get(i));
+            catalogVos.add(catalog);
+        }
+        return catalogVos;
     }
 
     @Override
-    public List<String> getQuestions(String catalog) {
+    public List<HelpQuestionVo> getQuestions(String catalog) {
+        List<HelpQuestionVo> questionVos = new ArrayList<>();
         String root = HELP_URL+"/"+catalog;
         List<String> questions = readFile.getSubFileNames(root);
         if(questions != null || !questions.isEmpty()){
             for(int i = 0 ; i < questions.size(); i++){
-                questions.set(i, questions.get(i).replaceAll(".txt", ""));
+                HelpQuestionVo question = new HelpQuestionVo();
+                question.setIndex(i);
+                question.setQuestion(questions.get(i).replaceAll(".txt", ""));
+                questionVos.add(question);
             }
         }
-        return questions;
+        return questionVos;
     }
 
     @Override
