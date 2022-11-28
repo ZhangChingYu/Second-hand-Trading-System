@@ -81,4 +81,13 @@ public class UserCenterController {
         h_question = request.getParameter("question");
         return service.getAnswer(h_catalog, h_question);
     }
+
+    @PassToken
+    @RequestMapping(value = "setting/feedback", method = RequestMethod.POST)
+    public Integer writeFeedback(@RequestBody Map<String, Object> param){
+        String phone = param.get("phone").toString();
+        String content = param.get("content").toString();
+        return service.sendFeedback(phone, content);
+    }
+
 }

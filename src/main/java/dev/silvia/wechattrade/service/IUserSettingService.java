@@ -34,6 +34,7 @@ public interface IUserSettingService extends IService<User> {
     String getAnswer(String catalog, String question);     // 根據常見問題查找相應的解答
 
     /** 意見反饋 */
+    Integer sendFeedback(String phone, String content);     // 發送用戶反饋
 
     /** 關於閒置重重 */
 

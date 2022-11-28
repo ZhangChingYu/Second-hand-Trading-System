@@ -10,14 +10,16 @@ import dev.silvia.wechattrade.handlers.AddressPacking;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
+import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IUserSettingService;
 import dev.silvia.wechattrade.vo.AddressVo;
 import dev.silvia.wechattrade.vo.AuthenticationVo;
+import dev.silvia.wechattrade.vo.FeedbackVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 @Service
@@ -33,6 +35,8 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     private CheckUserAuthority CUA;
     @Autowired
     private ReadFile readFile;
+    @Autowired
+    private WriteFile writeFile;
 
     @Override
     public int swapRelatedPhone(String phone) {
@@ -202,6 +206,26 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
         String filePath = HELP_URL+"/"+catalog+"/"+question+".txt";
         String answer = readFile.readHelpFile(filePath);
         return answer;
+    }
+
+    @Override
+    public Integer sendFeedback(String phone, String content) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String date = sdf.format(System.currentTimeMillis());
+        User user = getUser(phone);
+        if (user != null) {     // 確定用戶存在
+            // 輸入流:用戶名+日期+內容，文件名:時間+用戶手機
+            FeedbackVo feedback = new FeedbackVo();
+            feedback.setContent(content);
+            feedback.setDate(date);   // 獲取當前時間
+            feedback.setFrom(transferUTF8.UTF8toC(user.getUserName())); // 獲取用戶名
+            feedback.setPhone(phone);
+            feedback.setYear(date.substring(0,4));
+            feedback.setMonth(date.substring(5,7));
+            feedback.setTime(date.substring(11,13)+date.substring(14,16)+date.substring(17));
+            return writeFile.writeFeedbackFile(feedback);
+        }
+        return 400; // 找不到用戶
     }
 
     private User getUser(String phone){
