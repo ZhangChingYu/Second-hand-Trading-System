@@ -2,16 +2,12 @@ package dev.silvia.wechattrade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.google.gson.Gson;
 import dev.silvia.wechattrade.dao.FavoriteInfoDao;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.vo.product.ProductLikeVo;
-import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
 import dev.silvia.wechattrade.entity.FavoriteInfo;
 import dev.silvia.wechattrade.entity.Product;
-import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.ProductPacking;
-import dev.silvia.wechattrade.handlers.ReadFile;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.service.ILikeService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -28,9 +28,10 @@ public interface IUserSettingService extends IService<User> {
     AddressVo getDefaultAddress(String phone);  // 獲取default地址
     int setAsDefaultAddress(String phone, Integer rank);    // 將某一地址設置成默認地址
 
-    /** 常見問題 */
+    /** 幫助 */
+    List<String> getQuestionCatalog();     // 獲取問題分類
     List<String> getQuestions(String catalog);  // 根據問題分類顯示常見的問題
-    String getAnswer(String question);     // 根據常見問題查找相應的解答
+    String getAnswer(String catalog, String question);     // 根據常見問題查找相應的解答
 
     /** 意見反饋 */
 

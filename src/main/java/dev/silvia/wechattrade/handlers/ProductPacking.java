@@ -1,5 +1,6 @@
 package dev.silvia.wechattrade.handlers;
 
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.vo.product.ProductDetailVo;
 import dev.silvia.wechattrade.vo.product.ProductLikeVo;
 import dev.silvia.wechattrade.vo.product.ProductOutlineVo;

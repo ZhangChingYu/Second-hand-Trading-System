@@ -1,16 +1,15 @@
-package dev.silvia.wechattrade.handlers;
+package dev.silvia.wechattrade.handlers.fileHandler;
 
 import org.springframework.stereotype.Component;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 
 @Component
 public class ReadFile {     // 從指定目錄獲取文件並進行base64編碼後傳給前端
+
     public static String getBaseFile(String filePath){
         if(filePath==null){
             return null;
@@ -45,5 +44,44 @@ public class ReadFile {     // 從指定目錄獲取文件並進行base64編碼�
             pictures.add(base64);
         }
         return pictures;
+    }
+
+    public String readHelpFile(String filePath){
+        File file = new File(filePath);
+        BufferedReader in = null;
+        String out = "";
+        try {   // 用UTF-8讀取會出否則會出現亂碼
+            in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            String line = "";
+            while ((line = in.readLine())!=null){
+                System.out.println(line);   // 一次讀一行
+                out += line + "\n";
+            }
+        } catch (FileNotFoundException e){
+            return "File Not Fond!";
+        } catch (IOException e){
+            return "Read Exception!";
+        } finally {
+            if(null != in){
+                try {
+                    in.close();
+                } catch (IOException e){
+                    return e.getMessage();
+                }
+            }
+        }
+        return out;
+    }
+
+    public List<String> getSubFileNames(String root){
+        File file = new File(root); // root 根目錄
+        File[] subFiles = file.listFiles(); // 根據root獲取子目錄
+        List<String> fileNames = new ArrayList<>();
+        if(subFiles != null){
+            for (int i = 0; i < subFiles.length; i++){
+                fileNames.add(subFiles[i].getName());
+            }
+        }
+        return fileNames;
     }
 }
