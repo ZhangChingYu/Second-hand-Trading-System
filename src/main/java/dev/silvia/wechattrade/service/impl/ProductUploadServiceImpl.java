@@ -87,17 +87,50 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
     }
 
     @Override
-    public List<MyProductVo> showByOrder(String phone) {
-        return null;
-    }
-
-    @Override
     public List<MyProductVo> showByStatus(String phone, Integer status) {
-        return null;
+        List<MyProductVo> allProductVos = showAllMyProduct(phone);
+        List<MyProductVo> myProductVos = new ArrayList<>();
+        if(allProductVos.isEmpty() || allProductVos == null){
+            return null;
+        }
+        for(int i = 0 ; i < allProductVos.size(); i++){
+            if(allProductVos.get(i).getStatus().equals(status)){
+                myProductVos.add(allProductVos.get(i));
+            }
+        }
+        return myProductVos;
     }
 
     @Override
     public List<MyProductVo> showByCatalog(String phone, String catalog) {
-        return null;
+        List<MyProductVo> allMyProductVos = showAllMyProduct(phone);
+        List<MyProductVo> myProductVos = new ArrayList<>();
+        if(allMyProductVos.isEmpty() || allMyProductVos == null){
+            return null;
+        }
+        for(int i = 0 ; i < allMyProductVos.size(); i++){
+            if(allMyProductVos.get(i).getNumber().contains(catalog)){
+                myProductVos.add(allMyProductVos.get(i));
+            }
+        }
+        return myProductVos;
+    }
+
+    @Override
+    public List<MyProductVo> showByKey(String phone, String keyword) {
+        String key = transferUTF8.CtoUTF8(keyword);
+        QueryWrapper<Product> wrapper = new QueryWrapper<>();
+        wrapper.eq("s_phone", phone);
+        wrapper.like("name", key);
+        List<Product> products = productDao.selectList(wrapper);
+        if(products.isEmpty() || products == null){
+            return null;
+        }
+        List<MyProductVo> myProductVos = new ArrayList<>();
+        for(int i  = 0 ; i < products.size(); i++){
+            MyProductVo myProduct = productPacking.ProductToMyProduct(products.get(i));
+            myProductVos.add(myProduct);
+        }
+        return myProductVos;
     }
 }
