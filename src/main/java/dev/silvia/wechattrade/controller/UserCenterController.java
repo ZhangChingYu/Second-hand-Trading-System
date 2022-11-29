@@ -71,6 +71,7 @@ public class UserCenterController {
         auth.setIdCardPics(files);
         auth.setRealName(params.getParameter("realName"));
         auth.setIdNumber(params.getParameter("idNumber"));
+        System.out.println(auth);
         return ResponseEntity.ok(service.authentication(auth));
     }
 
@@ -83,15 +84,11 @@ public class UserCenterController {
         String phone=params.getParameter("phone");
         Result res;
         if(demo.storeravatarPictures("Avatar",phone,files)==808){
-
             res=new Result(ResultCode.FAIL);
             ResponseEntity.ok(res);
         }
         List<String> pictures = readFile.getPictureBase64("Avatar",phone,files.size());
-        String path="";
-        for(int i=0;i<pictures.size();i++){
-            path=path+"#"+pictures.get(i);
-        }
+        String path=pictures.get(0);
         return ResponseEntity.ok(service.swapRelatedAvatar(phone,path));
     }
 

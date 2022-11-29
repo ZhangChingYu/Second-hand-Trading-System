@@ -8,7 +8,7 @@ import java.io.*;
 public class WriteFile {
     public Integer writeFeedbackFile(FeedbackVo feedback){  // // 寫入feedback文件
         // C://Users/Sunny/Desktop/Feedback/(Year)/(Month)/(Time+Phone).txt
-        String filePath = "C://Users/Sunny/Desktop/Feedback";
+        String filePath = "E://Users/Sunny/Desktop/Feedback";
         if(createDir(filePath, feedback.getYear())!=null){
             filePath = createDir(filePath, feedback.getYear());
             if(createDir(filePath, feedback.getMonth())!=null){
@@ -44,8 +44,8 @@ public class WriteFile {
     }
 
     public void test(){ // C:\Users\Sunny\Desktop\Help
-        File file = new File("C://Users/Sunny/Desktop/help.txt");
-        File file1 = new File("C://Users/Sunny/Desktop/help1.txt");
+        File file = new File("E://Users/Sunny/Desktop/help.txt");
+        File file1 = new File("E://Users/Sunny/Desktop/help1.txt");
         BufferedReader in = null;
         BufferedWriter out = null;
         try {

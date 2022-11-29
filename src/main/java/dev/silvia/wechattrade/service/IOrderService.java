@@ -24,7 +24,7 @@ public interface IOrderService extends IService<User> {
     Result after(String number);
 
     //卖家确认退款、售后
-    Result sellerafter(String number);
+    Result sellerafter(String number,Integer count);
 
     //管理员删除订单
     Result delete(String number);
@@ -43,7 +43,7 @@ public interface IOrderService extends IService<User> {
 
     Result deleteappointments(String number);  //删除预约---只能删除已退款或已取消的预约
 
-    Result cancelappointments(String number);
+    Result cancelappointments(String number,Integer isbuyer);
 
     Result selectallbuyer(String phone);  //买家查询
     Result selectallseller(String phone);  //买家查询

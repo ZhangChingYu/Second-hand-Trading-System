@@ -65,20 +65,18 @@ public class TransferUTF8 {
     }
     public User switchUtf8Tc(User us){
         User user=us;
-//        User user=new User();
-//        user.setUserName(UTF8toC(us.getUserName()));
-//        user.setRealName(UTF8toC(us.getRealName()));
-//        user.setEmail(UTF8toC(us.getEmail()));
-//        user.setDefaultAddress(UTF8toC(us.getDefaultAddress()));
+        user.setUserName(UTF8toC(us.getUserName()));
+        user.setRealName(UTF8toC(us.getRealName()));
+        user.setAddress(UTF8toC(us.getAddress()));
+        user.setDefaultAddress(UTF8toC(us.getDefaultAddress()));
         return user;
     }
     public User switchUtf8(User us){
         User user=us;
-//        User user=new User();
-//        user.setUserName(CtoUTF8(us.getUserName()));
-//        user.setRealName(CtoUTF8(us.getRealName()));
-//        user.setEmail(CtoUTF8(us.getEmail()));
-//        user.setDefaultAddress(CtoUTF8(us.getDefaultAddress()));
+        user.setUserName(CtoUTF8(us.getUserName()));
+        user.setRealName(CtoUTF8(us.getRealName()));
+        user.setAddress(CtoUTF8(us.getAddress()));
+        user.setDefaultAddress(CtoUTF8(us.getDefaultAddress()));
         return user;
     }
 }

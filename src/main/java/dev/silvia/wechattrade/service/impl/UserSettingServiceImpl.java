@@ -29,7 +29,7 @@ import java.util.Optional;
 
 @Service
 public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implements IUserSettingService {
-    public final static String HELP_URL = "C://Users/Sunny/Desktop/Help";
+    public final static String HELP_URL = "E://Users/Sunny/Desktop/Help";
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -51,6 +51,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     @Autowired
     private Optional<User> user;
 
+
     @Autowired
     private IDemoService2 demo;
     private User user2;
@@ -63,10 +64,10 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
             request=transferUTF8.switchUtf8(request);
             //存储
             accountRepository.save(request);
-            res=new Result(ResultCode.SUCCESS,request);
+            res=new Result(ResultCode.SUCCESS);
             return res;
         } catch (Exception e) {
-            res=new Result(ResultCode.FAIL,request);
+            res=new Result(ResultCode.FAIL);
             return res;
         }
     }
@@ -81,6 +82,10 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
                 return false;
             }}
         ).map(us->{
+            //转换utf8
+                    us=transferUTF8.switchUtf8Tc(us);
+                    us.setAvatar(readFile.getpictureBase64("Avatar", us.getPhone(),1).get(0));
+                    us.setPicture(readFile.getPictureBase64("Authentication",us.getPhone(),1).get(0));
                     res=new Result(ResultCode.SUCCESS,us);
                     return res;
                 }
@@ -100,14 +105,11 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
                 return res;
             }
             List<String> pictures = readFile.getPictureBase64("Authentication",request.getPhone(),request.getIdCardPics().size());
-            String path="";
-            for(int i=0;i<pictures.size();i++){
-                path=path+"#"+pictures.get(i);
-            }
             user1.setAuthority(0);
-            user1.setPicture(path);
-            accountRepository.save(user1);
+            user1.setPicture(pictures.get(0));
             res=new Result(ResultCode.SUCCESS,user1);
+            user1=transferUTF8.switchUtf8(user1);
+            accountRepository.save(user1);
             return res;
         } catch (Exception e) {
             res=new Result(ResultCode.FAIL);

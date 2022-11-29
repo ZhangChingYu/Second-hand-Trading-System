@@ -177,7 +177,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     }
 
     @Override
-    public Result sellerafter(String number) {
+    public Result sellerafter(String number,Integer count) {
         String pronum = OrderCodeUtils.createCode("TK");
         ex=exRepository.findByNumber(number).get();
         ex.setNumber(pronum);
@@ -196,7 +196,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
         QueryWrapper<Product> productWrapper = new QueryWrapper<>();
         productWrapper.eq("number",ex.getProductNum());
         Product product = productDao.selectOne(productWrapper);
-        Integer num=product.getStorage()+ex.getOrdersNum();
+        Integer num=product.getStorage()+count;
         product.setStorage(num);
         productDao.updateById(product);
 
@@ -246,6 +246,8 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     @Override
     public Result selectsellerorder(String phone) {
         List<Seller> sell=sel.findAllByPhone(phone);
+
+
         res=new Result(ResultCode.SUCCESS,sell);
         return res;
     }
@@ -253,6 +255,8 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     @Override
     public Result selectbuyerorder(String phone) {
         List<Buyer> bu=buy.findAllByPhone(phone);
+
+
         res=new Result(ResultCode.SUCCESS,bu);
         return res;
     }
@@ -279,7 +283,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     @Override
     public Result deleteappointments(String number) {
         Booking book=accountRepository.findByNumber(number);
-        if(book.getStatus()==4||book.getStatus()==5||book.getStatus()==6){
+        if(book.getStatus()==4||book.getStatus()==5||book.getStatus()==6||book.getStatus()==7){
             accountRepository.deleteByNumber(number);
             res=new Result(ResultCode.SUCCESS);
         }
@@ -290,10 +294,15 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     }
 
     @Override
-    public Result cancelappointments(String number) {
+    public Result cancelappointments(String number,Integer isbuyer) {
         Booking book=accountRepository.findByNumber(number);
         if(book.getStatus()==0){
-            book.setStatus(5);
+            if(isbuyer==1){
+                book.setStatus(5);
+            }
+            else{
+                book.setStatus(7);
+            }
             accountRepository.save(book);
             res=new Result(ResultCode.SUCCESS);
         }
@@ -410,8 +419,10 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
         QueryWrapper<Product> productWrapper = new QueryWrapper<>();
         productWrapper.eq("number", number);
         Product product = productDao.selectOne(productWrapper);
-//        product.setStatus(5);
         product.setStorage(product.getStorage()-count);
+        if(product.getStorage()-count==0){
+            product.setStatus(5);
+        }
 //      productDao.updateById(product);
         productDao.updateById(product);
 

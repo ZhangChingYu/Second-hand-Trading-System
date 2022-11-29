@@ -70,20 +70,28 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         //转换utf8
                         User u=transferUTF8.switchUtf8Tc((User) loginDto.getData());
 
+
                         //图片路径
                         List<String> picture1;
-                        if(u.getAvatar()!=null){
-
-                        }
-                        else{
+                        List<String> picture2;
+                        if(u.getAvatar().isEmpty()){
                             //默认图片
-                            picture1 = readFile.getPictureBase64("Avatar","default",1);
+                            picture1 = readFile.getpictureBase64("Avatar","default",1);
                             u.setAvatar(picture1.get(0));
                         }
+                        else{
+                            picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
+                            u.setAvatar(picture1.get(0));
+                        }
+                        if(!u.getPicture().isEmpty()){
+                            picture2 = readFile.getpictureBase64("Authentication",u.getPhone(),1);
+                            u.setPicture(picture2.get(0));
+                        }
+
                         user.setUser(u);
                         user.setToken(Sign.generateToken(
                                 u.getId(),
-                                u.getUserName(),
+                                transferUTF8.CtoUTF8(u.getUserName()),
                                 u.getAuthority(),
                                 1000 * 60 * 60
                         ));

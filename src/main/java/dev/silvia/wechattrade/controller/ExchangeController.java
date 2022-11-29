@@ -63,7 +63,8 @@ public class ExchangeController {
     @RequestMapping(value ="/orders/cancelappointments",method = RequestMethod.POST)
     public ResponseEntity<?> cancelappointments(@RequestBody Map<String, Object> param) {
         String number = param.get("number").toString();
-        return ResponseEntity.ok(service.cancelappointments(number));
+        Integer isbuyer= Integer.valueOf(param.get("isbuyer").toString());
+        return ResponseEntity.ok(service.cancelappointments(number,isbuyer));
     }
 
     //生成订单----待付款
@@ -97,7 +98,8 @@ public class ExchangeController {
     @RequestMapping(value ="/orders/sellerafter",method = RequestMethod.POST)
     public ResponseEntity<?> sellerafter(@RequestBody Map<String, Object> param) {
         String number = param.get("number").toString();
-        return ResponseEntity.ok(service.sellerafter(number));
+        Integer count= Integer.valueOf(param.get("number").toString());
+        return ResponseEntity.ok(service.sellerafter(number,count));
     }
     //删除订单
     @RequestMapping(value ="/orders/delete",method = RequestMethod.POST)

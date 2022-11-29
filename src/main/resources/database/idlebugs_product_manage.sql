@@ -14,7 +14,7 @@ create table product_manage
 1:  未上架，提交審核中
 2:  未上架，審核不通過
 3:  未上架，檢舉違規的商品
-',
+4:  已售空',
     report_count int default 0              null comment '商品經舉報的次數',
     catalog      varchar(255)               not null comment '商品類型編號',
     address      varchar(255)               null comment '商品貨源(可以是校區)',

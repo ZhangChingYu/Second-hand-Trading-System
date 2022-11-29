@@ -72,7 +72,7 @@ public class DemoService2Impl extends ServiceImpl<ProductDao, Product> implement
     public String imagesUploadDemo(ProductVo productVo) {
         String fileName = productVo.getName();
         // 暫時用商品名稱做目錄，正式使用要換成: 商品分類/商品編號
-        String pathName = "C:/Users/Sunny/Desktop/Products/" + fileName;
+        String pathName = "E:/Users/Sunny/Desktop/Products/" + fileName;
         Integer length = productVo.getPicture().size();
         // 暫時存在桌面上
         File folder = new File(pathName);
@@ -107,7 +107,7 @@ public class DemoService2Impl extends ServiceImpl<ProductDao, Product> implement
         wrapper.eq("number", number);
         Product product = productDao.selectOne(wrapper);
         if(!product.getPrice().equals("null")){
-            String url = "C:/Users/Sunny/Desktop/Products/"+product.getCatalog()+"/"+product.getNumber()+"/"+product.getNumber()+"_0.jpg";
+            String url = "E:/Users/Sunny/Desktop/Products/"+product.getCatalog()+"/"+product.getNumber()+"/"+product.getNumber()+"_0.jpg";
             picture = ReadFile.getBaseFile(url);
         }
         return picture;
@@ -116,7 +116,7 @@ public class DemoService2Impl extends ServiceImpl<ProductDao, Product> implement
     @Override
     public int storeravatarPictures(String catalog,String phone, List<MultipartFile> pictures) {
         // C:/Users/Sunny/Desktop/Products/catalog/number
-        String pathName = "C:/Users/Sunny/Desktop/" + catalog +"/" + phone;
+        String pathName = "E:/Users/Sunny/Desktop/" + catalog +"/" + phone;
         Integer length = pictures.size();   // 獲取照片數
         File folder = new File(pathName);
         if(!folder.isDirectory()){
@@ -134,15 +134,15 @@ public class DemoService2Impl extends ServiceImpl<ProductDao, Product> implement
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            String path = pathName + "/" + newName;
-            System.out.println(path);
+//            String path = pathName + "/" + newName;
+//            System.out.println(path);
         }
         return 201;
     }
 
     int storePictures(String catalog, String number, List<MultipartFile> pictures){
         // C:/Users/Sunny/Desktop/Products/catalog/number
-        String pathName = "C:/Users/Sunny/Desktop/Products/" + catalog + "/" + number;
+        String pathName = "E:/Users/Sunny/Desktop/Products/" + catalog + "/" + number;
         Integer length = pictures.size();   // 獲取照片數
         File folder = new File(pathName);
         if(!folder.isDirectory()){

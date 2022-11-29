@@ -10,7 +10,9 @@ import dev.silvia.wechattrade.dto.logindto.LoginResponseDto;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.entity.WXAuth;
 import dev.silvia.wechattrade.entity.WxUserInfo;
+import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.cryto.Sign;
+import dev.silvia.wechattrade.handlers.fileHandlers.ReadFile;
 import dev.silvia.wechattrade.service.IWeixinService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
 
 @Slf4j
 @Service
@@ -41,8 +44,13 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
     StringRedisTemplate redisTemplate;
 
     @Autowired
+    TransferUTF8 transferUTF8 = new TransferUTF8();
+    @Autowired
     WxService wxService;
-
+    @Autowired
+    TransferUTF8 trans;
+    @Autowired
+    private ReadFile readFile = new ReadFile();
     @Override
     public String getSessionId(String code) {
 
@@ -71,10 +79,23 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
             user.setPassword("123456");
             user.setAuthority(1);
 
-            user.setUserName(wxUserInfo.getNickName());
+            //图片路径
+            List<String> picture1;
+            List<String> picture2;
+            if(user.getAvatar().isEmpty()){
+                //默认图片
+                picture1 = readFile.getpictureBase64("Avatar","default",1);
+                user.setAvatar(picture1.get(0));
+            }
+            else{
+                picture1 = readFile.getpictureBase64("Avatar",user.getPhone(),1);
+                user.setAvatar(picture1.get(0));
+            }
+
+            user.setUserName(trans.CtoUTF8(wxUserInfo.getNickName()));
             redto.setToken(Sign.generateToken(
                     user.getId(),
-                    user.getUserName(),
+                    transferUTF8.CtoUTF8(user.getUserName()),
                     user.getAuthority(),
                     1000 * 60 * 60
             ));
@@ -91,6 +112,7 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
             else{
                 redto.setCode("666");
                 redto.setMsg("用户初次登录！");
+
                 userDao.insert(user);
             }
             return redto;

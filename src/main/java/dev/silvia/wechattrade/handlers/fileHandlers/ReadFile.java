@@ -39,7 +39,7 @@ public class ReadFile {     // 從指定目錄獲取文件並進行base64編碼�
             return null;    // 如果該商品沒有照片，則返回null
         }
         for(int i = 0; i < size; i++){
-            String url = "C:/Users/Sunny/Desktop/Products/"+catalog+"/"+number+"/"+number+"_"+i+".jpg";
+            String url = "E:/Users/Sunny/Desktop/Products/"+catalog+"/"+number+"/"+number+"_"+i+".jpg";
             String base64 = ReadFile.getBaseFile(url);
             pictures.add(base64);
         }
@@ -54,9 +54,24 @@ public class ReadFile {     // 從指定目錄獲取文件並進行base64編碼�
             return null;    // 如果該商品沒有照片，則返回null
         }
         for(int i = 0; i < size; i++){
-            String url = "C:/Users/Sunny/Desktop/"+sort+"/"+phone+"/"+phone+"_"+i+".jpg";
+            String url = "E:/Users/Sunny/Desktop/"+sort+"/"+phone+"/"+phone+"_"+i+".jpg";
+            pictures.add(url);
+        }
+        return pictures;
+    }
+
+    // 將某一商品的所有圖片依序轉換成Base64編碼輸出的方法
+    public List<String> getpictureBase64(String sort,String phone, Integer size){
+        // 通過商品編碼和照片數返回圖片的base64編碼表
+        List<String> pictures = new ArrayList<>();
+        if(size == 0){
+            return null;    // 如果該商品沒有照片，則返回null
+        }
+        for(int i = 0; i < size; i++){
+            String url = "E:/Users/Sunny/Desktop/"+sort+"/"+phone+"/"+phone+"_"+i+".jpg";
             String base64 = ReadFile.getBaseFile(url);
             pictures.add(base64);
+//            System.out.println(url);
         }
         return pictures;
     }
