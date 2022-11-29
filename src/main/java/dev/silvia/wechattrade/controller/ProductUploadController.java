@@ -31,7 +31,7 @@ public class ProductUploadController {
         return service.uploadProductRequest(productUploadDto);
     }
 
-    @PassToken
+    @UserLoginToken
     @RequestMapping(value = "/my/products", method = RequestMethod.GET)
     public String showAllMyProduct(HttpServletRequest request){
         String phone = request.getParameter("phone");
