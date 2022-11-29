@@ -1,6 +1,7 @@
 package dev.silvia.wechattrade.handlers;
 
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
+import dev.silvia.wechattrade.vo.product.MyProductVo;
 import dev.silvia.wechattrade.vo.product.ProductDetailVo;
 import dev.silvia.wechattrade.vo.product.ProductLikeVo;
 import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
@@ -74,6 +75,17 @@ public class ProductPacking {
         detail.setPicture_count(product.getPicture());
         detail.setPictures(pictures);
         return detail;
+    }
+
+    // 將Product包裝成MyProductVo的方法
+    public MyProductVo ProductToMyProduct(Product product){
+        MyProductVo myProduct = new MyProductVo();
+        // 開始準備商品信息
+        myProduct.setName(transferUTF8.UTF8toC(product.getName()));
+        myProduct.setPrice(product.getPrice());
+        myProduct.setStatus(product.getStatus());
+        myProduct.setCoverPic(getCoverPic(product));
+        return myProduct;
     }
 
     // 從商品編碼中解析出商品發布時間Date的方法

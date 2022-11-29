@@ -1,10 +1,12 @@
 package dev.silvia.wechattrade.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import dev.silvia.wechattrade.dao.ProductDao;
 import dev.silvia.wechattrade.dto.product.ProductUploadDto;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
+import dev.silvia.wechattrade.handlers.ProductPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IProductUploadService;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -23,6 +26,8 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private TransferUTF8 transferUTF8;
+    @Autowired
+    private ProductPacking productPacking;
     @Autowired
     private WriteFile writeFile;
     @Autowired
@@ -67,7 +72,18 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
 
     @Override
     public List<MyProductVo> showAllMyProduct(String phone) {
-        return null;
+        QueryWrapper<Product> wrapper = new QueryWrapper<>();
+        wrapper.eq("s_phone", phone);
+        List<Product> products = productDao.selectList(wrapper);
+        if(products.isEmpty() || products == null){
+            return null;
+        }
+        List<MyProductVo> myProductVos = new ArrayList<>();
+        for(int i = 0 ; i < products.size(); i ++){
+            MyProductVo my = productPacking.ProductToMyProduct(products.get(i));
+            myProductVos.add(my);
+        }
+        return myProductVos;
     }
 
     @Override
