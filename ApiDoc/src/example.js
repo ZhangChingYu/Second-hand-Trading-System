@@ -504,3 +504,133 @@
  *        400
  *     }
  */
+
+/**
+ * @api {POST} /product 上傳商品
+ * @apiName UploadProduct
+ * @apiGroup 商品上傳
+ * @apiPermission none
+ *
+ * @apiDescription 用戶上傳商品功能，用戶須通過實名認證方可使用此功能。本系統上傳商品的流程是: 用戶上傳商品-->商品進入審核階段-->審核成功/失敗-->商品上架/不予上架。用戶可以在"我的商品"中查看此流程進度。
+ *
+ * @apiParam {String} name 商品名稱
+ * @apiParam {String} phone 用戶(賣家)手機號
+ * @apiParam {Integer} storage 庫存量
+ * @apiParam {File[]} pictures 商品展示照片
+ * @apiParam {String} intro 商品描述
+ * @apiParam {Double} price 商品價格
+ * @apiParam {String} catalog 商品分類(編碼:B,M,C....)
+ * @apiParam {String} address 發貨地
+ *
+ * @apiSuccessExample 商品上傳成功
+ *     {
+ *        201
+ *     }
+ * @apiErrorExample 用戶無權限
+ *     {
+ *        403
+ *     }
+ * @apiErrorExample 商品編號重複(稍後再嘗試即可)
+ *     {
+ *        422
+ *     }
+ * @apiErrorExample 圖片保存失敗/商品上傳失敗
+ *     {
+ *        404
+ *     }
+ */
+
+/**
+ * @api {POST} /setting/feedback 用戶反饋
+ * @apiName WriteFeedback
+ * @apiGroup 設置:用戶反饋
+ * @apiPermission none
+ *
+ * @apiDescription 用戶反饋功能
+ *
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {String} content 反饋內容
+ *
+ * @apiSuccessExample 發送成功
+ *     {
+ *        200
+ *     }
+ * @apiErrorExample 錯誤用戶
+ *     {
+ *        400
+ *     }
+ * @apiErrorExample 找不到檔案/讀寫錯誤/路徑創建失敗
+ *     {
+ *        422
+ *     }
+ */
+
+/**
+ * @api {GET} /setting/help 獲取幫助問題的類型
+ * @apiName GetQuestionCatalogs
+ * @apiGroup 設置:幫助
+ * @apiPermission none
+ *
+ * @apiDescription 獲取幫助問題的類型，用戶可通過問題類型鎖定問題位置。
+ *
+ * @apiSuccessExample 成功返回問題類型(例子)
+ *    [
+ *        {
+ *             "index":"0",
+ *             "catalog":"商品上傳"
+ *        },
+ *        {
+ *             "index":"1",
+ *             "catalog":"關於"
+ *        }
+ *     ]
+ * @apiErrorExample 失敗
+ *     {
+ *        null
+ *     }
+ */
+
+/**
+ * @api {GET} /setting/help/catalog 獲取相應問題類型的問題
+ * @apiName GetHelpQuestions
+ * @apiGroup 設置:幫助
+ * @apiPermission none
+ *
+ * @apiDescription 用戶鎖定問題位置後，進一步找到問題。
+ *
+ * @apiSuccessExample 成功返回問相應類型的問題(以"商品上傳"為例)
+ *    [
+ *        {
+ *             "index":"0",
+ *             "catalog":"如何上傳商品"
+ *        },
+ *        {
+ *             "index":"1",
+ *             "catalog":"為何上傳商品後沒有成功上架"
+ *        }
+ *     ]
+ * @apiErrorExample 失敗
+ *     {
+ *        null
+ *     }
+ */
+
+/**
+ * @api {GET} /setting/help/catalog/question 獲取對應問題解答
+ * @apiName GetHelpAnswer
+ * @apiGroup 設置:幫助
+ * @apiPermission none
+ *
+ * @apiDescription 用戶找到問題後，獲得問題的解答。
+ *
+ * @apiSuccessExample 成功(以"為何上傳商品後沒有成功上架"為例)
+ *    {
+ *         閒置重重的商品上架流程為: 用戶上傳商品-->管理員審核通過-->用戶商品上架。
+ *         可以在個人中心查看商品的審核進度，若顯示[審核中]請用戶耐心等待管理員審核結果，一般不會超過24h。
+ *         若顯示[已駁回]表示管理員判斷該商品有違規嫌疑，具體細節由系統發送通知說明。
+ *     }
+ * @apiErrorExample 失敗
+ *     {
+ *        null
+ *     }
+ */

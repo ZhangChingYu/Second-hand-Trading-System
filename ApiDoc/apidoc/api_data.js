@@ -1,5 +1,111 @@
 define({ "api": [
   {
+    "type": "POST",
+    "url": "/product",
+    "title": "上傳商品",
+    "name": "UploadProduct",
+    "group": "商品上傳",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶上傳商品功能，用戶須通過實名認證方可使用此功能。本系統上傳商品的流程是: 用戶上傳商品--&gt;商品進入審核階段--&gt;審核成功/失敗--&gt;商品上架/不予上架。用戶可以在&quot;我的商品&quot;中查看此流程進度。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>商品名稱</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶(賣家)手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "storage",
+            "description": "<p>庫存量</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "File[]",
+            "optional": false,
+            "field": "pictures",
+            "description": "<p>商品展示照片</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "intro",
+            "description": "<p>商品描述</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Double",
+            "optional": false,
+            "field": "price",
+            "description": "<p>商品價格</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "catalog",
+            "description": "<p>商品分類(編碼:B,M,C....)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "address",
+            "description": "<p>發貨地</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "商品上傳成功",
+          "content": "{\n   201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "用戶無權限",
+          "content": "{\n   403\n}",
+          "type": "json"
+        },
+        {
+          "title": "商品編號重複(稍後再嘗試即可)",
+          "content": "{\n   422\n}",
+          "type": "json"
+        },
+        {
+          "title": "圖片保存失敗/商品上傳失敗",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "商品上傳"
+  },
+  {
     "type": "post",
     "url": "/catalog",
     "title": "添加分類",
@@ -844,7 +950,7 @@ define({ "api": [
     "success": {
       "examples": [
         {
-          "title": "更改成功",
+          "title": "更改地址成功",
           "content": "{\n   800\n}",
           "type": "json"
         },
@@ -1072,5 +1178,166 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "src/example.js",
     "groupTitle": "用戶註冊"
+  },
+  {
+    "type": "GET",
+    "url": "/setting/help/catalog/question",
+    "title": "獲取對應問題解答",
+    "name": "GetHelpAnswer",
+    "group": "設置:幫助",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶找到問題後，獲得問題的解答。</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "成功(以\"為何上傳商品後沒有成功上架\"為例)",
+          "content": "{\n     閒置重重的商品上架流程為: 用戶上傳商品-->管理員審核通過-->用戶商品上架。\n     可以在個人中心查看商品的審核進度，若顯示[審核中]請用戶耐心等待管理員審核結果，一般不會超過24h。\n     若顯示[已駁回]表示管理員判斷該商品有違規嫌疑，具體細節由系統發送通知說明。\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "失敗",
+          "content": "{\n   null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:幫助"
+  },
+  {
+    "type": "GET",
+    "url": "/setting/help/catalog",
+    "title": "獲取相應問題類型的問題",
+    "name": "GetHelpQuestions",
+    "group": "設置:幫助",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶鎖定問題位置後，進一步找到問題。</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回問相應類型的問題(以\"商品上傳\"為例)",
+          "content": "[\n    {\n         \"index\":\"0\",\n         \"catalog\":\"如何上傳商品\"\n    },\n    {\n         \"index\":\"1\",\n         \"catalog\":\"為何上傳商品後沒有成功上架\"\n    }\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "失敗",
+          "content": "{\n   null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:幫助"
+  },
+  {
+    "type": "GET",
+    "url": "/setting/help",
+    "title": "獲取幫助問題的類型",
+    "name": "GetQuestionCatalogs",
+    "group": "設置:幫助",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取幫助問題的類型，用戶可通過問題類型鎖定問題位置。</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回問題類型(例子)",
+          "content": "[\n    {\n         \"index\":\"0\",\n         \"catalog\":\"商品上傳\"\n    },\n    {\n         \"index\":\"1\",\n         \"catalog\":\"關於\"\n    }\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "失敗",
+          "content": "{\n   null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:幫助"
+  },
+  {
+    "type": "POST",
+    "url": "/setting/feedback",
+    "title": "用戶反饋",
+    "name": "WriteFeedback",
+    "group": "設置:用戶反饋",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶反饋功能</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>反饋內容</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "發送成功",
+          "content": "{\n   200\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "錯誤用戶",
+          "content": "{\n   400\n}",
+          "type": "json"
+        },
+        {
+          "title": "找不到檔案/讀寫錯誤/路徑創建失敗",
+          "content": "{\n   422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:用戶反饋"
   }
 ] });
