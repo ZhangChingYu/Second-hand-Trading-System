@@ -689,3 +689,153 @@
  *        null
  *     }
  */
+
+/**
+ * @api {GET} /my/products/key 根據關鍵字模糊查詢用戶商品
+ * @apiName ShowMyProductsByKey
+ * @apiGroup 我的商品
+ * @apiPermission none
+ *
+ * @apiDescription 根據輸入的關鍵字顯示用戶所有上傳過的商品
+ *
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {String} keyword 關鍵字
+ *
+ * @apiSuccessExample 請求成功(例子"考")
+ *     [
+ *        {
+ *              "status":0,
+ *              "name":"考研真相英語一",
+ *              "price":12.0,
+ *              "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAg....(base64編碼，原文過長不全部展示)
+ *        },
+ *         {
+ *             "status":0,
+ *             "name":"二手自考教材04729大學語文2018版徐中玉陶型傳北京大學出版社",
+ *             "price":14.66,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAg......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"國家教師資格考試",
+ *             "price":15.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0.......
+ *         }
+ *     ]
+ * @apiErrorExample 沒有符合的商品
+ *     {
+ *        null
+ *     }
+ */
+
+/**
+ * @api {GET} /my/products/catalog 根據分類顯示用戶商品
+ * @apiName ShowMyProductsByCatalog
+ * @apiGroup 我的商品
+ * @apiPermission none
+ *
+ * @apiDescription 根據分類顯示用戶上傳過的商品
+ *
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {String} catalog 商品分類(B,M,C...)
+ *
+ * @apiSuccessExample 請求成功("B"的例子)
+ *     [
+ *        {
+ *              "status":0,
+ *              "name":"考研真相英語一",
+ *              "price":12.0,
+ *              "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAg....(base64編碼，原文過長不全部展示)
+ *        },
+ *        {
+ *             "status":0,
+ *             "name":"二手書",
+ *             "price":8.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXh.......
+ *        },
+ *        {
+ *             "status":0,
+ *             "name":"思想道德與法治2021年版",
+ *             "price":7.9,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYR......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"中公小學教師資格證",
+ *             "price":68.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4Q......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"二手自考教材04729大學語文2018版徐中玉陶型傳北京大學出版社",
+ *             "price":14.66,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAg......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"國家教師資格考試",
+ *             "price":15.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0.......
+ *         }
+ *     ]
+ * @apiErrorExample 沒有符合的商品
+ *     {
+ *        null
+ *     }
+ */
+
+/**
+ * @api {GET} /my/products 根據狀態顯示用戶商品
+ * @apiName ShowMyProductsByStatus
+ * @apiGroup 我的商品
+ * @apiPermission none
+ *
+ * @apiDescription 根據狀態顯示用戶上傳過的商品
+ *
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {Integer} status 商品狀態
+ *
+ * @apiSuccessExample 請求成功("0"的例子)
+ *     [
+ *        {
+ *              "status":0,
+ *              "name":"考研真相英語一",
+ *              "price":12.0,
+ *              "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAg....(base64編碼，原文過長不全部展示)
+ *        },
+ *        {
+ *             "status":0,
+ *             "name":"二手書",
+ *             "price":8.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXh.......
+ *        },
+ *        {
+ *             "status":0,
+ *             "name":"思想道德與法治2021年版",
+ *             "price":7.9,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYR......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"中公小學教師資格證",
+ *             "price":68.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4Q......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"二手自考教材04729大學語文2018版徐中玉陶型傳北京大學出版社",
+ *             "price":14.66,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAg......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"國家教師資格考試",
+ *             "price":15.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0.......
+ *         }
+ *     ]
+ * @apiErrorExample 沒有符合的商品
+ *     {
+ *        null
+ *     }
+ */
