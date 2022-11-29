@@ -9,8 +9,10 @@ import dev.silvia.wechattrade.dto.logindto.LostPasswordDto;
 import dev.silvia.wechattrade.dto.response.Result;
 import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.User;
+import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.cryto.Sign;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
+import dev.silvia.wechattrade.handlers.fileHandlers.ReadFile;
 import dev.silvia.wechattrade.service.ILoginService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -46,6 +49,11 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
 
     private  Result redto;
 
+    @Autowired
+    TransferUTF8 transferUTF8 = new TransferUTF8();
+
+    @Autowired
+    private ReadFile readFile = new ReadFile();
     // 正则匹配用户输入的格式，用户是：用户名，或手机号，或邮箱登录
     private final String em = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
     private final String ph =  "^[1][3578]\\d{9}$";
@@ -55,11 +63,24 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
         return this.verifyAccount(request)
                 .map(loginDto -> {
                     LoginResponseDto user = new LoginResponseDto();
-                    User u=(User) loginDto.getData();
-                    user.setUser(u);
                     user.setCode(loginDto.getCode());
                     user.setMsg(loginDto.getMsg());
+
                     if(Objects.equals(user.getCode(), "666")){
+                        //转换utf8
+                        User u=transferUTF8.switchUtf8Tc((User) loginDto.getData());
+
+                        //图片路径
+                        List<String> picture1;
+                        if(u.getAvatar()!=null){
+
+                        }
+                        else{
+                            //默认图片
+                            picture1 = readFile.getPictureBase64("Avatar","default",1);
+                            u.setAvatar(picture1.get(0));
+                        }
+                        user.setUser(u);
                         user.setToken(Sign.generateToken(
                                 u.getId(),
                                 u.getUserName(),
@@ -117,7 +138,6 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         use=new Result(ResultCode.USER_ACCOUNT_FORBIDDEN,account);
                     }
                     return use;
-
         } );
     }
 

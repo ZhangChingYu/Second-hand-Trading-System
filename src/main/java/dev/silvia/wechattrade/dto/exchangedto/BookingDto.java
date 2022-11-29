@@ -4,13 +4,13 @@ import lombok.Data;
 
 @Data
 public class BookingDto {
-    private Integer id;
+    private String number;   //product number
 
-    private Integer sellerId;
+    private String name;  //product name
 
-    private Integer  buyerId;
+    private String  coverPic;   //product coverPic
 
-    private Integer productId;
+    private Double pice;  //product pice
 
-    private String status;
+    private Integer status;  //product status
 }

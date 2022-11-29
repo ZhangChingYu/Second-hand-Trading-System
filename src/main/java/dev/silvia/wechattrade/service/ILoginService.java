@@ -10,6 +10,7 @@ import dev.silvia.wechattrade.entity.User;
 import java.util.Optional;
 
 public interface ILoginService extends IService<User> {
+
     Optional<LoginResponseDto> login(LoginRequestDto request);
     Result lostPassward(LostPasswordDto request);//忘记密码
 }

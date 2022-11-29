@@ -20,7 +20,7 @@ public enum ResultCode {
     USER_LOGIN_ERROR("444", "密码错误"),
     USER_ACCOUNT_FORBIDDEN("222", "账号已被禁用"),
     USER_NOT_EXIST("555", "用户不存在"),
-    USER_PASSWORD_EXIST("555", "用户密码为旧密码"),
+    USER_PASSWORD_EXIST("777", "用户密码为旧密码"),
 
     /* 数据错误：50001-599999 */
     AUTH_CODE_ERROR("111", "验证码错误");

@@ -7,19 +7,22 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName(value = "seller_info")
 public class Seller implements Serializable {
     private static final long serialVersionUID=1L;
-
+    @Id
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Integer exchangeId;
+    private String exchangeId;
 
     private String phone;
 
@@ -27,4 +30,7 @@ public class Seller implements Serializable {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date shippingTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date refundTime;
 }

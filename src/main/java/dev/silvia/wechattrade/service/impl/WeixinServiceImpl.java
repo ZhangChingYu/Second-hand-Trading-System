@@ -1,25 +1,29 @@
 package dev.silvia.wechattrade.service.impl;
 
-import cn.hutool.core.lang.UUID;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import dev.silvia.wechattrade.dto.response.Result;
-import dev.silvia.wechattrade.handlers.common.redis.RedisKey;
+import dev.silvia.wechattrade.dao.UserDao;
+import dev.silvia.wechattrade.dto.logindto.LoginResponseDto;
+import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.entity.WXAuth;
-import dev.silvia.wechattrade.entity.Weixin;
 import dev.silvia.wechattrade.entity.WxUserInfo;
-import dev.silvia.wechattrade.dao.WeixinMapper;
+import dev.silvia.wechattrade.handlers.common.cryto.Sign;
 import dev.silvia.wechattrade.service.IWeixinService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+
+import java.util.Date;
 
 @Slf4j
 @Service
-public class WeixinServiceImpl extends ServiceImpl<WeixinMapper, Weixin> implements IWeixinService {
+public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
 
     @Value("${weixin.appid}")
     private String appid;
@@ -28,13 +32,16 @@ public class WeixinServiceImpl extends ServiceImpl<WeixinMapper, Weixin> impleme
     private String secret;
 
     @Autowired
+    private UserDao userDao;
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
     StringRedisTemplate redisTemplate;
 
     @Autowired
     WxService wxService;
-
-    @Autowired
-    private WeixinMapper wxmapper;
 
     @Override
     public String getSessionId(String code) {
@@ -44,25 +51,66 @@ public class WeixinServiceImpl extends ServiceImpl<WeixinMapper, Weixin> impleme
         String replaceUrl = url.replace("{0}", appid).replace("{1}", secret).replace("{2}", code);
 
         String res = HttpUtil.get(replaceUrl);
-        System.out.println(res);
-        log.info("发送链接后获得的数据{}",res);
-        String s = UUID.randomUUID().toString();
-        redisTemplate.opsForValue().set(RedisKey.WX_SESSION_ID + s, res);
+        // System.out.println(res);
+        // log.info("发送链接后获得的数据{}",res);
+//        String s = UUID.randomUUID().toString();
+//        redisTemplate.opsForValue().set(RedisKey.WX_SESSION_ID + s, res);
+        String s=getToken(res);
         return s;
     }
 
     @Override
-    public Result authLogin(WXAuth wxAuth) {
+    public LoginResponseDto authLogin(WXAuth wxAuth) {
+        LoginResponseDto redto = new LoginResponseDto();
         try {
             String wxRes = wxService.wxDecrypt(wxAuth.getEncryptedData(), wxAuth.getSessionId(), wxAuth.getIv());
             WxUserInfo wxUserInfo = JSON.parseObject(wxRes,WxUserInfo.class);
-            // 这里是做业务操作的，理论上需要查询数据库，看这个用户信息是否存在，存在直接返回登录态，
-            // 若不存在即添加进数据库，做持久化。（表建好了，相关依赖也添加了，发现这是demo.就... 你懂的哈）
-            // 根据自己需求 更改
-            return Result.SUCCESS(wxUserInfo);
+
+            User user = new User();
+            user.setPhone(wxUserInfo.getOpenId());
+            user.setPassword("123456");
+            user.setAuthority(1);
+
+            user.setUserName(wxUserInfo.getNickName());
+            redto.setToken(Sign.generateToken(
+                    user.getId(),
+                    user.getUserName(),
+                    user.getAuthority(),
+                    1000 * 60 * 60
+            ));
+
+            //判断用户信息是否存在
+            String check = "select count(*) from user_info where phone = '" + wxUserInfo.getOpenId()+ "'";
+            int checked = jdbcTemplate.queryForObject(check, Integer.class);
+            redto.setUser(user);
+            if(checked == 1){
+                redto.setCode("666");
+                redto.setMsg("操作成功！");
+
+            }
+            else{
+                redto.setCode("666");
+                redto.setMsg("用户初次登录！");
+                userDao.insert(user);
+            }
+            return redto;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return Result.FAIL();
+        redto.setCode("000");
+        redto.setMsg("操作失败！");
+        return redto;
+    }
+
+    @Override
+    public String getToken(String session) {
+        Date start = new Date();
+        long currentTime = System.currentTimeMillis() + 60* 60 * 1000;//一小时有效时间
+        Date end = new Date(currentTime);
+        String token = "";
+
+        token = JWT.create().withAudience(session).withIssuedAt(start).withExpiresAt(end)
+                .sign(Algorithm.HMAC512("123456"));
+        return token;
     }
 }

@@ -5,23 +5,40 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
+@Entity
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName(value = "booking")
 public class Booking implements Serializable {
     private static final long serialVersionUID=1L;
-
+    @Id
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Integer sellerId;
+    private String number;
 
-    private Integer  buyerId;
+    private String sellerId;
 
-    private Integer productId;
+    private String  buyerId;
 
-    private String status;
+    private String productId;
+
+    private Integer ordersNum;
+
+    private Double price;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date appointmentTime;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date confirmTime;
+
+    private Integer status;
 }

@@ -59,14 +59,14 @@ public class LoginController {
     @RequestMapping(value ="/weixin/sessionId",method = RequestMethod.GET)
     public String getSessionId(@RequestParam String code){
        // String code = param.get("code").toString();
-        System.out.println("ssucceed");
-        System.out.println(code);
+//        System.out.println("ssucceed");
+//        System.out.println(code);
         return  weixinService.getSessionId(code);
     }
 
     @RequestMapping(value ="/weixin/authLogin", method = RequestMethod.POST)
-    public Result authLogin(@RequestBody WXAuth wxAuth) {
-        Result result = weixinService.authLogin(wxAuth);
+    public LoginResponseDto authLogin(@RequestBody WXAuth wxAuth) {
+        LoginResponseDto result = weixinService.authLogin(wxAuth);
         return result;
     }
 
@@ -82,7 +82,7 @@ public class LoginController {
     }
 
     //获取验证码
-    @RequestMapping(value ="/captcha/{phone}",method = RequestMethod.GET)
+    @RequestMapping(value ="/captcha",method = RequestMethod.GET)
     public ResponseEntity<?> captcha(@RequestParam String phone){
         String captcha;
         // 如果用户输入的用户名，格式符合邮箱，为邮箱登陆

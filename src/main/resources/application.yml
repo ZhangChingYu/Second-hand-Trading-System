@@ -1,5 +1,5 @@
 server:
-  port: 8001
+  port: 8080
 
 spring:
   datasource:
@@ -31,16 +31,7 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
-  redis:
-    host: 127.0.0.1
-    port: 6379
-    password: 123456
-    database: 0
-    lettuce:
-      pool:
-        max-idle: 16
-        max-active: 32
-        min-idle: 8
+
 weixin:
   appid: wxf3c9f3b16d188314
   secret: 42420fd8e88db05d9168f82ba10966e4

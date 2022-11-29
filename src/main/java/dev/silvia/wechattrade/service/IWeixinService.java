@@ -1,12 +1,13 @@
 package dev.silvia.wechattrade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import dev.silvia.wechattrade.dto.response.Result;
+import dev.silvia.wechattrade.dto.logindto.LoginResponseDto;
 import dev.silvia.wechattrade.entity.WXAuth;
-import dev.silvia.wechattrade.entity.Weixin;
 
-public interface IWeixinService extends IService<Weixin> {
+public interface IWeixinService extends IService {
     String getSessionId(String code);
-    Result authLogin(WXAuth wxAuth);
+    LoginResponseDto authLogin(WXAuth wxAuth);
+
+    String getToken(String session);
 }
 
