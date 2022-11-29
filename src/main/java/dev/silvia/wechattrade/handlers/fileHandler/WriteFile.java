@@ -28,6 +28,7 @@ public class WriteFile {
                     return 422;
                 } catch (IOException e) {
                     System.out.println("Read or Write Exception!");
+                    return 422;
                 } finally {     // BufferedWriter out 一定要close()否則不會寫入
                     if(null != out){
                         try {
