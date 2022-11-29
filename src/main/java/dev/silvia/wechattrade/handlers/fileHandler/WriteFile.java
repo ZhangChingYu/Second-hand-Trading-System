@@ -2,8 +2,10 @@ package dev.silvia.wechattrade.handlers.fileHandler;
 
 import dev.silvia.wechattrade.vo.FeedbackVo;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.List;
 
 @Component
 public class WriteFile {
@@ -87,5 +89,32 @@ public class WriteFile {
             }
         }
         return root+"/"+dir;
+    }
+
+    // 將圖片文件寫入磁盤
+    public int storePictures(String catalog, String number, List<MultipartFile> pictures){
+        // C:/Users/Sunny/Desktop/Products/catalog/number
+        String pathName = "C:/Users/Sunny/Desktop/Products/" + catalog + "/" + number;
+        Integer length = pictures.size();   // 獲取照片數
+        File folder = new File(pathName);
+        if(!folder.isDirectory()){
+            if(!folder.mkdirs()){
+                return 808; // 路徑創建失敗
+            }
+        }
+        for(int i = 0; i < length; i++){
+            String oldName = pictures.get(i).getOriginalFilename();
+            assert oldName != null;
+            // 已馬克杯為例: 編號_0.jpg 編號_1.jpg
+            String newName = number+ "_" + i + oldName.substring(oldName.lastIndexOf("."));
+            try {
+                pictures.get(i).transferTo(new File(folder, newName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String path = pathName + "/" + newName;
+            System.out.println(path);
+        }
+        return 201;
     }
 }
