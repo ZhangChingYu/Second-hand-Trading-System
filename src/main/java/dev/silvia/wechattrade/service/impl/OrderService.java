@@ -3,7 +3,6 @@ package dev.silvia.wechattrade.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import dev.silvia.wechattrade.dao.ProductDao;
-import dev.silvia.wechattrade.dao.UserDao;
 import dev.silvia.wechattrade.dto.exchangedto.BoReDto;
 import dev.silvia.wechattrade.dto.exchangedto.BookingDto;
 import dev.silvia.wechattrade.dto.exchangedto.ExRequestDto;
@@ -24,13 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
-public class OrderService extends ServiceImpl<UserDao, User> implements IOrderService {
+public class OrderService extends ServiceImpl<ProductDao, Product> implements IOrderService {
 
     @Autowired
     private UserRepository userRepository;
@@ -61,22 +57,33 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     private List<ExchangeInfo> exd=new ArrayList<>();
 
     private Result res;
-    private BookingDto bto;
-    private ExchangeInfo ex;
-    private ExRequestDto exdto;
-    private Seller seller;
-    private Buyer buyer;
+    private BookingDto bto=new BookingDto();
+    private ExchangeInfo ex=new ExchangeInfo();
+    private ExRequestDto exdto=new ExRequestDto();
+    private Seller seller=new Seller();
+    private Buyer buyer=new Buyer();
 
     @Autowired
-    private ProductDao productDao;
+    ProductDao productDao;
 
     @Override
     public Result getsellerinfo(String number) {
         QueryWrapper<Product> productWrapper = new QueryWrapper<>();
         productWrapper.eq("number", number);
         Product product = productDao.selectOne(productWrapper);
-        User user4=userRepository.findByPhone(product.getSPhone()).get();
-        user4.setUserName(transferUTF8.UTF8toC(user4.getUserName()));
+        User user4=transferUTF8.switchUtf8Tc(userRepository.findByPhone(product.getSPhone()).get());
+        //图片路径
+        List<String> picture1;
+        if(user4.getAvatar().isEmpty()){
+            //默认图片
+            picture1 = Collections.singletonList(ReadFile.getBaseFile("E:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
+            user4.setAvatar(picture1.get(0));
+        }
+        else{
+            //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
+            picture1= Collections.singletonList(ReadFile.getBaseFile(user4.getAvatar()));
+            user4.setAvatar(picture1.get(0));
+        }
         res=new Result(ResultCode.SUCCESS,user4);
         return res;
     }
@@ -84,19 +91,21 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     @Override
     public Result build(ExRequestDto request) {
         //获取商品信息
-        ProductDetailVo pro = service.getProductDetail(request.getProjectnubmer());
+        QueryWrapper<Product> productWrapper = new QueryWrapper<>();
+        productWrapper.eq("number",request.getProjectnubmer());
+        Product pro = productDao.selectOne(productWrapper);
 
         //订单信息表
         String pronum=OrderCodeUtils.createCode("DT");
         ex.setNumber(pronum);
         ex.setOrdersNum(request.getOrdersNum());
         ex.setPrice(request.getPrice());
-        ex.setPayment(request.getPayment());
+        ex.setPayment(transferUTF8.CtoUTF8(request.getPayment()));
         ex.setBuildTime(new Date());
         ex.setProductNum(request.getProjectnubmer());
         ex.setExpressDelivery(transferUTF8.CtoUTF8(request.getExpressDelivery()));
         if(request.getExpressDelivery()=="自取"){
-            ex.setStatus(0);
+            ex.setStatus(1);
         }
         else{
             ex.setStatus(0);
@@ -136,7 +145,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
         seller.setShippingTime(new Date());
         sel.save(seller);
 
-        Booking bo=accountRepository.findByNumber(number);
+        Booking bo=accountRepository.findByProductId(ex.getProductNum());
         bo.setStatus(3);
         accountRepository.save(bo);
 
@@ -154,7 +163,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
         buyer.setReceiptTime(new Date());
         buy.save(buyer);
 
-        Booking bo=accountRepository.findByNumber(number);
+        Booking bo=accountRepository.findByProductId(ex.getProductNum());
         bo.setStatus(4);
         accountRepository.save(bo);
 
@@ -188,7 +197,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
         seller.setRefundTime(new Date());
         sel.save(seller);
 
-        Booking bo=accountRepository.findByNumber(number);
+        Booking bo=accountRepository.findByProductId(ex.getProductNum());
         bo.setStatus(6);
         accountRepository.save(bo);
 
@@ -198,6 +207,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
         Product product = productDao.selectOne(productWrapper);
         Integer num=product.getStorage()+count;
         product.setStorage(num);
+        product.setStatus(5);
         productDao.updateById(product);
 
         res=new Result(ResultCode.SUCCESS,ex);
@@ -207,7 +217,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
 
     @Override
     public Result delete(String number) {
-        exRepository.deleteByNumber(number);
+        exRepository.delete(exRepository.findByNumber(number).get());
         res=new Result(ResultCode.SUCCESS);
         return res;
     }
@@ -216,7 +226,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     public Result sellerdelete(String number) {
         ex=exRepository.findByNumber(number).get();
         if(ex.getStatus()==4){
-            sel.deleteByExchangeId(number);
+            sel.delete(sel.findByExchangeId(number));
             res=new Result(ResultCode.SUCCESS);
         }
         else{
@@ -229,7 +239,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     public Result buyerdelete(String number) {
         ex=exRepository.findByNumber(number).get();
         if(ex.getStatus()==4){
-            buy.deleteByExchangeId(number);
+            buy.delete(buy.findByExchangeId(number));
             res=new Result(ResultCode.SUCCESS);
         }
         else{
@@ -240,24 +250,105 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
 
     @Override
     public Result selectallorder() {
-        return null;
+        List<Seller> sell=sel.findAll();
+        List<ExchangeDto> booklist=new ArrayList<>();
+        ExchangeDto bookdto=new ExchangeDto();
+        ProductDetailVo pro;
+        for(int i = 0; i< sell.size(); i++){
+            //获取产品编号
+            //获取商品信息
+            ex=exRepository.findByNumber(sell.get(i).getExchangeId()).get();
+            pro = service.getProductDetail(ex.getProductNum());
+
+            bookdto.setName(pro.getName());
+            bookdto.setStatus(ex.getStatus());
+            //图片信息
+            //图片信息
+            String path="";
+            if(pro.getPicture_count()==0){
+                bookdto.setCoverPic(path);
+            }
+            else{
+                List<String> pictures = readFile.getPicturesBase64(ex.getProductNum(), pro.getPictures().size());
+                bookdto.setCoverPic(pictures.get(0));
+            }
+            bookdto.setPice(ex.getPrice());
+            bookdto.setPronumber(ex.getProductNum());
+            bookdto.setOrdnumber(ex.getNumber());
+            booklist.add(bookdto);
+        }
+        res=new Result(ResultCode.SUCCESS, booklist);
+        return res;
     }
 
     @Override
     public Result selectsellerorder(String phone) {
-        List<Seller> sell=sel.findAllByPhone(phone);
+        List<Seller> sell=sel.findAll();
+        List<ExchangeDto> booklist=new ArrayList<>();
+        ExchangeDto bookdto=new ExchangeDto();
+        ProductDetailVo pro;
+        for(int i = 0; i< sell.size(); i++){
+            //获取产品编号
+            //获取商品信息
+            if(Objects.equals(sell.get(i).getPhone(), phone)){
+                ex=exRepository.findByNumber(sell.get(i).getExchangeId()).get();
+                pro = service.getProductDetail(ex.getProductNum());
 
-
-        res=new Result(ResultCode.SUCCESS,sell);
+                bookdto.setName(pro.getName());
+                bookdto.setStatus(ex.getStatus());
+                //图片信息
+                //图片信息
+                String path="";
+                if(pro.getPicture_count()==0){
+                    bookdto.setCoverPic(path);
+                }
+                else{
+                    List<String> pictures = readFile.getPicturesBase64(ex.getProductNum(), pro.getPictures().size());
+                    bookdto.setCoverPic(pictures.get(0));
+                }
+                bookdto.setPice(ex.getPrice());
+                bookdto.setPronumber(ex.getProductNum());
+                bookdto.setOrdnumber(ex.getNumber());
+                booklist.add(bookdto);
+            }
+        }
+        res=new Result(ResultCode.SUCCESS, booklist);
         return res;
     }
 
     @Override
     public Result selectbuyerorder(String phone) {
-        List<Buyer> bu=buy.findAllByPhone(phone);
+        //获取用户所有商品
+        List<Buyer> bu=buy.findAll();
+        List<ExchangeDto> booklist=new ArrayList<>();
+        ExchangeDto bookdto=new ExchangeDto();
+        ProductDetailVo pro;
+        for(int i = 0; i< bu.size(); i++){
+            //获取产品编号
+            //获取商品信息
+            if(Objects.equals(bu.get(i).getPhone(), phone)){
+                ex=exRepository.findByNumber(bu.get(i).getExchangeId()).get();
+                pro = service.getProductDetail(ex.getProductNum());
 
-
-        res=new Result(ResultCode.SUCCESS,bu);
+                bookdto.setName(pro.getName());
+                bookdto.setStatus(ex.getStatus());
+                //图片信息
+                //图片信息
+                String path="";
+                if(pro.getPicture_count()==0){
+                    bookdto.setCoverPic(path);
+                }
+                else{
+                    List<String> pictures = readFile.getPicturesBase64(ex.getProductNum(), pro.getPictures().size());
+                    bookdto.setCoverPic(pictures.get(0));
+                }
+                bookdto.setPice(ex.getPrice());
+                bookdto.setPronumber(ex.getProductNum());
+                bookdto.setOrdnumber(ex.getNumber());
+                booklist.add(bookdto);
+            }
+        }
+        res=new Result(ResultCode.SUCCESS, booklist);
         return res;
     }
 
@@ -284,7 +375,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
     public Result deleteappointments(String number) {
         Booking book=accountRepository.findByNumber(number);
         if(book.getStatus()==4||book.getStatus()==5||book.getStatus()==6||book.getStatus()==7){
-            accountRepository.deleteByNumber(number);
+            accountRepository.delete(book);
             res=new Result(ResultCode.SUCCESS);
         }
         else{
@@ -317,62 +408,65 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
         //获取用户所有预约
         List<BookingDto> booklist=new ArrayList<>();
         BookingDto bookdto=new BookingDto();
-        List<Booking> bidList=accountRepository.findByBuyerId(phone);
+        List<Booking> bidList=accountRepository.findAll();
         ProductDetailVo pro;
         for(int i = 0; i< bidList.size(); i++){
             //获取产品编号
             //获取商品信息
-            pro = service.getProductDetail(bidList.get(i).getProductId());
+            if(Objects.equals(bidList.get(i).getBuyerId(), phone)){
+                pro = service.getProductDetail(bidList.get(i).getProductId());
 
-            bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
-            bookdto.setStatus(bidList.get(i).getStatus());
-            //图片信息
-            //图片信息
-            String path="";
-            if(pro.getPicture_count()==0){
-                bookdto.setCoverPic(path);
-            }
-            else{
-                List<String> pictures = readFile.getPicturesBase64(bidList.get(i).getProductId(), pro.getPictures().size());
-                bookdto.setCoverPic(pictures.get(0));
+                bookdto.setName(pro.getName());
+                bookdto.setStatus(bidList.get(i).getStatus());
+                //图片信息
+                //图片信息
+                String path="";
+                if(pro.getPicture_count()==0){
+                    bookdto.setCoverPic(path);
+                }
+                else{
+                    List<String> pictures = readFile.getPicturesBase64(bidList.get(i).getProductId(), pro.getPictures().size());
+                    bookdto.setCoverPic(pictures.get(0));
+                }
+
+                bookdto.setPice(bidList.get(i).getPrice());
+                bookdto.setNumber(bidList.get(i).getNumber());
+                booklist.add(bookdto);
             }
 
-            bookdto.setPice(bidList.get(i).getPrice());
-            bookdto.setNumber(bidList.get(i).getNumber());
-            booklist.set(i,bookdto);
         }
         res=new Result(ResultCode.SUCCESS, booklist);
         return res;
     }
-
 
     @Override
     public Result selectallseller(String phone) {
         //获取用户所有预约
         List<BookingDto> booklist=new ArrayList<>();
         BookingDto bookdto=new BookingDto();
-        List<Booking> bidList=accountRepository.findBySellerId(phone);
+        List<Booking> bidList=accountRepository.findAll();
         ProductDetailVo pro;
         for(int i = 0; i< bidList.size(); i++){
             //获取产品编号
             //获取商品信息
-            pro = service.getProductDetail(bidList.get(i).getProductId());
+            if(Objects.equals(bidList.get(i).getSellerId(), phone)){
+                pro = service.getProductDetail(bidList.get(i).getProductId());
+                bookdto.setName(pro.getName());
+                bookdto.setStatus(bidList.get(i).getStatus());
+                //图片信息
+                String path="";
+                if(pro.getPicture_count()==0){
+                    bookdto.setCoverPic(path);
+                }
+                else{
+                    List<String> pictures = readFile.getPicturesBase64(bidList.get(i).getProductId(), pro.getPictures().size());
+                    bookdto.setCoverPic(pictures.get(0));
+                }
 
-            bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
-            bookdto.setStatus(bidList.get(i).getStatus());
-            //图片信息
-            String path="";
-            if(pro.getPicture_count()==0){
-                bookdto.setCoverPic(path);
+                bookdto.setPice(bidList.get(i).getPrice());
+                bookdto.setNumber(bidList.get(i).getNumber());
+                booklist.add(bookdto);
             }
-            else{
-                List<String> pictures = readFile.getPicturesBase64(bidList.get(i).getProductId(), pro.getPictures().size());
-                bookdto.setCoverPic(pictures.get(0));
-            }
-
-            bookdto.setPice(bidList.get(i).getPrice());
-            bookdto.setNumber(bidList.get(i).getNumber());
-            booklist.set(i,bookdto);
         }
         res=new Result(ResultCode.SUCCESS, booklist);
         return res;
@@ -388,7 +482,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
             //获取商品信息
             pro = service.getProductDetail(bidList.get(i).getProductId());
 
-            bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
+            bookdto.setName(pro.getName());
             bookdto.setStatus(bidList.get(i).getStatus());
             //图片信息
             String path="";
@@ -401,7 +495,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
             }
             bookdto.setPice(bidList.get(i).getPrice());
             bookdto.setNumber(bidList.get(i).getNumber());
-            booklist.set(i,bookdto);
+            booklist.add(bookdto);
         }
         res=new Result(ResultCode.SUCCESS, booklist);
         return res;
@@ -409,7 +503,7 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
 
 
     @Override
-    public Result acquireappointments(String number,int count) {
+    public Result acquireappointments(String number,Integer count) {
         Booking bo=accountRepository.findByNumber(number);
         bo.setStatus(1);
         bo.setConfirmTime(new Date());
@@ -417,16 +511,23 @@ public class OrderService extends ServiceImpl<UserDao, User> implements IOrderSe
 
         //修改商品状态
         QueryWrapper<Product> productWrapper = new QueryWrapper<>();
-        productWrapper.eq("number", number);
+        productWrapper.eq("number", bo.getProductId());
         Product product = productDao.selectOne(productWrapper);
-        product.setStorage(product.getStorage()-count);
+
+        int c= product.getStorage() - count;
+        System.out.println(c);
+        product.setStorage(c);
         if(product.getStorage()-count==0){
-            product.setStatus(5);
+            product.setStatus(4);
         }
-//      productDao.updateById(product);
         productDao.updateById(product);
 
         res=new Result(ResultCode.SUCCESS,bo);
         return res;
+    }
+
+    @Override
+    public Result allordersdetils(String number) {
+        return null;
     }
 }

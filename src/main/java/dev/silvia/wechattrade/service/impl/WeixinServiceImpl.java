@@ -21,6 +21,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -81,14 +82,14 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
 
             //图片路径
             List<String> picture1;
-            List<String> picture2;
             if(user.getAvatar().isEmpty()){
                 //默认图片
-                picture1 = readFile.getpictureBase64("Avatar","default",1);
+                picture1 = Collections.singletonList(ReadFile.getBaseFile("E:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
                 user.setAvatar(picture1.get(0));
             }
             else{
-                picture1 = readFile.getpictureBase64("Avatar",user.getPhone(),1);
+                //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
+                picture1= Collections.singletonList(ReadFile.getBaseFile(user.getAvatar()));
                 user.setAvatar(picture1.get(0));
             }
 

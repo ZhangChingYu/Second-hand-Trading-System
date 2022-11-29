@@ -7,11 +7,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 @Entity
+@Table(name = "buyer_info")
 @Data
 @EqualsAndHashCode(callSuper = false)
 @TableName(value = "buyer_info")
@@ -19,6 +19,7 @@ public class Buyer implements Serializable {
     private static final long serialVersionUID=1L;
     @Id
     @TableId(value = "id", type = IdType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private String exchangeId;

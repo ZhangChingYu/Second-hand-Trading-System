@@ -4,9 +4,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import dev.silvia.wechattrade.dto.exchangedto.BoReDto;
 import dev.silvia.wechattrade.dto.exchangedto.ExRequestDto;
 import dev.silvia.wechattrade.dto.response.Result;
-import dev.silvia.wechattrade.entity.User;
+import dev.silvia.wechattrade.entity.Product;
 
-public interface IOrderService extends IService<User> {
+public interface IOrderService extends IService<Product> {
 
     //getseller
     Result getsellerinfo(String number);
@@ -49,5 +49,8 @@ public interface IOrderService extends IService<User> {
     Result selectallseller(String phone);  //买家查询
     Result selectall();  //管理员查看
 
-    Result acquireappointments(String number,int count);   //卖方
+    Result acquireappointments(String number,Integer count);   //卖方
+
+    //根据订单编号获取订单详情
+    Result allordersdetils(String number);   //卖方
 }

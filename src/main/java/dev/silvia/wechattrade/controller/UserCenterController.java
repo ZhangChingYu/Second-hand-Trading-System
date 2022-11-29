@@ -71,11 +71,10 @@ public class UserCenterController {
         auth.setIdCardPics(files);
         auth.setRealName(params.getParameter("realName"));
         auth.setIdNumber(params.getParameter("idNumber"));
-        System.out.println(auth);
         return ResponseEntity.ok(service.authentication(auth));
     }
 
-    //实名认证
+    //修改头像
     @RequestMapping(value ="/setting/swapRelatedAvatar")
     @ResponseBody
     public ResponseEntity<?> swapRelatedAvatar(HttpServletRequest request) throws ParseException {

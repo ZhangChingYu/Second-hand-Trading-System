@@ -11,7 +11,6 @@ public interface BookingRespository extends JpaRepository<Booking, String> {
 
     void deleteByNumber(String number);
 
-    List<Booking> findBySellerId(String sellerId);
 
     List<Booking> findByBuyerId(String buyerId);
 
@@ -19,4 +18,7 @@ public interface BookingRespository extends JpaRepository<Booking, String> {
 
     Booking findByProductId(String productId);
 
+    List<Booking> findAllBySellerId(String phone);
+
+    List<Booking> findAllByBuyerId(String phone);
 }

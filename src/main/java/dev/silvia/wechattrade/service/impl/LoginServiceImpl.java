@@ -20,6 +20,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -76,15 +77,17 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         List<String> picture2;
                         if(u.getAvatar().isEmpty()){
                             //默认图片
-                            picture1 = readFile.getpictureBase64("Avatar","default",1);
+                            picture1 = Collections.singletonList(ReadFile.getBaseFile("E:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
                             u.setAvatar(picture1.get(0));
                         }
                         else{
-                            picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
+                          //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
+                            picture1= Collections.singletonList(ReadFile.getBaseFile(u.getAvatar()));
                             u.setAvatar(picture1.get(0));
                         }
                         if(!u.getPicture().isEmpty()){
-                            picture2 = readFile.getpictureBase64("Authentication",u.getPhone(),1);
+                            picture2= Collections.singletonList(ReadFile.getBaseFile(u.getPicture()));
+                            // picture2 = readFile.getpictureBase64("Authentication",u.getPhone(),1);
                             u.setPicture(picture2.get(0));
                         }
 

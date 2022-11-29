@@ -10,7 +10,7 @@ public class ExchangeDto {
 
     private String name;     //商品名称
 
-    private Integer  coverPic;   //商品图片
+    private String  coverPic;   //商品图片
 
     private Double pice;     //商品价格
 

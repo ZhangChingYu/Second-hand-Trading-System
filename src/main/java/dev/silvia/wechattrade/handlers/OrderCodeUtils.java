@@ -19,7 +19,6 @@ public class OrderCodeUtils {
         Date date = new Date();
         String str = simpleDateFormat.format(date);
         int i = (int)(Math.random()*9000 + 1000);
-        System.out.println(i);
         return params +str + i;
     }
 

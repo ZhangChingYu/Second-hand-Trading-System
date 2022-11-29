@@ -64,6 +64,8 @@ public class LoginController {
         return  weixinService.getSessionId(code);
     }
 
+//   输入  {String encryptedData;String iv;String sessionId;}
+//   返回LoginResponseDto{code: "666" （成功）;mag:  ;User:user}
     @RequestMapping(value ="/weixin/authLogin", method = RequestMethod.POST)
     public LoginResponseDto authLogin(@RequestBody WXAuth wxAuth) {
         LoginResponseDto result = weixinService.authLogin(wxAuth);

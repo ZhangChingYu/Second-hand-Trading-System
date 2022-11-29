@@ -12,5 +12,4 @@ public interface BuyerRepository extends JpaRepository<Buyer, String> {
 
     List<Buyer> findAllByPhone(String phone);
 
-    void deleteByExchangeId(String number);
 }
