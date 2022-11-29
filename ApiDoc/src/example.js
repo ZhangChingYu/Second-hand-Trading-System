@@ -634,3 +634,58 @@
  *        null
  *     }
  */
+
+/**
+ * @api {GET} /my/products 顯示用戶所有商品
+ * @apiName ShowAllMyProducts
+ * @apiGroup 我的商品
+ * @apiPermission none
+ *
+ * @apiDescription 顯示用戶所有上傳過的商品
+ *
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 請求成功(手機號為1635905050的例子)
+ *     [
+ *        {
+ *              "status":0,
+ *              "name":"考研真相英語一",
+ *              "price":12.0,
+ *              "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAg....(base64編碼，原文過長不全部展示)
+ *        },
+ *        {
+ *             "status":0,
+ *             "name":"二手書",
+ *             "price":8.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXh.......
+ *        },
+ *        {
+ *             "status":0,
+ *             "name":"思想道德與法治2021年版",
+ *             "price":7.9,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYR......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"中公小學教師資格證",
+ *             "price":68.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4Q......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"二手自考教材04729大學語文2018版徐中玉陶型傳北京大學出版社",
+ *             "price":14.66,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAg......
+ *         },
+ *         {
+ *             "status":0,
+ *             "name":"國家教師資格考試",
+ *             "price":15.0,
+ *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0.......
+ *         }
+ *     ]
+ * @apiErrorExample 沒有任何上傳的商品
+ *     {
+ *        null
+ *     }
+ */
