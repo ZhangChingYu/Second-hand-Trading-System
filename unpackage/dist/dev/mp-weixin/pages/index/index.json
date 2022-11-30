@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "uni-app",
+  "usingComponents": {
+    "u-button": "/uni_modules/uview-ui/components/u-button/u-button",
+    "u-loading-icon": "/uni_modules/uview-ui/components/u-loading-icon/u-loading-icon"
+  }
+}
