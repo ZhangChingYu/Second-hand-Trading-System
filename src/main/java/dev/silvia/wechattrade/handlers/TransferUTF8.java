@@ -1,6 +1,7 @@
 package dev.silvia.wechattrade.handlers;
 
 
+import dev.silvia.wechattrade.entity.User;
 import org.springframework.stereotype.Component;
 
 import java.io.UnsupportedEncodingException;
@@ -61,5 +62,21 @@ public class TransferUTF8 {
             e.printStackTrace();
         }
         return utf8;
+    }
+    public User switchUtf8Tc(User us){
+        User user=us;
+        user.setUserName(UTF8toC(us.getUserName()));
+        user.setRealName(UTF8toC(us.getRealName()));
+        user.setAddress(UTF8toC(us.getAddress()));
+        user.setDefaultAddress(UTF8toC(us.getDefaultAddress()));
+        return user;
+    }
+    public User switchUtf8(User us){
+        User user=us;
+        user.setUserName(CtoUTF8(us.getUserName()));
+        user.setRealName(CtoUTF8(us.getRealName()));
+        user.setAddress(CtoUTF8(us.getAddress()));
+        user.setDefaultAddress(CtoUTF8(us.getDefaultAddress()));
+        return user;
     }
 }

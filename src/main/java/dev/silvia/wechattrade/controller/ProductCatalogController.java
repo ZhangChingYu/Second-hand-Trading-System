@@ -4,7 +4,6 @@ package dev.silvia.wechattrade.controller;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.entity.ProductCatalog;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
-import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.ICatalogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -12,7 +12,7 @@ public class UserNameGenerator {    // 隨機生成用戶暱稱工具
     public static final Integer NUMBER_LENGTH_UPPER_BOUND = 4;
     public static final Integer NUMBER_LENGTH_LOWER_BOUND = 2;
     public static final char[] STR = {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
-    'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
+            'A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'};
 
     public String generateRandomName(String userName, List<String> nameList){
         if(userName.isEmpty()){     // 若用戶沒有暱稱

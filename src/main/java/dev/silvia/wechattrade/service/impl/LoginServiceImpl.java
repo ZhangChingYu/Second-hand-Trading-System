@@ -3,14 +3,16 @@ package dev.silvia.wechattrade.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dao.UserDao;
-import dev.silvia.wechattrade.dto.logindto.LoginDto;
 import dev.silvia.wechattrade.dto.logindto.LoginRequestDto;
 import dev.silvia.wechattrade.dto.logindto.LoginResponseDto;
 import dev.silvia.wechattrade.dto.logindto.LostPasswordDto;
-import dev.silvia.wechattrade.dto.response.ResponseDto;
+import dev.silvia.wechattrade.dto.response.Result;
+import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.User;
+import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.cryto.Sign;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.ILoginService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -42,20 +46,55 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
     @Autowired
     private Optional<User> user;
 
+    private Result use;
+
+    private  Result redto;
+
+    @Autowired
+    TransferUTF8 transferUTF8 = new TransferUTF8();
+
+    @Autowired
+    private ReadFile readFile = new ReadFile();
     // 正则匹配用户输入的格式，用户是：用户名，或手机号，或邮箱登录
     private final String em = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
-    private final String ph = "^[1][3578]\\d{9}$";
+    private final String ph =  "^[1][3578]\\d{9}$";
 
     @Override
     public Optional<LoginResponseDto> login(LoginRequestDto request) {
         return this.verifyAccount(request)
                 .map(loginDto -> {
-                    LoginResponseDto user = this.modelMapper.map(loginDto, LoginResponseDto.class);
-                    User u=user.getUser();
+                    LoginResponseDto user = new LoginResponseDto();
+                    user.setCode(loginDto.getCode());
+                    user.setMsg(loginDto.getMsg());
+
                     if(Objects.equals(user.getCode(), "666")){
+                        //转换utf8
+                        User u=transferUTF8.switchUtf8Tc((User) loginDto.getData());
+
+
+                        //图片路径
+                        List<String> picture1;
+                        List<String> picture2;
+                        if(u.getAvatar().isEmpty()){
+                            //默认图片
+                            picture1 = Collections.singletonList(ReadFile.getBaseFile("C:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
+                            u.setAvatar(picture1.get(0));
+                        }
+                        else{
+                          //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
+                            picture1= Collections.singletonList(ReadFile.getBaseFile(u.getAvatar()));
+                            u.setAvatar(picture1.get(0));
+                        }
+                        if(!u.getPicture().isEmpty()){
+                            picture2= Collections.singletonList(ReadFile.getBaseFile(u.getPicture()));
+                            // picture2 = readFile.getpictureBase64("Authentication",u.getPhone(),1);
+                            u.setPicture(picture2.get(0));
+                        }
+
+                        user.setUser(u);
                         user.setToken(Sign.generateToken(
                                 u.getId(),
-                                u.getUserName(),
+                                transferUTF8.CtoUTF8(u.getUserName()),
                                 u.getAuthority(),
                                 1000 * 60 * 60
                         ));
@@ -64,28 +103,29 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                 });
     }
 
-    private Optional<LoginDto> verifyAccount(LoginRequestDto request) {
+    private Optional<Result> verifyAccount(LoginRequestDto request) {
 
         // 用户状态: 2 已被永久封禁
         int two = 2;
-
-        String username=request.getUsername();
-
+        String username=request.getUsename();
         // 如果用户输入的用户名，格式符合邮箱，为邮箱登陆
-        if (username.matches(em)) {
+        if (!username.matches(em)) {
             // 通过邮箱查询数据库用户
             //要求用户名唯一
-            user=accountRepository.findByEmail(username);
-        }
-        else if (username.matches(ph)){
-            // 如果用户输入的用户名，格式符合手机号，为手机号登陆
-            //要求用户名唯一
-            user=accountRepository.findByPhone(username);
+            if (username.matches(ph)){
+                // 如果用户输入的用户名，格式符合手机号，为手机号登陆
+                //要求用户名唯一
+                user=accountRepository.findByPhone(username);
+            }
+            else{
+                //格式错误
+
+                use=new Result(ResultCode.PARAM_TYPE_BIND_ERROR);
+                return Optional.ofNullable(use);
+            }
         }
         else{
-            // 输入的用户名格式，不是邮箱，也不是手机号，那就是用户名登陆
-            //要求用户名唯一
-            user=accountRepository.findByUserName(username);
+            user=accountRepository.findByEmail(username);
         }
         return this.user.filter(account -> {
                     try {
@@ -96,56 +136,51 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         return false;
                     }
                 }).map(account ->{
-                    LoginDto use=new LoginDto();
                     if(!Objects.equals(account.getAuthority(),two)){
                         if(!Objects.equals(account.getPassword(), request.getPassword())){
-                            use.setMsg("密码错误");//密码错误
-                            use.setCode("444");
+                            use=new Result(ResultCode.USER_LOGIN_ERROR);
                         }
                         else{
-                            use.setUser(account);
-                            use.setMsg("登陆成功");//登陆成功
-                            use.setCode("666");
+                            use=new Result(ResultCode.SUCCESS,account);
                         }
                     }
                     else{
-                        use.setUser(account);
-                        use.setMsg("用户被禁用");//用户被禁用
-                        use.setCode("222");
+                        //账号被禁用
+                        use=new Result(ResultCode.USER_ACCOUNT_FORBIDDEN,account);
                     }
                     return use;
-                } );
+        } );
     }
 
     @Override
-    public ResponseDto lostPassward(LostPasswordDto request) {
-        ResponseDto redto=new ResponseDto();
+    public Result lostPassward(LostPasswordDto request) {
         try{
             String phone=request.getPhone();
             String password=request.getPassword();
             String pa;
             String sql;
             // 如果用户输入的用户名，格式符合邮箱，为邮箱登陆
-            if (phone.matches(em)) {
+            if (!phone.matches(em)) {
                 // 通过邮箱查询数据库用户
+                if (phone.matches(ph)){
+                    // 如果用户输入的用户名，格式符合手机号，为手机号登陆
+                    sql="select * from user_info where phone = '" + phone+ "'";
+                    pa= Objects.requireNonNull(jdbcTemplate.queryForObject(sql,
+                            new BeanPropertyRowMapper<>(User.class))).getPassword();
+                }
+                else{
+                    redto=new Result(ResultCode.PARAM_TYPE_BIND_ERROR);
+                    return redto;
+                }
+
+            }
+            else{
                 sql="select * from user_info where email = '" + phone+ "'";
                 pa= Objects.requireNonNull(jdbcTemplate.queryForObject(sql,
                         new BeanPropertyRowMapper<>(User.class))).getPassword();
             }
-            else if (phone.matches(ph)){
-                // 如果用户输入的用户名，格式符合手机号，为手机号登陆
-                sql="select * from user_info where phone = '" + phone+ "'";
-                pa= Objects.requireNonNull(jdbcTemplate.queryForObject(sql,
-                        new BeanPropertyRowMapper<>(User.class))).getPassword();
-            }
-            else{
-                redto.setMsg("手机号或邮箱格式错误");
-                redto.setCode("111");
-                return redto;
-            }
             if(Objects.equals(pa, password)){
-                redto.setMsg("密码为旧密码");
-                redto.setCode("222");
+                redto=new Result(ResultCode.USER_PASSWORD_EXIST);
                 return redto;
             }
             else{
@@ -154,21 +189,18 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                 String sql2="update user_info set password='"+ password +"' " +
                         "where email = '" + phone+ "'";
                 if(jdbcTemplate.update(sql1)==1||jdbcTemplate.update(sql2)==1){
-                    redto.setMsg("修改密码成功");
-                    redto.setCode("666");
+                    redto=new Result(ResultCode.SUCCESS);
                     return redto;
                 }
                 else{
-                    redto.setMsg("修改密码失败");
-                    redto.setCode("444");
+                    redto=new Result(ResultCode.FAIL);
                     return redto;
                 }
             }
         }catch (Exception e){
 
         }
-        redto.setMsg("用户不存在");
-        redto.setCode("000");
+        redto=new Result(ResultCode.USER_NOT_EXIST);
         return redto;
     }
 }

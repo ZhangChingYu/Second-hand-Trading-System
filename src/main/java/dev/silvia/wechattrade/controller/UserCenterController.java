@@ -3,21 +3,27 @@ package dev.silvia.wechattrade.controller;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dto.address.AddressCreateDto;
 import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
+import dev.silvia.wechattrade.dto.response.Result;
+import dev.silvia.wechattrade.dto.response.ResultCode;
+import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
+import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IUserSettingService;
-import dev.silvia.wechattrade.vo.help.HelpCatalogVo;
-import dev.silvia.wechattrade.vo.help.HelpQuestionVo;
+import dev.silvia.wechattrade.vo.AuthenticationVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @RestController
 public class UserCenterController {
@@ -28,6 +34,62 @@ public class UserCenterController {
     Gson gson = new Gson();
     private String h_catalog = null, h_question = null;
 
+    @Autowired
+    private ReadFile readFile;
+
+    @Autowired
+    private WriteFile writeFile;
+
+    private Result redto;
+    //根据id获取个人信息
+    @RequestMapping(value ="/setting/acquisition",method = RequestMethod.GET)
+    public ResponseEntity<?> acquisition(@RequestParam Integer id){
+        Optional<Result> result = this.service.Acquisition(id);
+        if (result.isPresent()) {
+            return ResponseEntity.ok(result.get());
+        }
+        else{
+            redto=new Result(ResultCode.FAIL);
+            return ResponseEntity.ok(redto);
+        }
+    }
+
+    //修改个人信息
+    @RequestMapping(value ="/setting/edit", method = RequestMethod.PUT)
+    public ResponseEntity<?> personalinfo(@RequestBody User user){
+        return ResponseEntity.ok(service.PersonalInfo(user));
+    }
+
+    //实名认证
+    @RequestMapping(value ="/setting/authentication")
+    @ResponseBody
+    public ResponseEntity<?> authentication(HttpServletRequest request) throws ParseException {
+        MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
+        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("pictures");
+        AuthenticationVo auth=new AuthenticationVo();
+        auth.setPhone(params.getParameter("phone"));
+        auth.setIdCardPics(files);
+        auth.setRealName(params.getParameter("realName"));
+        auth.setIdNumber(params.getParameter("idNumber"));
+        return ResponseEntity.ok(service.authentication(auth));
+    }
+
+    //修改头像
+    @RequestMapping(value ="/setting/swapRelatedAvatar")
+    @ResponseBody
+    public ResponseEntity<?> swapRelatedAvatar(HttpServletRequest request) throws ParseException {
+        MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
+        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("avatar");
+        String phone=params.getParameter("phone");
+        Result res;
+        if(writeFile.storeravatarPictures("Avatar",phone,files)==808){
+            res=new Result(ResultCode.FAIL);
+            ResponseEntity.ok(res);
+        }
+        List<String> pictures = readFile.getPictureBase64("Avatar",phone,files.size());
+        String path=pictures.get(0);
+        return ResponseEntity.ok(service.swapRelatedAvatar(phone,path));
+    }
 
     @UserLoginToken
     @RequestMapping(value = "/default/address", method = RequestMethod.GET)
@@ -68,12 +130,12 @@ public class UserCenterController {
 
     @PassToken
     @RequestMapping(value = "/setting/help", method = RequestMethod.GET)
-    public List<HelpCatalogVo> getHelpCatalogs(){
+    public List<String> getHelpCatalogs(){
         return service.getQuestionCatalog();
     }
     @PassToken
     @RequestMapping(value = "/setting/help/catalog", method = RequestMethod.GET)
-    public List<HelpQuestionVo> getHelpQuestions(HttpServletRequest request){
+    public List<String> getHelpQuestions(HttpServletRequest request){
         h_catalog = request.getParameter("catalog");
         return service.getQuestions(h_catalog);
     }
@@ -91,5 +153,5 @@ public class UserCenterController {
         String content = param.get("content").toString();
         return service.sendFeedback(phone, content);
     }
-
 }
+

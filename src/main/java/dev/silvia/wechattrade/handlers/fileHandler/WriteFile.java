@@ -1,5 +1,4 @@
 package dev.silvia.wechattrade.handlers.fileHandler;
-
 import dev.silvia.wechattrade.vo.FeedbackVo;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +10,7 @@ import java.util.List;
 public class WriteFile {
     private String feedback_url = FileDirector.FEEDBACK_URL;
     private String picture_url = FileDirector.PRODUCT_PICTURE_URL;
+    private String auth_url = FileDirector.AUTH_URL;
     public Integer writeFeedbackFile(FeedbackVo feedback){  // // 寫入feedback文件
         // C://Users/Sunny/Desktop/Feedback/(Year)/(Month)/(Time+Phone).txt
         String filePath = feedback_url;
@@ -120,4 +120,32 @@ public class WriteFile {
         }
         return 201;
     }
+
+    public int storeravatarPictures(String catalog,String phone, List<MultipartFile> pictures) {
+        // C:/Users/Sunny/Desktop/Products/catalog/number
+        String pathName = auth_url + catalog +"/" + phone;
+        Integer length = pictures.size();   // 獲取照片數
+        File folder = new File(pathName);
+        if(!folder.isDirectory()){
+            if(!folder.mkdirs()){
+                return 808; // 路徑創建失敗
+            }
+        }
+        for(int i = 0; i < length; i++){
+            String oldName = pictures.get(i).getOriginalFilename();
+            assert oldName != null;
+            // 已馬克杯為例: 編號_0.jpg 編號_1.jpg
+            String newName = phone+ "_" + i + oldName.substring(oldName.lastIndexOf("."));
+            try {
+                pictures.get(i).transferTo(new File(folder, newName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String path = pathName + "/" + newName;
+            System.out.println(path);
+        }
+        return 201;
+    }
 }
+
+

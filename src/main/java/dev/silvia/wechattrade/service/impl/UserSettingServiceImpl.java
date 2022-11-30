@@ -5,30 +5,30 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import dev.silvia.wechattrade.dao.UserDao;
 import dev.silvia.wechattrade.dto.address.AddressCreateDto;
 import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
+import dev.silvia.wechattrade.dto.response.Result;
+import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.AddressPacking;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
-import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
+import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IUserSettingService;
 import dev.silvia.wechattrade.vo.AddressVo;
 import dev.silvia.wechattrade.vo.AuthenticationVo;
 import dev.silvia.wechattrade.vo.FeedbackVo;
-import dev.silvia.wechattrade.vo.help.HelpCatalogVo;
-import dev.silvia.wechattrade.vo.help.HelpQuestionVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implements IUserSettingService {
-    private String help_url = FileDirector.HELP_URL;
+    public final static String HELP_URL = "E://Users/Sunny/Desktop/Help";
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -42,9 +42,93 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     @Autowired
     private WriteFile writeFile;
 
+    @Autowired
+    private UserRepository accountRepository;
+
+    private Result res;
+
+    @Autowired
+    private Optional<User> user;
+
+    private User user2;
+
+    //个人信息修改
     @Override
-    public int swapRelatedPhone(String phone) {
-        return 0;
+    public Result PersonalInfo(User request) {
+        try {
+            //转换utf8
+            request=transferUTF8.switchUtf8(request);
+            //存储
+            accountRepository.save(request);
+            res=new Result(ResultCode.SUCCESS);
+            return res;
+        } catch (Exception e) {
+            res=new Result(ResultCode.FAIL);
+            return res;
+        }
+    }
+    //个人信息获取
+    @Override
+    public Optional<Result> Acquisition(Integer id) {
+        user=accountRepository.findById(id);
+        return this.user.filter(us-> {
+            try {
+                return true;
+            } catch (Exception e) {
+                return false;
+            }}
+        ).map(us->{
+            //转换utf8
+                    us=transferUTF8.switchUtf8Tc(us);
+                    us.setAvatar(ReadFile.getBaseFile(us.getAvatar()));
+                    us.setPicture(ReadFile.getBaseFile(us.getPicture()));
+                    res=new Result(ResultCode.SUCCESS,us);
+                    return res;
+                }
+
+        );
+    }
+    //实名认证
+    @Override
+    public Result authentication(AuthenticationVo request) {
+        try{
+            User user1=accountRepository.findByPhone(request.getPhone()).get();
+            user1.setIdCard(request.getIdNumber());
+            user1.setRealName(request.getRealName());
+            //List<String> pictures = readFile.getPicturesBase64(request.getIdCardPics().size(), request.getIdCardPics());
+            if(writeFile.storeravatarPictures("Authentication",request.getPhone(),request.getIdCardPics())==808){
+                res=new Result(ResultCode.FAIL);
+                return res;
+            }
+            List<String> pictures = readFile.getPictureBase64("Authentication",request.getPhone(),request.getIdCardPics().size());
+            user1.setAuthority(0);
+            user1.setPicture(pictures.get(0));
+            res=new Result(ResultCode.SUCCESS);
+            user1=transferUTF8.switchUtf8(user1);
+            accountRepository.save(user1);
+            return res;
+        } catch (Exception e) {
+            res=new Result(ResultCode.FAIL);
+            return res;
+        }
+    }
+
+    @Override
+    public Result swapRelatedAvatar(String phone,String avatar) {
+        User user1=accountRepository.findByPhone(phone).get();
+        user1.setAvatar(avatar);
+        accountRepository.save(user1);
+        res=new Result(ResultCode.SUCCESS,user1);
+        return res;
+    }
+
+    @Override
+    public Result swapRelatedPhone(String phone) {
+        User user1=accountRepository.findByPhone(phone).get();
+        user1.setPhone(phone);
+        accountRepository.save(user1);
+        res=new Result(ResultCode.SUCCESS,user1);
+        return res;
     }
 
     @Override
@@ -188,37 +272,26 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     }
 
     @Override
-    public List<HelpCatalogVo> getQuestionCatalog(){
-        List<HelpCatalogVo> catalogVos = new ArrayList<>();
-        List<String> catalogs = readFile.getSubFileNames(help_url);
-        for(int i = 0 ; i < catalogs.size(); i++){
-            HelpCatalogVo catalog = new HelpCatalogVo();
-            catalog.setIndex(i);
-            catalog.setCatalog(catalogs.get(i));
-            catalogVos.add(catalog);
-        }
-        return catalogVos;
+    public List<String> getQuestionCatalog(){
+        List<String> catalogs = readFile.getSubFileNames(HELP_URL);
+        return catalogs;
     }
 
     @Override
-    public List<HelpQuestionVo> getQuestions(String catalog) {
-        List<HelpQuestionVo> questionVos = new ArrayList<>();
-        String root = help_url +"/"+catalog;
+    public List<String> getQuestions(String catalog) {
+        String root = HELP_URL+"/"+catalog;
         List<String> questions = readFile.getSubFileNames(root);
         if(questions != null || !questions.isEmpty()){
             for(int i = 0 ; i < questions.size(); i++){
-                HelpQuestionVo question = new HelpQuestionVo();
-                question.setIndex(i);
-                question.setQuestion(questions.get(i).replaceAll(".txt", ""));
-                questionVos.add(question);
+                questions.set(i, questions.get(i).replaceAll(".txt", ""));
             }
         }
-        return questionVos;
+        return questions;
     }
 
     @Override
     public String getAnswer(String catalog, String question) {
-        String filePath = help_url +"/"+catalog+"/"+question+".txt";
+        String filePath = HELP_URL+"/"+catalog+"/"+question+".txt";
         String answer = readFile.readHelpFile(filePath);
         return answer;
     }
@@ -269,3 +342,4 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
         return 400; // 沒有數據更新
     }
 }
+

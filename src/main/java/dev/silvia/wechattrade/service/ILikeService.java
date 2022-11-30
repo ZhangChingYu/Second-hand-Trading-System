@@ -1,9 +1,8 @@
 package dev.silvia.wechattrade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import dev.silvia.wechattrade.vo.product.ProductLikeVo;
-import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
 import dev.silvia.wechattrade.entity.FavoriteInfo;
+import dev.silvia.wechattrade.vo.product.ProductLikeVo;
 
 import java.util.List;
 

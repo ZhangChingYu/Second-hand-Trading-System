@@ -1,18 +1,17 @@
 package dev.silvia.wechattrade.service.impl;
 
-
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dao.ProductDao;
-import dev.silvia.wechattrade.vo.product.ProductDetailVo;
-import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.ProductPacking;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.service.IProductService;
+import dev.silvia.wechattrade.vo.product.ProductDetailVo;
+import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -66,7 +65,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> getProductByCatalog(String c_number) {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.eq("catalog", c_number);
-        wrapper.eq("status", 0);
         List<Product> products = productDao.selectList(wrapper);
         List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
@@ -77,7 +75,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
         String key = transferUTF8.CtoUTF8(keyword);
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.like("name", key);
-        wrapper.eq("status",0);
         List<Product> products = productDao.selectList(wrapper);
         List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
@@ -86,7 +83,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     @Override
     public List<ProductOutlineVo> homepageProducts() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
-        wrapper.eq("status",0);
+        //wrapper.between("id", 10, 20);
         List<Product> products = productDao.selectList(wrapper);
         List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
@@ -125,7 +122,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> homepageProductNew() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("id");
-        wrapper.eq("status",0);
         List<Product> products = productDao.selectList(wrapper);
         return get10Outline(products);
     }
@@ -134,7 +130,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> homepageProductLike() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("like_count");
-        wrapper.eq("status",0);
         List<Product> products = productDao.selectList(wrapper);
         return get10Outline(products);
     }
@@ -143,7 +138,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> homepagePromote(String number) {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("like_count");
-        wrapper.eq("status",0);
         List<Product> products = productDao.selectList(wrapper);
         return get10Outline(products);
     }

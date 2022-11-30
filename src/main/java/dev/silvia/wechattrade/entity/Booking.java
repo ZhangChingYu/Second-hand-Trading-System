@@ -1,6 +1,5 @@
 package dev.silvia.wechattrade.entity;
 
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -8,49 +7,39 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "user_info")
-@TableName(value="user_info")
+@Table(name = "booking")
 @Data
 @EqualsAndHashCode(callSuper = false)
-public class User implements Serializable {
+@TableName(value = "booking")
+public class Booking implements Serializable {
     private static final long serialVersionUID=1L;
     @Id
     @TableId(value = "id", type = IdType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private String userName;
+    private String number;
 
-    private String phone;
+    private String sellerId;
 
-    private String password;
+    private String  buyerId;
 
-    private Integer authority;
+    private String productId;
 
-    private String realName;
+    private Integer ordersNum;
 
-    private String idCard;
-
-    private String stuNum;
+    private Double price;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date registerDate;
+    private Date appointmentTime;
 
-    private Integer violationCount;
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date confirmTime;
 
-    private String defaultAddress;
-
-    private String address;
-
-    private String email;
-
-    private String avatar;
-
-    private String picture;
+    private Integer status;
 }

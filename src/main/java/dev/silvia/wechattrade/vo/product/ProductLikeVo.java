@@ -1,5 +1,6 @@
 package dev.silvia.wechattrade.vo.product;
 
+
 import lombok.Data;
 
 @Data

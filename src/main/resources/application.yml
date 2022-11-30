@@ -31,3 +31,7 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+
+weixin:
+  appid: wxf3c9f3b16d188314
+  secret: 42420fd8e88db05d9168f82ba10966e4

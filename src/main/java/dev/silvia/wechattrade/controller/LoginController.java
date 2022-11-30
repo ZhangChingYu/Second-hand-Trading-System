@@ -3,11 +3,13 @@ package dev.silvia.wechattrade.controller;
 import dev.silvia.wechattrade.dto.logindto.LoginRequestDto;
 import dev.silvia.wechattrade.dto.logindto.LoginResponseDto;
 import dev.silvia.wechattrade.dto.logindto.LostPasswordDto;
-import dev.silvia.wechattrade.dto.response.ResponseDto;
+import dev.silvia.wechattrade.dto.response.Result;
+import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.User;
-import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
+import dev.silvia.wechattrade.entity.WXAuth;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
 import dev.silvia.wechattrade.service.ILoginService;
+import dev.silvia.wechattrade.service.IWeixinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -30,7 +32,11 @@ public class LoginController {
     @Autowired
     private Optional<User> user;
 
-    private static  String captcha = "404";
+    @Autowired
+    private static IWeixinService weixinService;
+
+    private Result redto;
+
 
     private final String em = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
     private final String ph = "^[1][3578]\\d{9}$";
@@ -49,24 +55,38 @@ public class LoginController {
         }
     }
 
+    //输入code获取 sessionId
+    @RequestMapping(value ="/weixin/sessionId",method = RequestMethod.GET)
+    public String getSessionId(@RequestParam String code){
+       // String code = param.get("code").toString();
+//        System.out.println("ssucceed");
+//        System.out.println(code);
+        return  weixinService.getSessionId(code);
+    }
+
+//   输入  {String encryptedData;String iv;String sessionId;}
+//   返回LoginResponseDto{code: "666" （成功）;mag:  ;User:user}
+    @RequestMapping(value ="/weixin/authLogin", method = RequestMethod.POST)
+    public LoginResponseDto authLogin(@RequestBody WXAuth wxAuth) {
+        LoginResponseDto result = weixinService.authLogin(wxAuth);
+        return result;
+    }
+
     @RequestMapping(value ="/lost",method = RequestMethod.POST)
-    public ResponseEntity<?> lostPassword(@RequestBody LostPasswordDto request){
-        ResponseDto redto=new ResponseDto();
-        if(Objects.equals(captcha, request.getCaptcha())){
+    public ResponseEntity<?> lostpassword(@RequestBody LostPasswordDto request){
+        if(Objects.equals(request.getCaptcha1(), request.getCaptcha())){
             return ResponseEntity.ok(service.lostPassward(request));
         }
         else{
-            redto.setCode("555");
-            redto.setMsg("验证码错误");
+            redto=new Result(ResultCode.AUTH_CODE_ERROR);
             return ResponseEntity.ok(redto);
         }
     }
 
-    @UserLoginToken
     //获取验证码
     @RequestMapping(value ="/captcha",method = RequestMethod.GET)
     public ResponseEntity<?> captcha(@RequestParam String phone){
-        ResponseDto redto=new ResponseDto();
+        String captcha;
         // 如果用户输入的用户名，格式符合邮箱，为邮箱登陆
         if (phone.matches(em)) {
             // 通过邮箱查询数据库用户
@@ -77,18 +97,15 @@ public class LoginController {
             user=accountRepository.findByPhone(phone);
         }
         else{
-            redto.setCode("555");
-            redto.setMsg("手机号或邮箱格式错误");
+            redto=new Result(ResultCode.PARAM_TYPE_BIND_ERROR);
             return ResponseEntity.ok(redto);
         }
         if(user.isPresent()){
             captcha=String.format("%06d", ThreadLocalRandom.current().nextInt(1000000));
-            redto.setCode(captcha);
-            redto.setMsg("验证码发送成功");
+            redto=new Result(ResultCode.SUCCESS,captcha);
         }
         else{
-            redto.setCode("444");
-            redto.setMsg("用户不存在");
+            redto=new Result(ResultCode.USER_NOT_EXIST);
         }
         return ResponseEntity.ok(redto);
     }

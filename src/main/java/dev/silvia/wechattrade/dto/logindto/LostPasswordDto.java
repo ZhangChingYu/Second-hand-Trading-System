@@ -6,4 +6,5 @@ public class LostPasswordDto {
     private String phone;
     private String password;
     private String captcha;
+    private String captcha1;
 }
