@@ -1,5 +1,6 @@
 package dev.silvia.wechattrade.handlers;
 
+import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.vo.product.MyProductVo;
 import dev.silvia.wechattrade.vo.product.ProductDetailVo;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Component
 public class ProductPacking {
-
+    private String picture_url = FileDirector.PRODUCT_PICTURE_URL;
     TransferUTF8 transferUTF8 = new TransferUTF8();
 
     // 將List<Product>類包裝成List<ProductOutlineVo>的方法
@@ -99,7 +100,7 @@ public class ProductPacking {
     // 返回封面
     private String getCoverPic(Product product){
         if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
-            String url = "C:/Users/Sunny/Desktop/Products/"+product.getCatalog()+"/"+product.getNumber()+"/"+product.getNumber()+"_0.jpg";
+            String url = picture_url+product.getCatalog()+"/"+product.getNumber()+"/"+product.getNumber()+"_0.jpg";
             return ReadFile.getBaseFile(url);
         }   // 若無照片則ProductOutlineDto中的picture=null
         return null;

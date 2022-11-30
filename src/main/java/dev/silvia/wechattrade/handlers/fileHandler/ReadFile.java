@@ -9,6 +9,7 @@ import java.util.List;
 
 @Component
 public class ReadFile {     // 從指定目錄獲取文件並進行base64編碼後傳給前端
+    private String picture_url = FileDirector.PRODUCT_PICTURE_URL;
 
     public static String getBaseFile(String filePath){
         if(filePath==null){
@@ -39,7 +40,7 @@ public class ReadFile {     // 從指定目錄獲取文件並進行base64編碼�
             return null;    // 如果該商品沒有照片，則返回null
         }
         for(int i = 0; i < size; i++){
-            String url = "C:/Users/Sunny/Desktop/Products/"+catalog+"/"+number+"/"+number+"_"+i+".jpg";
+            String url = picture_url+catalog+"/"+number+"/"+number+"_"+i+".jpg";
             String base64 = ReadFile.getBaseFile(url);
             pictures.add(base64);
         }

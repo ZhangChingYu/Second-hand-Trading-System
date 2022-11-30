@@ -9,6 +9,7 @@ import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.AddressPacking;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
+import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IUserSettingService;
@@ -27,7 +28,7 @@ import java.util.List;
 
 @Service
 public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implements IUserSettingService {
-    public final static String HELP_URL = "C://Users/Sunny/Desktop/Help";
+    private String help_url = FileDirector.HELP_URL;
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -189,7 +190,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     @Override
     public List<HelpCatalogVo> getQuestionCatalog(){
         List<HelpCatalogVo> catalogVos = new ArrayList<>();
-        List<String> catalogs = readFile.getSubFileNames(HELP_URL);
+        List<String> catalogs = readFile.getSubFileNames(help_url);
         for(int i = 0 ; i < catalogs.size(); i++){
             HelpCatalogVo catalog = new HelpCatalogVo();
             catalog.setIndex(i);
@@ -202,7 +203,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     @Override
     public List<HelpQuestionVo> getQuestions(String catalog) {
         List<HelpQuestionVo> questionVos = new ArrayList<>();
-        String root = HELP_URL+"/"+catalog;
+        String root = help_url +"/"+catalog;
         List<String> questions = readFile.getSubFileNames(root);
         if(questions != null || !questions.isEmpty()){
             for(int i = 0 ; i < questions.size(); i++){
@@ -217,7 +218,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
 
     @Override
     public String getAnswer(String catalog, String question) {
-        String filePath = HELP_URL+"/"+catalog+"/"+question+".txt";
+        String filePath = help_url +"/"+catalog+"/"+question+".txt";
         String answer = readFile.readHelpFile(filePath);
         return answer;
     }
