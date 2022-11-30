@@ -35,6 +35,9 @@ public class ExchangeInfo implements Serializable {
 
     private String deliveryId;
 
+    private Double freight;
+
+    private Double discounts;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date buildTime;

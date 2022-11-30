@@ -116,14 +116,15 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
     }
 
     //生成订单----/orders/build
-    // ExRequestDto{   
-    //      String sellerphone;     //卖家phone
+    // ExRequestDto{
     //      String projectnubmer;  //商品编号
     //      String buyerphone;      //买家phone
     //      String shippingaddre;  //收货地址
     //      String expressDelivery;  //收货方式
     //      Integer ordersNum;     //商品数量
-    //      Double price;          //商品价格
+    //      Double price;          //交易价格
+    //      Double freight;          //运费
+    //      Double discounts;      //优惠
     //      String payment;        //付款方式
     //      String remark;         //备注}
     //输出    Result(msg: ; code:"666" ;data:)
