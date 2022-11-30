@@ -213,7 +213,7 @@ var _default =
               quality: 80,
               success: function success(res) {
                 console.log(res, '=========res');
-                that.uploadImgFile(res.tempFilePath, that);
+                that.imgSrc = res.tempFilePaths[0];
               } });
 
           }
@@ -222,14 +222,14 @@ var _default =
     },
     uploadImgFile: function uploadImgFile(filePath, that) {
       uni.uploadFile({
-        url: '地址',
+        url: 'http://localhost:8080//setting/authentication',
         filePath: filePath,
-        name: 'file',
+        name: 'pictures',
         formData: {
-          file: filePath,
+          pictures: filePath,
           phone: that.phone,
           realName: that.realName,
-          idCard: that.idCard },
+          idNumber: that.idCard },
 
         header: {
           'Content-Type': 'multipart/form-data',

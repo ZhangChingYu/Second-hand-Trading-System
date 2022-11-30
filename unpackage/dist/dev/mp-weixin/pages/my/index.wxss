@@ -12,10 +12,12 @@
 	display: flex;
 }
 .my-header.data-v-4dcceeb0 {
-	padding-top: 100rpx;
-	padding-left: 100rpx;
-	width: 100rpx;
-	height: 100rpx;
+	margin-top: 100rpx;
+	margin-left: 60rpx;
+	margin-right: 20rpx;
+	width: 150rpx;
+	height: 150rpx;
+	border-radius: 50%
 }
 .icons.data-v-4dcceeb0 {
 	display: flex;

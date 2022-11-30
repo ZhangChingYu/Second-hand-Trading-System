@@ -139,6 +139,24 @@
 			}
 			
 		},
+        {
+            "path" : "pages/my-setup/help",
+            "style" :                                                                                    
+            {
+				"navigationBarTitleText": "帮助",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/my-setup/feedback",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "反馈",
+                "enablePullDownRefresh": false
+            }
+            
+        },
 		{
 			"path" : "pages/my-info/info",
 			"style" :                                                                                    

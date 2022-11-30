@@ -13,6 +13,8 @@
     "pages/my-like/like",
     "pages/my-realname/realname",
     "pages/my-setup/setup",
+    "pages/my-setup/help",
+    "pages/my-setup/feedback",
     "pages/my-info/info",
     "pages/detail/index"
   ],
@@ -61,6 +63,5 @@
       }
     ]
   },
-  "usingComponents": {},
-  "sitemapLocation": "sitemap.json"
+  "usingComponents": {}
 }

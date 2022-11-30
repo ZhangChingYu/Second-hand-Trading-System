@@ -203,6 +203,19 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 
 
@@ -214,27 +227,63 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
     return {
       isNavBar: false,
       LikeList: [],
-      selectedList: [] };
+      selectedList: [],
+      catalogs: [],
+      showCata: false };
 
   },
   mounted: function mounted() {var _this = this;
     var that = this;
     var phone = uni.getStorageSync('user').phone;
-    that.api.get('/all/likes', {
-      phone: phone }).
-    then(function (res) {
-      _this.LikeList = res;
-      _this.LikeList.forEach(function (item) {
-        _this.$set(item, 'checked', false);
-      });
-      console.log(_this.LikeList);
-    }).catch(function (err) {});
+
+    this.showAll();
+
+    //获取分类
+    that.api.get('/catalog/catalogs').then(function (res) {
+      _this.catalogs = res;
+    });
   },
   methods: _objectSpread(_objectSpread(_objectSpread({},
 
   (0, _vuex.mapActions)(['checkedAllFn', 'deleteFn'])),
   (0, _vuex.mapMutations)(['selectedItem'])), {}, {
 
+    //分类显示
+    showCatalogs: function showCatalogs() {
+      this.showCata = !this.showCata;
+    },
+    showAll: function showAll() {var _this2 = this;
+      var phone = uni.getStorageSync('user').phone;
+      //获取初始收藏列表
+      this.api.get('/all/likes', {
+        phone: phone }).
+      then(function (res) {
+        _this2.LikeList = res;
+        _this2.LikeList.forEach(function (item) {
+          _this2.$set(item, 'checked', false);
+        });
+        console.log(_this2.LikeList);
+      }).catch(function (err) {});
+    },
+    showCatalog: function showCatalog(catalog) {var _this3 = this;
+      var that = this;
+      var phone = uni.getStorageSync('user').phone;
+      that.api.get('/catalog/likes', {
+        phone: phone,
+        catalog: catalog }).
+      then(function (res) {
+        console.log(res);
+        if (res.length != 0) {
+          _this3.LikeList = res;
+          _this3.LikeList.forEach(function (item) {
+            _this3.$set(item, 'checked', false);
+          });
+        } else {
+          that.$toast('您尚未收藏过该分类的商品');
+        }
+      });
+      this.showCatalogs();
+    },
 
     //全选
     checkAll: function checkAll() {
@@ -276,10 +325,10 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
         this.checkAll();
       }
     },
-    deleteFn: function deleteFn() {var _this2 = this;
+    deleteFn: function deleteFn() {var _this4 = this;
       var numbers = [];
       this.selectedList.forEach(function (item) {
-        numbers.push(_this2.LikeList[item].number);
+        numbers.push(_this4.LikeList[item].number);
       });
 
       //调用api

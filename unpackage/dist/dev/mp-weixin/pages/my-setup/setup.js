@@ -169,6 +169,21 @@ var _default =
       uni.redirectTo({
         url: '/pages/login/index' });
 
+    },
+    feedback: function feedback() {
+      uni.navigateTo({
+        url: '/pages/my-setup/feedback' });
+
+    },
+    help: function help() {
+      uni.navigateTo({
+        url: '/pages/my-setup/help' });
+
+    },
+    message: function message() {
+      uni.showToast({
+        title: '开发中' });
+
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

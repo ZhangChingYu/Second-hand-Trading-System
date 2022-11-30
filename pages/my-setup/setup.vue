@@ -5,15 +5,15 @@
 				<view>退出登录</view>
 				<view>></view>
 			</view>
-			<view class="setup-content-item">
+			<view class="setup-content-item" @click="message">
 				<view>消息提醒</view>
 				<view>></view>
 			</view>
-			<view class="setup-content-item">
+			<view class="setup-content-item" @click="help">
 				<view>帮助</view>
 				<view>></view>
 			</view>
-			<view class="setup-content-item">
+			<view class="setup-content-item" @click="feedback">
 				<view>体验反馈</view>
 				<view>></view>
 			</view>
@@ -35,6 +35,21 @@
 				uni.redirectTo({
 					url:'/pages/login/index'
 				})	
+			},
+			feedback(){
+				uni.navigateTo({
+					url:'/pages/my-setup/feedback'
+				})
+			},
+			help(){
+				uni.navigateTo({
+					url:'/pages/my-setup/help'
+				})
+			},
+			message(){
+				uni.showToast({
+					title:'开发中'
+				})
 			}
 		},
 		}

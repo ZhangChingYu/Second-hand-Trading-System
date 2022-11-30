@@ -199,6 +199,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 var _vue = __webpack_require__(/*! vue */ 4);
 
 
@@ -258,7 +259,8 @@ var _vuex = __webpack_require__(/*! vuex */ 13); //
 //
 //
 //
-var _default = { data: function data() {return { user: { userName: "" } };}, onLoad: function onLoad() {var res = uni.getStorageSync('user');console.log(123);this.user.userName = res.userName;}, methods: { get: function get(res) {}, collect: function collect() {wx.navigateTo({ url: "../my-like/like" });}, setup: function setup() {wx.navigateTo({ url: "../my-setup/setup" });}, realname: function realname() {wx.navigateTo({ url: "../my-realname/realname" });}, address: function address() {wx.navigateTo({ url: "../my-address/address" });}, info: function info() {wx.navigateTo({ url: "../my-info/info" });} } };exports.default = _default;
+//
+var _default = { data: function data() {return { user: { userName: "" }, avatar: '' };}, onLoad: function onLoad() {var res = uni.getStorageSync('user');console.log(123);this.user.userName = res.userName;this.avatar = uni.getStorageSync('avatar');}, methods: { get: function get(res) {}, collect: function collect() {wx.navigateTo({ url: "../my-like/like" });}, setup: function setup() {wx.navigateTo({ url: "../my-setup/setup" });}, realname: function realname() {wx.navigateTo({ url: "../my-realname/realname" });}, address: function address() {wx.navigateTo({ url: "../my-address/address" });}, info: function info() {wx.navigateTo({ url: "../my-info/info" });} } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

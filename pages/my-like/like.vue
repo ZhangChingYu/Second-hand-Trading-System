@@ -1,19 +1,32 @@
 <template>
 	<view class="like-content">
+		<!--自定义头部-->
+		<view class="top">
+			<text class="edit" v-text='isNavBar?"完成":"编辑"' @click="isNavBar = !isNavBar"></text>
+			<!--分类-->
+			<view class="classify-content">
+				<text class="cataTitle" @click="showCatalogs" v-if="!showCata">分类&nbsp;▶&nbsp;</text>
+				<text class="cataTitle" @click="showCatalogs" v-else>分类&nbsp;◢&nbsp;</text>
+				<view class="catalogs" v-show="showCata">
+					<ul>
+						<li @click="showAll()" @tap="showCatalogs()">全部</li>
+						<li v-for="(item,index) of catalogs" :key="index" @click="showCatalog(item.number)">
+							{{item.name}}
+						</li>
+					</ul>
+				</view>
+			</view>
+		</view>
 
 		<template v-if="LikeList.length>0">
-			<!--自定义头部-->
-			<view class="top">
-				<text class="edit" v-text='isNavBar?"完成":"编辑"' @click="isNavBar = !isNavBar"></text>
-			</view>
-
 			<!--已收藏商品-->
 			<view class="shop-list">
 				<view class="shop-item" v-for='(item,index) of LikeList' :key='index'>
 					<label class="radio" v-if="isNavBar" @tap="selectedItem(index)">
 						<radio value="" color="#d04b41" :checked="item.checked"></radio>
 					</label>
-					<image class="shop-image" :src="'data:image/jpg;base64,' + item.coverPic" @tap="toDetail(item.number)">
+					<image class="shop-image" :src="'data:image/jpg;base64,' + item.coverPic"
+						@tap="toDetail(item.number)">
 					</image>
 					<view class="shop-info" @tap="toDetail(item.number)">
 						<view class="shop-name" v-if="item.name.length>20">{{item.name.substr(0,20)}}...</view>
@@ -52,26 +65,62 @@
 				isNavBar: false,
 				LikeList: [],
 				selectedList: [],
+				catalogs: [],
+				showCata: false
 			}
 		},
 		mounted() {
 			let that = this;
 			let phone = uni.getStorageSync('user').phone;
-			that.api.get('/all/likes', {
-				phone
-			}).then(res => {
-				this.LikeList = res;
-				this.LikeList.forEach(item => {
-					this.$set(item, 'checked', false);
-				})
-				console.log(this.LikeList);
-			}).catch(err => {});
+
+			this.showAll();
+
+			//获取分类
+			that.api.get('/catalog/catalogs').then(res => {
+				this.catalogs = res;
+			})
 		},
 		methods: {
 
 			...mapActions(['checkedAllFn', 'deleteFn']),
 			...mapMutations(['selectedItem']),
 
+			//分类显示
+			showCatalogs() {
+				this.showCata = !this.showCata
+			},
+			showAll() {
+				let phone = uni.getStorageSync('user').phone;
+				//获取初始收藏列表
+				this.api.get('/all/likes', {
+					phone
+				}).then(res => {
+					this.LikeList = res;
+					this.LikeList.forEach(item => {
+						this.$set(item, 'checked', false);
+					})
+					console.log(this.LikeList);
+				}).catch(err => {});
+			},
+			showCatalog(catalog) {
+				let that = this;
+				let phone = uni.getStorageSync('user').phone;
+				that.api.get('/catalog/likes', {
+					phone,
+					catalog
+				}).then(res => {
+					console.log(res);
+					if (res.length != 0) {
+						this.LikeList = res;
+						this.LikeList.forEach(item => {
+							this.$set(item, 'checked', false);
+						})
+					} else {
+						that.$toast('您尚未收藏过该分类的商品');
+					}
+				})
+				this.showCatalogs();
+			},
 
 			//全选
 			checkAll() {
@@ -152,16 +201,33 @@
 	}
 
 	.top {
+		display: flex;
+		justify-content: space-between;
 		border-top: 2rpx solid black;
 		background-color: #d04b41;
 		padding: 20rpx 0;
 		width: 100%;
+		color: white;
 	}
 
 	.edit {
 		margin-left: 20rpx;
-		color: white;
 		justify-content: left;
+	}
+
+	.catalogs {
+		position: absolute;
+		top: 75rpx;
+		right: 1%;
+		padding: 0 30rpx;
+		width: 40%;
+		background-color: #a1a1a1;
+		border-radius: 0 0 20rpx 20rpx;
+		box-sizing: border-box;
+		line-height: 84rpx;
+		font-size: 30rpx;
+		z-index: 2;
+		opacity: 85%;
 	}
 
 	.shop-item {

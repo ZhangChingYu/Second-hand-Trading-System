@@ -1,0 +1,21 @@
+
+.helpContent {
+	font-size: medium;
+	margin-top: 5%;
+}
+.helpItem {
+	display: flex;
+	justify-content: space-between;
+	margin: 5% 5%;
+	border-bottom: 2rpx solid #d04b41;
+	font-weight: 600;
+	height: 100rpx;
+}
+.secItemcontent {
+	margin-bottom: 5%;
+	margin-left: 10%;
+	margin-right: 5%;
+	height: 50rpx;
+	border-bottom: 1rpx solid #cccccc;
+}
+

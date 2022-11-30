@@ -3,15 +3,31 @@
 	font-size: medium;
 }
 .top.data-v-3e458e27 {
+	display: flex;
+	justify-content: space-between;
 	border-top: 2rpx solid black;
 	background-color: #d04b41;
 	padding: 20rpx 0;
 	width: 100%;
+	color: white;
 }
 .edit.data-v-3e458e27 {
 	margin-left: 20rpx;
-	color: white;
 	justify-content: left;
+}
+.catalogs.data-v-3e458e27 {
+	position: absolute;
+	top: 75rpx;
+	right: 1%;
+	padding: 0 30rpx;
+	width: 40%;
+	background-color: #a1a1a1;
+	border-radius: 0 0 20rpx 20rpx;
+	box-sizing: border-box;
+	line-height: 84rpx;
+	font-size: 30rpx;
+	z-index: 2;
+	opacity: 85%;
 }
 .shop-item.data-v-3e458e27 {
 	background-color: white;

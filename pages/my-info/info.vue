@@ -6,7 +6,8 @@
 			</view>
 			<view class="info-content-item">
 				<view>头像</view>
-				<image src="../../static/image/my_icon/header.png" style="width: 100rpx; height: 100rpx;"></image>
+				<image v-if="avatar" :src="avatar" style="width: 100rpx; height: 100rpx;" @tap="onGetImgClick"></image>
+				<image v-else src="../../static/image/my_icon/header.png" style="width: 100rpx; height: 100rpx;" @tap="onGetImgClick"></image>
 			</view>
 			<view class="info-content-item">
 				<view>用户名：</view>
@@ -20,7 +21,7 @@
 				<view>违规次数：</view>
 				<view style="color: grey;">{{userUpdate.violationCount}}&nbsp;&nbsp;&nbsp;</view>
 			</view>
-			<view class="info-content-item">
+			<view class="info-content-item" @click="changePass">
 				<view>修改密码</view>
 				<view>&nbsp;&nbsp;&nbsp;></view>
 			</view>
@@ -59,15 +60,106 @@
 					phone:''
 				},
 				//用于storage信息更新
-				user:{}
+				user:{},
+				avatar:''
 			}
 		},
 		mounted(){
 			let res=uni.getStorageSync('user');
 			this.user=res;
 			this.userUpdate=res;
+			
+			//获取头像
+			this.avatar=uni.getStorageSync('avatar');
 		},
 		methods:{
+			onGetImgClick() {
+				const that = this
+				uni.chooseImage({
+					count: 1, // 最多可以选择的图片张数，默认9
+					sizeType: ['original', 'compressed'], //original 原图，compressed 压缩图，默认二者都有
+					sourceType: ['album', 'camera'], //album 从相册选图，camera 使用相机，默认二者都有。如需直接开相机或直接选相册，请只使用一个选项
+					success: function(res) {
+						console.log('chooseImage-----》》》》》》》》', res);
+						//判断图片格式
+						let tempStr = res.tempFilePaths[0].split('.');
+						let lowerStr = tempStr[1].toLowerCase();
+						if (lowerStr != 'png' && lowerStr !== 'jpg' && lowerStr !== 'jpeg') {
+							uni.showToast({
+								title: '请上传PNG、JPG、JPEG格式的图片',
+								icon: 'none',
+								duration: 3000
+							});
+							return;
+						}
+						console.log(res.tempFiles, 'beforre--------');
+						if (res.tempFiles[0]['size'] > 20 * 1024 * 1024) {
+							uni.showToast({
+								title: '图片大小不能超过20M',
+								icon: 'none',
+								duration: 3000
+							});
+							return;
+						}
+						/*uni.showLoading({
+							title: '上传中...'
+						})*/
+						if (res.tempFiles[0]['size'] < 5 * 1024 * 1024) { //图片小于5M不压缩，大于5M压缩
+							console.log(res.tempFilePaths[0], 'imginfo');
+							that.avatar = res.tempFilePaths[0];
+							that.uploadImgFile(res.tempFilePaths[0],that);
+							//更新store
+							uni.setStorage({
+								key:'avatar',data:that.avatar
+							})
+						} else {
+							uni.compressImage({
+								src: res.tempFilePaths[0],
+								quality: 80,
+								success: res => {
+									console.log(res, '=========res');
+									that.uploadImgFile(res.tempFilePath, that)
+									//更新store
+									uni.setStorage({
+										key:'avatar',data:that.avatar
+									})
+								}
+							})
+						}
+					}
+				});
+			},
+			uploadImgFile(filePath, that) {
+				uni.uploadFile({
+					url: 'http://localhost:8080//setting/swapRelatedAvatar',
+					filePath: filePath,
+					name: 'avatar',
+					formData: {
+						avatar: filePath,
+						phone:this.user.phone
+					},
+					header: {
+						'Content-Type': 'multipart/form-data',
+						'token': uni.getStorageSync('token')
+					},
+					success: response => {
+						let res = JSON.parse(response.data);
+
+						console.log(res, '----res');
+						if (res.code == 200) {
+							that.showInfo = res.data
+							console.log('请求成功_______________', res);
+							// 调用下载接口
+							//that.downloadImg(res.data.attachId);
+
+						}
+					},
+					fail: err => {
+						//uni.hideLoading()
+						console.log('请求失败_______________', err);
+					}
+				});
+			},
 			commit(){
 				let that=this;
 				that.api.post('/personal/edit',that.user).then(res=>{
@@ -79,8 +171,20 @@
 				})
 				this.$toast('更新成功!');
 				
-				uni.redirectTo({
-					url:'/pages/my/index'
+				//跳转回上一级并修改个人信息页用户名
+				let pages=getCurrentPages();
+				let nowPage=pages[pages.length - 1];
+				let prePage=pages[pages.length -2];
+				prePage.$vm.user.userName=this.user.userName;
+				prePage.$vm.avatar=this.avatar;
+				
+				uni.navigateBack({
+					delta:1
+				})
+			},
+			changePass(){
+				uni.navigateTo({
+					url:'/pages/findback/findback'
 				})
 			}
 		}

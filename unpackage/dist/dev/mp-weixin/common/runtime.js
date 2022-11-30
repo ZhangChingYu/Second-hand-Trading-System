@@ -105,11 +105,11 @@
 /******/
 /******/
 /******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"components/goods/index":1,"components/nomore/index":1,"components/search/index":1,"components/classitem/index":1,"components/uni/mpvue-citypicker/mpvueCityPicker":1};
+/******/ 		var cssChunks = {"components/goods/index":1,"components/nomore/index":1,"components/search/index":1,"components/classitem/index":1,"components/uni/mpvue-citypicker/mpvueCityPicker":1,"uni_modules/uni-popup/components/uni-popup/uni-popup":1};
 /******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
 /******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
 /******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"components/goods/index":"components/goods/index","components/nomore/index":"components/nomore/index","components/search/index":"components/search/index","components/classitem/index":"components/classitem/index","components/uni/mpvue-citypicker/mpvueCityPicker":"components/uni/mpvue-citypicker/mpvueCityPicker"}[chunkId]||chunkId) + ".wxss";
+/******/ 				var href = "" + ({"components/goods/index":"components/goods/index","components/nomore/index":"components/nomore/index","components/search/index":"components/search/index","components/classitem/index":"components/classitem/index","components/uni/mpvue-citypicker/mpvueCityPicker":"components/uni/mpvue-citypicker/mpvueCityPicker","uni_modules/uni-popup/components/uni-popup/uni-popup":"uni_modules/uni-popup/components/uni-popup/uni-popup","uni_modules/uni-transition/components/uni-transition/uni-transition":"uni_modules/uni-transition/components/uni-transition/uni-transition"}[chunkId]||chunkId) + ".wxss";
 /******/ 				var fullhref = __webpack_require__.p + href;
 /******/ 				var existingLinkTags = document.getElementsByTagName("link");
 /******/ 				for(var i = 0; i < existingLinkTags.length; i++) {

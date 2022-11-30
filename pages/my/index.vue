@@ -2,12 +2,13 @@
 	<view class="my-first-page">
 		<view class="my-top">
 			<view style="width: 30%; ">
-				<image class="my-header" src="../../static/image/my_icon/header.png"></image>
+				<image class="my-header" v-if="avatar" :src="avatar"></image>
+				<image class="my-header" v-else src="../../static/image/my_icon/header.png"></image>
 			</view>
 			<view>
 				<view class="my-text">
 					<view name="user-name" style="font-weight: 900; font-size: 200%; " v-if="user.userName.length>10">{{user.userName.substr(0,10)}}...</view>
-					<view v-else>{{user.userName}}</view>
+					<view name="user-name" style="font-weight: 900; font-size: 200%; " v-else>{{user.userName}}</view>
 					<view name="user-info" style=" padding-top: 30rpx;padding-bottom: 10rpx;"
 						@click="info">个人信息></view>
 				</view>
@@ -66,7 +67,8 @@
 			return {
 				user: {
 					userName: ""
-				}
+				},
+				avatar:''
 			}
 		},
 
@@ -74,7 +76,7 @@
 			let res = uni.getStorageSync('user');
 			console.log(123);
 			this.user.userName = res.userName;
-
+			this.avatar=uni.getStorageSync('avatar')
 		},
 
 		methods: {
@@ -126,10 +128,12 @@
 	}
 
 	.my-header {
-		padding-top: 100rpx;
-		padding-left: 100rpx;
-		width: 100rpx;
-		height: 100rpx;
+		margin-top: 100rpx;
+		margin-left: 60rpx;
+		margin-right: 20rpx;
+		width: 150rpx;
+		height: 150rpx;
+		border-radius: 50%
 	}
 
 	.icons {
