@@ -8,7 +8,7 @@ import java.util.Base64;
 import java.util.List;
 
 @Component
-public class ReadFile {     // 從指定目錄獲取文件並進行base64編碼後傳給前端
+public class ReadFile {
     private String picture_url = FileDirector.PRODUCT_PICTURE_URL;
     private String auth_url = FileDirector.AUTH_URL;
     public static String getBaseFile(String filePath){

@@ -28,8 +28,6 @@ public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements I
     @Autowired
     TransferUTF8 transferUTF8 = new TransferUTF8();
     UserNameGenerator nameGenerator = new UserNameGenerator();
-
-    UserNameGenerator nameGenerator = new UserNameGenerator();
     @Override
     public int Register(User user) {
         String phone_num = user.getPhone();
