@@ -12,7 +12,7 @@ import dev.silvia.wechattrade.entity.WXAuth;
 import dev.silvia.wechattrade.entity.WxUserInfo;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.cryto.Sign;
-import dev.silvia.wechattrade.handlers.fileHandlers.ReadFile;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.IWeixinService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,11 +84,10 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
             List<String> picture1;
             if(user.getAvatar().isEmpty()){
                 //默认图片
-                picture1 = Collections.singletonList(ReadFile.getBaseFile("E:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
+                picture1 = Collections.singletonList(ReadFile.getBaseFile("C:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
                 user.setAvatar(picture1.get(0));
             }
             else{
-                //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
                 picture1= Collections.singletonList(ReadFile.getBaseFile(user.getAvatar()));
                 user.setAvatar(picture1.get(0));
             }

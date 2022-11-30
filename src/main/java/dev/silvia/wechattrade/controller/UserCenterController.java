@@ -8,8 +8,8 @@ import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
-import dev.silvia.wechattrade.handlers.fileHandlers.ReadFile;
-import dev.silvia.wechattrade.service.IDemoService2;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
+import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IUserSettingService;
 import dev.silvia.wechattrade.vo.AuthenticationVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,7 +38,7 @@ public class UserCenterController {
     private ReadFile readFile;
 
     @Autowired
-    private IDemoService2 demo;
+    private WriteFile writeFile;
 
     private Result redto;
     //根据id获取个人信息
@@ -82,7 +82,7 @@ public class UserCenterController {
         List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("avatar");
         String phone=params.getParameter("phone");
         Result res;
-        if(demo.storeravatarPictures("Avatar",phone,files)==808){
+        if(writeFile.storeravatarPictures("Avatar",phone,files)==808){
             res=new Result(ResultCode.FAIL);
             ResponseEntity.ok(res);
         }

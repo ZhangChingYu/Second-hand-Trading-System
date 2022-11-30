@@ -12,9 +12,8 @@ import dev.silvia.wechattrade.handlers.AddressPacking;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
-import dev.silvia.wechattrade.handlers.fileHandlers.ReadFile;
-import dev.silvia.wechattrade.handlers.fileHandlers.WriteFile;
-import dev.silvia.wechattrade.service.IDemoService2;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
+import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IUserSettingService;
 import dev.silvia.wechattrade.vo.AddressVo;
 import dev.silvia.wechattrade.vo.AuthenticationVo;
@@ -51,9 +50,6 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     @Autowired
     private Optional<User> user;
 
-
-    @Autowired
-    private IDemoService2 demo;
     private User user2;
 
     //个人信息修改
@@ -100,7 +96,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
             user1.setIdCard(request.getIdNumber());
             user1.setRealName(request.getRealName());
             //List<String> pictures = readFile.getPicturesBase64(request.getIdCardPics().size(), request.getIdCardPics());
-            if(demo.storeravatarPictures("Authentication",request.getPhone(),request.getIdCardPics())==808){
+            if(writeFile.storeravatarPictures("Authentication",request.getPhone(),request.getIdCardPics())==808){
                 res=new Result(ResultCode.FAIL);
                 return res;
             }

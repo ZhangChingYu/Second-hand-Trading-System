@@ -7,7 +7,7 @@ import dev.silvia.wechattrade.dao.ProductDao;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.ProductPacking;
-import dev.silvia.wechattrade.handlers.fileHandlers.ReadFile;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.service.IProductService;
 import dev.silvia.wechattrade.vo.product.ProductDetailVo;

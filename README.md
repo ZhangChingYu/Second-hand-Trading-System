@@ -21,7 +21,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
             要求前端请求Headers中带有token    
             后端在需验证token的api前加@UserLoginToken
 ## 头像
-    用户未设置头像时使用路径：E:/Users/Sunny/Desktop/Avatar/default/default_0.jpg
+    用户未设置头像时使用路径：C:/Users/Sunny/Desktop/Avatar/default/default_0.jpg
 ## 微信登录相关接口
     //输入code获取 sessionId
     @RequestMapping(value ="/weixin/sessionId",method = RequestMethod.GET)

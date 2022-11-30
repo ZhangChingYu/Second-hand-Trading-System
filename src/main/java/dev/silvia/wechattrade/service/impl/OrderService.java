@@ -13,7 +13,7 @@ import dev.silvia.wechattrade.entity.*;
 import dev.silvia.wechattrade.handlers.OrderCodeUtils;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.repository.*;
-import dev.silvia.wechattrade.handlers.fileHandlers.ReadFile;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.IOrderService;
 import dev.silvia.wechattrade.service.IProductService;
 import dev.silvia.wechattrade.service.IRegisterService;

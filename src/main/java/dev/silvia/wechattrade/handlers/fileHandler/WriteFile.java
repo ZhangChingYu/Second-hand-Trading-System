@@ -1,14 +1,19 @@
-package dev.silvia.wechattrade.handlers.fileHandlers;
+package dev.silvia.wechattrade.handlers.fileHandler;
 import dev.silvia.wechattrade.vo.FeedbackVo;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.util.List;
 
 @Component
 public class WriteFile {
+    private String feedback_url = FileDirector.FEEDBACK_URL;
+    private String picture_url = FileDirector.PRODUCT_PICTURE_URL;
+    private String auth_url = FileDirector.AUTH_URL;
     public Integer writeFeedbackFile(FeedbackVo feedback){  // // 寫入feedback文件
         // C://Users/Sunny/Desktop/Feedback/(Year)/(Month)/(Time+Phone).txt
-        String filePath = "E://Users/Sunny/Desktop/Feedback";
+        String filePath = feedback_url;
         if(createDir(filePath, feedback.getYear())!=null){
             filePath = createDir(filePath, feedback.getYear());
             if(createDir(filePath, feedback.getMonth())!=null){
@@ -25,6 +30,7 @@ public class WriteFile {
                     return 422;
                 } catch (IOException e) {
                     System.out.println("Read or Write Exception!");
+                    return 422;
                 } finally {     // BufferedWriter out 一定要close()否則不會寫入
                     if(null != out){
                         try {
@@ -44,8 +50,8 @@ public class WriteFile {
     }
 
     public void test(){ // C:\Users\Sunny\Desktop\Help
-        File file = new File("E://Users/Sunny/Desktop/help.txt");
-        File file1 = new File("E://Users/Sunny/Desktop/help1.txt");
+        File file = new File("C://Users/Sunny/Desktop/help.txt");
+        File file1 = new File("C://Users/Sunny/Desktop/help1.txt");
         BufferedReader in = null;
         BufferedWriter out = null;
         try {
@@ -87,5 +93,59 @@ public class WriteFile {
         }
         return root+"/"+dir;
     }
+
+    // 將圖片文件寫入磁盤
+    public int storePictures(String catalog, String number, List<MultipartFile> pictures){
+        // C:/Users/Sunny/Desktop/Products/catalog/number
+        String pathName = picture_url + catalog + "/" + number;
+        Integer length = pictures.size();   // 獲取照片數
+        File folder = new File(pathName);
+        if(!folder.isDirectory()){
+            if(!folder.mkdirs()){
+                return 808; // 路徑創建失敗
+            }
+        }
+        for(int i = 0; i < length; i++){
+            String oldName = pictures.get(i).getOriginalFilename();
+            assert oldName != null;
+            // 已馬克杯為例: 編號_0.jpg 編號_1.jpg
+            String newName = number+ "_" + i + oldName.substring(oldName.lastIndexOf("."));
+            try {
+                pictures.get(i).transferTo(new File(folder, newName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String path = pathName + "/" + newName;
+            System.out.println(path);
+        }
+        return 201;
+    }
+
+    public int storeravatarPictures(String catalog,String phone, List<MultipartFile> pictures) {
+        // C:/Users/Sunny/Desktop/Products/catalog/number
+        String pathName = auth_url + catalog +"/" + phone;
+        Integer length = pictures.size();   // 獲取照片數
+        File folder = new File(pathName);
+        if(!folder.isDirectory()){
+            if(!folder.mkdirs()){
+                return 808; // 路徑創建失敗
+            }
+        }
+        for(int i = 0; i < length; i++){
+            String oldName = pictures.get(i).getOriginalFilename();
+            assert oldName != null;
+            // 已馬克杯為例: 編號_0.jpg 編號_1.jpg
+            String newName = phone+ "_" + i + oldName.substring(oldName.lastIndexOf("."));
+            try {
+                pictures.get(i).transferTo(new File(folder, newName));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            String path = pathName + "/" + newName;
+            System.out.println(path);
+        }
+        return 201;
+    }
 }
+
 

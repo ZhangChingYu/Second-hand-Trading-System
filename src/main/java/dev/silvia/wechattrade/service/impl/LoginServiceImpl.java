@@ -12,7 +12,7 @@ import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.cryto.Sign;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
-import dev.silvia.wechattrade.handlers.fileHandlers.ReadFile;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.ILoginService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,7 +77,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         List<String> picture2;
                         if(u.getAvatar().isEmpty()){
                             //默认图片
-                            picture1 = Collections.singletonList(ReadFile.getBaseFile("E:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
+                            picture1 = Collections.singletonList(ReadFile.getBaseFile("C:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
                             u.setAvatar(picture1.get(0));
                         }
                         else{
