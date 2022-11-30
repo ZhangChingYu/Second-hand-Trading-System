@@ -76,7 +76,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         List<String> picture1;
         if(user4.getAvatar().isEmpty()){
             //默认图片
-            picture1 = Collections.singletonList(ReadFile.getBaseFile("E:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
+            picture1 = Collections.singletonList(ReadFile.getBaseFile("C:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
             user4.setAvatar(picture1.get(0));
         }
         else{
@@ -122,7 +122,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         //卖家信息表
         seller.setAddress(transferUTF8.CtoUTF8(pro.getAddress()));
         seller.setExchangeId(pronum);  //外键
-        seller.setPhone(request.getSellerphone());
+        seller.setPhone(pro.getSPhone());
         sel.save(seller);
 
         //预约信息表
