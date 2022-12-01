@@ -86,7 +86,7 @@ public class UserCenterController {
             res=new Result(ResultCode.FAIL);
             ResponseEntity.ok(res);
         }
-        List<String> pictures = readFile.getPictureBase64("Avatar",phone,files.size());
+        List<String> pictures = readFile.getAuthPictures("Avatar",phone,files.size());
         String path=pictures.get(0);
         return ResponseEntity.ok(service.swapRelatedAvatar(phone,path));
     }

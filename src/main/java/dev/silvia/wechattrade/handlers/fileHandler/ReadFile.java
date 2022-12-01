@@ -48,7 +48,7 @@ public class ReadFile {
     }
 
     // 將某一商品的所有圖片依序轉換成Base64編碼輸出的方法
-    public List<String> getPictureBase64(String sort,String phone, Integer size){
+    public List<String> getAuthPictures(String sort, String phone, Integer size){
         // 通過商品編碼和照片數返回圖片的base64編碼表
         List<String> pictures = new ArrayList<>();
         if(size == 0){

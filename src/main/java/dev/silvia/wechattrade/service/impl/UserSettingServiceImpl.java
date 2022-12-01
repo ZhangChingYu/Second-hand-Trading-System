@@ -100,7 +100,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
                 res=new Result(ResultCode.FAIL);
                 return res;
             }
-            List<String> pictures = readFile.getPictureBase64("Authentication",request.getPhone(),request.getIdCardPics().size());
+            List<String> pictures = readFile.getAuthPictures("Authentication",request.getPhone(),request.getIdCardPics().size());
             user1.setAuthority(0);
             user1.setPicture(pictures.get(0));
             res=new Result(ResultCode.SUCCESS);
