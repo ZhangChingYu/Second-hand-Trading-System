@@ -9,7 +9,7 @@ import java.util.List;
 
 @Component
 public class ReadFile {
-    private String picture_url = FileDirector.PRODUCT_PICTURE_URL;
+    private String picture_url = FileDirector.PRODUCT_URL;
     private String auth_url = FileDirector.AUTH_URL;
     public static String getBaseFile(String filePath){
         if(filePath==null){
@@ -40,14 +40,13 @@ public class ReadFile {
             return null;    // 如果該商品沒有照片，則返回null
         }
         for(int i = 0; i < size; i++){
-            String url = picture_url+catalog+"/"+number+"/"+number+"_"+i+".jpg";
+            String url = picture_url+catalog+"/"+number+"/Pictures/"+number+"_"+i+".jpg";
             String base64 = ReadFile.getBaseFile(url);
             pictures.add(base64);
         }
         return pictures;
     }
 
-    // 將某一商品的所有圖片依序轉換成Base64編碼輸出的方法
     public List<String> getAuthPictures(String sort, String phone, Integer size){
         // 通過商品編碼和照片數返回圖片的base64編碼表
         List<String> pictures = new ArrayList<>();

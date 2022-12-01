@@ -9,7 +9,7 @@ import java.util.List;
 @Component
 public class WriteFile {
     private String feedback_url = FileDirector.FEEDBACK_URL;
-    private String picture_url = FileDirector.PRODUCT_PICTURE_URL;
+    private String picture_url = FileDirector.PRODUCT_URL;
     private String auth_url = FileDirector.AUTH_URL;
     public Integer writeFeedbackFile(FeedbackVo feedback){  // // 寫入feedback文件
         // C://Users/Sunny/Desktop/Feedback/(Year)/(Month)/(Time+Phone).txt
@@ -96,8 +96,8 @@ public class WriteFile {
 
     // 將圖片文件寫入磁盤
     public int storePictures(String catalog, String number, List<MultipartFile> pictures){
-        // C:/Users/Sunny/Desktop/Products/catalog/number
-        String pathName = picture_url + catalog + "/" + number;
+        // C:/Users/Sunny/Desktop/Products/catalog/number/Pictures
+        String pathName = picture_url + catalog + "/" + number+"/Pictures";
         Integer length = pictures.size();   // 獲取照片數
         File folder = new File(pathName);
         if(!folder.isDirectory()){

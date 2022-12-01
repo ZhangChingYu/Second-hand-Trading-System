@@ -6,7 +6,7 @@ import java.io.File;
 
 @Component
 public class DeleteFile {
-    private String product_picture_url = FileDirector.PRODUCT_PICTURE_URL;
+    private String product_picture_url = FileDirector.PRODUCT_URL;
 
     public boolean deleteOneFile(String filePath){    // 刪除某路徑下單個文件
         boolean flag = false;
@@ -23,7 +23,7 @@ public class DeleteFile {
     public boolean deleteProductPictures(String product_number){    // 根據商品編號刪除商品圖片檔
         boolean flag = false;
         String catalog = product_number.substring(0,1);
-        String dirPath = product_picture_url+catalog+"/"+product_number;
+        String dirPath = product_picture_url+catalog+"/"+product_number+"/Pictures";
         System.out.println(dirPath);
         File dir = new File(dirPath);
         if(dir.exists()){
