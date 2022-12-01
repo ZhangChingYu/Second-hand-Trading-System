@@ -165,6 +165,22 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
     }
 
     @Override
+    public Integer productReOnShelf(String number) {
+        Product product = getProduct(number);
+        if(product == null){
+            return 422; // 找不到商品信息
+        }
+        if(product.getStatus() == 6){
+            product.setStatus(1);
+            if(productDao.updateById(product) > 0){
+                return 201; // 商品恢復上架成功
+            }
+            return 422; // 商品恢復上架失敗
+        }
+        return 400;   // 商品為不可手動恢復上架狀態
+    }
+
+    @Override
     public Integer productDelete(String number) {
         Product product = getProduct(number);
         if(product == null){

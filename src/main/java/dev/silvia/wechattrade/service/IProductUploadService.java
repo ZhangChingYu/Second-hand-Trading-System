@@ -18,6 +18,7 @@ public interface IProductUploadService extends IService<Product> {
     List<MyProductVo> showByCatalog(String phone, String catalog);  // 根據分類顯示商品
     List<MyProductVo> showByKey(String phone, String keyword);  // 根據關鍵字模糊查詢商品
     Integer productOffShelf(String number);     // 商品下架
+    Integer productReOnShelf(String number);    // 商品恢復上架
     Integer productDelete(String number);       // 刪除商品信息(完全刪除數據庫中的商品信息)
     Integer productUpdate(ProductUpdateDto productUpdate);  // 商品更新
 

@@ -67,6 +67,12 @@ public class ProductUploadController {
         return service.productOffShelf(number);
     }
     @UserLoginToken
+    @RequestMapping(value = "/my/product/on", method = RequestMethod.PUT)
+    public Integer onShelfMyProduct(@RequestBody Map<String, Object> param){
+        String number = param.get("number").toString();
+        return service.productReOnShelf(number);
+    }
+    @UserLoginToken
     @RequestMapping(value = "/my/product", method = RequestMethod.DELETE)
     public Integer deleteMyProduct(@RequestBody Map<String, Object> param){
         String number = param.get("number").toString();
