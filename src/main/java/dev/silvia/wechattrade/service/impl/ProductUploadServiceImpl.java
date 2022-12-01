@@ -184,7 +184,7 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
     public Integer productDelete(String number) {
         Product product = getProduct(number);
         if(product == null){
-            return 404; // 找不到商品信息
+            return 422; // 找不到商品信息
         }
         if(product.getStatus() == 3 || product.getStatus() == 6){   // 確認商品是否為可刪除狀態(已下架)
             // 除了數據庫內容要更新，還要刪除磁盤裡的圖片
