@@ -82,6 +82,7 @@ public class ProductPacking {
     public MyProductVo ProductToMyProduct(Product product){
         MyProductVo myProduct = new MyProductVo();
         // 開始準備商品信息
+        myProduct.setNumber(product.getNumber());
         myProduct.setName(transferUTF8.UTF8toC(product.getName()));
         myProduct.setPrice(product.getPrice());
         myProduct.setStatus(product.getStatus());

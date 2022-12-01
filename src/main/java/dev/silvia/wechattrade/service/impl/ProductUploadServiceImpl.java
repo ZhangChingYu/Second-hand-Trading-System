@@ -3,11 +3,13 @@ package dev.silvia.wechattrade.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import dev.silvia.wechattrade.dao.ProductDao;
+import dev.silvia.wechattrade.dto.product.ProductUpdateDto;
 import dev.silvia.wechattrade.dto.product.ProductUploadDto;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.ProductPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
+import dev.silvia.wechattrade.handlers.fileHandler.DeleteFile;
 import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IProductUploadService;
 import dev.silvia.wechattrade.vo.product.MyProductVo;
@@ -30,6 +32,8 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
     private ProductPacking productPacking;
     @Autowired
     private WriteFile writeFile;
+    @Autowired
+    private DeleteFile deleteFile;
     @Autowired
     private CheckUserAuthority CUA;
 
@@ -132,5 +136,73 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
             myProductVos.add(myProduct);
         }
         return myProductVos;
+    }
+
+    @Override
+    public Integer productOffShelf(String number) {
+        Product product = getProduct(number);
+        if(product == null){
+            return 422; // 找不到商品信息
+        }
+        switch (product.getStatus()){
+            case 0: // 商品已上架
+            case 4: // 商品已售空
+            case 5: // 商品待預約
+                product.setStatus(6);
+                break;
+            case 1: // 商品審核中，仍未上架
+            case 2: // 商品審核不通過，仍未上架
+            case 3: // 違規商品，系統已予以下架
+            case 6: // 該商品已由用戶手動下架
+                return 300;
+            default:
+                return 400; // 商品狀態異常
+        }
+        if(productDao.updateById(product) > 0){
+            return 201; // 商品下架成功
+        }
+        return 422; // 商品下架失敗
+    }
+
+    @Override
+    public Integer productDelete(String number) {
+        Product product = getProduct(number);
+        if(product == null){
+            return 404; // 找不到商品信息
+        }
+        if(product.getStatus() == 3 || product.getStatus() == 6){   // 確認商品是否為可刪除狀態(已下架)
+            // 除了數據庫內容要更新，還要刪除磁盤裡的圖片
+            if(deleteFile.deleteProductPictures(number)){   // 如果商品圖片檔刪除成功
+                if(productDao.deleteById(product) > 0) {    // 在刪除數據庫裡的商品信息
+                    return 204; // 數據刪除成功
+                }
+            }
+            return 400; // 刪除失敗
+        }
+        return 412; // 商品為不可刪除狀態(需先下架)
+    }
+
+    @Override
+    public Integer productUpdate(ProductUpdateDto productUpdate) {
+        Product product = getProduct(productUpdate.getNumber());
+        if(product == null){
+            return 404; // 商品不存在
+        }
+        product.setName(transferUTF8.CtoUTF8(productUpdate.getName()));
+        product.setPrice(productUpdate.getPrice());
+        product.setIntro(transferUTF8.CtoUTF8(productUpdate.getIntro()));
+        product.setStorage(productUpdate.getStorage());
+        product.setAddress(transferUTF8.CtoUTF8(productUpdate.getAddress()));
+        if(productDao.updateById(product) > 0) {
+            return 201; // 更新成功
+        }
+        return 422;    // 更新失敗
+    }
+
+    private Product getProduct(String number){
+        QueryWrapper<Product> wrapper = new QueryWrapper<>();
+        wrapper.eq("number", number);
+        Product product = productDao.selectOne(wrapper);
+        return product;
     }
 }
