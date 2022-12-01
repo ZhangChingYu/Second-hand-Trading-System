@@ -202,7 +202,7 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
     public Integer productUpdate(ProductUpdateDto productUpdate) {
         Product product = getProduct(productUpdate.getNumber());
         if(product == null){
-            return 404; // 商品不存在
+            return 422; // 商品不存在
         }
         product.setName(transferUTF8.CtoUTF8(productUpdate.getName()));
         product.setPrice(productUpdate.getPrice());
