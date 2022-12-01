@@ -839,3 +839,108 @@
  *        null
  *     }
  */
+
+/**
+ * @api {PUT} /my/product/off 用戶下架商品
+ * @apiName OffShelfMyProduct
+ * @apiGroup 我的商品
+ * @apiPermission none
+ *
+ * @apiDescription 用戶下架商品的是個暫時性的操作，可以通過[商品恢復上架]使商品重新上架。只有狀態碼為0, 4, 5的商品可以進行下架操作，下架的商品不會刪除其商品信息，但若要刪除某商品，該商品必須為下架狀態。
+ *
+ * @apiParam {String} number 商品編號
+ *
+ * @apiSuccessExample 請求成功(例子)
+ *     {
+ *        201
+ *     }
+ * @apiErrorExample 商品不存在/商品下架失敗
+ *     {
+ *        422
+ *     }
+ * @apiErrorExample 商品為不可下架狀態
+ *     {
+ *        300
+ *     }
+ * @apiErrorExample 商品狀態異常
+ *     {
+ *        400
+ *     }
+ */
+
+/**
+ * @api {PUT} /my/product/on 用戶商品恢復上架
+ * @apiName OnShelfMyProduct
+ * @apiGroup 我的商品
+ * @apiPermission none
+ *
+ * @apiDescription 此功能提供用戶回復商品上架，只適用於用戶手動下架的商品，即狀態碼為6的商品。
+ *
+ * @apiParam {String} number 商品編號
+ *
+ * @apiSuccessExample 請求成功(例子)
+ *     {
+ *        201
+ *     }
+ * @apiErrorExample 商品不存在/商品回復上架失敗
+ *     {
+ *        422
+ *     }
+ * @apiErrorExample 商品為不可下架狀態
+ *     {
+ *        400
+ *     }
+ */
+
+/**
+ * @api {DELETE} /my/product 刪除我的商品
+ * @apiName DeleteMyProduct
+ * @apiGroup 我的商品
+ * @apiPermission none
+ *
+ * @apiDescription 刪除我的商品的功能是完全刪除某一商品的所有信息，即數據庫和磁盤裡的圖片。為了不影響其他用戶交易，該功能需商品處於下架狀態(狀態碼為3或6)方可操作。
+ *
+ * @apiParam {String} number 商品編號
+ *
+ * @apiSuccessExample 請求成功(例子)
+ *     {
+ *        204
+ *     }
+ * @apiErrorExample 商品不存在
+ *     {
+ *        422
+ *     }
+ * @apiErrorExample 刪除失敗(圖片數據/數據庫數據)
+ *     {
+ *        400
+ *     }
+ * @apiErrorExample 商品為不可刪除狀態(需先下架)
+ *     {
+ *        412
+ *     }
+ */
+
+/**
+ * @api {PUT} /my/product 用戶更新商品信息
+ * @apiName UpdateMyProduct
+ * @apiGroup 我的商品
+ * @apiPermission none
+ *
+ * @apiDescription 用戶更新商品信息(目前沒有提供更新商品圖片的功能，若有需要請前端人員告訴我一聲，謝謝)
+ *
+ * @apiParam {String} number 商品編號
+ * @apiParam {String} name 商品名稱
+ * @apiParam {Integer} storage 庫存量
+ * @apiParam {Double} price 商品價格
+ * @apiParam {String} address 發貨地
+ * @apiParam {String} intro 商品描述
+ *
+ * @apiSuccessExample 請求成功(例子)
+ *     {
+ *        201
+ *     }
+ * @apiErrorExample 商品不存在/更新失敗
+ *     {
+ *        422
+ *     }
+ */

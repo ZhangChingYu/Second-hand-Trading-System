@@ -1114,6 +1114,172 @@ define({ "api": [
     "groupTitle": "地址管理"
   },
   {
+    "type": "DELETE",
+    "url": "/my/product",
+    "title": "刪除我的商品",
+    "name": "DeleteMyProduct",
+    "group": "我的商品",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>刪除我的商品的功能是完全刪除某一商品的所有信息，即數據庫和磁盤裡的圖片。為了不影響其他用戶交易，該功能需商品處於下架狀態(狀態碼為3或6)方可操作。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子)",
+          "content": "{\n   204\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "商品不存在",
+          "content": "{\n   422\n}",
+          "type": "json"
+        },
+        {
+          "title": "刪除失敗(圖片數據/數據庫數據)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        },
+        {
+          "title": "商品為不可刪除狀態(需先下架)",
+          "content": "{\n   412\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "我的商品"
+  },
+  {
+    "type": "PUT",
+    "url": "/my/product/off",
+    "title": "用戶下架商品",
+    "name": "OffShelfMyProduct",
+    "group": "我的商品",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶下架商品的是個暫時性的操作，可以通過[商品恢復上架]使商品重新上架。只有狀態碼為0, 4, 5的商品可以進行下架操作，下架的商品不會刪除其商品信息，但若要刪除某商品，該商品必須為下架狀態。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子)",
+          "content": "{\n   201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "商品不存在/商品下架失敗",
+          "content": "{\n   422\n}",
+          "type": "json"
+        },
+        {
+          "title": "商品為不可下架狀態",
+          "content": "{\n   300\n}",
+          "type": "json"
+        },
+        {
+          "title": "商品狀態異常",
+          "content": "{\n   400\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "我的商品"
+  },
+  {
+    "type": "PUT",
+    "url": "/my/product/on",
+    "title": "用戶商品恢復上架",
+    "name": "OnShelfMyProduct",
+    "group": "我的商品",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>此功能提供用戶回復商品上架，只適用於用戶手動下架的商品，即狀態碼為6的商品。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子)",
+          "content": "{\n   201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "商品不存在/商品回復上架失敗",
+          "content": "{\n   422\n}",
+          "type": "json"
+        },
+        {
+          "title": "商品為不可下架狀態",
+          "content": "{\n   400\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "我的商品"
+  },
+  {
     "type": "GET",
     "url": "/my/products",
     "title": "顯示用戶所有商品",
@@ -1314,6 +1480,88 @@ define({ "api": [
         {
           "title": "沒有符合的商品",
           "content": "{\n   null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "我的商品"
+  },
+  {
+    "type": "PUT",
+    "url": "/my/product",
+    "title": "用戶更新商品信息",
+    "name": "UpdateMyProduct",
+    "group": "我的商品",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶更新商品信息(目前沒有提供更新商品圖片的功能，若有需要請前端人員告訴我一聲，謝謝)</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>商品名稱</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "storage",
+            "description": "<p>庫存量</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Double",
+            "optional": false,
+            "field": "price",
+            "description": "<p>商品價格</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "address",
+            "description": "<p>發貨地</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "intro",
+            "description": "<p>商品描述</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子)",
+          "content": "{\n   201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "商品不存在/更新失敗",
+          "content": "{\n   422\n}",
           "type": "json"
         }
       ]
