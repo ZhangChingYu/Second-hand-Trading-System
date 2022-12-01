@@ -24,21 +24,21 @@ public class ProductUploadController {
     @Autowired
     private Gson gson;
 
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/product", method = RequestMethod.POST)
     public int productUploadRequest(ProductUploadDto productUploadDto){
         productUploadDto.setNumber(productUploadDto.getCatalog()+System.currentTimeMillis());
         return service.uploadProductRequest(productUploadDto);
     }
 
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/products", method = RequestMethod.GET)
     public String showAllMyProduct(HttpServletRequest request){
         String phone = request.getParameter("phone");
         return gson.toJson(service.showAllMyProduct(phone));
     }
 
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/products/key", method = RequestMethod.GET)
     public String showMyProductByKey(HttpServletRequest request){
         String phone = request.getParameter("phone");
@@ -46,33 +46,33 @@ public class ProductUploadController {
         return gson.toJson(service.showByKey(phone,keyword));
     }
 
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/products/catalog", method = RequestMethod.GET)
     public String showMyProductByCatalog(HttpServletRequest request){
         String phone = request.getParameter("phone");
         String catalog = request.getParameter("catalog");
         return gson.toJson(service.showByCatalog(phone, catalog));
     }
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/products/status", method = RequestMethod.GET)
     public String showMyProductByStatus(HttpServletRequest request){
         String phone = request.getParameter("phone");
         Integer status = Integer.parseInt(request.getParameter("status"));
         return gson.toJson(service.showByStatus(phone,status));
     }
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/product/off", method = RequestMethod.PUT)
     public Integer offShelfMyProduct(@RequestBody Map<String, Object> param){
         String number = param.get("number").toString();
         return service.productOffShelf(number);
     }
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/product", method = RequestMethod.DELETE)
     public Integer deleteMyProduct(@RequestBody Map<String, Object> param){
         String number = param.get("number").toString();
         return service.productDelete(number);
     }
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/product", method = RequestMethod.PUT)
     public Integer updateMyProduct(@RequestBody ProductUpdateDto updateDto){
         return service.productUpdate(updateDto);
