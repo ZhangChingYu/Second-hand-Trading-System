@@ -9,8 +9,7 @@
 		<view>
 			例如：<br>
 				<u-button type="primary" :plain="true" text="镂空"></u-button>
-				<u-button type="primary" :plain="true" :hairline="true" text="细边"></u-button>
-				<u-button type="primary" :disabled="disabled" text="禁用"></u-button>
+				<u-button type="primary" :plain="true" :hairline="true" text="细边"></u-button>]
 				<u-button type="primary" loading loadingText="加载中"></u-button>
 				<u-button type="primary" icon="map" text="图标按钮"></u-button>
 				
@@ -20,16 +19,21 @@
 </template>
 
 <script>
+	import {getTest} from '@/common/request/api.js'
 	export default {
 		data() {
 			return {
 			}
 		},
+		
 		onLoad() {
-
+			this.method_name();
 		},
 		methods: {
-
+			async method_name(){
+				let res = await getTest()
+				console.log(res)
+			},
 		}
 	}
 </script>
