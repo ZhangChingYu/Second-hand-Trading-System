@@ -6,7 +6,7 @@ import dev.silvia.wechattrade.dao.FavoriteInfoDao;
 import dev.silvia.wechattrade.entity.FavoriteInfo;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
-import dev.silvia.wechattrade.handlers.ProductPacking;
+import dev.silvia.wechattrade.handlers.Packing.ProductPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.service.ILikeService;
 import dev.silvia.wechattrade.vo.product.ProductLikeVo;

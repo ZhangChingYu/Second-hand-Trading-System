@@ -7,7 +7,7 @@ import dev.silvia.wechattrade.dto.product.ProductUpdateDto;
 import dev.silvia.wechattrade.dto.product.ProductUploadDto;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
-import dev.silvia.wechattrade.handlers.ProductPacking;
+import dev.silvia.wechattrade.handlers.Packing.ProductPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.fileHandler.DeleteFile;
 import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;

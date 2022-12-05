@@ -1,4 +1,4 @@
-package dev.silvia.wechattrade.handlers;
+package dev.silvia.wechattrade.handlers.Packing;
 
 import dev.silvia.wechattrade.vo.AddressVo;
 import org.springframework.stereotype.Component;

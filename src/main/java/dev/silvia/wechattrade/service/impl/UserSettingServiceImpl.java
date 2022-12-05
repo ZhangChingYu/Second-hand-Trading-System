@@ -8,7 +8,7 @@ import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
 import dev.silvia.wechattrade.dto.response.Result;
 import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.User;
-import dev.silvia.wechattrade.handlers.AddressPacking;
+import dev.silvia.wechattrade.handlers.Packing.AddressPacking;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;

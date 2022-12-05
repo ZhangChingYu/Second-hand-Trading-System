@@ -1,7 +1,8 @@
-package dev.silvia.wechattrade.handlers;
+package dev.silvia.wechattrade.handlers.Packing;
 
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.User;
+import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.vo.product.MyProductVo;
