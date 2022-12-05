@@ -1,4 +1,5 @@
 package dev.silvia.wechattrade.handlers.fileHandler;
+import dev.silvia.wechattrade.dto.product.CommentDto;
 import dev.silvia.wechattrade.vo.FeedbackVo;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -11,6 +12,11 @@ public class WriteFile {
     private String feedback_url = FileDirector.FEEDBACK_URL;
     private String picture_url = FileDirector.PRODUCT_URL;
     private String auth_url = FileDirector.AUTH_URL;
+
+    public Integer writeCommentFile(CommentDto comment){
+
+        return null;
+    }
     public Integer writeFeedbackFile(FeedbackVo feedback){  // // 寫入feedback文件
         // C://Users/Sunny/Desktop/Feedback/(Year)/(Month)/(Time+Phone).txt
         String filePath = feedback_url;
