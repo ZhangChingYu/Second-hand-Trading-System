@@ -18,9 +18,9 @@ public class Notification {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String from;
+    private String source;
 
-    private String to;
+    private String target;
 
     private Integer type;
 

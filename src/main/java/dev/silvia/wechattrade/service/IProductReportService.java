@@ -2,7 +2,9 @@ package dev.silvia.wechattrade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import dev.silvia.wechattrade.dto.report.ProductReportDto;
+import dev.silvia.wechattrade.entity.Notification;
 import dev.silvia.wechattrade.entity.ProductReport;
+import dev.silvia.wechattrade.vo.product.ProductDetailVo;
 import dev.silvia.wechattrade.vo.report.ProductReportDetailVo;
 import dev.silvia.wechattrade.vo.report.ProductReportOutlineVo;
 
@@ -18,6 +20,7 @@ public interface IProductReportService extends IService<ProductReport> {
     ProductReportDetailVo readProductReportDetail(Integer id);
     /** 管理員的功能: 處理 */
     Integer processProductReport(Integer id, String decision, String explain);  // 判定舉報是否成立(decision: pass, reject)
+    Integer sendNotification(Notification notification);    // 發送通知
 
 
 }

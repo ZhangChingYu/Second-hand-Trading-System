@@ -12,7 +12,8 @@ public class ProductReportDetailVo {
     private String reporterPhone;    // 舉報者手機
     private String reportName;      // 舉報者姓名(真名)
     private Date date;            // 舉報日期
-    private String content;         // 舉報原因
+    private String content; // 舉報原因
+    private String productNumber;   // 商品編號
+    private String productName;     // 商品名稱
     private Integer reportCount;    // 該商品被舉報的次數
-    private ProductDetailVo productDetail;  // 商品詳細信息
 }

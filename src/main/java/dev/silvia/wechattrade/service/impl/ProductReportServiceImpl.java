@@ -2,10 +2,12 @@ package dev.silvia.wechattrade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import dev.silvia.wechattrade.dao.NotificationDao;
 import dev.silvia.wechattrade.dao.ProductDao;
 import dev.silvia.wechattrade.dao.ProductReportDao;
 import dev.silvia.wechattrade.dao.UserDao;
 import dev.silvia.wechattrade.dto.report.ProductReportDto;
+import dev.silvia.wechattrade.entity.Notification;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.ProductReport;
 import dev.silvia.wechattrade.entity.User;
@@ -16,6 +18,7 @@ import dev.silvia.wechattrade.service.IProductReportService;
 import dev.silvia.wechattrade.vo.report.ProductReportDetailVo;
 import dev.silvia.wechattrade.vo.report.ProductReportOutlineVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,8 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
     @Autowired
     ProductReportDao productReportDao;
     @Autowired
+    NotificationDao notificationDao;
+    @Autowired
     UserDao userDao;
     @Autowired
     ProductDao productDao;
@@ -39,8 +44,6 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
     TransferUTF8 transferUTF8;
     @Autowired
     JdbcTemplate jdbcTemplate;
-
-    private NotificationServiceImpl noteService = new NotificationServiceImpl();
 
     @Override
     public Integer userPostReport(ProductReportDto dto) {
@@ -109,7 +112,7 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
         ProductReport report = productReportDao.selectById(id);
         Product product = getProduct(report.getNumber());
         User user = getUser(report.getPhone());
-        ProductReportDetailVo detailVo = reportPacking.ReportToDetailVo(report, product, user, new ProductServiceImpl().getProductDetail(report.getNumber()));
+        ProductReportDetailVo detailVo = reportPacking.ReportToDetailVo(report, product, user);
         return detailVo;
     }
 
@@ -121,13 +124,13 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
             case "pass":
                 report.setStatus(1);
                 if(product.getStatus() == 3 || product.getStatus() == 6){
-                    noteService.sendNotification(reportPacking.autoProductReport(explain, "舉報處理通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "already off shelf"));
+                    sendNotification(reportPacking.autoProductReport(explain, "舉報處理通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "already off shelf"));
                     System.out.println("Product has already been off shelf.");
                 }else {     // 檢查舉報數是否超過5，做下架處理
                     if(product.getReportCount() >= 5){
                         product.setStatus(3);
-                        noteService.sendNotification(reportPacking.autoProductReport(explain, "舉報成功通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "off shelf"));
-                        noteService.sendNotification(reportPacking.autoProductReport(explain, "商品下架通知", product.getSPhone(), true, transferUTF8.UTF8toC(product.getName()), "off shelf"));
+                        sendNotification(reportPacking.autoProductReport(explain, "舉報成功通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "off shelf"));
+                        sendNotification(reportPacking.autoProductReport(explain, "商品下架通知", product.getSPhone(), true, transferUTF8.UTF8toC(product.getName()), "off shelf"));
                         if(productDao.updateById(product) > 0){
                             System.out.println("Product off shelf success.");
                         }else {
@@ -135,14 +138,14 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
                         }
                     } else{
                         // 發送通知給賣家，要求整改
-                        noteService.sendNotification(reportPacking.autoProductReport(explain, "舉報成功通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "add report count"));
-                        noteService.sendNotification(reportPacking.autoProductReport(explain, "商品舉報通知", product.getSPhone(), true, transferUTF8.UTF8toC(product.getName()), "add report count"));
+                        sendNotification(reportPacking.autoProductReport(explain, "舉報成功通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "add report count"));
+                        sendNotification(reportPacking.autoProductReport(explain, "商品舉報通知", product.getSPhone(), true, transferUTF8.UTF8toC(product.getName()), "add report count"));
                     }
                 }
                 break;
             case "reject":  // 商品沒有違規
                 report.setStatus(2);
-                noteService.sendNotification(reportPacking.autoProductReport(explain, "舉報失敗通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "no violation"));
+                sendNotification(reportPacking.autoProductReport(explain, "舉報失敗通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "no violation"));
                 break;
             default:
                 return 404; // 請求不合法
@@ -153,10 +156,20 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
         return 400; // 數據庫更新失敗
     }
 
+    @Override
+    public Integer sendNotification(Notification notification) {
+        if(getUser(notification.getTarget()) == null ){
+            return 422; // 接收者不存在
+        }
+        notification.setId(0);
+        notificationDao.insert(notification);
+        return 201; // 發送成功
+    }
+
     private User getUser(String phone){
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("phone", phone);
-        return userDao.selectOne(wrapper);
+        String findUser = "select * from user_info where phone='"+phone+"'";
+        User user = jdbcTemplate.queryForObject(findUser, new BeanPropertyRowMapper<>(User.class));
+        return user;
     }
 
     private Product getProduct(String number){

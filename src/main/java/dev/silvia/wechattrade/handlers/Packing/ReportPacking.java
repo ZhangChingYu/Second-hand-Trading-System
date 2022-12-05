@@ -5,7 +5,6 @@ import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.ProductReport;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
-import dev.silvia.wechattrade.vo.product.ProductDetailVo;
 import dev.silvia.wechattrade.vo.report.ProductReportDetailVo;
 import dev.silvia.wechattrade.vo.report.ProductReportOutlineVo;
 import org.springframework.stereotype.Component;
@@ -26,7 +25,7 @@ public class ReportPacking {
         return outlineVo;
     }
 
-    public ProductReportDetailVo ReportToDetailVo(ProductReport report, Product product, User user, ProductDetailVo detailVo){
+    public ProductReportDetailVo ReportToDetailVo(ProductReport report, Product product, User user){
         ProductReportDetailVo reportVo = new ProductReportDetailVo();
         reportVo.setId(report.getId());
         reportVo.setReporterPhone(report.getPhone());
@@ -35,7 +34,8 @@ public class ReportPacking {
         reportVo.setDate(report.getDate());
         reportVo.setContent(transferUTF8.UTF8toC(report.getContent()));
         reportVo.setReportCount(product.getReportCount());
-        reportVo.setProductDetail(detailVo);
+        reportVo.setProductName(transferUTF8.UTF8toC(product.getName()));
+        reportVo.setProductNumber(product.getNumber());
         return reportVo;
     }
 
@@ -43,9 +43,9 @@ public class ReportPacking {
         Notification note = new Notification();
         String content = "";
         note.setStatus(0);  // 設置為未讀
-        note.setFrom(transferUTF8.CtoUTF8("系统管理员"));
+        note.setSource(transferUTF8.CtoUTF8("系统管理员"));
         note.setTitle(transferUTF8.CtoUTF8(title));
-        note.setTo(to);
+        note.setTarget(to);
         note.setDate(new Date());
         if(isSeller){   // 發送給賣家
             note.setType(2);    // [warn]

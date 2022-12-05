@@ -1,14 +1,11 @@
 package dev.silvia.wechattrade.handlers.Packing;
 
 import dev.silvia.wechattrade.entity.Notification;
-import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.vo.notification.NotificationDetailVo;
 import dev.silvia.wechattrade.vo.notification.NotificationOutlineVo;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 @Component
 public class NotificationPacking {
@@ -34,7 +31,7 @@ public class NotificationPacking {
         detailVo.setTo(transferUTF8.UTF8toC(to.getUserName())+to.getPhone());
         detailVo.setContent(transferUTF8.UTF8toC(note.getContent()));
         detailVo.setDate(note.getDate());
-        detailVo.setFrom(transferUTF8.UTF8toC(note.getFrom()));
+        detailVo.setFrom(transferUTF8.UTF8toC(note.getSource()));
         return detailVo;
     }
 }

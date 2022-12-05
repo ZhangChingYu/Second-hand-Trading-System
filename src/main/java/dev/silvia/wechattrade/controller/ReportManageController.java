@@ -19,6 +19,7 @@ public class ReportManageController {
     @Resource
     private IProductReportService service;
 
+
     Gson gson = new Gson();
 
     @RequestMapping(value = "/product/report", method = RequestMethod.POST)
@@ -50,5 +51,4 @@ public class ReportManageController {
         String explain = param.get("explain").toString();
         return service.processProductReport(id, decision, explain);
     }
-
 }

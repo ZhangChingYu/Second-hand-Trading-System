@@ -12,19 +12,25 @@ import dev.silvia.wechattrade.service.INotificationService;
 import dev.silvia.wechattrade.vo.notification.NotificationDetailVo;
 import dev.silvia.wechattrade.vo.notification.NotificationOutlineVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class NotificationServiceImpl extends ServiceImpl<NotificationDao, Notification> implements INotificationService {
     @Autowired
     NotificationDao notificationDao;
     @Autowired
-    UserDao userDao;
+    NotificationPacking notePacking;
     @Autowired
     TransferUTF8 transferUTF8;
     @Autowired
-    NotificationPacking notePacking;
+    private JdbcTemplate jdbcTemplate;
+    @Autowired
+    private  UserDao userDao;
 
     @Override
     public Boolean isRead(Integer id) {
@@ -37,7 +43,7 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationDao, Notifi
 
     @Override
     public Integer sendNotification(Notification notification) {
-        if(getUser(notification.getTo()) == null ){
+        if(getUser(notification.getTarget()) == null ){
             return 422; // 接收者不存在
         }
         if(notificationDao.insert(notification) > 0){
@@ -53,7 +59,7 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationDao, Notifi
             notification.setStatus(1);  // 設置為已讀
             notificationDao.updateById(notification);
         }
-        NotificationDetailVo detailVo = notePacking.NoteToDetailVo(notification, getUser(notification.getTo()));
+        NotificationDetailVo detailVo = notePacking.NoteToDetailVo(notification, getUser(notification.getTarget()));
         return detailVo;
     }
 
@@ -61,7 +67,7 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationDao, Notifi
     public List<NotificationOutlineVo> showAllNotification(String phone) {
         List<NotificationOutlineVo> outlineVos = new ArrayList<>();
         QueryWrapper<Notification> wrapper = new QueryWrapper<>();
-        wrapper.eq("to", phone);
+        wrapper.eq("target", phone);
         List<Notification> notifications = notificationDao.selectList(wrapper);
         for(Notification note : notifications){
             NotificationOutlineVo outlineVo = notePacking.NoteToOutlineVo(note);
@@ -74,7 +80,7 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationDao, Notifi
     public List<NotificationOutlineVo> showUnReadNotification(String phone) {
         List<NotificationOutlineVo> outlineVos = new ArrayList<>();
         QueryWrapper<Notification> wrapper = new QueryWrapper<>();
-        wrapper.eq("to", phone);
+        wrapper.eq("target", phone);
         wrapper.eq("status",0);
         List<Notification> notifications = notificationDao.selectList(wrapper);
         for(Notification note : notifications){
@@ -85,9 +91,9 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationDao, Notifi
     }
 
     private User getUser(String phone){
-        QueryWrapper<User> wrapper = new QueryWrapper<>();
-        wrapper.eq("phone", phone);
-        return userDao.selectOne(wrapper);
+        String findUser = "select * from user_info where phone='"+phone+"'";
+        User user = jdbcTemplate.queryForObject(findUser, new BeanPropertyRowMapper<>(User.class));
+        return user;
     }
 
 }
