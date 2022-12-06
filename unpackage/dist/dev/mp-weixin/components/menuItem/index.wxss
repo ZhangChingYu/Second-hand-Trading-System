@@ -1,0 +1,14 @@
+.content.data-v-8e8e9de0 {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  width: 100%;
+}
+.content ._li.data-v-8e8e9de0 {
+  margin-right: 25rpx;
+  margin-bottom: 30rpx;
+}
+.content ._li.data-v-8e8e9de0:nth-child(4n) {
+  margin-right: 0;
+}
+

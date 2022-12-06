@@ -17,5 +17,13 @@
 	/*每个页面公共css */
 	/* @import '@/static/css/common.css'; */
 		@import "@/uni_modules/uview-ui/index.scss";
-
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+	}
+	page {
+		width: 100vw;
+		min-height: 100vh;
+	}
 </style>
