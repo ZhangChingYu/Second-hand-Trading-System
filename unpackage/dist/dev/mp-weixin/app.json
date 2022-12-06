@@ -2,7 +2,8 @@
   "pages": [
     "pages/main/index",
     "pages/manage/index",
-    "pages/me/index"
+    "pages/me/index",
+    "pages/manage/catalog/index"
   ],
   "subPackages": [],
   "window": {

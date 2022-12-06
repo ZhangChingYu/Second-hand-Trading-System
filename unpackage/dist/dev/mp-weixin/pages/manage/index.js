@@ -163,15 +163,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       productItem: [
       {
         title: '商品查询',
+        // url: 'pages/manage/catalog/index',
         icon: 'https://t11.baidu.com/it/u=2685890614,3511995960&fm=173&app=49&f=JPEG?w=500&h=502&s=9404FC160FE24E8492A6E97C0300806B' },
       {
         title: '商品类别',
+        url: 'pages/manage/catalog/index',
         icon: 'https://img1.baidu.com/it/u=3162166177,1798046746&fm=253&fmt=auto&app=138&f=JPEG?w=650&h=458' },
       {
         title: '商品审核',
+        // url: 'pages/manage/catalog/index',
         icon: 'https://img1.baidu.com/it/u=3994578752,3321787456&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500' },
       {
         title: '违规下架',
+        // url: 'pages/manage/catalog/index',
         icon: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnewoss.zhulong.com%2Ftfs%2Fpic%2Fv1%2Ftfs%2FT1EEb_B7dT1RCvBVdK.jpg&refer=http%3A%2F%2Fnewoss.zhulong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672910048&t=74f72311fe5a12302dadc21613584c07' }],
 
 

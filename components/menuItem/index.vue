@@ -8,7 +8,9 @@
 				:label="item.title" 
 				labelPos="bottom"
 				labelSize="26rpx"
-				size="150rpx"></u-icon>
+				size="150rpx"
+				@click="enterMenu(item.url)"
+				></u-icon>
 			</li>
 		</ul>
 		<!-- 无数据 -->
@@ -25,6 +27,12 @@
 			return {
 				
 			};
+		},
+		methods:{
+			enterMenu(url){
+				url = '../../' + url;
+				uni.navigateTo({url})
+			}
 		}
 	}
 </script>
