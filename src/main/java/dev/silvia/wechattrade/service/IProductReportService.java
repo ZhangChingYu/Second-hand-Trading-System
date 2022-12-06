@@ -4,9 +4,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import dev.silvia.wechattrade.dto.report.ProductReportDto;
 import dev.silvia.wechattrade.entity.Notification;
 import dev.silvia.wechattrade.entity.ProductReport;
-import dev.silvia.wechattrade.vo.product.ProductDetailVo;
-import dev.silvia.wechattrade.vo.report.ProductReportDetailVo;
-import dev.silvia.wechattrade.vo.report.ProductReportOutlineVo;
+import dev.silvia.wechattrade.vo.report.product.ProductReportDetailVo;
+import dev.silvia.wechattrade.vo.report.product.ProductReportOutlineVo;
 
 import java.util.List;
 

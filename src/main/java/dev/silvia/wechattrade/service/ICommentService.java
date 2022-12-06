@@ -1,8 +1,8 @@
 package dev.silvia.wechattrade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import dev.silvia.wechattrade.dto.product.CommentDto;
-import dev.silvia.wechattrade.dto.product.CommentReplyDto;
+import dev.silvia.wechattrade.dto.comment.CommentDto;
+import dev.silvia.wechattrade.dto.comment.CommentReplyDto;
 import dev.silvia.wechattrade.entity.ProductComment;
 import dev.silvia.wechattrade.vo.product.ProductCommentVo;
 import lombok.Data;

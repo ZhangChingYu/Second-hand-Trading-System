@@ -1,10 +1,9 @@
 package dev.silvia.wechattrade.controller;
 
 import com.google.gson.Gson;
-import dev.silvia.wechattrade.dto.product.CommentDto;
-import dev.silvia.wechattrade.dto.product.CommentReplyDto;
+import dev.silvia.wechattrade.dto.comment.CommentDto;
+import dev.silvia.wechattrade.dto.comment.CommentReplyDto;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
-import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;

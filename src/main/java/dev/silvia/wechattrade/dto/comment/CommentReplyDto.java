@@ -1,4 +1,4 @@
-package dev.silvia.wechattrade.dto.product;
+package dev.silvia.wechattrade.dto.comment;
 
 import lombok.Data;
 

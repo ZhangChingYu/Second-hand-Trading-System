@@ -12,16 +12,18 @@ import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName(value = "product_upload_request")
-public class ProductUploadRequest implements Serializable {
+@TableName(value = "product_manage")
+public class CommentReport implements Serializable {
     private static final long serialVersionUID=1L;
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private Integer pass;
+    private Integer commentId;
 
-    private String productNumber;
+    private String phone;
+
+    private String content;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date date;

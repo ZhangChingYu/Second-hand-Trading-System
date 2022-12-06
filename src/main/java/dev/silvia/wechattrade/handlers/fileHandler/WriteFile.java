@@ -1,5 +1,5 @@
 package dev.silvia.wechattrade.handlers.fileHandler;
-import dev.silvia.wechattrade.dto.product.CommentDto;
+import dev.silvia.wechattrade.dto.comment.CommentDto;
 import dev.silvia.wechattrade.vo.FeedbackVo;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;

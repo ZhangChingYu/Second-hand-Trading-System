@@ -1,4 +1,4 @@
-package dev.silvia.wechattrade.vo.report;
+package dev.silvia.wechattrade.vo.report.product;
 
 import lombok.Data;
 
