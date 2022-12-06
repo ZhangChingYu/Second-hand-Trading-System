@@ -11,6 +11,7 @@ public class ProductDetailVo {     // 商品信息顯示用
     private String address;     // 地址
     private String date;        // 發布時間
     private Double price;       // 價格
+    private Integer storage;    // 商品庫存
     private String intro;       // 商品介紹
     private Integer like_count;       // 收藏數
     private Integer picture_count;     // 照片數

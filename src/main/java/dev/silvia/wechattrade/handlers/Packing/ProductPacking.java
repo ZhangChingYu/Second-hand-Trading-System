@@ -72,6 +72,7 @@ public class ProductPacking {
         detail.setAddress(transferUTF8.UTF8toC(product.getAddress()));
         detail.setDate(getDate(product.getNumber()));     // 通過商品編號可解析出時間信息
         detail.setPrice(product.getPrice());
+        detail.setStorage(product.getStorage());
         detail.setIntro(transferUTF8.UTF8toC(product.getIntro()));
         detail.setLike_count(product.getLikeCount());
         detail.setPicture_count(product.getPicture());
