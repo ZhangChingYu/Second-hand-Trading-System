@@ -6,3 +6,5 @@ create table favorite_info
     phone  varchar(255) not null comment '用戶手機號'
 );
 
+INSERT INTO idlebugs.favorite_info (id, number, phone) VALUES (1, 'B1667557259691', '15078818663');
+INSERT INTO idlebugs.favorite_info (id, number, phone) VALUES (2, 'M1667561271483', '15078818663');
