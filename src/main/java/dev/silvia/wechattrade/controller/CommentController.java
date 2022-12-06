@@ -3,6 +3,8 @@ package dev.silvia.wechattrade.controller;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dto.product.CommentDto;
 import dev.silvia.wechattrade.dto.product.CommentReplyDto;
+import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
+import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.ICommentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,17 +23,17 @@ public class CommentController {
 
     Gson gson = new Gson();
 
-
+    @PassToken
     @RequestMapping(value = "/product/comment", method = RequestMethod.POST)
     public Integer postComment(@RequestBody CommentDto commentDto){
         return service.postComment(commentDto);
     }
-
+    @PassToken
     @RequestMapping(value = "/product/reply", method = RequestMethod.POST)
     public Integer postReply(@RequestBody CommentReplyDto commentReplyDto){
         return service.replyComment(commentReplyDto);
     }
-
+    @PassToken
     @RequestMapping(value = "/product/comment", method = RequestMethod.GET)
     public String showAllComments(HttpServletRequest request){
         String number = request.getParameter("number");

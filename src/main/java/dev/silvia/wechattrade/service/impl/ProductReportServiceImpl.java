@@ -127,10 +127,11 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
                     sendNotification(reportPacking.autoProductReport(explain, "舉報處理通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "already off shelf"));
                     System.out.println("Product has already been off shelf.");
                 }else {     // 檢查舉報數是否超過5，做下架處理
-                    if(product.getReportCount() >= 5){
+                    if(product.getReportCount() >= 5){  // 如果有其他相同商品的舉報，下架結果須一併通知
                         product.setStatus(3);
                         sendNotification(reportPacking.autoProductReport(explain, "舉報成功通知", report.getPhone(), false, transferUTF8.UTF8toC(product.getName()), "off shelf"));
                         sendNotification(reportPacking.autoProductReport(explain, "商品下架通知", product.getSPhone(), true, transferUTF8.UTF8toC(product.getName()), "off shelf"));
+                        spreadNotification(product.getNumber(), id, product.getName());
                         if(productDao.updateById(product) > 0){
                             System.out.println("Product off shelf success.");
                         }else {
@@ -170,6 +171,22 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
         String findUser = "select * from user_info where phone='"+phone+"'";
         User user = jdbcTemplate.queryForObject(findUser, new BeanPropertyRowMapper<>(User.class));
         return user;
+    }
+
+    public void spreadNotification(String number, Integer id, String productName){ // 找出所有相同商品的舉報並統一發送下架通知
+        QueryWrapper<ProductReport> wrapper = new QueryWrapper<>();
+        wrapper.eq("number", number);
+        wrapper.ne("id", id);   // 排除當前閱讀的舉報
+        List<ProductReport> reports = productReportDao.selectList(wrapper);
+        if(reports == null || reports.isEmpty()){
+            System.out.println("no other related report found.");
+        } else {
+            for(ProductReport report : reports){
+                report.setStatus(1);
+                sendNotification(reportPacking.autoProductReport("尊貴的用戶您好，系統管理員發現您所舉報的商品也被其他多名用戶舉報，目前該商品已被系統強制下架。", "舉報成功通知", report.getPhone(), false, transferUTF8.UTF8toC(productName), "off shelf"));
+                productReportDao.updateById(report);
+            }
+        }
     }
 
     private Product getProduct(String number){
