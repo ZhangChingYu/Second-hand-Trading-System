@@ -100,6 +100,28 @@ public class WriteFile {
         return root+"/"+dir;
     }
 
+    public int storeOnePicture(String catalog, String number, Integer index, MultipartFile picture){
+        String pathName = picture_url + catalog + "/" + number;
+        File folder = new File(pathName);
+        if(!folder.isDirectory()){
+            if(!folder.mkdirs()){
+                return 808; // 路徑創建失敗
+            }
+        }
+        String oldName = picture.getOriginalFilename();
+        assert oldName != null;
+        // 以封面為例: 商品編號_0.jpg
+        String newName = number+ "_" + index + oldName.substring(oldName.lastIndexOf("."));
+        try {
+            picture.transferTo(new File(folder, newName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String path = pathName + "/" + newName;
+        System.out.println(path);
+        return 201; // 存儲成功
+    }
+
     // 將圖片文件寫入磁盤
     public int storePictures(String catalog, String number, List<MultipartFile> pictures){
         // C:/Users/Sunny/Desktop/Products/catalog/number

@@ -1,6 +1,7 @@
 package dev.silvia.wechattrade.controller;
 
 import com.google.gson.Gson;
+import dev.silvia.wechattrade.dto.product.ProductPictureUploadDto;
 import dev.silvia.wechattrade.dto.product.ProductUpdateDto;
 import dev.silvia.wechattrade.dto.product.ProductUploadDto;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
@@ -26,9 +27,16 @@ public class ProductUploadController {
 
     @UserLoginToken
     @RequestMapping(value = "/product", method = RequestMethod.POST)
-    public int productUploadRequest(ProductUploadDto productUploadDto){
+    public String productUploadRequest(@RequestBody ProductUploadDto productUploadDto){
         productUploadDto.setNumber(productUploadDto.getCatalog()+System.currentTimeMillis());
-        return service.uploadProductRequest(productUploadDto);
+        System.out.println(productUploadDto.getPhone());
+        System.out.println(productUploadDto.getNumber());
+        return gson.toJson(service.uploadProductRequest(productUploadDto));
+    }
+    @UserLoginToken
+    @RequestMapping(value = "/product/picture", method = RequestMethod.POST)
+    public int uploadProductPicture(ProductPictureUploadDto pictureUploadDto){
+        return service.ProductPictureUpload(pictureUploadDto);
     }
 
     @UserLoginToken

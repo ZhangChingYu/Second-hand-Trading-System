@@ -7,10 +7,10 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 
 @Component
-public class CheckUserAuthority {
-    @Autowired
-    private JdbcTemplate jdbcTemplate;
+public class CheckUserAuthority{
+    private JdbcTemplate jdbcTemplate = new JdbcTemplate();
     public boolean isAuthorized(String phone){
+        System.out.println("this is phone: "+phone);
         String findUser = "select * from user_info where phone='"+phone+"'";
         User user = jdbcTemplate.queryForObject(findUser, new BeanPropertyRowMapper<>(User.class));
         boolean authorization = false;

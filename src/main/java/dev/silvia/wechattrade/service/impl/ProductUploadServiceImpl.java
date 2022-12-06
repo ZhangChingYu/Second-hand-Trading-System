@@ -3,9 +3,12 @@ package dev.silvia.wechattrade.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import dev.silvia.wechattrade.dao.ProductDao;
+import dev.silvia.wechattrade.dao.UserDao;
+import dev.silvia.wechattrade.dto.product.ProductPictureUploadDto;
 import dev.silvia.wechattrade.dto.product.ProductUpdateDto;
 import dev.silvia.wechattrade.dto.product.ProductUploadDto;
 import dev.silvia.wechattrade.entity.Product;
+import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.Packing.ProductPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
@@ -13,7 +16,9 @@ import dev.silvia.wechattrade.handlers.fileHandler.DeleteFile;
 import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IProductUploadService;
 import dev.silvia.wechattrade.vo.product.MyProductVo;
+import dev.silvia.wechattrade.vo.product.ProductUploadResponseVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +30,8 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
     @Autowired
     private ProductDao productDao;
     @Autowired
+    private UserDao userDao;
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private TransferUTF8 transferUTF8;
@@ -34,30 +41,30 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
     private WriteFile writeFile;
     @Autowired
     private DeleteFile deleteFile;
-    @Autowired
-    private CheckUserAuthority CUA;
 
     @Override
-    public int uploadProductRequest(ProductUploadDto dto) {
-        if(!CUA.isAuthorized(dto.getPhone())){
-            return 403;     // 用戶沒有權限
+    public ProductUploadResponseVo uploadProductRequest(ProductUploadDto dto) {
+        ProductUploadResponseVo responseVo = new ProductUploadResponseVo();
+        responseVo.setNumber(null);
+        String sql = "select * from user_info where phone = '"+dto.getPhone()+"'";
+        User user = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<User>(User.class));
+        if(user == null || user.getAuthority() != 0){
+            responseVo.setStatus(403);  // 用戶沒有權限
+            return responseVo;
         }
         // 用商品分類編號+當前時間，作為每個商品的唯一標示
         String number = dto.getNumber();
         String check = "select count(*) from product_manage where number = '" +number+ "'";
         int checked = jdbcTemplate.queryForObject(check, Integer.class);
-        if(checked == 1){
-            return 422;     // 商品編號重複，請間隔一段時間後再嘗試一次
+        if(checked > 0){
+            responseVo.setStatus(422);  // 商品編號重複，請間隔一段時間後再嘗試一次
         } else {
-            if(writeFile.storePictures(dto.getCatalog(), dto.getNumber(), dto.getPictures()) == 800){
-                return 404;     // 圖片保存失敗
-            }
             Product product = new Product();
             product.setName(transferUTF8.CtoUTF8(dto.getName()));
             product.setSPhone(dto.getPhone());
             product.setNumber(dto.getNumber());
             product.setStorage(dto.getStorage());
-            product.setPicture(dto.getPictures().size());
+            product.setPicture(0);  // 因為圖片分開上傳，所以初始值為0
             product.setCatalog(dto.getCatalog());
             product.setIntro(transferUTF8.CtoUTF8(dto.getIntro()));
             product.setPrice(dto.getPrice());
@@ -66,11 +73,27 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
             product.setAddress(transferUTF8.CtoUTF8(dto.getAddress()));
             product.setLikeCount(0);    // 初始收藏數為0
             productDao.insert(product);
-            int success = jdbcTemplate.queryForObject(check, Integer.class);
-            if(success == 1){
-                return 201; // 商品添加成功
+            responseVo.setStatus(201);  // 商品添加成功
+        }
+        if(responseVo.getStatus() == 201){
+            responseVo.setNumber(dto.getNumber());
+        }
+        return responseVo;
+    }
+
+    @Override
+    public Integer ProductPictureUpload(ProductPictureUploadDto dto) {
+        Product product = getProduct(dto.getNumber());
+        Integer index = product.getPicture();   // 若沒有圖片存在，就從index為0開始
+        String catalog = dto.getNumber().substring(0,1);
+        if(writeFile.storeOnePicture(catalog, dto.getNumber(), index, dto.getPicture()) == 800){
+            return 404;  // 圖片保存失敗
+        } else {    // 圖片保存成功後，數據庫裡的商品圖片數要加一
+            product.setPicture(index+1);
+            if(productDao.updateById(product) > 0){
+                return 201;    // 數據庫更新成功
             }
-            return 404; // 商品添加失敗
+            return 422;     // 數據庫更新失敗
         }
     }
 

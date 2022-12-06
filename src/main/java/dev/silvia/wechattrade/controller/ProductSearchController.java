@@ -6,6 +6,7 @@ import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
