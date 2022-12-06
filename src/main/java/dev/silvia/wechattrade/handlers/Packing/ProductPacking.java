@@ -103,7 +103,7 @@ public class ProductPacking {
     // 返回封面
     private String getCoverPic(Product product){
         if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
-            String url = picture_url+product.getCatalog()+"/"+product.getNumber()+"/Pictures/"+product.getNumber()+"_0.jpg";
+            String url = picture_url+product.getCatalog()+"/"+product.getNumber()+"/"+product.getNumber()+"_0.jpg";
             return ReadFile.getBaseFile(url);
         }   // 若無照片則ProductOutlineDto中的picture=null
         return null;

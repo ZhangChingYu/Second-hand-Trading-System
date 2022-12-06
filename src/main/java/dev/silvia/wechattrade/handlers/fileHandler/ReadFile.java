@@ -40,7 +40,7 @@ public class ReadFile {
             return null;    // 如果該商品沒有照片，則返回null
         }
         for(int i = 0; i < size; i++){
-            String url = picture_url+catalog+"/"+number+"/Pictures/"+number+"_"+i+".jpg";
+            String url = picture_url+catalog+"/"+number+"/"+number+"_"+i+".jpg";
             String base64 = ReadFile.getBaseFile(url);
             pictures.add(base64);
         }

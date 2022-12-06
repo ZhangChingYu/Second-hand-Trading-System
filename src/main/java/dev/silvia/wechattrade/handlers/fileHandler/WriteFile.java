@@ -102,8 +102,8 @@ public class WriteFile {
 
     // 將圖片文件寫入磁盤
     public int storePictures(String catalog, String number, List<MultipartFile> pictures){
-        // C:/Users/Sunny/Desktop/Products/catalog/number/Pictures
-        String pathName = picture_url + catalog + "/" + number+"/Pictures";
+        // C:/Users/Sunny/Desktop/Products/catalog/number
+        String pathName = picture_url + catalog + "/" + number;
         Integer length = pictures.size();   // 獲取照片數
         File folder = new File(pathName);
         if(!folder.isDirectory()){
