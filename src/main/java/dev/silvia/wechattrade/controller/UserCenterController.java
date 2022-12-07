@@ -60,10 +60,10 @@ public class UserCenterController {
     @ResponseBody
     public ResponseEntity<?> authentication(HttpServletRequest request) throws ParseException {
         MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
-        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("pictures");
+        MultipartFile files = ((MultipartHttpServletRequest) request).getFile("pictures");
         AuthenticationVo auth=new AuthenticationVo();
         auth.setPhone(params.getParameter("phone"));
-        auth.setIdCardPics(files);
+        auth.setIdCardPic(files);
         auth.setRealName(params.getParameter("realName"));
         auth.setIdNumber(params.getParameter("idNumber"));
         return ResponseEntity.ok(service.authentication(auth));
@@ -74,15 +74,15 @@ public class UserCenterController {
     @ResponseBody
     public ResponseEntity<?> swapRelatedAvatar(HttpServletRequest request) throws ParseException {
         MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
-        List<MultipartFile> files = ((MultipartHttpServletRequest) request).getFiles("avatar");
+        MultipartFile files = ((MultipartHttpServletRequest) request).getFile("avatar");
         String phone=params.getParameter("phone");
         Result res;
-        if(writeFile.storeravatarPictures("Avatar",phone,files)==808){
+        if(writeFile.storeAvatarPicture(phone,files)==808){
             res=new Result(ResultCode.FAIL);
             ResponseEntity.ok(res);
         }
-        List<String> pictures = readFile.getAuthPictures("Avatar",phone,files.size());
-        String path=pictures.get(0);
+        String pictures = readFile.getAvatarPicture(phone);
+        String path=pictures;
         return ResponseEntity.ok(service.swapRelatedAvatar(phone,path));
     }
 

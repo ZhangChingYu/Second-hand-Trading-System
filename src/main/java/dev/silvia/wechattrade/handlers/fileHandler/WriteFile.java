@@ -1,5 +1,4 @@
 package dev.silvia.wechattrade.handlers.fileHandler;
-import dev.silvia.wechattrade.dto.comment.CommentDto;
 import dev.silvia.wechattrade.vo.FeedbackVo;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
@@ -13,10 +12,6 @@ public class WriteFile {
     private String picture_url = FileDirector.PRODUCT_URL;
     private String auth_url = FileDirector.AUTH_URL;
 
-    public Integer writeCommentFile(CommentDto comment){
-
-        return null;
-    }
     public Integer writeFeedbackFile(FeedbackVo feedback){  // // 寫入feedback文件
         // C://Users/Sunny/Desktop/Feedback/(Year)/(Month)/(Time+Phone).txt
         String filePath = feedback_url;
@@ -149,8 +144,54 @@ public class WriteFile {
         return 201;
     }
 
-    public int storeravatarPictures(String catalog,String phone, List<MultipartFile> pictures) {
-        // C:/Users/Sunny/Desktop/Products/catalog/number
+    public int storeAuthenticationPicture(String phone, MultipartFile picture){
+        // C:/Users/Sunny/Desktop/User/12434789874/Avatar
+        String pathName = auth_url + phone+"/Avatar";
+        File folder = new File(pathName);
+        if(!folder.isDirectory()){
+            if(!folder.mkdirs()){
+                return 808; // 路徑創建失敗
+            }
+        }
+        String oldName = picture.getOriginalFilename();
+        assert oldName != null;
+        // C:/Users/Sunny/Desktop/User/12434789874/Avatar/12434789874.jpg
+        String newName = phone+ oldName.substring(oldName.lastIndexOf("."));
+        try {
+            picture.transferTo(new File(folder, newName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String path = pathName + "/" + newName;
+        System.out.println(path);
+        return 201; // 存儲成功
+    }
+
+    public int storeAvatarPicture(String phone, MultipartFile picture){
+        // C:/Users/Sunny/Desktop/User/12434789874/Authentication
+        String pathName = auth_url + phone+"/Authentication";
+        File folder = new File(pathName);
+        if(!folder.isDirectory()){
+            if(!folder.mkdirs()){
+                return 808; // 路徑創建失敗
+            }
+        }
+        String oldName = picture.getOriginalFilename();
+        assert oldName != null;
+        // C:/Users/Sunny/Desktop/User/12434789874/Authentication/12434789874.jpg
+        String newName = phone+ oldName.substring(oldName.lastIndexOf("."));
+        try {
+            picture.transferTo(new File(folder, newName));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String path = pathName + "/" + newName;
+        System.out.println(path);
+        return 201; // 存儲成功
+    }
+
+
+    public int storeAvatarPicture(String catalog, String phone, List<MultipartFile> pictures) {
         String pathName = auth_url + catalog +"/" + phone;
         Integer length = pictures.size();   // 獲取照片數
         File folder = new File(pathName);
@@ -162,7 +203,7 @@ public class WriteFile {
         for(int i = 0; i < length; i++){
             String oldName = pictures.get(i).getOriginalFilename();
             assert oldName != null;
-            // 已馬克杯為例: 編號_0.jpg 編號_1.jpg
+            // 頭像路徑範例: C:/Users/Sunny/Desktop/Avatar/15023189401/15023189401.jpg
             String newName = phone+ "_" + i + oldName.substring(oldName.lastIndexOf("."));
             try {
                 pictures.get(i).transferTo(new File(folder, newName));

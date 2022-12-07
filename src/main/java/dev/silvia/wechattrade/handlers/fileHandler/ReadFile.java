@@ -47,18 +47,14 @@ public class ReadFile {
         return pictures;
     }
 
-    public List<String> getAuthPictures(String sort, String phone, Integer size){
-        // 通過商品編碼和照片數返回圖片的base64編碼表
-        List<String> pictures = new ArrayList<>();
-        if(size == 0){
-            return null;    // 如果該商品沒有照片，則返回null
-        }
-        for(int i = 0; i < size; i++){
-            String url = auth_url+sort+"/"+phone+"/"+phone+"_"+i+".jpg";
-            pictures.add(url);
-        }
-        System.out.println(pictures);   // 一次讀一行
-        return pictures;
+    public String getAvatarPicture(String phone){
+        String filePath = auth_url+phone+"/Avatar/"+phone+".jpg";
+        return filePath;
+    }
+
+    public String getAuthPicture(String phone){
+        String filePath = auth_url+phone+"/Authentication/"+phone+".jpg";
+        return filePath;
     }
 
     public String readHelpFile(String filePath){

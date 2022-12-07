@@ -12,6 +12,7 @@ import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.cryto.Sign;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
+import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.ILoginService;
 import org.modelmapper.ModelMapper;
@@ -59,6 +60,8 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
     private final String em = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
     private final String ph =  "^[1][3578]\\d{9}$";
 
+    private String auth_url = FileDirector.AUTH_URL;
+
     @Override
     public Optional<LoginResponseDto> login(LoginRequestDto request) {
         return this.verifyAccount(request)
@@ -77,7 +80,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         List<String> picture2;
                         if(u.getAvatar().isEmpty()){
                             //默认图片
-                            picture1 = Collections.singletonList(ReadFile.getBaseFile("C:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
+                            picture1 = Collections.singletonList(ReadFile.getBaseFile(auth_url+u.getPhone()+"/Avatar/"+u.getPhone()+".jpg"));
                             u.setAvatar(picture1.get(0));
                         }
                         else{

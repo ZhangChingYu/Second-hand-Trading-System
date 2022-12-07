@@ -12,6 +12,7 @@ import dev.silvia.wechattrade.handlers.Packing.AddressPacking;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
+import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IUserSettingService;
@@ -28,7 +29,6 @@ import java.util.Optional;
 
 @Service
 public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implements IUserSettingService {
-    public final static String HELP_URL = "E://Users/Sunny/Desktop/Help";
     @Autowired
     private UserDao userDao;
     @Autowired
@@ -49,6 +49,8 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
 
     @Autowired
     private Optional<User> user;
+
+    private String help_url = FileDirector.HELP_URL;
 
     private User user2;
 
@@ -96,13 +98,13 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
             user1.setIdCard(request.getIdNumber());
             user1.setRealName(request.getRealName());
             //List<String> pictures = readFile.getPicturesBase64(request.getIdCardPics().size(), request.getIdCardPics());
-            if(writeFile.storeravatarPictures("Authentication",request.getPhone(),request.getIdCardPics())==808){
+            if(writeFile.storeAuthenticationPicture(request.getPhone(),request.getIdCardPic())==808){
                 res=new Result(ResultCode.FAIL);
                 return res;
             }
-            List<String> pictures = readFile.getAuthPictures("Authentication",request.getPhone(),request.getIdCardPics().size());
+            String pictures = readFile.getAuthPicture(request.getPhone());
             user1.setAuthority(0);
-            user1.setPicture(pictures.get(0));
+            user1.setPicture(pictures);
             res=new Result(ResultCode.SUCCESS);
             user1=transferUTF8.switchUtf8(user1);
             accountRepository.save(user1);
@@ -176,6 +178,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
         }
         return checkUpdate(sql);
     }
+
 
     @Override
     public int addressEditing(AddressUpdateDto dto) {   // 更新地址
@@ -273,13 +276,13 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
 
     @Override
     public List<String> getQuestionCatalog(){
-        List<String> catalogs = readFile.getSubFileNames(HELP_URL);
+        List<String> catalogs = readFile.getSubFileNames(help_url);
         return catalogs;
     }
 
     @Override
     public List<String> getQuestions(String catalog) {
-        String root = HELP_URL+"/"+catalog;
+        String root = help_url +"/"+catalog;
         List<String> questions = readFile.getSubFileNames(root);
         if(questions != null || !questions.isEmpty()){
             for(int i = 0 ; i < questions.size(); i++){
@@ -291,7 +294,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
 
     @Override
     public String getAnswer(String catalog, String question) {
-        String filePath = HELP_URL+"/"+catalog+"/"+question+".txt";
+        String filePath = help_url +"/"+catalog+"/"+question+".txt";
         String answer = readFile.readHelpFile(filePath);
         return answer;
     }

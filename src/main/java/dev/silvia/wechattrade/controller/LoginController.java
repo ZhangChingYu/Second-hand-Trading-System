@@ -28,8 +28,6 @@ public class LoginController {
     @Autowired
     private UserRepository accountRepository;
     @Autowired
-    private JdbcTemplate jdbcTemplate;
-    @Autowired
     private Optional<User> user;
 
     @Autowired
