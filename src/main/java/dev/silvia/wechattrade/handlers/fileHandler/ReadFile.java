@@ -46,6 +46,9 @@ public class ReadFile {
         }
         return pictures;
     }
+    public String readAvatarPicture(String filePath){
+        return getBaseFile(filePath);
+    }
 
     public String getAvatarPicture(String phone){
         String filePath = auth_url+phone+"/Avatar/"+phone+".jpg";

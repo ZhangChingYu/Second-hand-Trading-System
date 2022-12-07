@@ -49,7 +49,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
         User seller = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
         // 開始準備商品信息
         List<String> pictures = readFile.getPicturesBase64(product.getNumber(), product.getPicture());
-        detail = productPacking.ProductUserToDetail(product, seller, pictures);
+        String seller_pic = readFile.readAvatarPicture(readFile.getAvatarPicture(seller.getPhone()));
+        detail = productPacking.ProductUserToDetail(product, seller, seller_pic, pictures);
         return detail;
     }
 

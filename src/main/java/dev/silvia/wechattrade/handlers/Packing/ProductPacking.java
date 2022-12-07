@@ -66,11 +66,12 @@ public class ProductPacking {
     }
 
     // 將Product類和User類封裝成ProductDetailVo類的方法
-    public ProductDetailVo ProductUserToDetail(Product product, User seller, List<String> pictures){
+    public ProductDetailVo ProductUserToDetail(Product product, User seller, String seller_pic, List<String> pictures){
         ProductDetailVo detail = new ProductDetailVo();
         // 開始準備商品信息
         detail.setName(transferUTF8.UTF8toC(product.getName()));
         detail.setSeller_name(transferUTF8.UTF8toC(seller.getUserName()));
+        detail.setSeller_pic(seller_pic);
         detail.setAddress(transferUTF8.UTF8toC(product.getAddress()));
         detail.setDate(getDate(product.getNumber()));     // 通過商品編號可解析出時間信息
         detail.setPrice(product.getPrice());

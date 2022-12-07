@@ -51,7 +51,7 @@ public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductCo
             vo.setDate(node.getDate().toString());
             vo.setContent(transferUTF8.UTF8toC(node.getContent()));
             vo.setUserName(node.getPhone());
-            vo.setHeadPic(readFile.getAvatarPicture(node.getPhone()));
+            vo.setHeadPic(readFile.readAvatarPicture(readFile.getAvatarPicture(node.getPhone())));
             if(!node.getFatherId().equals(0)){
                 vo.setFatherName(transferUTF8.UTF8toC(getUser(tree.get(node.getFatherId()).getPhone()).getUserName()));
             }

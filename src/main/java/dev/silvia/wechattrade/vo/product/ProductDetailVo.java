@@ -8,6 +8,7 @@ import java.util.List;
 public class ProductDetailVo {     // 商品信息顯示用
     private String name;        // 商品名稱
     private String seller_name; // 賣家
+    private String seller_pic;  // 賣家的頭像
     private String address;     // 地址
     private String date;        // 發布時間
     private Double price;       // 價格
