@@ -8,7 +8,7 @@ import dev.silvia.wechattrade.entity.Notification;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.Packing.NotificationPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
-import dev.silvia.wechattrade.service.INotificationService;
+import dev.silvia.wechattrade.service.IUserNotificationService;
 import dev.silvia.wechattrade.vo.notification.NotificationDetailVo;
 import dev.silvia.wechattrade.vo.notification.NotificationOutlineVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class NotificationServiceImpl extends ServiceImpl<NotificationDao, Notification> implements INotificationService {
+public class UserNotificationServiceImpl extends ServiceImpl<NotificationDao, Notification> implements IUserNotificationService {
     @Autowired
     NotificationDao notificationDao;
     @Autowired
@@ -68,11 +68,13 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationDao, Notifi
         List<NotificationOutlineVo> outlineVos = new ArrayList<>();
         QueryWrapper<Notification> wrapper = new QueryWrapper<>();
         wrapper.eq("target", phone);
+        wrapper.orderByDesc("id");  // 日期新的排前面
         List<Notification> notifications = notificationDao.selectList(wrapper);
         for(Notification note : notifications){
             NotificationOutlineVo outlineVo = notePacking.NoteToOutlineVo(note);
             outlineVos.add(outlineVo);
         }
+
         return outlineVos;
     }
 
@@ -82,12 +84,38 @@ public class NotificationServiceImpl extends ServiceImpl<NotificationDao, Notifi
         QueryWrapper<Notification> wrapper = new QueryWrapper<>();
         wrapper.eq("target", phone);
         wrapper.eq("status",0);
+        wrapper.orderByDesc("id");  // 日期新的排前面
         List<Notification> notifications = notificationDao.selectList(wrapper);
         for(Notification note : notifications){
             NotificationOutlineVo outlineVo = notePacking.NoteToOutlineVo(note);
             outlineVos.add(outlineVo);
         }
         return outlineVos;
+    }
+
+    @Override
+    public Integer deleteNotification(Integer id) {
+        Notification note = notificationDao.selectById(id);
+        if(notificationDao.deleteById(note) > 0){
+            return 204; // 通知刪除成功
+        }
+        return 422; // 刪除失敗
+    }
+
+    @Override
+    public Integer deleteReadNotification(String phone) {
+        QueryWrapper<Notification> wrapper = new QueryWrapper<>();
+        wrapper.eq("target", phone);
+        List<Notification> notes = notificationDao.selectList(wrapper);
+        for(Notification note : notes){
+            if(deleteNotification(note.getId()) == 204){
+                System.out.println("Notification "+note.getId() + " delete success.");
+            }else {
+                System.out.println("Notification " + note.getId() + " delete failed.");
+                return 422; // 刪除失敗
+            }
+        }
+        return 204;     // 刪除成功
     }
 
     private User getUser(String phone){
