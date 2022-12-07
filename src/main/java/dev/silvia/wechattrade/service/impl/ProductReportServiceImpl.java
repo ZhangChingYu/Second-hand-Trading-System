@@ -64,9 +64,8 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
             if(jdbcTemplate.update(sql) > 0){
                 return 201;     // 舉報已發送
             }
-            return 422; // 商品舉報數並未更新
         }
-        return 404; // 舉報發送失敗
+        return 422; // 舉報發送失敗
     }
 
     @Override
