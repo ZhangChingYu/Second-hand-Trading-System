@@ -13,6 +13,7 @@ import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.Packing.CommentPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.ICommentService;
 import dev.silvia.wechattrade.vo.product.ProductCommentVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,8 @@ public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductCo
     private TransferUTF8 transferUTF8;
     @Autowired
     private CommentPacking commentPacking;
+    @Autowired
+    private ReadFile readFile;
 
     @Override
     public List<ProductCommentVo> getComments(String number) {
@@ -51,6 +54,7 @@ public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductCo
             vo.setDate(node.getDate().toString());
             vo.setContent(transferUTF8.UTF8toC(node.getContent()));
             vo.setUserName(node.getPhone());
+            vo.setHeadPic(readFile.getAvatarPicture(node.getPhone()));
             if(!node.getFatherId().equals(0)){
                 vo.setFatherName(transferUTF8.UTF8toC(getUser(tree.get(node.getFatherId()).getPhone()).getUserName()));
             }
