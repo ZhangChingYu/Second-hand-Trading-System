@@ -37,13 +37,6 @@
           },
           {
             "group": "Parameter",
-            "type": "File[]",
-            "optional": false,
-            "field": "pictures",
-            "description": "<p>商品展示照片</p>"
-          },
-          {
-            "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "intro",
@@ -77,7 +70,7 @@
       "examples": [
         {
           "title": "商品上傳成功",
-          "content": "{\n   201\n}",
+          "content": "{\n   \"status\":201,\n   \"number\":\"C1670300792286(上傳圖片用)\"\n}",
           "type": "json"
         }
       ]
@@ -86,17 +79,12 @@
       "examples": [
         {
           "title": "用戶無權限",
-          "content": "{\n   403\n}",
+          "content": "{\n  \"status\":403,\n   \"number\":null\n}",
           "type": "json"
         },
         {
           "title": "商品編號重複(稍後再嘗試即可)",
-          "content": "{\n   422\n}",
-          "type": "json"
-        },
-        {
-          "title": "圖片保存失敗/商品上傳失敗",
-          "content": "{\n   404\n}",
+          "content": "{\n  \"status\":422,\n   \"number\":null\n}",
           "type": "json"
         }
       ]
@@ -106,17 +94,17 @@
     "groupTitle": "商品上傳"
   },
   {
-    "type": "post",
-    "url": "/catalog",
-    "title": "添加分類",
-    "name": "AddCatalog",
-    "group": "商品分類管理",
+    "type": "POST",
+    "url": "/product/picture",
+    "title": "上傳商品圖片",
+    "name": "UploadProductPicture",
+    "group": "商品上傳",
     "permission": [
       {
         "name": "none"
       }
     ],
-    "description": "<p>添加分類</p>",
+    "description": "<p>用戶上傳商品描述圖片，一次傳一張。當商品信息被成功天加入數據庫中方可使用此功能。</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -125,14 +113,14 @@
             "type": "String",
             "optional": false,
             "field": "number",
-            "description": "<p>分類編碼</p>"
+            "description": "<p>商品編號(商品信息成功上傳後返回)</p>"
           },
           {
             "group": "Parameter",
-            "type": "String",
+            "type": "MultipartFile",
             "optional": false,
-            "field": "name",
-            "description": "<p>分類名稱</p>"
+            "field": "picture",
+            "description": "<p>商品圖片</p>"
           }
         ]
       }
@@ -140,8 +128,8 @@
     "success": {
       "examples": [
         {
-          "title": "添加成功釋例",
-          "content": "{\n  201\n}",
+          "title": "商品圖片上傳成功",
+          "content": "{\n   201\n}",
           "type": "json"
         }
       ]
@@ -149,153 +137,20 @@
     "error": {
       "examples": [
         {
-          "title": "添加失敗(分類編碼已存在)",
-          "content": "{\n  422\n}",
+          "title": "圖片保存失敗",
+          "content": "{\n   404\n}",
           "type": "json"
         },
         {
-          "title": "添加失敗(信息未成功添加)",
-          "content": "{\n  404\n}",
+          "title": "數據庫更新失敗",
+          "content": "{\n    422\n}",
           "type": "json"
         }
       ]
     },
     "version": "0.0.0",
     "filename": "src/example.js",
-    "groupTitle": "商品分類管理"
-  },
-  {
-    "type": "get",
-    "url": "/catalog/catalogs",
-    "title": "顯示所有分類",
-    "name": "AllCatalog",
-    "group": "商品分類管理",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>顯示所有分類</p>",
-    "success": {
-      "examples": [
-        {
-          "title": "請求成功釋例",
-          "content": "[\n     {\"id\":1,\"name\":\"書籍\",\"number\":\"B\"},\n     {\"id\":2,\"name\":\"美妝\",\"number\":\"M\"},\n     {\"id\":3,\"name\":\"數碼\",\"number\":\"D\"},\n     {\"id\":4,\"name\":\"家居\",\"number\":\"F\"},\n     {\"id\":5,\"name\":\"電器\",\"number\":\"E\"},\n     {\"id\":6,\"name\":\"服裝\",\"number\":\"C\"},\n     {\"id\":7,\"name\":\"其它\",\"number\":\"O\"}\n]",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "src/example.js",
-    "groupTitle": "商品分類管理"
-  },
-  {
-    "type": "delete",
-    "url": "/catalog",
-    "title": "刪除分類",
-    "name": "DeleteCatalog",
-    "group": "商品分類管理",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>刪除分類</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Integer",
-            "optional": false,
-            "field": "id",
-            "description": "<p>分類序號</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "分類刪除成功",
-          "content": "{\n  204\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "刪除失敗(沒有選中的對象，數據庫為發生改動)",
-          "content": "{\n  400\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "src/example.js",
-    "groupTitle": "商品分類管理"
-  },
-  {
-    "type": "put",
-    "url": "/catalog",
-    "title": "更新分類信息",
-    "name": "UpdateCatalog",
-    "group": "商品分類管理",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>更新分類信息</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "Integer",
-            "optional": false,
-            "field": "id",
-            "description": "<p>分類序號</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "number",
-            "description": "<p>新的分類編碼</p>"
-          },
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "name",
-            "description": "<p>新的分類名稱</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "更新成功",
-          "content": "{\n  800\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "error": {
-      "examples": [
-        {
-          "title": "更新失敗",
-          "content": "{\n  808\n}",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "src/example.js",
-    "groupTitle": "商品分類管理"
+    "groupTitle": "商品上傳"
   },
   {
     "type": "get",
@@ -685,7 +540,7 @@
       "examples": [
         {
           "title": "請求成功",
-          "content": "{\n   \"name\":\"大學生心理健康教育第二版\",\n   \"seller_name\":\"天天\",\n   \"address\":\"重慶大學虎溪校區竹園3棟\",\n   \"date\":\"2022-11-04 19:02:56\",\n   \"price\":7.9,\n   \"intro\":\"全新沒有用過，到貨前就退課了\",\n   \"like_count\":0,\n   \"picture_count\":1,\n   \"pictures\":[\"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAA.....(base64編碼，原文過長不全部展示)\",...,\"...\"]\n}",
+          "content": "{\n   \"name\":\"大學生心理健康教育第二版\",\n   \"seller_name\":\"天天\",\n   \"seller_pic\":\"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...\",\n   \"address\":\"重慶大學虎溪校區竹園3棟\",\n   \"date\":\"2022-11-04 19:02:56\",\n   \"price\":7.9,\n   \"intro\":\"全新沒有用過，到貨前就退課了\",\n   \"like_count\":0,\n   \"picture_count\":1,\n   \"storage\":1,\n   \"pictures\":[\"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAA.....(base64編碼，原文過長不全部展示)\",...,\"...\"]\n}",
           "type": "json"
         }
       ]
@@ -731,6 +586,193 @@
     "version": "0.0.0",
     "filename": "src/example.js",
     "groupTitle": "商品查詢"
+  },
+  {
+    "type": "GET",
+    "url": "/product/comment",
+    "title": "顯示商品的所有留言",
+    "name": "GetProductComment",
+    "group": "商品留言",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取某商品的所有留言信息，留言是樹形結構，father_id為0的為根結點，這些根結點下的分枝節點為第一層回覆留言，以此類堆值到葉子節點結束。文字有點難以說明，看不懂的對接同學建議直接跟我發消息。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子: 編號的商品)",
+          "content": "[\n   {\n       \"id\":1,\n       \"father_id\":0(表示沒有父留言),\n       \"userName\":\"阿花\",\n       \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAA....\",\n       \"date\":\"Dec 05 11:57:25 CST 2022\",\n       \"content\":\"\"請問適合梨形身材嗎?\"\",\n       \"replyVoList\":\n             [\n                 {\n                     \"id\":4,\n                     \"father_id\":1,\n                     \"userName\":\"15059417755\",\n                     \"fatherName\":\"阿花\",\n                     \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAA....\",\n                     \"date\":\"Dec 05 11:57:25 CST 2022\",\n                     \"content\":\"同問\",\n                     \"replyVoList\":[(如果沒有回覆的留言這裡會是空的)]\n                 },\n                 {\n                     (格式同上)\n                 },....\n             ]\n   },\n   {\n       \"id\":5,\n       \"father_id\":0(表示沒有父留言),\n       \"userName\":\"阿花\",\n       \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAA....\",\n       \"date\":\"Dec 05 11:57:25 CST 2022\",\n       \"content\":\"\"請問適合梨形身材嗎?\"\",\n       \"replyVoList\":[]\n   },...{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "商品留言"
+  },
+  {
+    "type": "POST",
+    "url": "/product/comment",
+    "title": "用戶發布留言",
+    "name": "UserPostComment",
+    "group": "商品留言",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶在商品詳情頁面下方發布留言的功能，須通過實名認證的用戶方可發布留言。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>留言內容</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "發布成功(例子)",
+          "content": "{\n   201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "發布失敗(用戶無權限)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        },
+        {
+          "title": "發布失敗(商品不存在)",
+          "content": "{\n   422\n}",
+          "type": "json"
+        },
+        {
+          "title": "發布失敗(數據庫添加失敗)",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "商品留言"
+  },
+  {
+    "type": "POST",
+    "url": "/product/reply",
+    "title": "用戶回覆留言",
+    "name": "UserPostReply",
+    "group": "商品留言",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶在某則留言下方回覆，須通過實名認證的用戶方可回覆留言。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "father",
+            "description": "<p>回覆的留言編號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>留言內容</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "發布成功(例子)",
+          "content": "{\n   201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "發布失敗(用戶無權限)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        },
+        {
+          "title": "發布失敗(商品不存在/父留言不存在)",
+          "content": "{\n   422\n}",
+          "type": "json"
+        },
+        {
+          "title": "發布失敗(數據庫添加失敗)",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "商品留言"
   },
   {
     "type": "POST",
@@ -1572,6 +1614,864 @@
   },
   {
     "type": "post",
+    "url": "/catalog",
+    "title": "添加分類",
+    "name": "AddCatalog",
+    "group": "服務端:商品分類管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>添加分類</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>分類編碼</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>分類名稱</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "添加成功釋例",
+          "content": "{\n  201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "添加失敗(分類編碼已存在)",
+          "content": "{\n  422\n}",
+          "type": "json"
+        },
+        {
+          "title": "添加失敗(信息未成功添加)",
+          "content": "{\n  404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:商品分類管理"
+  },
+  {
+    "type": "get",
+    "url": "/catalogs",
+    "title": "顯示所有分類",
+    "name": "AllCatalog",
+    "group": "服務端:商品分類管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>顯示所有分類</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功釋例",
+          "content": "[\n     {\"id\":1,\"name\":\"書籍\",\"number\":\"B\"},\n     {\"id\":2,\"name\":\"美妝\",\"number\":\"M\"},\n     {\"id\":3,\"name\":\"數碼\",\"number\":\"D\"},\n     {\"id\":4,\"name\":\"家居\",\"number\":\"F\"},\n     {\"id\":5,\"name\":\"電器\",\"number\":\"E\"},\n     {\"id\":6,\"name\":\"服裝\",\"number\":\"C\"},\n     {\"id\":7,\"name\":\"其它\",\"number\":\"O\"}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:商品分類管理"
+  },
+  {
+    "type": "delete",
+    "url": "/catalog",
+    "title": "刪除分類",
+    "name": "DeleteCatalog",
+    "group": "服務端:商品分類管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>刪除分類，不建議直接刪除分類，因為很多商品都與分類掛勾，此功能只適用不小心添加了一個不想要的分類，提供刪除的手段。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>分類序號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "分類刪除成功",
+          "content": "{\n  204\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "刪除失敗(沒有選中的對象，數據庫為發生改動)",
+          "content": "{\n  400\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:商品分類管理"
+  },
+  {
+    "type": "put",
+    "url": "/catalog",
+    "title": "更新分類信息",
+    "name": "UpdateCatalog",
+    "group": "服務端:商品分類管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>更新分類信息，這裡只許更動分類名稱，也就是name的部分，以面系統無法識別某些商品的分類而報錯。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>分類序號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>新的分類編碼</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>新的分類名稱</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "更新成功",
+          "content": "{\n  800\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "更新失敗",
+          "content": "{\n  808\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:商品分類管理"
+  },
+  {
+    "type": "GET",
+    "url": "/product/uploads",
+    "title": "顯示所有商品上架請求",
+    "name": "GetAllProductUploadRequests",
+    "group": "服務端:商品管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>顯示所有商品上架請求，只顯示Outline</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子)",
+          "content": "[\n   {\n        \"number\":\"C1669690298810\",\n        \"status\":1,\n        \"catalog\":\"C\",\n        \"name\":\"連衣裙\",\n        \"SPhone\":\"15023192020\",\n        \"date\":\"2022-11-29 10:51:38\"\n    },\n    {\n        \"number\":\"C1670300792286\",\n        \"status\":1,\n        \"catalog\":\"C\",\n        \"name\":\"複合面料衛衣(黑)\",\n        \"SPhone\":\"15080711348\",\n        \"date\":\"2022-12-06 12:26:32\"\n     }...{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:商品管理"
+  },
+  {
+    "type": "GET",
+    "url": "/product/uploads/catalog",
+    "title": "根據商品分類顯示所有商品上架請求",
+    "name": "GetProductUploadRequestsByCatalog",
+    "group": "服務端:商品管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據商品分類顯示所有商品上架請求，只顯示Outline</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "catalog",
+            "description": "<p>商品分類(B, C, M, ...)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:C)",
+          "content": "[\n   {\n        \"number\":\"C1669690298810\",\n        \"status\":1,\n        \"catalog\":\"C\",\n        \"name\":\"連衣裙\",\n        \"SPhone\":\"15023192020\",\n        \"date\":\"2022-11-29 10:51:38\"\n    },\n    {\n        \"number\":\"C1670300792286\",\n        \"status\":1,\n        \"catalog\":\"C\",\n        \"name\":\"複合面料衛衣(黑)\",\n        \"SPhone\":\"15080711348\",\n        \"date\":\"2022-12-06 12:26:32\"\n     }...{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:商品管理"
+  },
+  {
+    "type": "PUT",
+    "url": "/product/upload",
+    "title": "審核商品上架請求",
+    "name": "ProcessProductUploadRequest",
+    "group": "服務端:商品管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>針對某一條商品上架請求給出審查結果，該結果會由系統自動發松通知給用戶，用戶可在[設置]--&gt;[系統信息]查看通知。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "decision",
+            "description": "<p>判決結果(pass/reject)只能有這兩種</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "explain",
+            "description": "<p>判決結果的說明</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "處理成功(例子)",
+          "content": "{\n     201\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "處理失敗",
+          "content": "{\n   422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:商品管理"
+  },
+  {
+    "type": "GET",
+    "url": "/product/upload",
+    "title": "查看商品上架請求詳情",
+    "name": "ReadProductUploadRequest",
+    "group": "服務端:商品管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>查看商品上架請求詳情，查看完詳情後再給出審核結果。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:C1669690298810)",
+          "content": "{\n     \"number\":\"C1669690298810\",\n     \"name\":\"連衣裙\",\n     \"status\":1,\n     \"catalog\":\"C\",\n     \"sellerName\":\"田嘉淑(真名)\",\n     \"address\":\"重慶大學虎溪校區梅園3棟\",\n     \"date\":\"2022-11-29 10:51:38\",\n     \"price\":49.9,\n     \"storage\":1,\n     \"intro\":\"由於尺碼買小了 穿不了 全新 質量和版型都很好 看上的小姐姐加QQ喔(QQ號: 3446572877)\",\n     \"picture_count\":6,\n     \"pictures\":\n         [\n             \"/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4R....\",\n             ...,\n         ]\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:商品管理"
+  },
+  {
+    "type": "GET",
+    "url": "/comment/reports",
+    "title": "獲取所有留言舉報請求",
+    "name": "GetAllCommentReport",
+    "group": "服務端:舉報審核",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取所有留言舉報請求</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子)",
+          "content": "[\n     {\n         \"id\":1,\n         \"status\":0,\n         \"reporterPhone\":\"15059417755\",\n         \"commentId\":\"1(舉報的留言編號)\",\n         \"date\":\"Dec 5, 2022, 4:47:48 PM\"\n     }...{}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "GET",
+    "url": "/product/reports",
+    "title": "獲取所有商品舉報請求",
+    "name": "GetAllProductReport",
+    "group": "服務端:舉報審核",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取所有商品舉報請求</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子)",
+          "content": "[\n     {\n         \"id\":1,\n         \"status\":1,\n         \"reporterPhone\":\"15059417755\",\n         \"number\":\"C1669690298810\",\n         \"date\":\"Dec 5, 2022, 4:47:48 PM\"\n     }...{}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "GET",
+    "url": "/comment/reports/same",
+    "title": "獲取針對同一則留言的舉報請求",
+    "name": "GetCommentReportByCommentId",
+    "group": "服務端:舉報審核",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取針對同一則留言的舉報請求</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "commentId",
+            "description": "<p>處理狀態</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子: 1)",
+          "content": "[\n     {\n         \"id\":1,\n         \"status\":1,\n         \"reporterPhone\":\"15059417755\",\n         \"commentId\":\"1\",\n         \"date\":\"Dec 5, 2022, 4:47:48 PM\"\n     }...{}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "GET",
+    "url": "/comment/reports/status",
+    "title": "根據處理狀態獲取留言舉報請求",
+    "name": "GetCommentReportByStatus",
+    "group": "服務端:舉報審核",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據處理狀態獲取留言舉報請求(0:未處理, 1:舉報成立, 2:舉報不成立)</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>處理狀態</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子: 1)",
+          "content": "[\n     {\n         \"id\":1,\n         \"status\":1,\n         \"reporterPhone\":\"15059417755\",\n         \"commentId\":\"1\",\n         \"date\":\"Dec 5, 2022, 4:47:48 PM\"\n     }...{}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "GET",
+    "url": "/product/status/reports",
+    "title": "根據處理狀態獲取商品舉報請求",
+    "name": "GetProductReportByStatus",
+    "group": "服務端:舉報審核",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據處理狀態獲取商品舉報請求(0:未處理, 1:舉報成立, 2:舉報不成立)</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>處理狀態</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子: 1)",
+          "content": "[\n     {\n         \"id\":1,\n         \"status\":1,\n         \"reporterPhone\":\"15059417755\",\n         \"number\":\"C1669690298810\",\n         \"date\":\"Dec 5, 2022, 4:47:48 PM\"\n     }...{}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "PUT",
+    "url": "/comment/report",
+    "title": "處理留言舉報",
+    "name": "ProcessCommentReport",
+    "group": "服務端:舉報審核",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>管理員給出留言舉報的判決，在結果出來後系統會自動發送信息給相關用戶(舉報者/被舉報者)，用戶可在[設置]--&gt;[系統消息]中察看。對於違規留言系統會自動刪除該留言。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>留言舉報序號id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "decision",
+            "description": "<p>判決結果(pass/reject)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "explain",
+            "description": "<p>判決說明</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "處理成功(例子)",
+          "content": "{\n    201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "處理失敗(數據庫更新失敗)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        },
+        {
+          "title": "處理失敗(請求不合法)",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "PUT",
+    "url": "/product/report/result",
+    "title": "處理商品舉報",
+    "name": "ProcessProductReport",
+    "group": "服務端:舉報審核",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>管理員給出商品舉報的判決，在結果出來後系統會自動發送信息給相關用戶(舉報者/被舉報者)，用戶可在[設置]--&gt;[系統消息]中察看。對於違規商品，若檢舉次數超過5次系統會做強制下架處理，沒有超過則會發消息通知賣家整改。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品舉報序號id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "decision",
+            "description": "<p>判決結果(pass/reject)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "explain",
+            "description": "<p>判決說明</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "處理成功(例子)",
+          "content": "{\n    201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "處理失敗(數據庫更新失敗)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        },
+        {
+          "title": "處理失敗(請求不合法)",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "GET",
+    "url": "/comment/report",
+    "title": "閱讀留言舉報請求詳情",
+    "name": "ReadCommentReport",
+    "group": "服務端:舉報審核",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>閱讀完留言舉報的請求詳情後，在據此給出判決。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>留言舉報序號id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子: 1)",
+          "content": "{\n    \"id\":1,\n    \"status\":1,\n    \"reporterPhone\":\"15059417755\",\n    \"reportName\":\"错霞飞(真名)\",\n    \"date\":\"Dec 5, 2022, 4:47:48 PM\",\n    \"content\":\"留言不友善\",\n    \"comment\": (這裡面放的是留言信息)\n         {\n             \"id\": 1,\n             \"father_id\":0,\n             \"number\":\"C1669690298810\",\n             \"content\":\"請問適合梨形身材嗎?\",\n             \"date\":\"Dec 05 11:57:25 CST 2022\",\n             \"phone\":\"15078818663\"\n         }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "GET",
+    "url": "/product/report",
+    "title": "閱讀商品舉報請求詳情",
+    "name": "ReadProductReport",
+    "group": "服務端:舉報審核",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>閱讀完商品舉報的請求詳情後，在據此給出判決。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品舉報序號id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子: 1)",
+          "content": "{\n    \"id\":1,\n    \"status\":1,\n    \"reporterPhone\":\"15059417755\",\n    \"reportName\":\"错霞飞(真名)\",\n    \"date\":\"Dec 5, 2022, 4:47:48 PM\",\n    \"content\":\"裙子嚴重脫線，洗一次基本就沒法穿了\",\n    \"productNumber\":\"C1669690298810\",\n    \"productName\":\"連衣裙\",\n    \"reportCount\":1(該商品的舉報次數)\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "POST",
+    "url": "/comment/report",
+    "title": "用戶舉報留言",
+    "name": "UserSendCommentReport",
+    "group": "用戶舉報",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶舉報某一則留言，須為實名認證用戶。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "number",
+            "description": "<p>留言序號id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶(舉報者)手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>舉報原因</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "舉報發送成功(例子)",
+          "content": "{\n     201\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "發送失敗(用戶無權限)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        },
+        {
+          "title": "發送失敗(數據庫未更新)",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "用戶舉報"
+  },
+  {
+    "type": "POST",
+    "url": "/product/report",
+    "title": "用戶舉報商品",
+    "name": "UserSendProductReport",
+    "group": "用戶舉報",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶舉報某一商品，暫時將此功能限制在: 唯有購買過該商品的用戶方可舉報。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶(舉報者)手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>舉報原因</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "舉報發送成功(例子)",
+          "content": "{\n     201\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "發送失敗(用戶無權限)",
+          "content": "{\n   400\n}",
+          "type": "json"
+        },
+        {
+          "title": "發送失敗(數據庫未更新)",
+          "content": "{\n   422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "用戶舉報"
+  },
+  {
+    "type": "post",
     "url": "/user",
     "title": "用戶註冊",
     "name": "Register",
@@ -1737,6 +2637,252 @@
     "version": "0.0.0",
     "filename": "src/example.js",
     "groupTitle": "設置:幫助"
+  },
+  {
+    "type": "GET",
+    "url": "/setting/notification/isRead",
+    "title": "判斷某消息是否已讀",
+    "name": "CheckNotificationIsRead",
+    "group": "設置:用戶反饋",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>判斷某消息是否已讀，可做為圖標提示時使用(例如未讀消息上方有小紅點)。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>信息序號id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:3)",
+          "content": "{\n    false\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:用戶反饋"
+  },
+  {
+    "type": "GET",
+    "url": "/setting/notifications",
+    "title": "顯示所有系統信息",
+    "name": "GetAllNotification",
+    "group": "設置:用戶反饋",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>顯示所有系統信息，這裡只顯示Outline，status表示是否已讀(0:未讀, 1:已讀)。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:15023192020)",
+          "content": "[\n    {\n         \"id\":3,\n         \"type\":\"warn\",\n         \"title\":\"商品舉報通知\",\n         \"date\":\"Dec 5, 2022, 6:07:20 PM\",\n         \"status\":0\n     },...,{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:用戶反饋"
+  },
+  {
+    "type": "GET",
+    "url": "/setting/notifications/unread",
+    "title": "顯示所有未讀系統信息",
+    "name": "GetUnreadNotification",
+    "group": "設置:用戶反饋",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>顯示所有未讀系統信息</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:15023192020)",
+          "content": "[\n    {\n         \"id\":3,\n         \"type\":\"warn\",\n         \"title\":\"商品舉報通知\",\n         \"date\":\"Dec 5, 2022, 6:07:20 PM\",\n         \"status\":0\n     },...,{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:用戶反饋"
+  },
+  {
+    "type": "DELETE",
+    "url": "/setting/notification",
+    "title": "用戶刪除系統消息",
+    "name": "UserDeleteNotification",
+    "group": "設置:用戶反饋",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶刪除一則系統消息</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>信息序號id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "刪除成功(例子)",
+          "content": "{\n     204\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "刪除失敗",
+          "content": "{\n   422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:用戶反饋"
+  },
+  {
+    "type": "DELETE",
+    "url": "/setting/notifications",
+    "title": "刪除所有已讀系統消息",
+    "name": "UserDeleteReadNotifications",
+    "group": "設置:用戶反饋",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶刪除所有已讀的系統消息</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "刪除成功(例子)",
+          "content": "{\n     204\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "刪除失敗",
+          "content": "{\n   422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:用戶反饋"
+  },
+  {
+    "type": "GET",
+    "url": "/setting/notification",
+    "title": "用戶閱讀系統消息",
+    "name": "UserReadNotification",
+    "group": "設置:用戶反饋",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶閱讀系統消息，系統會返回消息詳情，並將該消息閱讀狀態設置成已讀。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>信息序號id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:3)",
+          "content": "{\n     \"id\":3,\n     \"type\":\"warn\",\n     \"title\":\"商品舉報通知\",\n     \"to\":\"天天15023192020\",\n     \"content\":\"本系統非常遺憾的通知您，您的商品 [連衣裙] 已被系統管理確認存在違規行為，請及時處理以免商品被迫下架。謝謝您的配合。\",\n     \"date\":\"Dec 5, 2022, 6:07:20 PM\",\n     \"from\":\"系统管理员\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:用戶反饋"
   },
   {
     "type": "POST",
