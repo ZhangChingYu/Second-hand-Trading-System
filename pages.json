@@ -29,10 +29,37 @@
 		    
 		}
         ,{
-            "path" : "pages/manage/catalog/index",
+            "path" : "pages/manage/product/catalog",
             "style" :                                                                                    
             {
                 "navigationBarTitleText": "商品类别管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/manage/product/query",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品查询",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/manage/product/review",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品审核",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/manage/product/ban",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品下架",
                 "enablePullDownRefresh": false
             }
             

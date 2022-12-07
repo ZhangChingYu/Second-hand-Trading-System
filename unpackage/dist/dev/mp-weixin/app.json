@@ -3,7 +3,10 @@
     "pages/main/index",
     "pages/manage/index",
     "pages/me/index",
-    "pages/manage/catalog/index"
+    "pages/manage/product/catalog",
+    "pages/manage/product/query",
+    "pages/manage/product/review",
+    "pages/manage/product/ban"
   ],
   "subPackages": [],
   "window": {

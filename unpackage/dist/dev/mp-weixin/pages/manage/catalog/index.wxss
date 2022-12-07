@@ -25,18 +25,36 @@
 /* 透明度 */
 /* 文章场景相关 */
 /*导入uview的样式变量参数*/
-.u-page {
+.u-page.data-v-45fa9f2b {
   padding: 0;
 }
-.u-demo-block__title {
+.u-demo-block__title.data-v-45fa9f2b {
   padding: 10px 0 2px 15px;
 }
-.swipe-action__content {
+.swipe-action__content.data-v-45fa9f2b {
   padding: 25rpx 0;
 }
-.swipe-action__content__text {
-  font-size: 15px;
+.swipe-action__content__text.data-v-45fa9f2b {
+  font-size: 16px;
   color: #303133;
   padding-left: 30rpx;
+}
+.catalog.data-v-45fa9f2b {
+  margin: 30px 30px 0;
+}
+.catalog-title.data-v-45fa9f2b {
+  margin: 20rpx 0;
+  font-size: 30rpx;
+  color: #be0000;
+  text-shadow: 5rpx 5rpx 2rpx #24c3be;
+}
+.add-catalog.data-v-45fa9f2b {
+  box-sizing: border-box;
+  margin-top: 30rpx;
+  padding-left: 20rpx;
+}
+.add-catalog .add-box.data-v-45fa9f2b {
+  width: 80vw;
+  height: 500rpx;
 }
 

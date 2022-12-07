@@ -1,4 +1,4 @@
-const commoneUrl  = "http://localhost:5000"; //公共路径 
+const commoneUrl  = "http://localhost:8080"; //公共路径 
 // const commoneUrl  = "http://106.52.220.47:8000"; //手机测试公共路径 
 // const commoneUrl  = null; //公共路径 
 
