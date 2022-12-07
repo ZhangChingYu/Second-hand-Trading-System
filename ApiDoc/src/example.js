@@ -25,9 +25,9 @@
  */
 
 /** 
- * @api {get} /catalog/catalogs 顯示所有分類
+ * @api {get} /catalogs 顯示所有分類
  * @apiName AllCatalog
- * @apiGroup 商品分類管理
+ * @apiGroup 服務端:商品分類管理
  * @apiPermission none
  * 
  * @apiDescription 顯示所有分類
@@ -47,7 +47,7 @@
 /**  
  * @api {post} /catalog 添加分類
  * @apiName AddCatalog
- * @apiGroup 商品分類管理
+ * @apiGroup 服務端:商品分類管理
  * @apiPermission none
  * 
  * @apiDescription 添加分類
@@ -72,10 +72,10 @@
 /** 
  * @api {put} /catalog 更新分類信息
  * @apiName UpdateCatalog
- * @apiGroup 商品分類管理
+ * @apiGroup 服務端:商品分類管理
  * @apiPermission none
  * 
- * @apiDescription 更新分類信息
+ * @apiDescription 更新分類信息，這裡只許更動分類名稱，也就是name的部分，以面系統無法識別某些商品的分類而報錯。
  * 
  * @apiParam {Integer} id 分類序號
  * @apiParam {String} number 新的分類編碼
@@ -94,10 +94,10 @@
 /**  
  * @api {delete} /catalog 刪除分類
  * @apiName DeleteCatalog
- * @apiGroup 商品分類管理
+ * @apiGroup 服務端:商品分類管理
  * @apiPermission none
  * 
- * @apiDescription 刪除分類
+ * @apiDescription 刪除分類，不建議直接刪除分類，因為很多商品都與分類掛勾，此功能只適用不小心添加了一個不想要的分類，提供刪除的手段。
  * 
  * @apiParam {Integer} id 分類序號
  *
@@ -189,6 +189,7 @@
  *     {
  *        "name":"大學生心理健康教育第二版",
  *        "seller_name":"天天",
+ *        "seller_pic":"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...",
  *        "address":"重慶大學虎溪校區竹園3棟",
  *        "date":"2022-11-04 19:02:56",
  *        "price":7.9,
@@ -517,7 +518,6 @@
  * @apiParam {String} name 商品名稱
  * @apiParam {String} phone 用戶(賣家)手機號
  * @apiParam {Integer} storage 庫存量
- * @apiParam {File[]} pictures 商品展示照片
  * @apiParam {String} intro 商品描述
  * @apiParam {Double} price 商品價格
  * @apiParam {String} catalog 商品分類(編碼:B,M,C....)
@@ -525,19 +525,43 @@
  *
  * @apiSuccessExample 商品上傳成功
  *     {
- *        201
+ *        "status":201,
+ *        "number":"C1670300792286(上傳圖片用)"
  *     }
  * @apiErrorExample 用戶無權限
  *     {
- *        403
+ *       "status":403,
+ *        "number":null
  *     }
  * @apiErrorExample 商品編號重複(稍後再嘗試即可)
  *     {
- *        422
+ *       "status":422,
+ *        "number":null
  *     }
- * @apiErrorExample 圖片保存失敗/商品上傳失敗
+ */
+
+/**
+ * @api {POST} /product/picture 上傳商品圖片
+ * @apiName UploadProductPicture
+ * @apiGroup 商品上傳
+ * @apiPermission none
+ *
+ * @apiDescription 用戶上傳商品描述圖片，一次傳一張。當商品信息被成功天加入數據庫中方可使用此功能。
+ *
+ * @apiParam {String} number 商品編號(商品信息成功上傳後返回)
+ * @apiParam {MultipartFile} picture 商品圖片
+ *
+ * @apiSuccessExample 商品圖片上傳成功
+ *     {
+ *        201
+ *     }
+ * @apiErrorExample 圖片保存失敗
  *     {
  *        404
+ *     }
+ * @apiErrorExample 數據庫更新失敗
+ *     {
+ *         422
  *     }
  */
 
@@ -941,6 +965,615 @@
  *        201
  *     }
  * @apiErrorExample 商品不存在/更新失敗
+ *     {
+ *        422
+ *     }
+ */
+
+/**
+ * @api {POST} /product/comment 用戶發布留言
+ * @apiName UserPostComment
+ * @apiGroup 商品留言
+ * @apiPermission none
+ *
+ * @apiDescription 用戶在商品詳情頁面下方發布留言的功能，須通過實名認證的用戶方可發布留言。
+ *
+ * @apiParam {String} number 商品編號
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {String} content 留言內容
+ *
+ * @apiSuccessExample 發布成功(例子)
+ *     {
+ *        201
+ *     }
+ * @apiErrorExample 發布失敗(用戶無權限)
+ *     {
+ *        400
+ *     }
+ * @apiErrorExample 發布失敗(商品不存在)
+ *     {
+ *        422
+ *     }
+ * @apiErrorExample 發布失敗(數據庫添加失敗)
+ *     {
+ *        404
+ *     }
+ */
+
+/**
+ * @api {POST} /product/reply 用戶回覆留言
+ * @apiName UserPostReply
+ * @apiGroup 商品留言
+ * @apiPermission none
+ *
+ * @apiDescription 用戶在某則留言下方回覆，須通過實名認證的用戶方可回覆留言。
+ *
+ * @apiParam {String} number 商品編號
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {Integer} father 回覆的留言編號
+ * @apiParam {String} content 留言內容
+ *
+ * @apiSuccessExample 發布成功(例子)
+ *     {
+ *        201
+ *     }
+ * @apiErrorExample 發布失敗(用戶無權限)
+ *     {
+ *        400
+ *     }
+ * @apiErrorExample 發布失敗(商品不存在/父留言不存在)
+ *     {
+ *        422
+ *     }
+ * @apiErrorExample 發布失敗(數據庫添加失敗)
+ *     {
+ *        404
+ *     }
+ */
+
+
+/**
+ * @api {GET} /product/comment 顯示商品的所有留言
+ * @apiName GetProductComment
+ * @apiGroup 商品留言
+ * @apiPermission none
+ *
+ * @apiDescription 獲取某商品的所有留言信息，留言是樹形結構，father_id為0的為根結點，這些根結點下的分枝節點為第一層回覆留言，以此類堆值到葉子節點結束。文字有點難以說明，看不懂的對接同學建議直接跟我發消息。
+ *
+ * @apiParam {String} number 商品編號
+ *
+ * @apiSuccessExample 請求成功(例子: 編號的商品)
+ *     [
+ *        {
+ *            "id":1,
+ *            "father_id":0(表示沒有父留言),
+ *            "userName":"阿花",
+ *            "headPic":"iVBORw0KGgoAAAANSUhEUgAAA....",
+ *            "date":"Dec 05 11:57:25 CST 2022",
+ *            "content":""請問適合梨形身材嗎?"",
+ *            "replyVoList":
+ *                  [
+ *                      {
+ *                          "id":4,
+ *                          "father_id":1,
+ *                          "userName":"15059417755",
+ *                          "fatherName":"阿花",
+ *                          "headPic":"iVBORw0KGgoAAAANSUhEUgAAA....",
+ *                          "date":"Dec 05 11:57:25 CST 2022",
+ *                          "content":"同問",
+ *                          "replyVoList":[(如果沒有回覆的留言這裡會是空的)]
+ *                      },
+ *                      {
+ *                          (格式同上)
+ *                      },....
+ *                  ]
+ *        },
+ *        {
+ *            "id":5,
+ *            "father_id":0(表示沒有父留言),
+ *            "userName":"阿花",
+ *            "headPic":"iVBORw0KGgoAAAANSUhEUgAAA....",
+ *            "date":"Dec 05 11:57:25 CST 2022",
+ *            "content":""請問適合梨形身材嗎?"",
+ *            "replyVoList":[]
+ *        },...{}
+ *     ]
+ */
+
+/**
+ * @api {GET} /product/uploads 顯示所有商品上架請求
+ * @apiName GetAllProductUploadRequests
+ * @apiGroup 服務端:商品管理
+ * @apiPermission none
+ *
+ * @apiDescription 顯示所有商品上架請求，只顯示Outline
+ *
+ * @apiSuccessExample 請求成功(例子)
+ *     [
+ *        {
+ *             "number":"C1669690298810",
+ *             "status":1,
+ *             "catalog":"C",
+ *             "name":"連衣裙",
+ *             "SPhone":"15023192020",
+ *             "date":"2022-11-29 10:51:38"
+ *         },
+ *         {
+ *             "number":"C1670300792286",
+ *             "status":1,
+ *             "catalog":"C",
+ *             "name":"複合面料衛衣(黑)",
+ *             "SPhone":"15080711348",
+ *             "date":"2022-12-06 12:26:32"
+ *          }...{}
+ *     ]
+ */
+
+/**
+ * @api {GET} /product/uploads/catalog 根據商品分類顯示所有商品上架請求
+ * @apiName GetProductUploadRequestsByCatalog
+ * @apiGroup 服務端:商品管理
+ * @apiPermission none
+ *
+ * @apiDescription 根據商品分類顯示所有商品上架請求，只顯示Outline
+ *
+ * @apiParam {String} catalog 商品分類(B, C, M, ...)
+ *
+ * @apiSuccessExample 請求成功(例子:C)
+ *     [
+ *        {
+ *             "number":"C1669690298810",
+ *             "status":1,
+ *             "catalog":"C",
+ *             "name":"連衣裙",
+ *             "SPhone":"15023192020",
+ *             "date":"2022-11-29 10:51:38"
+ *         },
+ *         {
+ *             "number":"C1670300792286",
+ *             "status":1,
+ *             "catalog":"C",
+ *             "name":"複合面料衛衣(黑)",
+ *             "SPhone":"15080711348",
+ *             "date":"2022-12-06 12:26:32"
+ *          }...{}
+ *     ]
+ */
+
+/**
+ * @api {GET} /product/upload 查看商品上架請求詳情
+ * @apiName ReadProductUploadRequest
+ * @apiGroup 服務端:商品管理
+ * @apiPermission none
+ *
+ * @apiDescription 查看商品上架請求詳情，查看完詳情後再給出審核結果。
+ *
+ * @apiParam {String} number 商品編號
+ *
+ * @apiSuccessExample 請求成功(例子:C1669690298810)
+ *     {
+ *          "number":"C1669690298810",
+ *          "name":"連衣裙",
+ *          "status":1,
+ *          "catalog":"C",
+ *          "sellerName":"田嘉淑(真名)",
+ *          "address":"重慶大學虎溪校區梅園3棟",
+ *          "date":"2022-11-29 10:51:38",
+ *          "price":49.9,
+ *          "storage":1,
+ *          "intro":"由於尺碼買小了 穿不了 全新 質量和版型都很好 看上的小姐姐加QQ喔(QQ號: 3446572877)",
+ *          "picture_count":6,
+ *          "pictures":
+ *              [
+ *                  "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4R....",
+ *                  ...,
+ *              ]
+ *      }
+ */
+
+/**
+ * @api {PUT} /product/upload 審核商品上架請求
+ * @apiName ProcessProductUploadRequest
+ * @apiGroup 服務端:商品管理
+ * @apiPermission none
+ *
+ * @apiDescription 針對某一條商品上架請求給出審查結果，該結果會由系統自動發松通知給用戶，用戶可在[設置]-->[系統信息]查看通知。
+ *
+ * @apiParam {String} number 商品編號
+ * @apiParam {String} decision 判決結果(pass/reject)只能有這兩種
+ * @apiParam {String} explain 判決結果的說明
+ *
+ * @apiSuccessExample 處理成功(例子)
+ *     {
+ *          201
+ *      }
+ * @apiErrorExample 處理失敗
+ *     {
+ *        422
+ *     }
+ */
+
+/**
+ * @api {POST} /product/report 用戶舉報商品
+ * @apiName UserSendProductReport
+ * @apiGroup 用戶舉報
+ * @apiPermission none
+ *
+ * @apiDescription 用戶舉報某一商品，暫時將此功能限制在: 唯有購買過該商品的用戶方可舉報。
+ *
+ * @apiParam {String} number 商品編號
+ * @apiParam {String} phone 用戶(舉報者)手機號
+ * @apiParam {String} content 舉報原因
+ *
+ * @apiSuccessExample 舉報發送成功(例子)
+ *     {
+ *          201
+ *      }
+ * @apiErrorExample 發送失敗(用戶無權限)
+ *     {
+ *        400
+ *     }
+ * @apiErrorExample 發送失敗(數據庫未更新)
+ *     {
+ *        422
+ *     }
+ */
+
+/**
+ * @api {POST} /comment/report 用戶舉報留言
+ * @apiName UserSendCommentReport
+ * @apiGroup 用戶舉報
+ * @apiPermission none
+ *
+ * @apiDescription 用戶舉報某一則留言，須為實名認證用戶。
+ *
+ * @apiParam {Integer} number 留言序號id
+ * @apiParam {String} phone 用戶(舉報者)手機號
+ * @apiParam {String} content 舉報原因
+ *
+ * @apiSuccessExample 舉報發送成功(例子)
+ *     {
+ *          201
+ *      }
+ * @apiErrorExample 發送失敗(用戶無權限)
+ *     {
+ *        400
+ *     }
+ * @apiErrorExample 發送失敗(數據庫未更新)
+ *     {
+ *        404
+ *     }
+ */
+
+/**
+ * @api {GET} /product/reports 獲取所有商品舉報請求
+ * @apiName GetAllProductReport
+ * @apiGroup 服務端:舉報審核
+ * @apiPermission none
+ *
+ * @apiDescription 獲取所有商品舉報請求
+ *
+ * @apiSuccessExample 請求成功(例子)
+ *     [
+ *          {
+ *              "id":1,
+ *              "status":1,
+ *              "reporterPhone":"15059417755",
+ *              "number":"C1669690298810",
+ *              "date":"Dec 5, 2022, 4:47:48 PM"
+ *          }...{}
+ *      ]
+ */
+
+/**
+ * @api {GET} /product/status/reports 根據處理狀態獲取商品舉報請求
+ * @apiName GetProductReportByStatus
+ * @apiGroup 服務端:舉報審核
+ * @apiPermission none
+ *
+ * @apiDescription 根據處理狀態獲取商品舉報請求(0:未處理, 1:舉報成立, 2:舉報不成立)
+ *
+ * @apiParam {Integer} status 處理狀態
+ *
+ * @apiSuccessExample 請求成功(例子: 1)
+ *     [
+ *          {
+ *              "id":1,
+ *              "status":1,
+ *              "reporterPhone":"15059417755",
+ *              "number":"C1669690298810",
+ *              "date":"Dec 5, 2022, 4:47:48 PM"
+ *          }...{}
+ *      ]
+ */
+
+/**
+ * @api {GET} /product/report 閱讀商品舉報請求詳情
+ * @apiName ReadProductReport
+ * @apiGroup 服務端:舉報審核
+ * @apiPermission none
+ *
+ * @apiDescription 閱讀完商品舉報的請求詳情後，在據此給出判決。
+ *
+ * @apiParam {Integer} id 商品舉報序號id
+ *
+ * @apiSuccessExample 請求成功(例子: 1)
+ *     {
+ *         "id":1,
+ *         "status":1,
+ *         "reporterPhone":"15059417755",
+ *         "reportName":"错霞飞(真名)",
+ *         "date":"Dec 5, 2022, 4:47:48 PM",
+ *         "content":"裙子嚴重脫線，洗一次基本就沒法穿了",
+ *         "productNumber":"C1669690298810",
+ *         "productName":"連衣裙",
+ *         "reportCount":1(該商品的舉報次數)
+ *     }
+ */
+
+/**
+ * @api {PUT} /product/report/result 處理商品舉報
+ * @apiName ProcessProductReport
+ * @apiGroup 服務端:舉報審核
+ * @apiPermission none
+ *
+ * @apiDescription 管理員給出商品舉報的判決，在結果出來後系統會自動發送信息給相關用戶(舉報者/被舉報者)，用戶可在[設置]-->[系統消息]中察看。對於違規商品，若檢舉次數超過5次系統會做強制下架處理，沒有超過則會發消息通知賣家整改。
+ *
+ * @apiParam {Integer} id 商品舉報序號id
+ * @apiParam {String} decision 判決結果(pass/reject)
+ * @apiParam {String} explain 判決說明
+ *
+ * @apiSuccessExample 處理成功(例子)
+ *     {
+ *         201
+ *     }
+ * @apiErrorExample 處理失敗(數據庫更新失敗)
+ *     {
+ *        400
+ *     }
+ * @apiErrorExample 處理失敗(請求不合法)
+ *     {
+ *        404
+ *     }
+ */
+
+/**
+ * @api {GET} /comment/reports 獲取所有留言舉報請求
+ * @apiName GetAllCommentReport
+ * @apiGroup 服務端:舉報審核
+ * @apiPermission none
+ *
+ * @apiDescription 獲取所有留言舉報請求
+ *
+ * @apiSuccessExample 請求成功(例子)
+ *     [
+ *          {
+ *              "id":1,
+ *              "status":0,
+ *              "reporterPhone":"15059417755",
+ *              "commentId":"1(舉報的留言編號)",
+ *              "date":"Dec 5, 2022, 4:47:48 PM"
+ *          }...{}
+ *      ]
+ */
+
+/**
+ * @api {GET} /comment/reports/status 根據處理狀態獲取留言舉報請求
+ * @apiName GetCommentReportByStatus
+ * @apiGroup 服務端:舉報審核
+ * @apiPermission none
+ *
+ * @apiDescription 根據處理狀態獲取留言舉報請求(0:未處理, 1:舉報成立, 2:舉報不成立)
+ *
+ * @apiParam {Integer} status 處理狀態
+ *
+ * @apiSuccessExample 請求成功(例子: 1)
+ *     [
+ *          {
+ *              "id":1,
+ *              "status":1,
+ *              "reporterPhone":"15059417755",
+ *              "commentId":"1",
+ *              "date":"Dec 5, 2022, 4:47:48 PM"
+ *          }...{}
+ *      ]
+ */
+
+/**
+ * @api {GET} /comment/reports/same 獲取針對同一則留言的舉報請求
+ * @apiName GetCommentReportByCommentId
+ * @apiGroup 服務端:舉報審核
+ * @apiPermission none
+ *
+ * @apiDescription 獲取針對同一則留言的舉報請求
+ *
+ * @apiParam {Integer} commentId 處理狀態
+ *
+ * @apiSuccessExample 請求成功(例子: 1)
+ *     [
+ *          {
+ *              "id":1,
+ *              "status":1,
+ *              "reporterPhone":"15059417755",
+ *              "commentId":"1",
+ *              "date":"Dec 5, 2022, 4:47:48 PM"
+ *          }...{}
+ *      ]
+ */
+
+/**
+ * @api {GET} /comment/report 閱讀留言舉報請求詳情
+ * @apiName ReadCommentReport
+ * @apiGroup 服務端:舉報審核
+ * @apiPermission none
+ *
+ * @apiDescription 閱讀完留言舉報的請求詳情後，在據此給出判決。
+ *
+ * @apiParam {Integer} id 留言舉報序號id
+ *
+ * @apiSuccessExample 請求成功(例子: 1)
+ *     {
+ *         "id":1,
+ *         "status":1,
+ *         "reporterPhone":"15059417755",
+ *         "reportName":"错霞飞(真名)",
+ *         "date":"Dec 5, 2022, 4:47:48 PM",
+ *         "content":"留言不友善",
+ *         "comment": (這裡面放的是留言信息)
+ *              {
+ *                  "id": 1,
+ *                  "father_id":0,
+ *                  "number":"C1669690298810",
+ *                  "content":"請問適合梨形身材嗎?",
+ *                  "date":"Dec 05 11:57:25 CST 2022",
+ *                  "phone":"15078818663"
+ *              }
+ *     }
+ */
+
+/**
+ * @api {PUT} /comment/report 處理留言舉報
+ * @apiName ProcessCommentReport
+ * @apiGroup 服務端:舉報審核
+ * @apiPermission none
+ *
+ * @apiDescription 管理員給出留言舉報的判決，在結果出來後系統會自動發送信息給相關用戶(舉報者/被舉報者)，用戶可在[設置]-->[系統消息]中察看。對於違規留言系統會自動刪除該留言。
+ *
+ * @apiParam {Integer} id 留言舉報序號id
+ * @apiParam {String} decision 判決結果(pass/reject)
+ * @apiParam {String} explain 判決說明
+ *
+ * @apiSuccessExample 處理成功(例子)
+ *     {
+ *         201
+ *     }
+ * @apiErrorExample 處理失敗(數據庫更新失敗)
+ *     {
+ *        400
+ *     }
+ * @apiErrorExample 處理失敗(請求不合法)
+ *     {
+ *        404
+ *     }
+ */
+
+/**
+ * @api {GET} /setting/notifications 顯示所有系統信息
+ * @apiName GetAllNotification
+ * @apiGroup 設置:用戶反饋
+ * @apiPermission none
+ *
+ * @apiDescription 顯示所有系統信息，這裡只顯示Outline，status表示是否已讀(0:未讀, 1:已讀)。
+ *
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 請求成功(例子:15023192020)
+ *     [
+ *         {
+ *              "id":3,
+ *              "type":"warn",
+ *              "title":"商品舉報通知",
+ *              "date":"Dec 5, 2022, 6:07:20 PM",
+ *              "status":0
+ *          },...,{}
+ *     ]
+ */
+
+/**
+ * @api {GET} /setting/notifications/unread 顯示所有未讀系統信息
+ * @apiName GetUnreadNotification
+ * @apiGroup 設置:用戶反饋
+ * @apiPermission none
+ *
+ * @apiDescription 顯示所有未讀系統信息
+ *
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 請求成功(例子:15023192020)
+ *     [
+ *         {
+ *              "id":3,
+ *              "type":"warn",
+ *              "title":"商品舉報通知",
+ *              "date":"Dec 5, 2022, 6:07:20 PM",
+ *              "status":0
+ *          },...,{}
+ *     ]
+ */
+
+/**
+ * @api {GET} /setting/notification/isRead 判斷某消息是否已讀
+ * @apiName CheckNotificationIsRead
+ * @apiGroup 設置:用戶反饋
+ * @apiPermission none
+ *
+ * @apiDescription 判斷某消息是否已讀，可做為圖標提示時使用(例如未讀消息上方有小紅點)。
+ *
+ * @apiParam {Integer} id 信息序號id
+ *
+ * @apiSuccessExample 請求成功(例子:3)
+ *     {
+ *         false
+ *     }
+ */
+
+/**
+ * @api {GET} /setting/notification 用戶閱讀系統消息
+ * @apiName UserReadNotification
+ * @apiGroup 設置:用戶反饋
+ * @apiPermission none
+ *
+ * @apiDescription 用戶閱讀系統消息，系統會返回消息詳情，並將該消息閱讀狀態設置成已讀。
+ *
+ * @apiParam {Integer} id 信息序號id
+ *
+ * @apiSuccessExample 請求成功(例子:3)
+ *     {
+ *          "id":3,
+ *          "type":"warn",
+ *          "title":"商品舉報通知",
+ *          "to":"天天15023192020",
+ *          "content":"本系統非常遺憾的通知您，您的商品 [連衣裙] 已被系統管理確認存在違規行為，請及時處理以免商品被迫下架。謝謝您的配合。",
+ *          "date":"Dec 5, 2022, 6:07:20 PM",
+ *          "from":"系统管理员"
+ *     }
+ */
+
+/**
+ * @api {DELETE} /setting/notification 用戶刪除系統消息
+ * @apiName UserDeleteNotification
+ * @apiGroup 設置:用戶反饋
+ * @apiPermission none
+ *
+ * @apiDescription 用戶刪除一則系統消息
+ *
+ * @apiParam {Integer} id 信息序號id
+ *
+ * @apiSuccessExample 刪除成功(例子)
+ *     {
+ *          204
+ *     }
+ * @apiErrorExample 刪除失敗
+ *     {
+ *        422
+ *     }
+ */
+
+/**
+ * @api {DELETE} /setting/notifications 刪除所有已讀系統消息
+ * @apiName UserDeleteReadNotifications
+ * @apiGroup 設置:用戶反饋
+ * @apiPermission none
+ *
+ * @apiDescription 用戶刪除所有已讀的系統消息
+ *
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 刪除成功(例子)
+ *     {
+ *          204
+ *     }
+ * @apiErrorExample 刪除失敗
  *     {
  *        422
  *     }
