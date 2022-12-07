@@ -9,6 +9,8 @@ import dev.silvia.wechattrade.vo.product.MyProductVo;
 import dev.silvia.wechattrade.vo.product.ProductDetailVo;
 import dev.silvia.wechattrade.vo.product.ProductLikeVo;
 import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
+import dev.silvia.wechattrade.vo.request.product.UploadRequestDetailVo;
+import dev.silvia.wechattrade.vo.request.product.UploadRequestOutlineVo;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
@@ -90,6 +92,35 @@ public class ProductPacking {
         myProduct.setStatus(product.getStatus());
         myProduct.setCoverPic(getCoverPic(product));
         return myProduct;
+    }
+
+    // 將Product包裝成UploadRequestOutlineVo的方法
+    public UploadRequestOutlineVo ProductToRequestOutline(Product product){
+        UploadRequestOutlineVo outlineVo = new UploadRequestOutlineVo();
+        outlineVo.setName(transferUTF8.UTF8toC(product.getName()));
+        outlineVo.setNumber(product.getNumber());
+        outlineVo.setDate(getDate(product.getNumber()));
+        outlineVo.setCatalog(product.getCatalog());
+        outlineVo.setSPhone(product.getSPhone());
+        outlineVo.setStatus(product.getStatus());
+        return outlineVo;
+    }
+    // 將Product包裝成UploadRequestDetailVo的方法
+    public UploadRequestDetailVo ProductToRequestDetail(Product product, User seller, List<String> pictures){
+        UploadRequestDetailVo detailVo = new UploadRequestDetailVo();
+        detailVo.setNumber(product.getNumber());
+        detailVo.setName(transferUTF8.UTF8toC(product.getName()));
+        detailVo.setStatus(product.getStatus());
+        detailVo.setCatalog(product.getCatalog());
+        detailVo.setSellerName(transferUTF8.UTF8toC(seller.getRealName()));
+        detailVo.setAddress(transferUTF8.UTF8toC(product.getAddress()));
+        detailVo.setDate(getDate(product.getNumber()));
+        detailVo.setPrice(product.getPrice());
+        detailVo.setStorage(product.getStorage());
+        detailVo.setIntro(transferUTF8.UTF8toC(product.getIntro()));
+        detailVo.setPicture_count(product.getPicture());
+        detailVo.setPictures(pictures);
+        return detailVo;
     }
 
     // 從商品編碼中解析出商品發布時間Date的方法
