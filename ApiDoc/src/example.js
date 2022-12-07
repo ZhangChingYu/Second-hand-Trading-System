@@ -195,6 +195,7 @@
  *        "intro":"全新沒有用過，到貨前就退課了",
  *        "like_count":0,
  *        "picture_count":1,
+ *        "storage":1,
  *        "pictures":["/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAA.....(base64編碼，原文過長不全部展示)",...,"..."]
  *     }
  */
