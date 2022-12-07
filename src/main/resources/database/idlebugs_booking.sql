@@ -6,18 +6,14 @@ create table booking
     seller_id        varchar(255)   not null comment '卖家phone',
     buyer_id         varchar(255)   not null comment '买家phone',
     product_id       varchar(255)   not null comment '商品编号',
+    name             varchar(500) charset utf8  not null comment '商品名稱',
     orders_num       int            not null comment '预约商品数量',
     price            decimal(10, 2) not null comment '预约商品价格',
     appointment_time datetime       null comment '预约时间',
     confirm_time     datetime       null comment '预约确认时间',
     status           int            not null comment '预约状态
-    0:已预约
-    1:待下单
-    2:待发货
-    3:待收货
-    //4:已收货
-    5:买家取消预约
-    6:已退款
-    7:卖家拒绝预约'
+    已预约
+    待下单
+    已拒绝'
 );
 

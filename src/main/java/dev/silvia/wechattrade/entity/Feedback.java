@@ -12,36 +12,25 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-@Table(name = "booking")
+@Table(name = "feedback")
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName(value = "booking")
-public class Booking implements Serializable {
+@TableName(value = "feedback")
+public class Feedback implements Serializable {
     private static final long serialVersionUID=1L;
     @Id
     @TableId(value = "id", type = IdType.AUTO)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    private String phone;
+
     private String number;
 
-    private String sellerId;
-
-    private String  buyerId;
-
-    private String productId;
-
-    private String name;
-
-    private Integer ordersNum;
-
-    private Double price;
+    private String content;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date appointmentTime;
+    private Date feedTime;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date confirmTime;
-
-    private String status;
+    private Integer status;
 }

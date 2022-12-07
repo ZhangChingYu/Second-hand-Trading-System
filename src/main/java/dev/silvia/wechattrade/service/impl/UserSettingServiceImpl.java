@@ -82,8 +82,14 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
         ).map(us->{
             //转换utf8
                     us=transferUTF8.switchUtf8Tc(us);
-                    us.setAvatar(ReadFile.getBaseFile(us.getAvatar()));
-                    us.setPicture(ReadFile.getBaseFile(us.getPicture()));
+                    if(!us.getAvatar().isEmpty()){
+                        us.setAvatar(ReadFile.getBaseFile(us.getAvatar()));
+                    }
+                    else
+                        us.setAvatar(ReadFile.getBaseFile(FileDirector.AVATAR_URL));
+                    if(!us.getPicture().isEmpty()){
+                        us.setPicture(ReadFile.getBaseFile(us.getPicture()));
+                    }
                     res=new Result(ResultCode.SUCCESS,us);
                     return res;
                 }

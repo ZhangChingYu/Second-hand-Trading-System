@@ -12,6 +12,7 @@ import dev.silvia.wechattrade.entity.WXAuth;
 import dev.silvia.wechattrade.entity.WxUserInfo;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.cryto.Sign;
+import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.IWeixinService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 @Slf4j
 @Service
@@ -81,18 +83,29 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
             user.setAuthority(1);
 
             //图片路径
-            List<String> picture1;
+            String picture1;
             if(user.getAvatar().isEmpty()){
                 //默认图片
-                picture1 = Collections.singletonList(ReadFile.getBaseFile("C:/Users/Sunny/Desktop/Avatar/default/default_0.jpg"));
-                user.setAvatar(picture1.get(0));
+                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+                user.setAvatar(picture1);
             }
             else{
-                picture1= Collections.singletonList(ReadFile.getBaseFile(user.getAvatar()));
-                user.setAvatar(picture1.get(0));
+                //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
+                picture1= ReadFile.getBaseFile(user.getAvatar());
+                user.setAvatar(picture1);
             }
-
-            user.setUserName(trans.CtoUTF8(wxUserInfo.getNickName()));
+            if(!user.getPicture().isEmpty()){
+                String picture2;
+                picture2= ReadFile.getBaseFile(user.getPicture());
+                // picture2 = readFile.getpictureBase64("Authentication",u.getPhone(),1);
+                user.setPicture(picture2);
+            }
+            if(wxUserInfo.getNickName().isEmpty()){
+                user.setUserName(trans.CtoUTF8(getStringRandom(6)));
+            }
+            else{
+                user.setUserName(trans.CtoUTF8(wxUserInfo.getNickName()));
+            }
             redto.setToken(Sign.generateToken(
                     user.getId(),
                     transferUTF8.CtoUTF8(user.getUserName()),
@@ -134,5 +147,26 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
         token = JWT.create().withAudience(session).withIssuedAt(start).withExpiresAt(end)
                 .sign(Algorithm.HMAC512("123456"));
         return token;
+    }
+    //生成随机用户名，数字和字母组成,
+    public String getStringRandom(int length) {
+
+        StringBuilder val = new StringBuilder();
+        Random random = new Random();
+
+        //参数length，表示生成几位随机数
+        for (int i = 0; i < length; i++) {
+
+            String charOrNum = random.nextInt(2) % 2 == 0 ? "char" : "num";
+            //输出字母还是数字
+            if ("char".equalsIgnoreCase(charOrNum)) {
+                //输出是大写字母还是小写字母
+                int temp = random.nextInt(2) % 2 == 0 ? 65 : 97;
+                val.append((char) (random.nextInt(26) + temp));
+            } else {
+                val.append(random.nextInt(10));
+            }
+        }
+        return val.toString();
     }
 }
