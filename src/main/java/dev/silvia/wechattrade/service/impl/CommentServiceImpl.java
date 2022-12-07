@@ -11,7 +11,6 @@ import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.ProductComment;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
-import dev.silvia.wechattrade.handlers.Packing.CommentPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.ICommentService;
@@ -35,8 +34,6 @@ public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductCo
     private ProductCommentDao productCommentDao;
     @Autowired
     private TransferUTF8 transferUTF8;
-    @Autowired
-    private CommentPacking commentPacking;
     @Autowired
     private ReadFile readFile;
 
