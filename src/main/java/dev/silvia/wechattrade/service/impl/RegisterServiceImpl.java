@@ -2,8 +2,11 @@ package dev.silvia.wechattrade.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
+import dev.silvia.wechattrade.dao.NotificationDao;
 import dev.silvia.wechattrade.dao.UserDao;
+import dev.silvia.wechattrade.entity.Notification;
 import dev.silvia.wechattrade.entity.User;
+import dev.silvia.wechattrade.handlers.Packing.SystemNotePacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.UserNameGenerator;
 import dev.silvia.wechattrade.service.IRegisterService;
@@ -18,15 +21,16 @@ import java.util.List;
 public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements IRegisterService {
     @Autowired
     private UserDao userDao;
-
+    @Autowired
+    private NotificationDao notificationDao;
     @Autowired
     private JdbcTemplate jdbcTemplate;
-
     @Autowired
     private Gson gson = new Gson();
-
     @Autowired
-    TransferUTF8 transferUTF8 = new TransferUTF8();
+    TransferUTF8 transferUTF8;
+    @Autowired
+    SystemNotePacking systemNotePacking;
     UserNameGenerator nameGenerator = new UserNameGenerator();
     @Override
     public int Register(User user) {
@@ -52,6 +56,9 @@ public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements I
             userDao.insert(user);
             int success = jdbcTemplate.queryForObject(check, Integer.class);
             if(success == 1){
+                if(sendWelcomeNotification(user.getPhone()) == 201){
+                    System.out.println("Welcome notification sent.");
+                }
                 return 201; // 註冊成功
             }
             return 404;     // 註冊失敗，信息未成功添加
@@ -64,5 +71,14 @@ public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements I
         // 將UTF-8編碼轉回字串
         user.setUserName(transferUTF8.UTF8toC(user.getUserName()));
         return user;
+    }
+
+    @Override
+    public Integer sendWelcomeNotification(String phone) {
+        Notification note = systemNotePacking.WelcomeNote(phone);
+        if(notificationDao.insert(note) > 0 ){
+            return 201;
+        }
+        return 404;
     }
 }
