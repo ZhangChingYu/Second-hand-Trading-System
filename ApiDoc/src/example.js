@@ -1578,3 +1578,72 @@
  *        422
  *     }
  */
+
+/**
+ * @api {POST} /evaluation 買家進行商品評價
+ * @apiName BuyerEvaluateProduct
+ * @apiGroup 商品評價
+ * @apiPermission none
+ *
+ * @apiDescription 買家購買商品並檢驗過後，對商品進行進一步的評價，得分為(0~5)之間。
+ *
+ * @apiParam {String} number 商品編號
+ * @apiParam {String} phone 買家手機
+ * @apiParam {Integer} score1 描述相符得分
+ * @apiParam {Integer} score2 物流服務得分
+ * @apiParam {Integer} score3 態度服務得分
+ * @apiParam {Boolean} isAnonymous 評價是否匿名(true:是，false:否)
+ * @apiParam {String} evaluate 文字評價
+ *
+ * @apiSuccessExample 評價成功(例子)
+ *     {
+ *          201
+ *     }
+ * @apiErrorExample 評價失敗
+ *     {
+ *        404
+ *     }
+ */
+
+/**
+ * @api {GET} /evaluations 根據賣家顯示其商品評價
+ * @apiName GetEvaluationsBySeller
+ * @apiGroup 商品評價
+ * @apiPermission none
+ *
+ * @apiDescription 根據賣家顯示其商品評價
+ *
+ * @apiParam {String} sellerPhone 賣家手機號
+ *
+ * @apiSuccessExample 請求成功(例子:非匿名評價)
+ *     [
+ *          {
+ *              "number":"(商品編號)",
+ *              "productName":"(商品名稱)",
+ *              "date":"(評價日期)",
+ *              "score1":(描述相符得分),
+ *              "score2":(物流服務得分),
+ *              "score3":(服務態度得分),
+ *              "evaluate":"(文字評價)",
+ *              "isAnonymous":false,
+ *              "buyer": {
+ *                  "buyerPhone":"(買家手機號)",
+ *                  "buyerName":"(買家用戶名)",
+ *                  "buyerHeadPic":"(買家頭像)"
+ *              }
+ *          },....{}
+ *      ]
+ * @apiSuccessExample 請求成功(例子:匿名評價)
+ *    [
+ *          {
+ *              "number":"(商品編號)",
+ *              "productName":"(商品名稱)",
+ *              "date":"(評價日期)",
+ *              "score1":(描述相符得分),
+ *              "score2":(物流服務得分),
+ *              "score3":(服務態度得分),
+ *              "evaluate":"(文字評價)",
+ *              "isAnonymous":ture
+ *          },....{}
+ *      ]
+ */

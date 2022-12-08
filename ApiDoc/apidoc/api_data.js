@@ -776,6 +776,138 @@ define({ "api": [
   },
   {
     "type": "POST",
+    "url": "/evaluation",
+    "title": "買家進行商品評價",
+    "name": "BuyerEvaluateProduct",
+    "group": "商品評價",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>買家購買商品並檢驗過後，對商品進行進一步的評價，得分為(0~5)之間。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "number",
+            "description": "<p>商品編號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>買家手機</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "score1",
+            "description": "<p>描述相符得分</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "score2",
+            "description": "<p>物流服務得分</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "score3",
+            "description": "<p>態度服務得分</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Boolean",
+            "optional": false,
+            "field": "isAnonymous",
+            "description": "<p>評價是否匿名(true:是，false:否)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "evaluate",
+            "description": "<p>文字評價</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "評價成功(例子)",
+          "content": "{\n     201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "評價失敗",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "商品評價"
+  },
+  {
+    "type": "GET",
+    "url": "/evaluations",
+    "title": "根據賣家顯示其商品評價",
+    "name": "GetEvaluationsBySeller",
+    "group": "商品評價",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據賣家顯示其商品評價</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sellerPhone",
+            "description": "<p>賣家手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:非匿名評價)",
+          "content": "[\n     {\n         \"number\":\"(商品編號)\",\n         \"productName\":\"(商品名稱)\",\n         \"date\":\"(評價日期)\",\n         \"score1\":(描述相符得分),\n         \"score2\":(物流服務得分),\n         \"score3\":(服務態度得分),\n         \"evaluate\":\"(文字評價)\",\n         \"isAnonymous\":false,\n         \"buyer\": {\n             \"buyerPhone\":\"(買家手機號)\",\n             \"buyerName\":\"(買家用戶名)\",\n             \"buyerHeadPic\":\"(買家頭像)\"\n         }\n     },....{}\n ]",
+          "type": "json"
+        },
+        {
+          "title": "請求成功(例子:匿名評價)",
+          "content": "[\n      {\n          \"number\":\"(商品編號)\",\n          \"productName\":\"(商品名稱)\",\n          \"date\":\"(評價日期)\",\n          \"score1\":(描述相符得分),\n          \"score2\":(物流服務得分),\n          \"score3\":(服務態度得分),\n          \"evaluate\":\"(文字評價)\",\n          \"isAnonymous\":ture\n      },....{}\n  ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "商品評價"
+  },
+  {
+    "type": "POST",
     "url": "/setting/address",
     "title": "添加地址",
     "name": "AddAddress",
