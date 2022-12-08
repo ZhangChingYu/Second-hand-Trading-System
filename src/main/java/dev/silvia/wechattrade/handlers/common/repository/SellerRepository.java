@@ -11,7 +11,5 @@ public interface SellerRepository extends JpaRepository<Seller, String> {
     Seller findByExchangeId(String number);
 
     List<Seller> findAllByPhone(String phone);
-
-    void deleteByExchangeId(String number);
 }
 

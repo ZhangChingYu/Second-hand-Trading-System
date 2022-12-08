@@ -478,7 +478,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * 前端api: **GET**  /booking/select/seller
 * json语句: {"phone":"手机号", "status":"状态（全部/已发货/未发货/..."}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDto>}
-  5,卖方根据商品编号查询预约:
+5,卖方根据商品编号查询预约:
 * 前端api: **GET**  /booking/select/bookings
 * json语句: {"number":"商品编号"}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDetails>}
@@ -487,12 +487,12 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   String phone;  //买方phone
   String nickName;  //买方昵称}
   6,在订单中根据商品名称模糊搜索:
-* 前端api: **GET**   /orders/details
-* json语句: {"name":"商品名称"}
+* 前端api: **GET**   /orders/fuzzy/name
+* json语句: {"name":"商品名称/电话","isbuyer":1未buyer，0为seller}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<ExchangeDto>}
-  7,在预约中根据商品名称模糊搜索:
+  7,在预约中根据商品名称模糊/电话搜索:
 * 前端api: **GET**  /booking/fuzzy/name
-* json语句: {"name":"商品名称"}
+* json语句: {"name":"商品名称/电话","isbuyer":1未buyer，0为seller}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDto>}
   8,卖方根据买方手机号和商品编号在预约信息里查找:
 * 前端api: **GET**  /booking/select/phone
@@ -585,7 +585,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
   17,取消退款:
 * 前端api: **PUT**  /orders/cancel
-* json语句: {"number":"预约编号"}
+* json语句: {"number":"订单编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
 ####订单和预约相关状态
     预约
@@ -767,7 +767,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 
   Integer status;   //消息状态：已读为1，未读为0
   }
-  4，管理员进行权限更改   违规用户-->普通 violations=1（解冻，违规次数清零）  普通-->违规用户 violations=0（设置成违规用户）
+  4，管理员进行权限更改   违规用户-->普通 violations=1（解冻）  普通-->违规用户 violations=0（设置成违规用户）
 * 前端api: **PUT**  /feedback/authority
 * json语句: {"phone":"电话","violations":0/1}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
@@ -775,7 +775,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * 前端api: **GET**  /feedback/user
 * json语句: 无
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
-*  FeedUserDto {
+* FeedUserDto {
    String name;  //用户名
 
    String phone;    //用户电话
@@ -784,6 +784,55 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 
    Integer violationCount;    //违规次数
    }
+###用户管理    UserMangerController.java
+1，权限更改    普通-->违规用户
+* 前端api: **PUT**  /manage/user/authority
+* json语句: [1,2,3]
+* 返回信息(Object):Result(msg: ; code:"666" ;data:)
+2，权限更改   违规用户-->普通
+* 前端api: **PUT**  /feedback/delete
+* json语句: [1,2,3]
+* 返回信息(Object):Result(msg: ; code:"666" ;data:)
+  3，查看所有用户:
+* 前端api: **GET**  /manage/user/all
+* json语句: 无
+* 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
+  FeedUserDto {
+  private Integer id;
+
+  private String avatar;    //用户头像
+
+  private String userName;  //用户名
+
+  private String realName;  //用户名
+
+  private String authority;    //用户权限
+
+  private Integer violationCount;    //违规次数
+
+  private Integer buy;
+
+  private Integer sell;
+
+}
+  4，根据权限、交易、违规筛选
+* 前端api: **GET**  /manage/user/select
+* json语句: {"type":"筛选类型(权限、交易、违规)  按照权限筛选时type为可买卖/已禁用 upper和upper任意",
+*           "upper":违规、交易次数上限,
+*            "lower":违规、交易次数下限}
+* 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
+  5，删除用户
+* 前端api: **DELETE**  /manage/user/delete
+* json语句: [1,2,3]
+* 返回信息(Object):Result(msg: ; code:"666" ;data:)
+  6，根据用户名或真实姓名模糊查询
+* 前端api: **GET**  /manage/user/name
+* json语句: [1,2,3]
+* 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
+  7，修改密码为123456
+* 前端api: **PUT**  /manage/user/password
+* json语句: [1,2,3]
+* 返回信息(Object):Result(msg: ; code:"666" ;data:)
 # 關於RestFul api的一些規範
 什么是RestFul架构：
 1. 每一个URI代表一种资源；

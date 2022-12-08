@@ -26,7 +26,7 @@ public class LoginController {
     private ILoginService service;
     @Autowired
     private UserRepository accountRepository;
-    @Autowired
+
     private Optional<User> user;
 
     @Autowired

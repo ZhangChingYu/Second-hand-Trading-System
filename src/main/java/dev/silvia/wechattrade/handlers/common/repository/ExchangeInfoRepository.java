@@ -14,6 +14,4 @@ public interface ExchangeInfoRepository extends JpaRepository<ExchangeInfo, Stri
     ExchangeInfo findByNumberAndStatus(String exchangeId, String status);
 
     List<ExchangeInfo> findByNameLike(String name);
-
-    List<ExchangeInfo> findByPhone(String name);
 }

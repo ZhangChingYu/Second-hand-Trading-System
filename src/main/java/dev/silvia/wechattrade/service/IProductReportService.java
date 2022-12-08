@@ -20,6 +20,4 @@ public interface IProductReportService extends IService<ProductReport> {
     /** 管理員的功能: 處理 */
     Integer processProductReport(Integer id, String decision, String explain);  // 判定舉報是否成立(decision: pass, reject)
     Integer sendNotification(Notification notification);    // 發送通知
-
-
 }

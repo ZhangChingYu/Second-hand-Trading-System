@@ -59,7 +59,7 @@ public interface IOrderService extends IService<Product> {
     Result selectAll(String status);
 
     //根据商品名称模糊搜索
-    Result selectAllByName(String name,Integer type);  //订单查询
+    Result selectAllByName(String name, Integer type, Integer isbuyer);  //订单查询
 
     //卖方根据商品编号查询预约
     Result sellerBookingByName(String number);  //预约查询

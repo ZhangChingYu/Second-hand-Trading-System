@@ -77,14 +77,16 @@ public class OrdersSearchController {
     @RequestMapping(value ="/orders/fuzzy/name",method = RequestMethod.GET)
     public ResponseEntity<?> selectOrdersByName(HttpServletRequest request){
         String name= request.getParameter("name");
-        return ResponseEntity.ok(service.selectAllByName(name,1));
+        Integer isbuyer= Integer.valueOf(request.getParameter("isbuyer"));
+        return ResponseEntity.ok(service.selectAllByName(name,1,isbuyer));
     }
 
     //在预约中根据商品名称模糊搜索
     @RequestMapping(value ="/booking/fuzzy/name",method = RequestMethod.GET)
     public ResponseEntity<?> selectBookingByName(HttpServletRequest request){
         String name= request.getParameter("name");
-        return ResponseEntity.ok(service.selectAllByName(name,0));
+        Integer isbuyer= Integer.valueOf(request.getParameter("isbuyer"));
+        return ResponseEntity.ok(service.selectAllByName(name,0,isbuyer));
     }
 
     //根据订单编号获取订单详情

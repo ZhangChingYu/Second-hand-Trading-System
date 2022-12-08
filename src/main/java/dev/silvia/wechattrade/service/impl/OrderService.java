@@ -23,6 +23,7 @@ import dev.silvia.wechattrade.service.IRegisterService;
 import dev.silvia.wechattrade.vo.product.ProductDetailVo;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -284,7 +285,6 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     public Result selectAllOrder(String status) {
         List<Seller> sell=sel.findAll();
         List<ExchangeDto> booklist=new ArrayList<>();
-        ExchangeDto bookdto=new ExchangeDto();
         ProductDetailVo pro;
         for (Seller value : sell) {
             //获取产品编号
@@ -295,6 +295,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
             }
             //获取商品信息
             pro = service.getProductDetail(ex.getProductNum());
+            ExchangeDto bookdto=new ExchangeDto();
 
             bookdto.setName(pro.getName());
             bookdto.setState(transferUTF8.UTF8toC(ex.getStatus()));
@@ -321,7 +322,6 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     public Result selectSellerOrder(String phone,String status) {
         List<Seller> sell=sel.findAll();
         List<ExchangeDto> booklist=new ArrayList<>();
-        ExchangeDto bookdto=new ExchangeDto();
 
         for (Seller value : sell) {
             if (Objects.equals(value.getPhone(), phone)) {
@@ -345,6 +345,8 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                         String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
                         path= ReadFile.getBaseFile(url);
                     }
+                    ExchangeDto bookdto=new ExchangeDto();
+
                     bookdto.setCoverPic(path);
                     bookdto.setCount(ex.getOrdersNum());
                     bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
@@ -365,7 +367,6 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         //获取用户所有商品
         List<Buyer> bu=buy.findAll();
         List<ExchangeDto> booklist=new ArrayList<>();
-        ExchangeDto bookdto=new ExchangeDto();
         for (Buyer value : bu) {
             if (Objects.equals(value.getPhone(), phone)) {
                 //获取产品编号
@@ -387,6 +388,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                         String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
                         path= ReadFile.getBaseFile(url);
                     }
+                    ExchangeDto bookdto=new ExchangeDto();
                     bookdto.setCoverPic(path);
                     bookdto.setCount(ex.getOrdersNum());
                     bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
@@ -479,7 +481,6 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     public Result selectAllBuyer(String phone, String status) {
         //获取用户所有预约
         List<BookingDto> booklist=new ArrayList<>();
-        BookingDto bookdto=new BookingDto();
         List<Booking> bidList;
         if(Objects.equals(status, "全部")){
             bidList=accountRepository.findByBuyerId(phone);
@@ -503,6 +504,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                     String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
                     path= ReadFile.getBaseFile(url);
                 }
+                BookingDto bookdto=new BookingDto();
                 bookdto.setCoverPic(path);
                 bookdto.setCount(booking.getOrdersNum());
                 bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
@@ -522,7 +524,6 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     public Result selectAllSeller(String phone, String status) {
         //获取用户所有预约
         List<BookingDto> booklist=new ArrayList<>();
-        BookingDto bookdto=new BookingDto();
         List<Booking> bidList;
         if(Objects.equals(status, "全部")){
             bidList=accountRepository.findBySellerId(phone);
@@ -532,6 +533,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         }
         for (Booking booking : bidList) {
             if (Objects.equals(booking.getSellerId(), phone)) {
+                BookingDto bookdto=new BookingDto();
                 //获取商品图片
                 //获取商品信息
                 QueryWrapper<Product> productWrapper = new QueryWrapper<>();
@@ -561,7 +563,6 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     @Override
     public Result selectAll(String status) {
         List<BookingDto> booklist=new ArrayList<>();
-        BookingDto bookdto=new BookingDto();
         List<Booking> bidList;
         if(Objects.equals(status, "全部")){
             bidList=accountRepository.findByStatus(transferUTF8.CtoUTF8(status));
@@ -572,6 +573,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         ProductDetailVo pro;
         for (Booking booking : bidList) {
             //获取商品信息
+            BookingDto bookdto=new BookingDto();
             pro = service.getProductDetail(booking.getProductId());
 
             bookdto.setName(pro.getName());
@@ -595,20 +597,16 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     }
 
     @Override
-    public Result selectAllByName(String name,Integer type) {
+    public Result selectAllByName(String name, Integer type, Integer isbuyer) {
         if(type==1){
-            ExchangeDto ed=new ExchangeDto();
+
             //订单信息
             List<ExchangeInfo> ei;
-            if (name.matches(ph)){
-                ei=exRepository.findByPhone(name);
-            }
-            else{
-                ei=exRepository.findByNameLike("%"+name+"%");
-            }
+            ei=exRepository.findByNameLike("%"+name+"%");
             List<ExchangeDto> bidList = new ArrayList<>();
 
             for (ExchangeInfo booking : ei) {
+                ExchangeDto ed=new ExchangeDto();
                 //获取商品图片
                 //获取商品信息
                 QueryWrapper<Product> productWrapper = new QueryWrapper<>();
@@ -637,11 +635,21 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
             //预约信息
             BookingDto bok=new BookingDto();
             List<Booking> bi;
-            if (name.matches(ph)){
-                bi=accountRepository.findByPhone(name);
+            if(isbuyer==1){
+                if (name.matches(ph)){
+                    bi=accountRepository.findByBuyerId(name);
+                }
+                else{
+                    bi=accountRepository.findByNameLike("%"+name+"%");
+                }
             }
             else{
-                bi=accountRepository.findByNameLike("%"+name+"%");
+                if (name.matches(ph)){
+                    bi=accountRepository.findBySellerId(name);
+                }
+                else{
+                    bi=accountRepository.findByNameLike("%"+name+"%");
+                }
             }
             List<BookingDto> bidList = new ArrayList<>();
 
@@ -674,10 +682,10 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     @Override
     public Result sellerBookingByName(String number) {
         List<Booking> booklist= accountRepository.findByProductId(number);
-        BookDetails bookdto=new BookDetails();
         List<BookDetails> bidlist=new ArrayList<>();
         User user2;
         for (Booking value : booklist) {
+            BookDetails bookdto=new BookDetails();
             user2=userRepository.findByPhone(value.getBuyerId()).get();
             bookdto.setPhone(user2.getPhone());
             bookdto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));

@@ -28,7 +28,8 @@ public class ExchangeController {
     }
     //删除预约  /booking/delete
     @RequestMapping(value ="/booking/delete",method = RequestMethod.DELETE)
-    public ResponseEntity<?> deleteAppointments(@RequestParam String number) {
+    public ResponseEntity<?> deleteAppointments(@RequestBody Map<String, Object> param) {
+        String number = param.get("number").toString();
         return ResponseEntity.ok(service.deleteAppointments(number));
 
     }
@@ -90,19 +91,22 @@ public class ExchangeController {
 
     //删除订单   /orders/delete  输入订单编号number
     @RequestMapping(value ="/orders/delete",method = RequestMethod.DELETE)
-    public ResponseEntity<?> delete(@RequestParam String number) {
+    public ResponseEntity<?> delete(@RequestBody Map<String, Object> param) {
+        String number = param.get("number").toString();
         return ResponseEntity.ok(service.delete(number));
 
     }
     //seller删除订单 /orders/seller/delete  输入订单编号number
     @RequestMapping(value ="/orders/seller/delete",method = RequestMethod.DELETE)
-    public ResponseEntity<?> sellerDelete(@RequestParam String number) {
+    public ResponseEntity<?> sellerDelete(@RequestBody Map<String, Object> param) {
+        String number = param.get("number").toString();
         return ResponseEntity.ok(service.sellerDelete(number));
 
     }
     //buyer删除订单  输入订单编号number
     @RequestMapping(value ="/orders/buyer/delete",method = RequestMethod.DELETE)
-    public ResponseEntity<?> buyerDelete(@RequestParam String number) {
+    public ResponseEntity<?> buyerDelete(@RequestBody Map<String, Object> param) {
+        String number = param.get("number").toString();
         return ResponseEntity.ok(service.buyerDelete(number));
 
     }

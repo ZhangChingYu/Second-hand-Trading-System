@@ -75,7 +75,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
 
                         //图片路径
                         String picture1;
-                        if(u.getAvatar().isEmpty()){
+                        if(u.getAvatar().isEmpty()||u.getAvatar()==null){
                             //默认图片
                             picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                             u.setAvatar(picture1);
@@ -85,7 +85,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                             picture1= ReadFile.getBaseFile(u.getAvatar());
                             u.setAvatar(picture1);
                         }
-                        if(!u.getPicture().isEmpty()){
+                        if(!u.getPicture().isEmpty()||u.getPicture()!=null){
                             String picture2;
                             picture2= ReadFile.getBaseFile(u.getPicture());
                             // picture2 = readFile.getpictureBase64("Authentication",u.getPhone(),1);
