@@ -44,7 +44,7 @@ public class EvaluatePacking {  // 將BuyerEvaluate包裝成Vo的工具
         BuyerInfoPack buyerInfoPack = new BuyerInfoPack();
         buyerInfoPack.setBuyerPhone(buyer.getPhone());
         buyerInfoPack.setBuyerName(transferUTF8.UTF8toC(buyer.getUserName()));
-        buyerInfoPack.setBuyerHeadPic(readFile.readAvatarPicture(readFile.getAvatarPicture(buyer.getPhone())));
+        buyerInfoPack.setBuyerHeadPic(readFile.readAvatarPicture(buyer.getPhone()));
         return buyerInfoPack;
     }
 }

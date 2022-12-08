@@ -32,21 +32,31 @@ public class ReadFile {
     }
 
     // 將某一商品的所有圖片依序轉換成Base64編碼輸出的方法
-    public List<String> getPicturesBase64(String number, Integer size){
+    public List<String> getProductPicturesBase64(String number, Integer size){
         // 通過商品編碼和照片數返回圖片的base64編碼表
         List<String> pictures = new ArrayList<>();
         Character catalog = number.charAt(0);   // 商品類型編碼
         if(size == 0){
             return null;    // 如果該商品沒有照片，則返回null
         }
-        for(int i = 0; i < size; i++){
-            String url = picture_url+catalog+"/"+number+"/"+number+"_"+i+".jpg";
+        List<String> pictures_url = getProductPictureURL(number);   // 獲取該商品文件目錄下所有圖片路徑
+        for(String pic_url : pictures_url){
+            String url = pic_url;
             String base64 = ReadFile.getBaseFile(url);
             pictures.add(base64);
         }
         return pictures;
     }
-    public String readAvatarPicture(String filePath){
+    // 獲取商品的封面圖片
+    public String getProductCoverPic(String number){
+        List<String> picture_urls = getProductPictureURL(number);
+        String cover_url = picture_urls.get(0);
+        return getBaseFile(cover_url);
+    }
+    public String readAvatarPicture(String phone){  // 根據用戶手機號返回頭像的base64編碼
+        File avatar_file = new File(auth_url+phone+"/Avatar");
+        File[] picture_url = avatar_file.listFiles();   // 拿第一張就行
+        String filePath = picture_url[0].getPath();
         return getBaseFile(filePath);
     }
 
@@ -85,6 +95,19 @@ public class ReadFile {
             }
         }
         return out;
+    }
+
+    public List<String> getProductPictureURL(String number){    // 獲取商品文件目錄下所有圖片的地址
+        List<String> pictures = new ArrayList<>();
+        String catalog = number.substring(0,1);
+        String root = picture_url + catalog + "/" + number;
+        File product_file = new File(root);
+        File[] pic_url = product_file.listFiles();
+        for(File pic : pic_url){
+            String picture = pic.getPath();
+            pictures.add(picture);
+        }
+        return pictures;
     }
 
     public List<String> getSubFileNames(String root){

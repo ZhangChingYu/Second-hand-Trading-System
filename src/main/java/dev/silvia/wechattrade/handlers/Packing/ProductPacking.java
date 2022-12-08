@@ -21,6 +21,7 @@ import java.util.List;
 public class ProductPacking {
     private String picture_url = FileDirector.PRODUCT_URL;
     TransferUTF8 transferUTF8 = new TransferUTF8();
+    private ReadFile readFile = new ReadFile();
 
     // 將List<Product>類包裝成List<ProductOutlineVo>的方法
     public List<ProductOutlineVo> ProductToOutline(List<Product> products){
@@ -135,8 +136,7 @@ public class ProductPacking {
     // 返回封面
     private String getCoverPic(Product product){
         if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
-            String url = picture_url+product.getCatalog()+"/"+product.getNumber()+"/"+product.getNumber()+"_0.jpg";
-            return ReadFile.getBaseFile(url);
+            return readFile.getProductCoverPic(product.getNumber());
         }   // 若無照片則ProductOutlineDto中的picture=null
         return null;
     }

@@ -69,7 +69,7 @@ public class ProductManageServiceImpl extends ServiceImpl<ProductDao, Product> i
     public UploadRequestDetailVo readUploadRequest(String number) {
         Product product = getProduct(number);
         User user = getUser(product.getSPhone());
-        List<String> pictures = readFile.getPicturesBase64(number, product.getPicture());
+        List<String> pictures = readFile.getProductPicturesBase64(number, product.getPicture());
         UploadRequestDetailVo detailVo = productPacking.ProductToRequestDetail(product,user,pictures);
         return detailVo;
     }
