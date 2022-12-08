@@ -80,7 +80,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         List<String> picture2;
                         if(u.getAvatar().isEmpty()){
                             //默认图片
-                            picture1 = Collections.singletonList(ReadFile.getBaseFile(auth_url+u.getPhone()+"/Avatar/"+u.getPhone()+".jpg"));
+                            picture1 = Collections.singletonList(ReadFile.getBaseFile(FileDirector.AVATAR_DEFAULT_URL));
                             u.setAvatar(picture1.get(0));
                         }
                         else{

@@ -85,16 +85,6 @@ public class WriteFile {
         }
     }
 
-    private String createDir(String root, String dir){
-        File url = new File(root+"/"+dir);
-        if(!url.isDirectory()){
-            if(!url.mkdirs()){
-                return null;
-            }
-        }
-        return root+"/"+dir;
-    }
-
     public int storeOnePicture(String catalog, String number, Integer index, MultipartFile picture){
         String pathName = picture_url + catalog + "/" + number;
         File folder = new File(pathName);
@@ -117,36 +107,31 @@ public class WriteFile {
         return 201; // 存儲成功
     }
 
-    // 將圖片文件寫入磁盤
-    public int storePictures(String catalog, String number, List<MultipartFile> pictures){
-        // C:/Users/Sunny/Desktop/Products/catalog/number
-        String pathName = picture_url + catalog + "/" + number;
-        Integer length = pictures.size();   // 獲取照片數
-        File folder = new File(pathName);
-        if(!folder.isDirectory()){
-            if(!folder.mkdirs()){
-                return 808; // 路徑創建失敗
+    public int createUserFilePath(String phone){    // 註冊時創建用戶文件路徑
+        String avatarPath = FileDirector.AUTH_URL.substring(0,27);
+        String authenticationPath = FileDirector.AUTH_URL.substring(0,27);
+        Integer[] check = {0,0};
+        if(createDir(avatarPath, phone) != null){
+            avatarPath = createDir(avatarPath, phone);
+            authenticationPath = createDir(authenticationPath, phone);
+            if(createDir(avatarPath, "Avatar")!= null){
+                // C:/Users/Sunny/Desktop/(Phone)/Avatar
+                check[0] = 1;
+            }
+            if(createDir(authenticationPath, "Authentication") != null){
+                // C:/Users/Sunny/Desktop/(Phone)/Authentication
+                check[1] = 1;
             }
         }
-        for(int i = 0; i < length; i++){
-            String oldName = pictures.get(i).getOriginalFilename();
-            assert oldName != null;
-            // 已馬克杯為例: 編號_0.jpg 編號_1.jpg
-            String newName = number+ "_" + i + oldName.substring(oldName.lastIndexOf("."));
-            try {
-                pictures.get(i).transferTo(new File(folder, newName));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            String path = pathName + "/" + newName;
-            System.out.println(path);
+        if(check[0].equals(check[1]) && check[0].equals(1)){
+            return 201; // 路徑創建完成
         }
-        return 201;
+        return 800;     // 路徑創建失敗
     }
 
     public int storeAuthenticationPicture(String phone, MultipartFile picture){
-        // C:/Users/Sunny/Desktop/User/12434789874/Avatar
-        String pathName = auth_url + phone+"/Avatar";
+        // C:/Users/Sunny/Desktop/User/12434789874/Authentication
+        String pathName = auth_url + phone+"/Authentication";
         File folder = new File(pathName);
         if(!folder.isDirectory()){
             if(!folder.mkdirs()){
@@ -168,8 +153,8 @@ public class WriteFile {
     }
 
     public int storeAvatarPicture(String phone, MultipartFile picture){
-        // C:/Users/Sunny/Desktop/User/12434789874/Authentication
-        String pathName = auth_url + phone+"/Authentication";
+        // C:/Users/Sunny/Desktop/User/12434789874/Avatar
+        String pathName = auth_url + phone+"/Avatar";
         File folder = new File(pathName);
         if(!folder.isDirectory()){
             if(!folder.mkdirs()){
@@ -190,30 +175,14 @@ public class WriteFile {
         return 201; // 存儲成功
     }
 
-
-    public int storeAvatarPicture(String catalog, String phone, List<MultipartFile> pictures) {
-        String pathName = auth_url + catalog +"/" + phone;
-        Integer length = pictures.size();   // 獲取照片數
-        File folder = new File(pathName);
-        if(!folder.isDirectory()){
-            if(!folder.mkdirs()){
-                return 808; // 路徑創建失敗
+    private String createDir(String root, String dir){
+        File url = new File(root+"/"+dir);
+        if(!url.isDirectory()){
+            if(!url.mkdirs()){
+                return null;
             }
         }
-        for(int i = 0; i < length; i++){
-            String oldName = pictures.get(i).getOriginalFilename();
-            assert oldName != null;
-            // 頭像路徑範例: C:/Users/Sunny/Desktop/Avatar/15023189401/15023189401.jpg
-            String newName = phone+ "_" + i + oldName.substring(oldName.lastIndexOf("."));
-            try {
-                pictures.get(i).transferTo(new File(folder, newName));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            String path = pathName + "/" + newName;
-            System.out.println(path);
-        }
-        return 201;
+        return root+"/"+dir;
     }
 }
 

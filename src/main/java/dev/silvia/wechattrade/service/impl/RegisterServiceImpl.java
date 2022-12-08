@@ -9,11 +9,16 @@ import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.Packing.SystemNotePacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.UserNameGenerator;
+import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.IRegisterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +31,7 @@ public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements I
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
-    private Gson gson = new Gson();
+    private WriteFile writeFile;
     @Autowired
     TransferUTF8 transferUTF8;
     @Autowired
@@ -58,6 +63,9 @@ public class RegisterServiceImpl extends ServiceImpl<UserDao, User> implements I
             if(success == 1){
                 if(sendWelcomeNotification(user.getPhone()) == 201){
                     System.out.println("Welcome notification sent.");
+                }
+                if(writeFile.createUserFilePath(user.getPhone()) == 201){
+                    System.out.println("User file path created.");
                 }
                 return 201; // 註冊成功
             }
