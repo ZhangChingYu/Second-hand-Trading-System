@@ -17,7 +17,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 @Component
 public class ProductPacking {
@@ -112,9 +111,9 @@ public class ProductPacking {
         if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
             Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
             myProduct.setCoverPic(map.get("picture").toString());
-            myProduct.setPictureFormat(map.get("format").toString());
+            myProduct.setCoverPicFormat(map.get("format").toString());
         }else {     // 若無照片則ProductOutlineDto中的picture=null
-            myProduct.setPictureFormat(null);
+            myProduct.setCoverPicFormat(null);
             myProduct.setCoverPic(null);
         }
         return myProduct;
