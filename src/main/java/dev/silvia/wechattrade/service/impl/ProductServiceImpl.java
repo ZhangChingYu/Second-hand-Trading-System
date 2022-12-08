@@ -48,9 +48,10 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
         String sql = "select * from user_info where phone='"+product.getSPhone()+"'";
         User seller = jdbcTemplate.queryForObject(sql, new BeanPropertyRowMapper<>(User.class));
         // 開始準備商品信息
-        List<String> pictures = readFile.getProductPicturesBase64(product.getNumber(), product.getPicture());
+        List<String> pictures = readFile.getProductPictures(product.getNumber(), product.getPicture());
+        List<String> picturesFormat = readFile.getProductPicturesFormat(product.getNumber(), product.getPicture());
         String seller_pic = readFile.readAvatarPicture(seller.getPhone());
-        detail = productPacking.ProductUserToDetail(product, seller, seller_pic, pictures);
+        detail = productPacking.ProductUserToDetail(product, seller, seller_pic, pictures, picturesFormat);
         return detail;
     }
 

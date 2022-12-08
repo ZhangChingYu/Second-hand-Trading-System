@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 @Component
 public class ProductPacking {
@@ -40,7 +42,14 @@ public class ProductPacking {
         outline.setName(transferUTF8.UTF8toC(product.getName()));
         outline.setNumber(product.getNumber());
         outline.setPrice(product.getPrice());
-        outline.setCoverPic(getCoverPic(product));
+        if(product.getPicture() > 0){   // 有圖片的話取第一張做封面
+            Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
+            outline.setCoverPic(map.get("picture").toString());
+            outline.setCoverPicFormat(map.get("format").toString());
+        }else {
+            outline.setCoverPicFormat(null);
+            outline.setCoverPic(null);
+        }
         return outline;
     }
 
@@ -61,13 +70,20 @@ public class ProductPacking {
         likeVo.setName(transferUTF8.UTF8toC(product.getName()));
         likeVo.setNumber(product.getNumber());
         likeVo.setPrice(product.getPrice());
-        likeVo.setCoverPic(getCoverPic(product));
+        if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
+            Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
+            likeVo.setCoverPic(map.get("picture").toString());
+            likeVo.setCoverPicFormat(map.get("format").toString());
+        }else { // 若無照片則ProductOutlineDto中的picture=null
+            likeVo.setCoverPic(null);
+            likeVo.setCoverPicFormat(null);
+        }
         likeVo.setIntro(transferUTF8.UTF8toC(product.getIntro()));
         return likeVo;
     }
 
     // 將Product類和User類封裝成ProductDetailVo類的方法
-    public ProductDetailVo ProductUserToDetail(Product product, User seller, String seller_pic, List<String> pictures){
+    public ProductDetailVo ProductUserToDetail(Product product, User seller, String seller_pic, List<String> pictures, List<String> picturesFormat){
         ProductDetailVo detail = new ProductDetailVo();
         // 開始準備商品信息
         detail.setName(transferUTF8.UTF8toC(product.getName()));
@@ -80,6 +96,7 @@ public class ProductPacking {
         detail.setIntro(transferUTF8.UTF8toC(product.getIntro()));
         detail.setLike_count(product.getLikeCount());
         detail.setPicture_count(product.getPicture());
+        detail.setPictureFormats(picturesFormat);
         detail.setPictures(pictures);
         return detail;
     }
@@ -92,7 +109,14 @@ public class ProductPacking {
         myProduct.setName(transferUTF8.UTF8toC(product.getName()));
         myProduct.setPrice(product.getPrice());
         myProduct.setStatus(product.getStatus());
-        myProduct.setCoverPic(getCoverPic(product));
+        if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
+            Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
+            myProduct.setCoverPic(map.get("picture").toString());
+            myProduct.setPictureFormat(map.get("format").toString());
+        }else {     // 若無照片則ProductOutlineDto中的picture=null
+            myProduct.setPictureFormat(null);
+            myProduct.setCoverPic(null);
+        }
         return myProduct;
     }
 
@@ -108,7 +132,7 @@ public class ProductPacking {
         return outlineVo;
     }
     // 將Product包裝成UploadRequestDetailVo的方法
-    public UploadRequestDetailVo ProductToRequestDetail(Product product, User seller, List<String> pictures){
+    public UploadRequestDetailVo ProductToRequestDetail(Product product, User seller, List<String> pictures, List<String> picturesFormat){
         UploadRequestDetailVo detailVo = new UploadRequestDetailVo();
         detailVo.setNumber(product.getNumber());
         detailVo.setName(transferUTF8.UTF8toC(product.getName()));
@@ -121,6 +145,7 @@ public class ProductPacking {
         detailVo.setStorage(product.getStorage());
         detailVo.setIntro(transferUTF8.UTF8toC(product.getIntro()));
         detailVo.setPicture_count(product.getPicture());
+        detailVo.setPictureFormats(picturesFormat);
         detailVo.setPictures(pictures);
         return detailVo;
     }
@@ -133,11 +158,4 @@ public class ProductPacking {
         return dateFormat;
     }
 
-    // 返回封面
-    private String getCoverPic(Product product){
-        if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
-            return readFile.getProductCoverPic(product.getNumber());
-        }   // 若無照片則ProductOutlineDto中的picture=null
-        return null;
-    }
 }

@@ -9,5 +9,6 @@ public class MyProductVo {
     private Integer status;  // 狀態
     private String name;    // 名稱
     private Double price;   // 價格
+    private String pictureFormat;   // 圖片格式jpg,png...
     private String coverPic;// 封面圖片
 }

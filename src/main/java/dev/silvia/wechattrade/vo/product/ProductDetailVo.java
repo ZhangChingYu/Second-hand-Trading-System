@@ -16,5 +16,6 @@ public class ProductDetailVo {     // 商品信息顯示用
     private String intro;       // 商品介紹
     private Integer like_count;       // 收藏數
     private Integer picture_count;     // 照片數
+    private List<String> pictureFormats;    // 每個圖片的格式
     private List<String> pictures;      // 照片的base64編碼表
 }

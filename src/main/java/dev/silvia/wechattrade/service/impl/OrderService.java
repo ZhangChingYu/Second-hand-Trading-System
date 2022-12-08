@@ -269,7 +269,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                 bookdto.setCoverPic(path);
             }
             else{
-                List<String> pictures = readFile.getProductPicturesBase64(ex.getProductNum(), pro.getPictures().size());
+                List<String> pictures = readFile.getProductPictures(ex.getProductNum(), pro.getPictures().size());
                 bookdto.setCoverPic(pictures.get(0));
             }
             bookdto.setPice(ex.getPrice());
@@ -303,7 +303,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                     bookdto.setCoverPic(path);
                 }
                 else{
-                    List<String> pictures = readFile.getProductPicturesBase64(ex.getProductNum(), pro.getPictures().size());
+                    List<String> pictures = readFile.getProductPictures(ex.getProductNum(), pro.getPictures().size());
                     bookdto.setCoverPic(pictures.get(0));
                 }
                 bookdto.setPice(ex.getPrice());
@@ -339,7 +339,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                     bookdto.setCoverPic(path);
                 }
                 else{
-                    List<String> pictures = readFile.getProductPicturesBase64(ex.getProductNum(), pro.getPictures().size());
+                    List<String> pictures = readFile.getProductPictures(ex.getProductNum(), pro.getPictures().size());
                     bookdto.setCoverPic(pictures.get(0));
                 }
                 bookdto.setPice(ex.getPrice());
@@ -425,7 +425,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                     bookdto.setCoverPic(path);
                 }
                 else{
-                    List<String> pictures = readFile.getProductPicturesBase64(bidList.get(i).getProductId(), pro.getPictures().size());
+                    List<String> pictures = readFile.getProductPictures(bidList.get(i).getProductId(), pro.getPictures().size());
                     bookdto.setCoverPic(pictures.get(0));
                 }
 
@@ -459,7 +459,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                     bookdto.setCoverPic(path);
                 }
                 else{
-                    List<String> pictures = readFile.getProductPicturesBase64(bidList.get(i).getProductId(), pro.getPictures().size());
+                    List<String> pictures = readFile.getProductPictures(bidList.get(i).getProductId(), pro.getPictures().size());
                     bookdto.setCoverPic(pictures.get(0));
                 }
 
@@ -490,7 +490,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                 bookdto.setCoverPic(path);
             }
             else{
-                List<String> pictures = readFile.getProductPicturesBase64(bidList.get(i).getProductId(), pro.getPictures().size());
+                List<String> pictures = readFile.getProductPictures(bidList.get(i).getProductId(), pro.getPictures().size());
                 bookdto.setCoverPic(pictures.get(0));
             }
             bookdto.setPice(bidList.get(i).getPrice());

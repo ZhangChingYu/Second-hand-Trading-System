@@ -17,5 +17,6 @@ public class UploadRequestDetailVo {    // 上架請求的詳情
     private Integer storage;    // 商品庫存
     private String intro;       // 商品介紹
     private Integer picture_count;     // 照片數
+    private List<String> pictureFormats;    // 照片的格式
     private List<String> pictures;      // 照片的base64編碼表
 }

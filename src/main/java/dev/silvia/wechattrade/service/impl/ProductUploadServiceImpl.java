@@ -30,8 +30,6 @@ public class ProductUploadServiceImpl extends ServiceImpl<ProductDao, Product> i
     @Autowired
     private ProductDao productDao;
     @Autowired
-    private UserDao userDao;
-    @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
     private TransferUTF8 transferUTF8;
