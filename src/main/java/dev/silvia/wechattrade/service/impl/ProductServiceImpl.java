@@ -67,6 +67,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> getProductByCatalog(String c_number) {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.eq("catalog", c_number);
+        wrapper.eq("status", 0);
         List<Product> products = productDao.selectList(wrapper);
         List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
@@ -76,6 +77,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> searchProductByKey(String keyword) {
         String key = transferUTF8.CtoUTF8(keyword);
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
+        wrapper.eq("status", 0);
         wrapper.like("name", key);
         List<Product> products = productDao.selectList(wrapper);
         List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
@@ -86,6 +88,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> homepageProducts() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         //wrapper.between("id", 10, 20);
+        wrapper.eq("status", 0);
         List<Product> products = productDao.selectList(wrapper);
         List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
@@ -124,6 +127,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> homepageProductNew() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("id");
+        wrapper.eq("status",0);
         List<Product> products = productDao.selectList(wrapper);
         return get10Outline(products);
     }
@@ -132,6 +136,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> homepageProductLike() {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("like_count");
+        wrapper.eq("status", 0);
         List<Product> products = productDao.selectList(wrapper);
         return get10Outline(products);
     }
@@ -140,6 +145,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     public List<ProductOutlineVo> homepagePromote(String number) {
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("like_count");
+        wrapper.eq("status",0);
         List<Product> products = productDao.selectList(wrapper);
         return get10Outline(products);
     }
