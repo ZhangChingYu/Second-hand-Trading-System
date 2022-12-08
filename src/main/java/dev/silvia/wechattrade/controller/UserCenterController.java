@@ -54,7 +54,7 @@ public class UserCenterController {
     public ResponseEntity<?> personalinfo(@RequestBody User user){
         return ResponseEntity.ok(service.PersonalInfo(user));
     }
-
+   /**
     //实名认证
     @RequestMapping(value ="/setting/authentication")
     @ResponseBody
@@ -68,7 +68,7 @@ public class UserCenterController {
         auth.setIdNumber(params.getParameter("idNumber"));
         return ResponseEntity.ok(service.authentication(auth));
     }
-
+*/
     //修改头像
     @RequestMapping(value ="/setting/swapRelatedAvatar")
     @ResponseBody

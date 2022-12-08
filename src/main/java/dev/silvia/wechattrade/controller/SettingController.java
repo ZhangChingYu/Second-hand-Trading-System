@@ -3,15 +3,13 @@ package dev.silvia.wechattrade.controller;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dto.address.AddressCreateDto;
 import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
+import dev.silvia.wechattrade.dto.authentication.AuthRequestDto;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.IUserNotificationService;
 import dev.silvia.wechattrade.service.IUserSettingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -127,5 +125,10 @@ public class SettingController {
     public Integer deleteReadNotification(@RequestBody Map<String, Object> param){
         String phone = param.get("phone").toString();
         return UNService.deleteReadNotification(phone);
+    }
+    //@UserLoginToken
+    @RequestMapping(value ="/setting/authentication", method = RequestMethod.POST)
+    public Integer UserPostAuthenticationRequest(AuthRequestDto dto){
+        return USService.UserPostAuthenticationRequest(dto);
     }
 }

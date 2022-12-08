@@ -3,6 +3,7 @@ package dev.silvia.wechattrade.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import dev.silvia.wechattrade.dto.address.AddressCreateDto;
 import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
+import dev.silvia.wechattrade.dto.authentication.AuthRequestDto;
 import dev.silvia.wechattrade.dto.response.Result;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.vo.AddressVo;
@@ -26,6 +27,7 @@ public interface IUserSettingService extends IService<User> {
     Optional<Result> Acquisition(Integer id);
     //实名认证
     Result authentication(AuthenticationVo request);
+    Integer UserPostAuthenticationRequest(AuthRequestDto authRequestDto);    // 用戶發送實名認證請求
 
     Result swapRelatedAvatar(String phone,String avatar);
 

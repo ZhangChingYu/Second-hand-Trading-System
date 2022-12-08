@@ -2,11 +2,14 @@ package dev.silvia.wechattrade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import dev.silvia.wechattrade.dao.AuthenticationRequestDao;
 import dev.silvia.wechattrade.dao.UserDao;
 import dev.silvia.wechattrade.dto.address.AddressCreateDto;
 import dev.silvia.wechattrade.dto.address.AddressUpdateDto;
+import dev.silvia.wechattrade.dto.authentication.AuthRequestDto;
 import dev.silvia.wechattrade.dto.response.Result;
 import dev.silvia.wechattrade.dto.response.ResultCode;
+import dev.silvia.wechattrade.entity.AuthenticationRequest;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.Packing.AddressPacking;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
@@ -24,6 +27,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,6 +35,8 @@ import java.util.Optional;
 public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implements IUserSettingService {
     @Autowired
     private UserDao userDao;
+    @Autowired
+    private AuthenticationRequestDao authRequestDao;
     @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
@@ -113,6 +119,30 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
             res=new Result(ResultCode.FAIL);
             return res;
         }
+    }
+
+    @Override
+    public Integer UserPostAuthenticationRequest(AuthRequestDto dto) {
+        User requester = getUser(dto.getPhone());
+        if(requester == null){
+            return 422; // 用戶不存在
+        }
+        if(requester.getAuthority() == 0){
+            return 200; // 已經是實名認證用戶
+        }
+        AuthenticationRequest authRequest = new AuthenticationRequest();
+        authRequest.setStatus(0);   // 未處理
+        authRequest.setDate(new Date());
+        authRequest.setPhone(dto.getPhone());
+        authRequest.setRealName(transferUTF8.CtoUTF8(dto.getRealName()));
+        authRequest.setIdNumber(dto.getIdNumber());
+        if(authRequestDao.insert(authRequest) > 0){
+            if(writeFile.storeAuthPicAtTemp(dto.getPhone(), dto.getIdCardPic()) == 800){
+                return 404; // 圖片上傳失敗
+            }
+            return 201; // 請求成功
+        }
+        return 422; // 數據庫添加失敗
     }
 
     @Override
