@@ -123,6 +123,7 @@
  *     [
  *        {
  *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
  *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
  *          "name":學生心理健康教育第二版",
  *          "price":7.9
@@ -145,6 +146,7 @@
  *     [
  *        {
  *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
  *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
  *          "name":學生心理健康教育第二版",
  *          "price":7.9
@@ -167,6 +169,49 @@
  *     [
  *        {
  *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
+ *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
+ *          "name":學生心理健康教育第二版",
+ *          "price":7.9
+ *        },
+ *          ....,{}
+ *     ]
+ */
+
+/**
+ * @api {get} /homepage/new/products 最新商品(top 10)
+ * @apiName TopTenNewestProducts
+ * @apiGroup 商品查詢
+ * @apiPermission none
+ *
+ * @apiDescription 最新商品(top 10)，返回最新上架的十個商品
+ *
+ * @apiSuccessExample 請求成功
+ *     [
+ *        {
+ *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
+ *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
+ *          "name":學生心理健康教育第二版",
+ *          "price":7.9
+ *        },
+ *          ....,{}
+ *     ]
+ */
+
+/**
+ * @api {get} /homepage/promote/products 根據用戶數據推薦的商品(top 10)
+ * @apiName TopTenCustomizedProducts
+ * @apiGroup 商品查詢
+ * @apiPermission none
+ *
+ * @apiDescription 根據用戶數據推薦的商品(top 10)，沒有真的實現，只是隨便返回10個
+ *
+ * @apiSuccessExample 請求成功
+ *     [
+ *        {
+ *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
  *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
  *          "name":學生心理健康教育第二版",
  *          "price":7.9
@@ -197,6 +242,7 @@
  *        "like_count":0,
  *        "picture_count":1,
  *        "storage":1,
+ *        "pictureFormats":["jpg"]
  *        "pictures":["/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAA.....(base64編碼，原文過長不全部展示)",...,"..."]
  *     }
  */
@@ -265,6 +311,7 @@
  *     [
  *        {
  *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
  *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
  *          "name":學生心理健康教育第二版",
  *          "price":7.9
@@ -288,6 +335,7 @@
  *     [
  *        {
  *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
  *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
  *          "name":學生心理健康教育第二版",
  *          "price":7.9
@@ -311,6 +359,7 @@
  *     [
  *        {
  *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
  *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
  *          "name":學生心理健康教育第二版",
  *          "price":7.9
@@ -676,36 +725,42 @@
  *              "status":0,
  *              "name":"考研真相英語一",
  *              "price":12.0,
+ *              "coverPicFormat":"jpg",
  *              "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAg....(base64編碼，原文過長不全部展示)
  *        },
  *        {
  *             "status":0,
  *             "name":"二手書",
  *             "price":8.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXh.......
  *        },
  *        {
  *             "status":0,
  *             "name":"思想道德與法治2021年版",
  *             "price":7.9,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYR......
  *         },
  *         {
  *             "status":0,
  *             "name":"中公小學教師資格證",
  *             "price":68.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4Q......
  *         },
  *         {
  *             "status":0,
  *             "name":"二手自考教材04729大學語文2018版徐中玉陶型傳北京大學出版社",
  *             "price":14.66,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAg......
  *         },
  *         {
  *             "status":0,
  *             "name":"國家教師資格考試",
  *             "price":15.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0.......
  *         }
  *     ]
@@ -732,18 +787,21 @@
  *              "status":0,
  *              "name":"考研真相英語一",
  *              "price":12.0,
+ *              "coverPicFormat":"jpg",
  *              "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAg....(base64編碼，原文過長不全部展示)
  *        },
  *         {
  *             "status":0,
  *             "name":"二手自考教材04729大學語文2018版徐中玉陶型傳北京大學出版社",
  *             "price":14.66,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAg......
  *         },
  *         {
  *             "status":0,
  *             "name":"國家教師資格考試",
  *             "price":15.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0.......
  *         }
  *     ]
@@ -770,36 +828,42 @@
  *              "status":0,
  *              "name":"考研真相英語一",
  *              "price":12.0,
+ *              "coverPicFormat":"jpg",
  *              "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAg....(base64編碼，原文過長不全部展示)
  *        },
  *        {
  *             "status":0,
  *             "name":"二手書",
  *             "price":8.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXh.......
  *        },
  *        {
  *             "status":0,
  *             "name":"思想道德與法治2021年版",
  *             "price":7.9,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYR......
  *         },
  *         {
  *             "status":0,
  *             "name":"中公小學教師資格證",
  *             "price":68.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4Q......
  *         },
  *         {
  *             "status":0,
  *             "name":"二手自考教材04729大學語文2018版徐中玉陶型傳北京大學出版社",
  *             "price":14.66,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAg......
  *         },
  *         {
  *             "status":0,
  *             "name":"國家教師資格考試",
  *             "price":15.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0.......
  *         }
  *     ]
@@ -826,36 +890,42 @@
  *              "status":0,
  *              "name":"考研真相英語一",
  *              "price":12.0,
+ *              "coverPicFormat":"jpg",
  *              "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAg....(base64編碼，原文過長不全部展示)
  *        },
  *        {
  *             "status":0,
  *             "name":"二手書",
  *             "price":8.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXh.......
  *        },
  *        {
  *             "status":0,
  *             "name":"思想道德與法治2021年版",
  *             "price":7.9,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYR......
  *         },
  *         {
  *             "status":0,
  *             "name":"中公小學教師資格證",
  *             "price":68.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4Q......
  *         },
  *         {
  *             "status":0,
  *             "name":"二手自考教材04729大學語文2018版徐中玉陶型傳北京大學出版社",
  *             "price":14.66,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAg......
  *         },
  *         {
  *             "status":0,
  *             "name":"國家教師資格考試",
  *             "price":15.0,
+ *             "coverPicFormat":"jpg",
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0.......
  *         }
  *     ]
@@ -1163,6 +1233,7 @@
  *          "storage":1,
  *          "intro":"由於尺碼買小了 穿不了 全新 質量和版型都很好 看上的小姐姐加QQ喔(QQ號: 3446572877)",
  *          "picture_count":6,
+ *          "pictureFormats":["jpg","jpg","jpg","jpg","jpg","jpg"],
  *          "pictures":
  *              [
  *                  "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4R....",
