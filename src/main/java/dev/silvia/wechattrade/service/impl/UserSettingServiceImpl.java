@@ -12,7 +12,6 @@ import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.AuthenticationRequest;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.Packing.AddressPacking;
-import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
 import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
@@ -41,8 +40,6 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     private JdbcTemplate jdbcTemplate;
     @Autowired
     TransferUTF8 transferUTF8;
-    @Autowired
-    private CheckUserAuthority CUA;
     @Autowired
     private ReadFile readFile;
     @Autowired
@@ -190,7 +187,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     // 不同地址用"#"區隔
     @Override
     public int addAddress(AddressCreateDto dto) {   // 格式是 add1#add2#add3#add4#.....addN#
-        if(!CUA.isAuthorized(dto.getPhone())){
+        if(getUser(dto.getPhone()).getAuthority()!=0){
             return 403; // 用戶無權限
         }
         String sql;
@@ -259,7 +256,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
 
     @Override
     public List<AddressVo> showAllAddress(String phone) {
-        if(!CUA.isAuthorized(phone)){
+        if(getUser(phone).getAuthority()!=0){
             return null;
         }
         User user = getUser(phone);

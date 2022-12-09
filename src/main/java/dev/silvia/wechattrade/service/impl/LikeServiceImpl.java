@@ -3,9 +3,10 @@ package dev.silvia.wechattrade.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import dev.silvia.wechattrade.dao.FavoriteInfoDao;
+import dev.silvia.wechattrade.dao.UserDao;
 import dev.silvia.wechattrade.entity.FavoriteInfo;
 import dev.silvia.wechattrade.entity.Product;
-import dev.silvia.wechattrade.handlers.CheckUserAuthority;
+import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.Packing.ProductPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.service.ILikeService;
@@ -25,13 +26,13 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
     @Autowired
     private FavoriteInfoDao favoriteInfoDao;
     @Autowired
+    private UserDao userDao;
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
     TransferUTF8 transferUTF8;
     @Autowired
     private ProductPacking productPacking;
-    @Autowired
-    private CheckUserAuthority CUA;
 
 
     @Override
@@ -45,8 +46,7 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
 
     @Override
     public int PressLikeButton(String phone, String number) {
-
-        if(CUA.isAuthorized(phone)){
+        if(getUser(phone).getAuthority() == 0){
             if(!checkLike(phone, number)){  // 如果未收藏該商品
                 FavoriteInfo favoriteInfo = new FavoriteInfo();
                 favoriteInfo.setNumber(number);
@@ -74,7 +74,7 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
 
     @Override
     public List<ProductLikeVo> showAllLike(String phone) {
-        if(!CUA.isAuthorized(phone)){ // 檢測用戶使否有權限
+        if(getUser(phone).getAuthority()!=0){ // 檢測用戶使否有權限
             return null;
         }
         QueryWrapper<FavoriteInfo> wrapper = new QueryWrapper<>();
@@ -173,6 +173,9 @@ public class LikeServiceImpl extends ServiceImpl<FavoriteInfoDao, FavoriteInfo> 
             default: return;
         }
     }
-
-
+    private User getUser(String phone){
+        QueryWrapper<User> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        return userDao.selectOne(wrapper);
+    }
 }

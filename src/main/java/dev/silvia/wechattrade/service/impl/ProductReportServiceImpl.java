@@ -11,7 +11,6 @@ import dev.silvia.wechattrade.entity.Notification;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.ProductReport;
 import dev.silvia.wechattrade.entity.User;
-import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.Packing.ReportPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.service.IProductReportService;
@@ -37,8 +36,6 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
     @Autowired
     ProductDao productDao;
     @Autowired
-    CheckUserAuthority CUA;
-    @Autowired
     ReportPacking reportPacking;
     @Autowired
     TransferUTF8 transferUTF8;
@@ -47,7 +44,7 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
 
     @Override
     public Integer userPostReport(ProductReportDto dto) {
-        if(!CUA.isAuthorized(dto.getPhone())){
+        if(getUser(dto.getPhone()).getAuthority()!=0){
             return 400;     // 用戶無權限
         }
         ProductReport report = new ProductReport();

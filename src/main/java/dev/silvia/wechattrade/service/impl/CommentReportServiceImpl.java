@@ -11,7 +11,6 @@ import dev.silvia.wechattrade.entity.CommentReport;
 import dev.silvia.wechattrade.entity.Notification;
 import dev.silvia.wechattrade.entity.ProductComment;
 import dev.silvia.wechattrade.entity.User;
-import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.Packing.ReportPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.service.ICommentReportService;
@@ -36,8 +35,6 @@ public class CommentReportServiceImpl extends ServiceImpl<CommentReportDao, Comm
     @Autowired
     ProductCommentDao productCommentDao;
     @Autowired
-    CheckUserAuthority CUA;
-    @Autowired
     ReportPacking reportPacking;
     @Autowired
     TransferUTF8 transferUTF8;
@@ -46,7 +43,7 @@ public class CommentReportServiceImpl extends ServiceImpl<CommentReportDao, Comm
 
     @Override
     public Integer userPostReport(CommentReportDto dto) {
-        if(!CUA.isAuthorized(dto.getPhone())){
+        if(getUser(dto.getPhone()).getAuthority() != 0){
             return 400; // 用戶無權限
         }
         CommentReport report = new CommentReport();

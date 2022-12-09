@@ -10,7 +10,6 @@ import dev.silvia.wechattrade.dto.comment.CommentReplyDto;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.ProductComment;
 import dev.silvia.wechattrade.entity.User;
-import dev.silvia.wechattrade.handlers.CheckUserAuthority;
 import dev.silvia.wechattrade.handlers.Packing.CommentPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
@@ -24,13 +23,10 @@ import org.springframework.stereotype.Service;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 @Service
 public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductComment> implements ICommentService {
-    @Autowired
-    private CheckUserAuthority CUA;
     @Autowired
     private ProductDao productDao;
     @Autowired
