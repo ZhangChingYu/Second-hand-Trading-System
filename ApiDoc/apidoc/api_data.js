@@ -648,7 +648,7 @@ define({ "api": [
         "name": "none"
       }
     ],
-    "description": "<p>獲取某商品的所有留言信息，留言是樹形結構，father_id為0的為根結點，這些根結點下的分枝節點為第一層回覆留言，以此類堆值到葉子節點結束。文字有點難以說明，看不懂的對接同學建議直接跟我發消息。</p>",
+    "description": "<p>獲取某商品的所有留言信息，留言有兩層: 第一層是根留言，第二層是根留言下所有回覆。</p>",
     "parameter": {
       "fields": {
         "Parameter": [
@@ -666,7 +666,7 @@ define({ "api": [
       "examples": [
         {
           "title": "請求成功(例子: 編號的商品)",
-          "content": "[\n   {\n       \"id\":1,\n       \"father_id\":0(表示沒有父留言),\n       \"userName\":\"阿花\",\n       \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAA....\",\n       \"date\":\"Dec 05 11:57:25 CST 2022\",\n       \"content\":\"\"請問適合梨形身材嗎?\"\",\n       \"replyVoList\":\n             [\n                 {\n                     \"id\":4,\n                     \"father_id\":1,\n                     \"userName\":\"15059417755\",\n                     \"fatherName\":\"阿花\",\n                     \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAA....\",\n                     \"date\":\"Dec 05 11:57:25 CST 2022\",\n                     \"content\":\"同問\",\n                     \"replyVoList\":[(如果沒有回覆的留言這裡會是空的)]\n                 },\n                 {\n                     (格式同上)\n                 },....\n             ]\n   },\n   {\n       \"id\":5,\n       \"father_id\":0(表示沒有父留言),\n       \"userName\":\"阿花\",\n       \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAA....\",\n       \"date\":\"Dec 05 11:57:25 CST 2022\",\n       \"content\":\"\"請問適合梨形身材嗎?\"\",\n       \"replyVoList\":[]\n   },...{}\n]",
+          "content": "[\n   {\n       \"id\":1,\n       \"userName\":\"Jamie Sanders\",\n       \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAA.....\",\n       \"date\":\"2022-12-05 11:57:25\",\n       \"content\":\"請問適合梨形身材嗎?\",\n       \"subComments\":\n         [\n             {\n                 \"id\":4,\n                 \"father_id\":1,\n                 \"userName\":\"天天\",\n                 \"fatherName\":\"Jamie Sanders\",\n                 \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAA.....\",\n                 \"date\":\"2022-12-05 12:02:12\",\n                 \"content\":\"同問\"\n             },\n             {\n                \"id\":5,\n                 \"father_id\":1,\n                 \"userName\":\"天天\",\n                 \"fatherName\":\"Jamie Sanders\",\n                 \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAA.....\",\n                 \"date\":\"2022-12-05 12:02:13\",\n                 \"content\":\"同問\"\n             },\n             {\n                 \"id\":6,\n                 \"father_id\":5,\n                 \"userName\":\"Jamie Sanders\",\n                 \"fatherName\":\"天天\",\n                 \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAA...\",\n                 \"date\":\"2022-12-09 12:10:05\",\n                 \"content\":\"有需要同問兩次嗎?無語\"\n             }\n         ]\n   },\n   {\n       \"id\":2,\n       \"userName\":\"天天\",\n       \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAA...\",\n       \"date\":\"2022-12-05 11:58:54\",\n       \"content\":\"請問裙子的材質是什麼?夏天會不會不透氣?\",\n       \"subComments\":[]\n   },\n   {\n       \"id\":3,\n       \"userName\":\"天天\",\n       \"headPic\":\"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAA...\",\n       \"date\":\"2022-12-05 12:00:01\",\n       \"content\":\"裙子穿脫方便嗎?會不會卡卡的?\",\n       \"subComments\":[]\n   }\n]",
           "type": "json"
         }
       ]

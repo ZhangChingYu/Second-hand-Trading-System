@@ -1108,7 +1108,7 @@
  * @apiGroup 商品留言
  * @apiPermission none
  *
- * @apiDescription 獲取某商品的所有留言信息，留言是樹形結構，father_id為0的為根結點，這些根結點下的分枝節點為第一層回覆留言，以此類堆值到葉子節點結束。文字有點難以說明，看不懂的對接同學建議直接跟我發消息。
+ * @apiDescription 獲取某商品的所有留言信息，留言有兩層: 第一層是根留言，第二層是根留言下所有回覆。
  *
  * @apiParam {String} number 商品編號
  *
@@ -1116,37 +1116,57 @@
  *     [
  *        {
  *            "id":1,
- *            "father_id":0(表示沒有父留言),
- *            "userName":"阿花",
- *            "headPic":"iVBORw0KGgoAAAANSUhEUgAAA....",
- *            "date":"Dec 05 11:57:25 CST 2022",
- *            "content":""請問適合梨形身材嗎?"",
- *            "replyVoList":
- *                  [
- *                      {
- *                          "id":4,
- *                          "father_id":1,
- *                          "userName":"15059417755",
- *                          "fatherName":"阿花",
- *                          "headPic":"iVBORw0KGgoAAAANSUhEUgAAA....",
- *                          "date":"Dec 05 11:57:25 CST 2022",
- *                          "content":"同問",
- *                          "replyVoList":[(如果沒有回覆的留言這裡會是空的)]
- *                      },
- *                      {
- *                          (格式同上)
- *                      },....
- *                  ]
+ *            "userName":"Jamie Sanders",
+ *            "headPic":"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAA.....",
+ *            "date":"2022-12-05 11:57:25",
+ *            "content":"請問適合梨形身材嗎?",
+ *            "subComments":
+ *              [
+ *                  {
+ *                      "id":4,
+ *                      "father_id":1,
+ *                      "userName":"天天",
+ *                      "fatherName":"Jamie Sanders",
+ *                      "headPic":"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAA.....",
+ *                      "date":"2022-12-05 12:02:12",
+ *                      "content":"同問"
+ *                  },
+ *                  {
+ *                     "id":5,
+ *                      "father_id":1,
+ *                      "userName":"天天",
+ *                      "fatherName":"Jamie Sanders",
+ *                      "headPic":"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAA.....",
+ *                      "date":"2022-12-05 12:02:13",
+ *                      "content":"同問"
+ *                  },
+ *                  {
+ *                      "id":6,
+ *                      "father_id":5,
+ *                      "userName":"Jamie Sanders",
+ *                      "fatherName":"天天",
+ *                      "headPic":"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAA...",
+ *                      "date":"2022-12-09 12:10:05",
+ *                      "content":"有需要同問兩次嗎?無語"
+ *                  }
+ *              ]
  *        },
  *        {
- *            "id":5,
- *            "father_id":0(表示沒有父留言),
- *            "userName":"阿花",
- *            "headPic":"iVBORw0KGgoAAAANSUhEUgAAA....",
- *            "date":"Dec 05 11:57:25 CST 2022",
- *            "content":""請問適合梨形身材嗎?"",
- *            "replyVoList":[]
- *        },...{}
+ *            "id":2,
+ *            "userName":"天天",
+ *            "headPic":"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAA...",
+ *            "date":"2022-12-05 11:58:54",
+ *            "content":"請問裙子的材質是什麼?夏天會不會不透氣?",
+ *            "subComments":[]
+ *        },
+ *        {
+ *            "id":3,
+ *            "userName":"天天",
+ *            "headPic":"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAA...",
+ *            "date":"2022-12-05 12:00:01",
+ *            "content":"裙子穿脫方便嗎?會不會卡卡的?",
+ *            "subComments":[]
+ *        }
  *     ]
  */
 
