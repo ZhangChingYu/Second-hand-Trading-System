@@ -108,7 +108,7 @@ public class ProductManageServiceImpl extends ServiceImpl<ProductDao, Product> i
         note.setSource(transferUTF8.CtoUTF8("系统管理员"));
         note.setDate(new Date());
         note.setType(1);    // [common]
-        note.setStatus(0);  // 未讀
+        note.setStatus(1);  // 未讀
         if(decision.equals("pass")){
             note.setTitle(transferUTF8.CtoUTF8("商品上架審核通過"));
             content = "恭喜您，您的商品 [" + productName + "] 已通過系统管理员的審核，目前已成功上架。\n" + explain;

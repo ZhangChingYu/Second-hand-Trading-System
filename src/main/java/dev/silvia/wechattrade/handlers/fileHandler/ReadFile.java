@@ -9,6 +9,7 @@ import java.util.*;
 public class ReadFile {
     private String picture_url = FileDirector.PRODUCT_URL;
     private String auth_url = FileDirector.AUTH_URL;
+    private String auth_temp_url = FileDirector.AUTHENTICATION_TEMP_URL;
     public static String getBaseFile(String filePath){
         if(filePath==null){
             return null;
@@ -57,6 +58,23 @@ public class ReadFile {
             pictures.add(base64);
         }
         return pictures;
+    }
+    public Map<String, Object> getAuthTempPic(String phone){
+        Map<String, Object> map = new HashMap<>();
+        String picture = "";
+        String format = "";
+        File folder = new File(auth_temp_url);
+        File[] picture_files = folder.listFiles();
+        for(File file : picture_files){
+            if(file.getName().contains(phone)){ // 找到相同手機號的文件
+                String file_path = file.getPath();
+                format = file.getName().substring(file.getName().lastIndexOf(".")).substring(1);
+                picture = getBaseFile(file_path);
+            }
+        }
+        map.put("format", format);
+        map.put("picture", picture);
+        return map;
     }
     // 獲取商品的封面圖片
     public Map<String, Object> getProductCoverPic(String number){

@@ -130,6 +130,9 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
         if(requester.getAuthority() == 0){
             return 200; // 已經是實名認證用戶
         }
+        if(checkIsAuthSent(dto.getPhone())){
+            return 203; // 已經發送過了，請耐心等待結果
+        }
         AuthenticationRequest authRequest = new AuthenticationRequest();
         authRequest.setStatus(0);   // 未處理
         authRequest.setDate(new Date());
@@ -373,6 +376,15 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
             return 800;     // 更新成功
         }
         return 400; // 沒有數據更新
+    }
+    private boolean checkIsAuthSent(String phone){  // 確認用戶是否重複傳送實名認證申請
+        QueryWrapper<AuthenticationRequest> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        wrapper.eq("status", 0);
+        if(authRequestDao.selectCount(wrapper) > 0){
+            return true;    // 已經存在實名請求
+        }
+        return false;
     }
 }
 

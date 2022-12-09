@@ -17,7 +17,7 @@ public class SystemNotePacking {    // 系統統一通知的信息內容包裝
 
     public Notification WelcomeNote(String target){
         Notification note = new Notification();
-        note.setStatus(0);  // 未讀
+        note.setStatus(1);  // 未讀
         note.setType(0);    // [new]
         note.setTarget(target);
         note.setSource(transferUTF8.CtoUTF8(SYSTEM_NAME));

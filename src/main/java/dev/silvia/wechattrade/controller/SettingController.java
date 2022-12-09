@@ -90,7 +90,7 @@ public class SettingController {
         String content = param.get("content").toString();
         return USService.sendFeedback(phone, content);
     }
-    @UserLoginToken
+    //@UserLoginToken
     @RequestMapping(value = "/setting/notifications", method = RequestMethod.GET)
     public String showAllNotification(HttpServletRequest request){
         String phone = request.getParameter("phone");

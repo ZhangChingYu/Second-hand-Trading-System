@@ -74,7 +74,7 @@ public class ReportPacking {
     public Notification autoCommentReport(String title, String to, boolean isViolator, String result, String comment){
         Notification note = new Notification();
         String content = "";
-        note.setStatus(0);  // 設置為未讀
+        note.setStatus(1);  // 設置為未讀
         note.setSource(transferUTF8.CtoUTF8("系统管理员"));
         note.setTitle(transferUTF8.CtoUTF8(title));
         note.setTarget(to);
@@ -99,7 +99,7 @@ public class ReportPacking {
     public Notification autoProductReport(String explain, String title, String to, boolean isSeller, String productName, String result){ // 自動生成商品舉報通知
         Notification note = new Notification();
         String content = "";
-        note.setStatus(0);  // 設置為未讀
+        note.setStatus(1);  // 設置為未讀
         note.setSource(transferUTF8.CtoUTF8("系统管理员"));
         note.setTitle(transferUTF8.CtoUTF8(title));
         note.setTarget(to);
