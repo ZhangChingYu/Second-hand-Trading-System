@@ -1718,3 +1718,159 @@
  *          },....{}
  *      ]
  */
+
+/**
+ * @api {POST} /setting/authentication 發送實名認證請求
+ * @apiName UserPostAuthenticationRequest
+ * @apiGroup 設置:實名認證
+ * @apiPermission none
+ *
+ * @apiDescription 用戶申請實名認證功能。本系統實名認證審核的流程是: 用戶上傳身分信息-->信息進入審核階段-->審核成功/失敗-->用戶權限更改/不更改。用戶可以在[設置]-->[系統消息]察看結果。
+ *
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {String} realName 用戶真實姓名
+ * @apiParam {String} idNumber 身分證號碼
+ * @apiParam {File} idCardPic 身分證照片(這些都用form-data傳就行)
+ *
+ * @apiSuccessExample 信息上傳成功
+ *     {
+ *          201
+ *     }
+ * @apiSuccessExample 已是實名認證用戶
+ *     {
+ *          200
+ *     }
+ * @apiSuccessExample 已經發送過了，請耐心等待結果
+ *     {
+ *          203
+ *     }
+ * @apiErrorExample 用戶不存在/數據庫添加失敗
+ *     {
+ *          422
+ *     }
+ * @apiErrorExample 圖片上傳失敗
+ *     {
+ *          404
+ *     }
+ */
+
+/**
+ * @api {GET} /authentication/requests 顯示所有實名認證請求
+ * @apiName GetAllAuthenticationRueqest
+ * @apiGroup 服務端:用戶管理
+ * @apiPermission none
+ *
+ * @apiDescription 顯示所有未處理的實名認證請求
+ *
+ * @apiSuccessExample 請求成功(例子)
+ *     [
+ *         {
+ *              "id":7,
+ *              "phone":"15049936157",
+ *              "realName":"楊單詞",
+ *              "date":"2022-12-09 09:39:39",
+ *              "status":0
+ *          },
+ *          {
+ *              "id":8,
+ *              "phone":"15013729832",
+ *              "realName":"鄧紫祺",
+ *              "date":"2022-12-09 09:40:44",
+ *              "status":0
+ *          },
+ *          {
+ *              "id":10,
+ *              "phone":"15083622395",
+ *              "realName":"陳八方",
+ *              "date":"2022-12-09 10:00:38",
+ *              "status":0
+ *          }
+ *     ]
+ */
+
+/**
+ * @api {GET} /authentication/requests/status 根據處理狀態顯示實名認證請求
+ * @apiName GetAuthenticationRequestByStatus
+ * @apiGroup 服務端:用戶管理
+ * @apiPermission none
+ *
+ * @apiDescription 根據處理狀態顯示實名認證請求
+ *
+ * @apiParam {Integer} status 處理狀態(0:未處理, 1:通過, 2: 不通過)
+ *
+ * @apiSuccessExample 請求成功(例子:0)
+ *    [
+ *         {
+ *              "id":7,
+ *              "phone":"15049936157",
+ *              "realName":"楊單詞",
+ *              "date":"2022-12-09 09:39:39",
+ *              "status":0
+ *          },
+ *          {
+ *              "id":8,
+ *              "phone":"15013729832",
+ *              "realName":"鄧紫祺",
+ *              "date":"2022-12-09 09:40:44",
+ *              "status":0
+ *          },
+ *          {
+ *              "id":10,
+ *              "phone":"15083622395",
+ *              "realName":"陳八方",
+ *              "date":"2022-12-09 10:00:38",
+ *              "status":0
+ *          }
+ *     ]
+ */
+
+/**
+ * @api {GET} /authentication/request 管理員閱讀實名認證請求
+ * @apiName ReadAuthenticationRequest
+ * @apiGroup 服務端:用戶管理
+ * @apiPermission none
+ *
+ * @apiDescription 管理員閱讀實名認證請求，並據此給出判決。
+ *
+ * @apiParam {Integer} id 實名認證請求id
+ *
+ * @apiSuccessExample 請求成功(例子:10)
+ *     {
+ *          "id":10,
+ *          "phone":"15083622395",
+ *          "date":"2022-12-09 10:00:38",
+ *          "realName":"陳八方",
+ *          "format":"jpg(圖片格式，顯示圖片用)",
+ *          "idCardPic":"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAA..."
+ *     }
+ */
+
+/**
+ * @api {PUT} /authentication/request 處理實名認證請求
+ * @apiName ProcessAuthenticationRequest
+ * @apiGroup 服務端:用戶管理
+ * @apiPermission none
+ *
+ * @apiDescription 管理員在察看具體信息後給出判決decision(pass:通過, reject:不通過)，系統會自動對用戶信息做相應的更動，並發送通知告知結果。
+ *
+ * @apiParam {Integer} id 實名認證請求id
+ * @apiParam {String} decision 判決(pass/reject)
+ * @apiParam {String} explain 管理員對判決給出相應的解釋
+ *
+ * @apiSuccessExample 處理成功
+ *     {
+ *          201
+ *     }
+ * @apiErrorExample 用戶數據更新失敗/數據庫更新失敗
+ *     {
+ *          422
+ *     }
+ * @apiErrorExample 圖片操作失敗
+ *     {
+ *          400
+ *     }
+ * @apiErrorExample 請求格式錯誤(decision只能是pass或reject)
+ *     {
+ *          404
+ *     }
+ */

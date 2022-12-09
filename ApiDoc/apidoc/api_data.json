@@ -2150,6 +2150,178 @@
   },
   {
     "type": "GET",
+    "url": "/authentication/requests",
+    "title": "顯示所有實名認證請求",
+    "name": "GetAllAuthenticationRueqest",
+    "group": "服務端:用戶管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>顯示所有未處理的實名認證請求</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子)",
+          "content": "[\n    {\n         \"id\":7,\n         \"phone\":\"15049936157\",\n         \"realName\":\"楊單詞\",\n         \"date\":\"2022-12-09 09:39:39\",\n         \"status\":0\n     },\n     {\n         \"id\":8,\n         \"phone\":\"15013729832\",\n         \"realName\":\"鄧紫祺\",\n         \"date\":\"2022-12-09 09:40:44\",\n         \"status\":0\n     },\n     {\n         \"id\":10,\n         \"phone\":\"15083622395\",\n         \"realName\":\"陳八方\",\n         \"date\":\"2022-12-09 10:00:38\",\n         \"status\":0\n     }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:用戶管理"
+  },
+  {
+    "type": "GET",
+    "url": "/authentication/requests/status",
+    "title": "根據處理狀態顯示實名認證請求",
+    "name": "GetAuthenticationRequestByStatus",
+    "group": "服務端:用戶管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據處理狀態顯示實名認證請求</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>處理狀態(0:未處理, 1:通過, 2: 不通過)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:0)",
+          "content": "[\n     {\n          \"id\":7,\n          \"phone\":\"15049936157\",\n          \"realName\":\"楊單詞\",\n          \"date\":\"2022-12-09 09:39:39\",\n          \"status\":0\n      },\n      {\n          \"id\":8,\n          \"phone\":\"15013729832\",\n          \"realName\":\"鄧紫祺\",\n          \"date\":\"2022-12-09 09:40:44\",\n          \"status\":0\n      },\n      {\n          \"id\":10,\n          \"phone\":\"15083622395\",\n          \"realName\":\"陳八方\",\n          \"date\":\"2022-12-09 10:00:38\",\n          \"status\":0\n      }\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:用戶管理"
+  },
+  {
+    "type": "PUT",
+    "url": "/authentication/request",
+    "title": "處理實名認證請求",
+    "name": "ProcessAuthenticationRequest",
+    "group": "服務端:用戶管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>管理員在察看具體信息後給出判決decision(pass:通過, reject:不通過)，系統會自動對用戶信息做相應的更動，並發送通知告知結果。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>實名認證請求id</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "decision",
+            "description": "<p>判決(pass/reject)</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "explain",
+            "description": "<p>管理員對判決給出相應的解釋</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "處理成功",
+          "content": "{\n     201\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "用戶數據更新失敗/數據庫更新失敗",
+          "content": "{\n     422\n}",
+          "type": "json"
+        },
+        {
+          "title": "圖片操作失敗",
+          "content": "{\n     400\n}",
+          "type": "json"
+        },
+        {
+          "title": "請求格式錯誤(decision只能是pass或reject)",
+          "content": "{\n     404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:用戶管理"
+  },
+  {
+    "type": "GET",
+    "url": "/authentication/request",
+    "title": "管理員閱讀實名認證請求",
+    "name": "ReadAuthenticationRequest",
+    "group": "服務端:用戶管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>管理員閱讀實名認證請求，並據此給出判決。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>實名認證請求id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:10)",
+          "content": "{\n     \"id\":10,\n     \"phone\":\"15083622395\",\n     \"date\":\"2022-12-09 10:00:38\",\n     \"realName\":\"陳八方\",\n     \"format\":\"jpg(圖片格式，顯示圖片用)\",\n     \"idCardPic\":\"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAA...\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:用戶管理"
+  },
+  {
+    "type": "GET",
     "url": "/comment/reports",
     "title": "獲取所有留言舉報請求",
     "name": "GetAllCommentReport",
@@ -2717,6 +2889,89 @@
     "version": "0.0.0",
     "filename": "src/example.js",
     "groupTitle": "用戶註冊"
+  },
+  {
+    "type": "POST",
+    "url": "/setting/authentication",
+    "title": "發送實名認證請求",
+    "name": "UserPostAuthenticationRequest",
+    "group": "設置:實名認證",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶申請實名認證功能。本系統實名認證審核的流程是: 用戶上傳身分信息--&gt;信息進入審核階段--&gt;審核成功/失敗--&gt;用戶權限更改/不更改。用戶可以在[設置]--&gt;[系統消息]察看結果。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "realName",
+            "description": "<p>用戶真實姓名</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "idNumber",
+            "description": "<p>身分證號碼</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "File",
+            "optional": false,
+            "field": "idCardPic",
+            "description": "<p>身分證照片(這些都用form-data傳就行)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "信息上傳成功",
+          "content": "{\n     201\n}",
+          "type": "json"
+        },
+        {
+          "title": "已是實名認證用戶",
+          "content": "{\n     200\n}",
+          "type": "json"
+        },
+        {
+          "title": "已經發送過了，請耐心等待結果",
+          "content": "{\n     203\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "用戶不存在/數據庫添加失敗",
+          "content": "{\n     422\n}",
+          "type": "json"
+        },
+        {
+          "title": "圖片上傳失敗",
+          "content": "{\n     404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:實名認證"
   },
   {
     "type": "GET",
