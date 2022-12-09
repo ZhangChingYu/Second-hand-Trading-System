@@ -126,7 +126,7 @@ public class SettingController {
         String phone = param.get("phone").toString();
         return UNService.deleteReadNotification(phone);
     }
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value ="/setting/authentication", method = RequestMethod.POST)
     public Integer UserPostAuthenticationRequest(AuthRequestDto dto){
         return USService.UserPostAuthenticationRequest(dto);
