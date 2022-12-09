@@ -11,15 +11,20 @@ import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.ProductComment;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.CheckUserAuthority;
+import dev.silvia.wechattrade.handlers.Packing.CommentPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.ICommentService;
-import dev.silvia.wechattrade.vo.product.ProductCommentVo;
+import dev.silvia.wechattrade.vo.comment.ProductCommentVo;
+import dev.silvia.wechattrade.vo.comment.RootCommentVo;
+import dev.silvia.wechattrade.vo.comment.SubCommentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 @Service
@@ -36,6 +41,8 @@ public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductCo
     private TransferUTF8 transferUTF8;
     @Autowired
     private ReadFile readFile;
+    @Autowired
+    private CommentPacking commentPacking;
 
     @Override
     public List<ProductCommentVo> getComments(String number) {
@@ -62,7 +69,7 @@ public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductCo
 
     @Override
     public int postComment(CommentDto commentDto) {
-        if(!CUA.isAuthorized(commentDto.getPhone())){    // 檢查用戶權限
+        if(getUser(commentDto.getPhone()).getAuthority()!=0){    // 檢查用戶權限
             return 400; // 用戶須通過實名認證方可留言
         }
         Product product = getProduct(commentDto.getNumber());
@@ -83,7 +90,7 @@ public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductCo
 
     @Override
     public int replyComment(CommentReplyDto replyDto) {
-        if(!CUA.isAuthorized(replyDto.getPhone())){    // 檢查用戶權限
+        if(getUser(replyDto.getPhone()).getAuthority()!=0){    // 檢查用戶權限
             return 400; // 用戶須通過實名認證方可留言
         }
         Product product = getProduct(replyDto.getNumber());
@@ -107,9 +114,35 @@ public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductCo
     }
 
     @Override
-    public int deleteComments(String comment) {
-        return 0;
+    public List<RootCommentVo> getProductComments(String number) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        QueryWrapper<ProductComment> wrapper = new QueryWrapper<>();
+        List<ProductComment> tree = productCommentDao.selectList(wrapper);
+        wrapper.eq("father_id", 0);
+        List<RootCommentVo> rootVos = new ArrayList<>();
+        for(ProductComment node : tree){
+            if(node.getFatherId()==0){
+                User user = getUser(node.getPhone());
+                String picture = readFile.readAvatarPicture(user.getPhone());
+                RootCommentVo rootVo = commentPacking.CommentToRootVo(node, user, picture);
+                List<ProductComment> subComments = new ArrayList<>();
+                subComments = getSubComments(node.getId(), tree, subComments);
+                List<SubCommentVo> subCommentVos = new ArrayList<>();
+                for(ProductComment subComment: subComments){
+                    User author = getUser(subComment.getPhone());
+                    String headPic = readFile.readAvatarPicture(author.getPhone());
+                    ProductComment fatherComment = productCommentDao.selectById(subComment.getFatherId());
+                    User father = getUser(fatherComment.getPhone());
+                    SubCommentVo subVo = commentPacking.CommentToSubVo(subComment, author, father, headPic);
+                    subCommentVos.add(subVo);
+                }
+                rootVo.setSubComments(subCommentVos);
+                rootVos.add(rootVo);
+            }
+        }
+        return rootVos;
     }
+
 
     private Product getProduct(String number){
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
@@ -132,5 +165,16 @@ public class CommentServiceImpl extends ServiceImpl<ProductCommentDao, ProductCo
             }
         }
         return treeComment;
+    }
+
+    private List<ProductComment> getSubComments(Integer father_id, List<ProductComment> comments, List<ProductComment> temp){
+        List<ProductComment> subComments = temp;
+        for(ProductComment comment : comments){
+            if(father_id.equals(comment.getFatherId())){
+                subComments.add(comment);
+                subComments = getSubComments(comment.getId(), comments, subComments);
+            }
+        }
+        return subComments ;
     }
 }

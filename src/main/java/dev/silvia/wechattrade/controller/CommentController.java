@@ -36,6 +36,6 @@ public class CommentController {
     @RequestMapping(value = "/product/comment", method = RequestMethod.GET)
     public String showAllComments(HttpServletRequest request){
         String number = request.getParameter("number");
-        return gson.toJson(service.getComments(number));
+        return gson.toJson(service.getProductComments(number));
     }
 }
