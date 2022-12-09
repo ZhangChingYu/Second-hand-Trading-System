@@ -14,3 +14,4 @@ INSERT INTO idlebugs.product_comment (id, father_id, number, content, date, phon
 INSERT INTO idlebugs.product_comment (id, father_id, number, content, date, phone) VALUES (3, 0, 'C1669690298810', 'E8A399E5AD90E7A9BFE884ABE696B9E4BEBFE5978E3FE69C83E4B88DE69C83E58DA1E58DA1E79A843F', '2022-12-05 12:00:01', '15023591218');
 INSERT INTO idlebugs.product_comment (id, father_id, number, content, date, phone) VALUES (4, 1, 'C1669690298810', 'E5908CE5958F', '2022-12-05 12:02:12', '15059417755');
 INSERT INTO idlebugs.product_comment (id, father_id, number, content, date, phone) VALUES (5, 1, 'C1669690298810', 'E5908CE5958F', '2022-12-05 12:15:31', '15059417755');
+INSERT INTO idlebugs.product_comment (id, father_id, number, content, date, phone) VALUES (6, 5, 'C1669690298810', 'E69C89E99C80E8A681E5908CE5958FE585A9E6ACA1E5978E3FE784A1E8AA9E', '2022-12-09 12:10:05', '15078818663');
