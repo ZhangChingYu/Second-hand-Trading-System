@@ -29,6 +29,7 @@ public class EvaluatePacking {  // 將BuyerEvaluate包裝成Vo的工具
         evaluateVo.setScore1(evaluate.getScore1());
         evaluateVo.setScore2(evaluate.getScore2());
         evaluateVo.setScore3(evaluate.getScore3());
+        evaluateVo.setEvaluate(transferUTF8.UTF8toC(evaluate.getEvaluate()));
         if(evaluate.getIsAnonymous().equals(0)){    // 需要打包買家信息
             evaluateVo.setIsAnonymous(false);
             BuyerInfoPack buyerInfo = BuyerToPack(buyer);
