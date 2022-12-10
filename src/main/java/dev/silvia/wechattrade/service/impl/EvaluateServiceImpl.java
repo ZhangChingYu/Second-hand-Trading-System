@@ -67,7 +67,7 @@ public class EvaluateServiceImpl extends ServiceImpl<BuyerEvaluateDao, BuyerEval
     @Override
     public List<ProductEvaluateVo> showAllEvaluate(String seller_phone) {
         QueryWrapper<BuyerEvaluate> wrapper = new QueryWrapper<>();
-        wrapper.eq("phone", seller_phone);  // 在所有評價中找出相同賣家的
+        wrapper.eq("seller_phone", seller_phone);  // 在所有評價中找出相同賣家的
         List<BuyerEvaluate> evaluates = buyerEvaluateDao.selectList(wrapper);
         List<ProductEvaluateVo> evaluateVos = new ArrayList<>();
         for(BuyerEvaluate evaluate : evaluates){

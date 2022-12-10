@@ -15,3 +15,5 @@ create table buyer_evaluate
         unique (id)
 );
 
+INSERT INTO idlebugs.buyer_evaluate (id, number, buyer_phone, seller_phone, score1, score2, score3, is_anonymous, evaluate, date) VALUES (1, 'C1670300792286', '15083729338', '15080711348', 5, 5, 5, 0, null, '2022-12-10 17:21:34');
+INSERT INTO idlebugs.buyer_evaluate (id, number, buyer_phone, seller_phone, score1, score2, score3, is_anonymous, evaluate, date) VALUES (2, 'E1667630531853', '15083729338', '15080711348', 5, 5, 5, 0, null, '2022-12-10 17:23:58');
