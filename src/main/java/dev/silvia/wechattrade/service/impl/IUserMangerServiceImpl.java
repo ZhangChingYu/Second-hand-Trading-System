@@ -5,6 +5,7 @@ import dev.silvia.wechattrade.dto.feedback.AuthDirectoryDto;
 import dev.silvia.wechattrade.dto.feedback.DirectoryDto;
 import dev.silvia.wechattrade.dto.feedback.FeedUserDto;
 import dev.silvia.wechattrade.dto.feedback.FeedbackDto;
+import dev.silvia.wechattrade.dto.logindto.UserInfo;
 import dev.silvia.wechattrade.dto.response.Result;
 import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.Buyer;
@@ -22,6 +23,7 @@ import dev.silvia.wechattrade.handlers.fileHandler.DeleteFile;
 import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.IUserMangerService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -49,8 +51,41 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
     @Autowired
     private DeleteFile deleteFile = new DeleteFile();
 
+    @Autowired
+    private ModelMapper modelMapper;
+
     List<DirectoryDto> directoryList1;  //交易目录
     List<DirectoryDto> directoryList2;  //违规目录
+    @Override
+    public Result selectUser(String phone) {
+        User user=userRepository.findByPhone(phone).get();
+        user=transferUTF8.switchUtf8Tc(user);
+        UserInfo userInfo=modelMapper.map(user,UserInfo.class);
+//        //图片路径
+        String picture1;
+        if (user.getAvatar()==null||user.getAvatar().isEmpty()) {
+            //默认图片
+            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+            userInfo.setAvatar(picture1);
+        } else {
+            picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
+            userInfo.setAvatar(picture1);
+        }
+        Integer auth = user.getAuthority();
+        if (auth == 0) {
+            userInfo.setAuthority("已认证");
+        } else if (auth == 1) {
+            userInfo.setAuthority("未认证");
+        } else {
+            userInfo.setAuthority("已禁用");
+        }
+        List<Buyer> buyer = buyerRepository.findAllByPhone(phone);
+        List<Seller> seller = sellerRepository.findAllByPhone(phone);
+        userInfo.setBuy(buyer.size());
+        userInfo.setSell(seller.size());
+        res=new Result(ResultCode.SUCCESS,userInfo);
+        return res;
+    }
     @Override
     public Result addFeedBack(FeedbackDto feed) {
         Feedback feedback=new Feedback();
@@ -232,40 +267,6 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
         return res;
     }
 
-    @Override
-    public Result selectUser(String phone) {
-        User user=userRepository.findByPhone(phone).get();
-        FeedUserDto feed=new FeedUserDto();
-        feed.setId(user.getId());
-        feed.setRealName(transferUTF8.UTF8toC(user.getRealName()));
-        feed.setUserName(transferUTF8.UTF8toC(user.getUserName()));
-//        //图片路径
-        String picture1;
-        if (user.getAvatar()==null||user.getAvatar().isEmpty()) {
-            //默认图片
-            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-            feed.setAvatar(picture1);
-        } else {
-            picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
-            feed.setAvatar(picture1);
-        }
-        Integer auth = user.getAuthority();
-        if (auth == 0) {
-            feed.setAuthority("已认证");
-        } else if (auth == 1) {
-            feed.setAuthority("未认证");
-        } else {
-            feed.setAuthority("已禁用");
-        }
-        feed.setViolationCount(user.getViolationCount());
-        List<Buyer> buyer = buyerRepository.findAllByPhone(phone);
-        List<Seller> seller = sellerRepository.findAllByPhone(phone);
-        feed.setBuy(buyer.size());
-        feed.setSell(seller.size());
-        res=new Result(ResultCode.SUCCESS,feed);
-        return res;
-    }
-
     List<FeedUserDto> packFeedUserDto(List<User> userList){
         List<FeedUserDto> feedList=new ArrayList<>();
         for (User user : userList) {
@@ -291,6 +292,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
             } else {
                 feed.setAuthority("已禁用");
             }
+            feed.setPhone(user.getPhone());
             feed.setViolationCount(user.getViolationCount());
             String phone = user.getPhone();
             List<Buyer> buyer = buyerRepository.findAllByPhone(phone);
@@ -353,6 +355,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
                 } else {
                     feed1.setAuthority("已禁用");
                 }
+                feed1.setPhone(user1.getPhone());
                 feed1.setViolationCount(violation);
                 feed1.setBuy(buyer.size());
                 feed1.setSell(seller.size());

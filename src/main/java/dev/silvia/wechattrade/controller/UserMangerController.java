@@ -84,7 +84,8 @@ public class UserMangerController {
     public ResponseEntity<?> swapPassword(@RequestBody List<Integer> numbers) {
         return ResponseEntity.ok(service.swapPassword(numbers));
     }
-    //根据手机号查询
+
+    //根据手机号查询个人信息
     @RequestMapping(value ="/manage/user",method = RequestMethod.GET)
     public ResponseEntity<?> selectUser(HttpServletRequest request){
         String phone= request.getParameter("phone");    //权限
@@ -112,19 +113,18 @@ public class UserMangerController {
     }
 
 
-
-
     //测试
     @RequestMapping(value ="/manage/user/test",method = RequestMethod.GET)
-    public ResponseEntity<?> test(@RequestParam Integer phone) {
-        User user=new User();
-        user.setPhone("1512344712");
-        user.setPassword("1321323");
-        user.setAuthority(1);
-        user.setRegisterDate(new Date());
-        user.setId(19);
-        userRepository.save(user);
+    public ResponseEntity<?> test(@RequestParam String phone) {
+        String s = " ";
+//        User user=new User();
+//        user.setPhone("1512344712");
+//        user.setPassword("1321323");
+//        user.setAuthority(1);
+//        user.setRegisterDate(new Date());
+//        user.setId(19);
+//        userRepository.save(user);
         //List<User> user=userRepository.findByAuthority(phone,Sort.by(Sort.Direction.DESC, "registerDate"));
-        return ResponseEntity.ok(user);
+        return ResponseEntity.ok(s);
     }
 }

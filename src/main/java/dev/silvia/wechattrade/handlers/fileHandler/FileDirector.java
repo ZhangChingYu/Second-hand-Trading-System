@@ -11,4 +11,6 @@ public interface FileDirector {// 整理所有文件路徑相關的參數
     String AUTH_URL = "C:/Users/Sunny/Desktop/User/";
     //默认头像路径
     String  AVATAR_URL= "C:/Users/Sunny/Desktop/User/Default/default/default.jpg";
+    // 證件照站存處(注意!!!後面少一個斜槓喔!!!)
+    String AUTHENTICATION_TEMP_URL = "C:/Users/Sunny/Desktop/User/AuthTemp";
 }

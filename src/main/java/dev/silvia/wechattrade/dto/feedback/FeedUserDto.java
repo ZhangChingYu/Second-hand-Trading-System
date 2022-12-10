@@ -6,6 +6,8 @@ import lombok.Data;
 public class FeedUserDto {
     private Integer id;
 
+    private String phone;    //用户phone
+
     private String avatar;    //用户头像
 
     private String userName;  //用户名
