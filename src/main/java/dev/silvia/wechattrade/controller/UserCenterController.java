@@ -85,7 +85,5 @@ public class UserCenterController {
         String path=pictures;
         return ResponseEntity.ok(service.swapRelatedAvatar(phone,path));
     }
-
-
 }
 

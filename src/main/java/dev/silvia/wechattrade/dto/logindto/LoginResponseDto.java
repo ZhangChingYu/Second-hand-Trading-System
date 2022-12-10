@@ -1,5 +1,4 @@
 package dev.silvia.wechattrade.dto.logindto;
-
 import dev.silvia.wechattrade.entity.User;
 import lombok.Data;
 

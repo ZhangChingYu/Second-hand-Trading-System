@@ -71,24 +71,21 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                     if(Objects.equals(user.getCode(), "666")){
                         //转换utf8
                         User u=transferUTF8.switchUtf8Tc((User) loginDto.getData());
-
-
                         //图片路径
                         String picture1;
-                        if(u.getAvatar().isEmpty()||u.getAvatar()==null){
+                        if(u.getAvatar()==null){
                             //默认图片
                             picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                             u.setAvatar(picture1);
                         }
                         else{
                             //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
-                            picture1= ReadFile.getBaseFile(u.getAvatar());
+                            picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(u.getPhone()));
                             u.setAvatar(picture1);
                         }
-                        if(!u.getPicture().isEmpty()||u.getPicture()!=null){
+                        if(u.getPicture()!=null){
                             String picture2;
-                            picture2= ReadFile.getBaseFile(u.getPicture());
-                            // picture2 = readFile.getpictureBase64("Authentication",u.getPhone(),1);
+                            picture2= ReadFile.getBaseFile(readFile.getAuthPicture(u.getPhone()));
                             u.setPicture(picture2);
                         }
 
@@ -105,7 +102,6 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
     }
 
     private Optional<Result> verifyAccount(LoginRequestDto request) {
-
         // 用户状态: 2 已被永久封禁
         int two = 2;
         String username=request.getUsername();

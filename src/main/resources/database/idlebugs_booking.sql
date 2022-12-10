@@ -11,7 +11,7 @@ create table booking
     price            decimal(10, 2) not null comment '预约商品价格',
     appointment_time datetime       null comment '预约时间',
     confirm_time     datetime       null comment '预约确认时间',
-    status           int            not null comment '预约状态
+    status           varchar(255)   charset utf8            not null comment '预约状态
     已预约
     待下单
     已拒绝'

@@ -189,32 +189,6 @@ public class WriteFile {
         System.out.println(path);
         return 201; // 存儲成功
     }
-
-
-    public int storeAvatarPicture(String catalog, String phone, List<MultipartFile> pictures) {
-        String pathName = auth_url + catalog +"/" + phone;
-        Integer length = pictures.size();   // 獲取照片數
-        File folder = new File(pathName);
-        if(!folder.isDirectory()){
-            if(!folder.mkdirs()){
-                return 808; // 路徑創建失敗
-            }
-        }
-        for(int i = 0; i < length; i++){
-            String oldName = pictures.get(i).getOriginalFilename();
-            assert oldName != null;
-            // 頭像路徑範例: C:/Users/Sunny/Desktop/Avatar/15023189401/15023189401.jpg
-            String newName = phone+ "_" + i + oldName.substring(oldName.lastIndexOf("."));
-            try {
-                pictures.get(i).transferTo(new File(folder, newName));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            String path = pathName + "/" + newName;
-            System.out.println(path);
-        }
-        return 201;
-    }
 }
 
 

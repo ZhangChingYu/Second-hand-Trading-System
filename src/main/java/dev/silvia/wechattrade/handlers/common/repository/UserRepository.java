@@ -14,13 +14,9 @@ public interface UserRepository extends JpaRepository<User, String> {
     Optional<User> findByPhone(String phone);
     Optional<User> findByEmail(String email);
     Optional<User> findById(Integer id);
-    List<User> findByViolationCountGreaterThanEqual(Integer violationCount);
-
-    List<User> findByRealNameLike(String realName);
-    List<User> findByUserNameLike(String userName);
 
     List<User> findByAuthority(Integer authority);
     List<User> findByAuthority(Integer authority,Sort sort);
 
-    List<User> findByViolationCountBetween(Integer lower, Integer upper);
+    List<User> findByRealNameLikeOrUserNameLike(String realName,String userName);
 }

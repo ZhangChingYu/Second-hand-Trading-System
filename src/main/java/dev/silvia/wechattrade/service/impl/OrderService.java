@@ -80,15 +80,15 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         Product product = productDao.selectOne(productWrapper);
         User user4=transferUTF8.switchUtf8Tc(userRepository.findByPhone(product.getSPhone()).get());
         //图片路径
-        List<String> picture1;
-        if(user4.getAvatar().isEmpty()){
+        String picture1;
+        if(user4.getAvatar()==null){
             //默认图片
-            picture1 = Collections.singletonList(ReadFile.getBaseFile(FileDirector.AVATAR_URL));
-            user4.setAvatar(picture1.get(0));
+            picture1 =ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+            user4.setAvatar(picture1);
         }
         else{
-            picture1= Collections.singletonList(ReadFile.getBaseFile(user4.getAvatar()));
-            user4.setAvatar(picture1.get(0));
+            picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(user4.getPhone()));
+            user4.setAvatar(picture1);
         }
         res=new Result(ResultCode.SUCCESS,user4);
         return res;
@@ -128,7 +128,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
 
         //买家信息表
         buyer.setAddress(transferUTF8.CtoUTF8(request.getShipping()));
-       // buyer.setRemark(transferUTF8.CtoUTF8(request.getRemark()));
+        buyer.setRemark(transferUTF8.CtoUTF8(request.getRemark()));
         buyer.setExchangeId(pronum);  //外键
         buyer.setPhone(request.getBuyerPhone());
         buy.save(buyer);
@@ -398,7 +398,6 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                     bookdto.setOrdNumber(ex.getNumber());
                     booklist.add(bookdto);
                 }
-
             }
         }
         res=new Result(ResultCode.SUCCESS, booklist);
@@ -417,7 +416,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         booking.setOrdersNum(request.getOrdersNum());
         booking.setBuyerId(request.getBuyerId());
         booking.setSellerId(request.getSellerId());
-        booking.setName(request.getProductName());
+        booking.setName(transferUTF8.CtoUTF8(request.getProductName()));
         accountRepository.save(booking);
         res=new Result(ResultCode.SUCCESS);
         return res;
@@ -599,7 +598,6 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     @Override
     public Result selectAllByName(String name, Integer type, Integer isbuyer) {
         if(type==1){
-
             //订单信息
             List<ExchangeInfo> ei;
             ei=exRepository.findByNameLike("%"+name+"%");
@@ -629,7 +627,6 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                 bidList.add(ed);
             }
             res=new Result(ResultCode.SUCCESS, bidList);
-            return res;
         }
         else{
             //预约信息
@@ -675,8 +672,8 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                 bidList.add(bok);
             }
             res=new Result(ResultCode.SUCCESS, bidList);
-            return res;
         }
+        return res;
     }
 
     @Override
@@ -692,15 +689,15 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
             bookdto.setNumber(number);
       //      bookdto.setTime(value.getAppointmentTime());
             //图片路径
-            List<String> picture1;
-            if(bookdto.getAvatar().isEmpty()){
+            String picture1;
+            if(user2.getAvatar()==null){
                 //默认图片
-                picture1 = Collections.singletonList(ReadFile.getBaseFile(FileDirector.AVATAR_URL));
-                bookdto.setAvatar(picture1.get(0));
+                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+                bookdto.setAvatar(picture1);
             }
             else{
-                picture1= Collections.singletonList(ReadFile.getBaseFile(user2.getAvatar()));
-                bookdto.setAvatar(picture1.get(0));
+                picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(user2.getPhone()));
+                bookdto.setAvatar(picture1);
             }
             bidlist.add(bookdto);
         }
@@ -720,15 +717,15 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         bookdto.setNumber(number);
        // bookdto.setTime(booklist.getAppointmentTime());
         //图片路径
-        List<String> picture1;
-        if(bookdto.getAvatar().isEmpty()){
+        String picture1;
+        if(user2.getAvatar()==null){
             //默认图片
-            picture1 = Collections.singletonList(ReadFile.getBaseFile(FileDirector.AVATAR_URL));
-            bookdto.setAvatar(picture1.get(0));
+            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+            bookdto.setAvatar(picture1);
         }
         else{
-            picture1= Collections.singletonList(ReadFile.getBaseFile(user2.getAvatar()));
-            bookdto.setAvatar(picture1.get(0));
+            picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(user2.getPhone()));
+            bookdto.setAvatar(picture1);
         }
 
         res=new Result(ResultCode.SUCCESS, bookdto);
@@ -794,6 +791,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         if(se.getRefundTime()!=null){
             bookdto.setRefundTime(se.getRefundTime());
         }
+        bookdto.setRemark(transferUTF8.UTF8toC(bu.getRemark()));
         res=new Result(ResultCode.SUCCESS, bookdto);
         return res;
     }

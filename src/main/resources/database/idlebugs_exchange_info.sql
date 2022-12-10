@@ -17,7 +17,7 @@ create table exchange_info
     0:未删除
     1，seller已删除
     2：buyer已删除',
-    status  varchar(255)   charset utf8         not null comment '订单状态
+    status               varchar(255)   charset utf8   not null comment '订单状态
     待发货
     待收货
     已购买

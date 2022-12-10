@@ -1,6 +1,8 @@
 package dev.silvia.wechattrade.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import dev.silvia.wechattrade.dto.feedback.AuthDirectoryDto;
+import dev.silvia.wechattrade.dto.feedback.DirectoryDto;
 import dev.silvia.wechattrade.dto.feedback.FeedUserDto;
 import dev.silvia.wechattrade.dto.feedback.FeedbackDto;
 import dev.silvia.wechattrade.dto.response.Result;
@@ -11,10 +13,12 @@ import dev.silvia.wechattrade.entity.Seller;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.OrderCodeUtils;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
+import dev.silvia.wechattrade.handlers.UserMangerDirectory;
 import dev.silvia.wechattrade.handlers.common.repository.BuyerRepository;
 import dev.silvia.wechattrade.handlers.common.repository.FeedbackRepository;
 import dev.silvia.wechattrade.handlers.common.repository.SellerRepository;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
+import dev.silvia.wechattrade.handlers.fileHandler.DeleteFile;
 import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.IUserMangerService;
@@ -40,6 +44,13 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
     @Autowired
     SellerRepository sellerRepository;
     private Result res;
+    @Autowired
+    private ReadFile readFile = new ReadFile();
+    @Autowired
+    private DeleteFile deleteFile = new DeleteFile();
+
+    List<DirectoryDto> directoryList1;  //交易目录
+    List<DirectoryDto> directoryList2;  //违规目录
     @Override
     public Result addFeedBack(FeedbackDto feed) {
         Feedback feedback=new Feedback();
@@ -67,7 +78,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
             if (violations == 0) {
                 user.setAuthority(2);
             } else {
-                if (user.getPicture().isEmpty() || user.getPicture() == null) {
+                if (user.getPicture() == null) {
                     user.setAuthority(1);
                 } else {
                     user.setAuthority(0);
@@ -109,58 +120,42 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
     }
 
     @Override
-    public Result userManageSelect(String type, Integer upper, Integer lower) {
-        List<FeedUserDto> feed = new ArrayList<>();
-        if(Objects.equals(type, "可买卖")){
-            List<User> user=userRepository.findByAuthority(0);
-            List<User> user1=userRepository.findByAuthority(1);
-            user.addAll(user1);
-            feed=packFeedUserDto(user);
-        }
-        else if(Objects.equals(type, "违规")){
-            List<User> user=userRepository.findByViolationCountBetween(lower,upper);
-            feed=packFeedUserDto(user);
-        }
-        else if(Objects.equals(type, "已禁用")){
-            List<User> user=userRepository.findByAuthority(2);
-            feed=packFeedUserDto(user);
-        }
-        else{
-            List<User> userList=userRepository.findAll();
-            for (User user : userList) {
-                String phone = user.getPhone();
-                List<Buyer> buyer = buyerRepository.findAllByPhone(phone);
-                List<Seller> seller = sellerRepository.findAllByPhone(phone);
-                if(buyer.size()<=upper&&buyer.size()>=lower){
-                    FeedUserDto feed1=new FeedUserDto();
-                    feed1.setId(user.getId());
-                    feed1.setRealName(transferUTF8.UTF8toC(user.getRealName()));
-                    feed1.setUserName(transferUTF8.UTF8toC(user.getUserName()));
-
-                    String picture1;
-                    if (user.getAvatar().isEmpty()||user.getAvatar()==null) {
-                      //默认图片
-                      picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-                      feed1.setAvatar(picture1);
-                    } else {
-                      picture1 = ReadFile.getBaseFile(user.getAvatar());
-                      feed1.setAvatar(picture1);
-                    }
-                    Integer auth = user.getAuthority();
-                    if (auth == 0) {
-                        feed1.setAuthority("可买卖");
-                    } else if (auth == 1) {
-                        feed1.setAuthority("可买卖");
-                    } else {
-                        feed1.setAuthority("已禁用");
-                    }
-                    feed1.setViolationCount(user.getViolationCount());
-                    feed1.setBuy(buyer.size());
-                    feed1.setSell(seller.size());
-                    feed.add(feed1);
+    public Result userManageSelect(Integer number1, Integer number2, Integer number3) {
+        List<FeedUserDto> feed;
+        List<User> user;
+        if(number1==-1){
+            if(number2==-1){
+                if(number3==-1){
+                    //所有
+                    user=userRepository.findAll();
+                    feed=packFeedUserDto(user);
+                }
+                else{
+                    user=userRepository.findAll();
+                    //按交易范围
+                    feed=selectByRange(number2,number3,user);
                 }
             }
-
+            else{
+                //按违规范围、按交易和违规范围
+                user=userRepository.findAll();
+                feed=selectByRange(number2,number3,user);
+            }
+        }
+        else{
+            //按权限搜索
+            //权限和违规
+            //交易、权限和违规
+            if(number3==-1){
+                //只按权限搜索
+                user=userRepository.findByAuthority(number1);
+                feed=packFeedUserDto(user);
+            }
+            else{
+                //按权限和交易范围
+                user=userRepository.findByAuthority(number1);
+                feed=selectByRange(number2,number3,user);
+            }
         }
         res=new Result(ResultCode.SUCCESS,feed);
         return res;
@@ -169,7 +164,14 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
     @Override
     public Result deleteUser(List<Integer> ids) {
         for (Integer id : ids) {
-            userRepository.delete(userRepository.findById(id).get());
+            User user=userRepository.findById(id).get();
+            if(user.getAvatar()!=null){
+                deleteFile.deleteOneFile(readFile.getAvatarPicture(user.getPhone()));
+            }
+            if(user.getPicture()!=null){
+                deleteFile.deleteOneFile(readFile.getAuthPicture(user.getPhone()));
+            }
+            userRepository.delete(user);
         }
         res=new Result(ResultCode.SUCCESS);
         return res;
@@ -177,11 +179,8 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
 
     @Override
     public Result fuzzySelect(String name1) {
-        List<User> u=userRepository.findByRealNameLike("%"+name1+"%");
-        List<User> u1=userRepository.findByUserNameLike("%"+name1+"%");
+        List<User> u=userRepository.findByRealNameLikeOrUserNameLike("%"+name1+"%","%"+name1+"%");
         List<FeedUserDto> feed=packFeedUserDto(u);
-        List<FeedUserDto> feed1=packFeedUserDto(u1);
-        feed.addAll(feed1);
         res=new Result(ResultCode.SUCCESS,feed);
         return res;
     }
@@ -197,6 +196,76 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
         return res;
     }
 
+    @Override
+    public Result selectAuth() {
+        List<AuthDirectoryDto> authList=new ArrayList<>();
+        AuthDirectoryDto auth;
+        auth=new AuthDirectoryDto();
+        auth.setNumber(0);
+        auth.setName("已认证");
+        authList.add(auth);
+        auth=new AuthDirectoryDto();
+        auth.setNumber(1);
+        auth.setName("未认证");
+        authList.add(auth);
+        auth=new AuthDirectoryDto();
+        auth.setNumber(2);
+        auth.setName("已禁用");
+        authList.add(auth);
+        res=new Result(ResultCode.SUCCESS,authList);
+        return res;
+    }
+
+    @Override
+    public Result selectTrade() {
+        List<Integer> trade=UserMangerDirectory.createTrade();
+        directoryList1=UserMangerDirectory.createDirectory(trade.get(0),trade.get(1));
+        res=new Result(ResultCode.SUCCESS,directoryList1);
+        return res;
+    }
+
+    @Override
+    public Result selectViolation() {
+        List<Integer> trade=UserMangerDirectory.createViolation();
+        directoryList2=UserMangerDirectory.createDirectory(trade.get(0),trade.get(1));
+        res=new Result(ResultCode.SUCCESS,directoryList2);
+        return res;
+    }
+
+    @Override
+    public Result selectUser(String phone) {
+        User user=userRepository.findByPhone(phone).get();
+        FeedUserDto feed=new FeedUserDto();
+        feed.setId(user.getId());
+        feed.setRealName(transferUTF8.UTF8toC(user.getRealName()));
+        feed.setUserName(transferUTF8.UTF8toC(user.getUserName()));
+//        //图片路径
+//        String picture1;
+//        if (user.getAvatar()==null) {
+//            //默认图片
+//            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+//            feed.setAvatar(picture1);
+//        } else {
+//            picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
+//            feed.setAvatar(picture1);
+//        }
+        Integer auth = user.getAuthority();
+        if (auth == 0) {
+            feed.setAuthority("已认证");
+        } else if (auth == 1) {
+            feed.setAuthority("未认证");
+        } else {
+            feed.setAuthority("已禁用");
+        }
+        feed.setViolationCount(user.getViolationCount());
+        List<Buyer> buyer = buyerRepository.findAllByPhone(phone);
+        List<Seller> seller = sellerRepository.findAllByPhone(phone);
+        feed.setBuy(buyer.size());
+        feed.setSell(seller.size());
+        res=new Result(ResultCode.SUCCESS,feed);
+        return res;
+    }
+
     List<FeedUserDto> packFeedUserDto(List<User> userList){
         List<FeedUserDto> feedList=new ArrayList<>();
         for (User user : userList) {
@@ -205,20 +274,20 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
             feed.setRealName(transferUTF8.UTF8toC(user.getRealName()));
             feed.setUserName(transferUTF8.UTF8toC(user.getUserName()));
             //图片路径
-            String picture1;
-            if (user.getAvatar().isEmpty()||user.getAvatar()==null) {
-                //默认图片
-                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-                feed.setAvatar(picture1);
-            } else {
-                picture1 = ReadFile.getBaseFile(user.getAvatar());
-                feed.setAvatar(picture1);
-            }
+//            String picture1;
+//            if (user.getAvatar()==null) {
+//                //默认图片
+//                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+//                feed.setAvatar(picture1);
+//            } else {
+//                picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
+//                feed.setAvatar(picture1);
+//            }
             Integer auth = user.getAuthority();
             if (auth == 0) {
-                feed.setAuthority("可买卖");
+                feed.setAuthority("已认证");
             } else if (auth == 1) {
-                feed.setAuthority("可买卖");
+                feed.setAuthority("未认证");
             } else {
                 feed.setAuthority("已禁用");
             }
@@ -232,4 +301,65 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
         }
         return feedList;
     }
+    List<FeedUserDto> selectByRange(Integer number2,Integer number3,List<User> user){
+        List<FeedUserDto> feed=new ArrayList<>();
+        for (User user1 : user) {
+            String phone = user1.getPhone();
+            List<Buyer> buyer = buyerRepository.findAllByPhone(phone);
+            List<Seller> seller=sellerRepository.findAllByPhone(phone);
+            int count,upper1,lower1,violation,upper2,lower2;
+            if(number2==-1){
+                upper2=100000;
+                lower2=0;
+            }
+            else{
+                upper2=directoryList2.get(number2).getRange().get(1);
+                lower2=directoryList2.get(number2).getRange().get(0);
+            }
+            if(number3==-1){
+                upper1=100000;
+                lower1=0;
+            }
+            else{
+                upper1=directoryList1.get(number3).getRange().get(1);
+                lower1=directoryList1.get(number3).getRange().get(0);
+            }
+            count=buyer.size()+seller.size();
+            if(user1.getViolationCount()==null){
+                violation=0;
+            }
+            else
+                violation=user1.getViolationCount();
+            if(count<=upper1&&count>=lower1&&violation<=upper2&&violation>=lower2){
+                FeedUserDto feed1=new FeedUserDto();
+                feed1.setId(user1.getId());
+                feed1.setRealName(transferUTF8.UTF8toC(user1.getRealName()));
+                feed1.setUserName(transferUTF8.UTF8toC(user1.getUserName()));
+//                //图片路径
+//                String picture1;
+//                if (user1.getAvatar()==null) {
+//                    //默认图片
+//                    picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+//                    feed1.setAvatar(picture1);
+//                } else {
+//                    picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user1.getPhone()));
+//                    feed1.setAvatar(picture1);
+//                }
+                Integer auth = user1.getAuthority();
+                if (auth == 0) {
+                    feed1.setAuthority("已认证");
+                } else if (auth == 1) {
+                    feed1.setAuthority("未认证");
+                } else {
+                    feed1.setAuthority("已禁用");
+                }
+                feed1.setViolationCount(violation);
+                feed1.setBuy(buyer.size());
+                feed1.setSell(seller.size());
+                feed.add(feed1);
+            }
+        }
+        return feed;
+    }
+
 }

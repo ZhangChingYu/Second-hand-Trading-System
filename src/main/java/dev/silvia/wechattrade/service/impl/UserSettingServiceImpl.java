@@ -54,6 +54,7 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
 
     private User user2;
 
+    private String auth_url = FileDirector.AUTH_URL;
     //个人信息修改
     @Override
     public Result PersonalInfo(User request) {
@@ -82,13 +83,13 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
         ).map(us->{
             //转换utf8
                     us=transferUTF8.switchUtf8Tc(us);
-                    if(!us.getAvatar().isEmpty()){
-                        us.setAvatar(ReadFile.getBaseFile(us.getAvatar()));
+                    if(us.getAvatar()==null){
+                        us.setAvatar(ReadFile.getBaseFile(readFile.getAvatarPicture(us.getPhone())));
                     }
                     else
                         us.setAvatar(ReadFile.getBaseFile(FileDirector.AVATAR_URL));
-                    if(!us.getPicture().isEmpty()){
-                        us.setPicture(ReadFile.getBaseFile(us.getPicture()));
+                    if(us.getPicture()!=null){
+                        us.setPicture(ReadFile.getBaseFile(readFile.getAuthPicture(us.getPhone())));
                     }
                     res=new Result(ResultCode.SUCCESS,us);
                     return res;
@@ -103,14 +104,12 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
             User user1=accountRepository.findByPhone(request.getPhone()).get();
             user1.setIdCard(request.getIdNumber());
             user1.setRealName(request.getRealName());
-            //List<String> pictures = readFile.getPicturesBase64(request.getIdCardPics().size(), request.getIdCardPics());
             if(writeFile.storeAuthenticationPicture(request.getPhone(),request.getIdCardPic())==808){
                 res=new Result(ResultCode.FAIL);
                 return res;
             }
-            String pictures = readFile.getAuthPicture(request.getPhone());
             user1.setAuthority(0);
-            user1.setPicture(pictures);
+            user1.setPicture(readFile.getAuthPicture(user1.getPhone()));
             res=new Result(ResultCode.SUCCESS);
             user1=transferUTF8.switchUtf8(user1);
             accountRepository.save(user1);

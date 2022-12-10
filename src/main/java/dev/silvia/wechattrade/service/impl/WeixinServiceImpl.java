@@ -84,23 +84,21 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
 
             //图片路径
             String picture1;
-            if(user.getAvatar().isEmpty()||user.getAvatar()==null){
+            if(user.getAvatar()==null){
                 //默认图片
                 picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                 user.setAvatar(picture1);
             }
             else{
-                //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
-                picture1= ReadFile.getBaseFile(user.getAvatar());
+                picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
                 user.setAvatar(picture1);
             }
-            if(!user.getPicture().isEmpty()||user.getAvatar()!=null){
+            if(user.getAvatar()!=null){
                 String picture2;
-                picture2= ReadFile.getBaseFile(user.getPicture());
-                // picture2 = readFile.getpictureBase64("Authentication",u.getPhone(),1);
+                picture2= ReadFile.getBaseFile(readFile.getAuthPicture(user.getPhone()));
                 user.setPicture(picture2);
             }
-            if(wxUserInfo.getNickName().isEmpty()){
+            if(wxUserInfo.getNickName()==null){
                 user.setUserName(trans.CtoUTF8(getStringRandom(6)));
             }
             else{

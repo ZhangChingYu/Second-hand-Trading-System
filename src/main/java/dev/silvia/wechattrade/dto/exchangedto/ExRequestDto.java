@@ -13,5 +13,5 @@ public class ExRequestDto {
     private Double price;          //交易价格
     private String payment;        //付款方式
     private Double discounts;      //优惠
-   // private String remark;         //备注
+    private String remark;         //备注
 }

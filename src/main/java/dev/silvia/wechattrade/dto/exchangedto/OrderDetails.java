@@ -23,4 +23,5 @@ public class OrderDetails {
     private Date confirmTime;;    // 收货时间
     private Date applyTime;;    //时间--根据订单状态获取其时间状态
     private Date refundTime;;    // 卖家同意退款时间
+    private String remark;;    //买家备注
 }

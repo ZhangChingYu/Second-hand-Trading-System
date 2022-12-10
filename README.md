@@ -417,7 +417,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
     }
 ```
 ## 头像
-    用户未设置头像时使用路径：C:/Users/Sunny/Desktop/Avatar/default/default_0.jpg
+    用户未设置头像时使用路径：C:/Users/Sunny/Desktop/Avatar/default/default.jpg
 ## 微信登录相关接口
     //输入code获取 sessionId
     @RequestMapping(value ="/weixin/sessionId",method = RequestMethod.GET)
@@ -767,10 +767,6 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 
   Integer status;   //消息状态：已读为1，未读为0
   }
-  4，管理员进行权限更改   违规用户-->普通 violations=1（解冻）  普通-->违规用户 violations=0（设置成违规用户）
-* 前端api: **PUT**  /feedback/authority
-* json语句: {"phone":"电话","violations":0/1}
-* 返回信息(Object):Result(msg: ; code:"666" ;data:)
   5，管理员查看所有有违规记录且authority暂未设置成违规的用户
 * 前端api: **GET**  /feedback/user
 * json语句: 无
@@ -785,14 +781,19 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
    Integer violationCount;    //违规次数
    }
 ###用户管理    UserMangerController.java
-1，权限更改    普通-->违规用户
+1，权限更改    普通-->违规用户 number=0  违规用户-->普通 number=1
 * 前端api: **PUT**  /manage/user/authority
-* json语句: [1,2,3]
+* json语句: {
+  "ids": [
+  3,4,5
+  ],
+  "number": 1
+  }
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-2，权限更改   违规用户-->普通
-* 前端api: **PUT**  /feedback/delete
-* json语句: [1,2,3]
-* 返回信息(Object):Result(msg: ; code:"666" ;data:)
+2，根据手机查找用户信息
+* 前端api: **GET**  /manage/user
+* json语句: {"phone":"手机号"}
+* 返回信息(Object):Result(msg: ; code:"666" ;data:FeedUserDto)
   3，查看所有用户:
 * 前端api: **GET**  /manage/user/all
 * json语句: 无
@@ -817,9 +818,9 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 }
   4，根据权限、交易、违规筛选
 * 前端api: **GET**  /manage/user/select
-* json语句: {"type":"筛选类型(权限、交易、违规)  按照权限筛选时type为可买卖/已禁用 upper和upper任意",
-*           "upper":违规、交易次数上限,
-*            "lower":违规、交易次数下限}
+* json语句: {"number1":权限, 为-1时为全部
+*           "number2":违规,为-1时为全部
+*            "number3":交易为-1时为全部}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
   5，删除用户
 * 前端api: **DELETE**  /manage/user/delete
@@ -827,12 +828,48 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
   6，根据用户名或真实姓名模糊查询
 * 前端api: **GET**  /manage/user/name
-* json语句: [1,2,3]
+* json语句: {"name":"用户名或真实姓名"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
   7，修改密码为123456
 * 前端api: **PUT**  /manage/user/password
 * json语句: [1,2,3]
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
+8，获取权限目录
+* 前端api: **GET**  manage/select/authority
+* json语句:无
+* 返回{
+  "code": "666",
+  "msg": "操作成功！",
+  "data": [  {
+  "number": 0,
+  "name": "已认证"
+  },  {
+  "number": 1,
+  "name": "未认证"
+  },  {
+  "number": 2,
+  "name": "已禁用"
+  }  ]
+  }
+9，获取违规目录
+* 前端api: **GET**  manage/select/violation
+* json语句:无
+* 返回{
+  "code": "666",
+  "msg": "操作成功！",
+  "data": [
+  {
+  "number": 0,
+  "range": [  0,  10  ]
+  },
+  {
+  "number": 1,
+  "range": [  11,  20  ]
+  }}
+10，获取交易目录
+* 前端api: **GET** manage/select/trade
+* json语句:无
+* 返回同获取违规目录
 # 關於RestFul api的一些規範
 什么是RestFul架构：
 1. 每一个URI代表一种资源；
