@@ -86,7 +86,7 @@ public class EvaluateServiceImpl extends ServiceImpl<BuyerEvaluateDao, BuyerEval
         Integer violation_count = seller.getViolationCount();
         // 2. 用戶商品評價 : score1, score2, score3
         QueryWrapper<BuyerEvaluate> e_wrapper = new QueryWrapper<>();
-        e_wrapper.eq("phone", phone);
+        e_wrapper.eq("seller_phone", phone);
         List<BuyerEvaluate> evaluates = buyerEvaluateDao.selectList(e_wrapper);
         List<Integer> score1_list = new ArrayList<>();  // 商品描述得分
         List<Integer> score2_list = new ArrayList<>();  // 物流服務得分
@@ -141,33 +141,42 @@ public class EvaluateServiceImpl extends ServiceImpl<BuyerEvaluateDao, BuyerEval
     private Double get_seller_grade(Integer violation_count, List<Integer> score1_list, List<Integer> score2_list, List<Integer> score3_list, List<Integer> report_counts){
         Double init_grade = 10.00;
         Double result_grade;
-        Double violation_minus, evaluate_minus;
-        Double report_minus = 0.00;
+        Double violation_minus, evaluate_minus,report_minus;
         // 1. 計算違規權重
-        if(violation_count > 10){   // 當用戶違規次數超過10後，違規扣分就直接扣滿
+        if(violation_count == null){   // 當用戶違規次數超過10後，違規扣分就直接扣滿
+            violation_minus = 0.00;
+        } else if (violation_count > 10) {
             violation_minus = 2.00;
-        }else {
+        } else {
             violation_minus = (violation_count/10.00)*2.00;
         }
         // 2. 計算商品評價權重(商品描述: 0.6, 物流服務: 0.1, 服務態度: 0.3)
         Integer total1 = 0, total2 = 0, total3 = 0;
         Integer e_len = score1_list.size();   // 三個評價同時生成，所以等長只須計算一個長度
-        for(int i = 0 ; i < e_len ; i ++){
-            total1 += score1_list.get(i);
-            total2 += score2_list.get(i);
-            total3 += score3_list.get(i);
+        if(e_len != 0){
+            for(int i = 0 ; i < e_len ; i ++){
+                total1 += score1_list.get(i);
+                total2 += score2_list.get(i);
+                total3 += score3_list.get(i);
+            }
+            evaluate_minus = (1.00-(((total1.doubleValue()/(e_len*5))*0.6)+((total2.doubleValue()/(e_len*5))*0.1)+((total3.doubleValue()/(e_len*5))*0.3)))*2.00*3.00;
+        } else {
+            evaluate_minus = 0.00;
         }
-        evaluate_minus = (1.00-(((total1.doubleValue()/(e_len*5))*0.6)+((total2.doubleValue()/(e_len*5))*0.1)+((total3.doubleValue()/(e_len*5))*0.3)))*2.00*3.00;
         // 3. 計算商品檢舉權重
         Integer r_len = report_counts.size();
-        Integer report_total = 0;
-        for(int i = 0 ; i < r_len ; i ++){
-            report_total += report_counts.get(i);
-        }
-        if(report_total >= r_len){   // 如果總舉報數大於總商品數，直接扣滿
-            report_minus = 2.00;
+        if(r_len !=0){
+            Integer report_total = 0;
+            for(int i = 0 ; i < r_len ; i ++){
+                report_total += report_counts.get(i);
+            }
+            if(report_total >= r_len){   // 如果總舉報數大於總商品數，直接扣滿
+                report_minus = 2.00;
+            }else {
+                report_minus = (report_total.doubleValue()/r_len)*2.00;
+            }
         }else {
-            report_minus = (report_total.doubleValue()/r_len)*2.00;
+            report_minus = 0.00;
         }
         result_grade = init_grade - violation_minus - evaluate_minus - report_minus;
         return result_grade;
