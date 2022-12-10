@@ -240,15 +240,15 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
         feed.setRealName(transferUTF8.UTF8toC(user.getRealName()));
         feed.setUserName(transferUTF8.UTF8toC(user.getUserName()));
 //        //图片路径
-//        String picture1;
-//        if (user.getAvatar()==null) {
-//            //默认图片
-//            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-//            feed.setAvatar(picture1);
-//        } else {
-//            picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
-//            feed.setAvatar(picture1);
-//        }
+        String picture1;
+        if (user.getAvatar()==null) {
+            //默认图片
+            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+            feed.setAvatar(picture1);
+        } else {
+            picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
+            feed.setAvatar(picture1);
+        }
         Integer auth = user.getAuthority();
         if (auth == 0) {
             feed.setAuthority("已认证");
@@ -274,15 +274,15 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
             feed.setRealName(transferUTF8.UTF8toC(user.getRealName()));
             feed.setUserName(transferUTF8.UTF8toC(user.getUserName()));
             //图片路径
-//            String picture1;
-//            if (user.getAvatar()==null) {
-//                //默认图片
-//                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-//                feed.setAvatar(picture1);
-//            } else {
-//                picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
-//                feed.setAvatar(picture1);
-//            }
+            String picture1;
+            if (user.getAvatar()==null) {
+                //默认图片
+                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+                feed.setAvatar(picture1);
+            } else {
+                picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
+                feed.setAvatar(picture1);
+            }
             Integer auth = user.getAuthority();
             if (auth == 0) {
                 feed.setAuthority("已认证");
@@ -335,16 +335,16 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
                 feed1.setId(user1.getId());
                 feed1.setRealName(transferUTF8.UTF8toC(user1.getRealName()));
                 feed1.setUserName(transferUTF8.UTF8toC(user1.getUserName()));
-//                //图片路径
-//                String picture1;
-//                if (user1.getAvatar()==null) {
-//                    //默认图片
-//                    picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-//                    feed1.setAvatar(picture1);
-//                } else {
-//                    picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user1.getPhone()));
-//                    feed1.setAvatar(picture1);
-//                }
+                //图片路径
+                String picture1;
+                if (user1.getAvatar()==null) {
+                    //默认图片
+                    picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+                    feed1.setAvatar(picture1);
+                } else {
+                    picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user1.getPhone()));
+                    feed1.setAvatar(picture1);
+                }
                 Integer auth = user1.getAuthority();
                 if (auth == 0) {
                     feed1.setAuthority("已认证");
