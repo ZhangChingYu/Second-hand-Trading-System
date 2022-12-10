@@ -241,7 +241,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
         feed.setUserName(transferUTF8.UTF8toC(user.getUserName()));
 //        //图片路径
         String picture1;
-        if (user.getAvatar()==null) {
+        if (user.getAvatar()==null||user.getAvatar().isEmpty()) {
             //默认图片
             picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
             feed.setAvatar(picture1);
@@ -275,7 +275,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
             feed.setUserName(transferUTF8.UTF8toC(user.getUserName()));
             //图片路径
             String picture1;
-            if (user.getAvatar()==null) {
+            if (user.getAvatar()==null||user.getAvatar().isEmpty()) {
                 //默认图片
                 picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                 feed.setAvatar(picture1);
@@ -337,7 +337,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
                 feed1.setUserName(transferUTF8.UTF8toC(user1.getUserName()));
                 //图片路径
                 String picture1;
-                if (user1.getAvatar()==null) {
+                if (user1.getAvatar()==null||user1.getAvatar().isEmpty()) {
                     //默认图片
                     picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                     feed1.setAvatar(picture1);

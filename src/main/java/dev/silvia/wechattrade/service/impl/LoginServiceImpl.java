@@ -73,7 +73,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         User u=transferUTF8.switchUtf8Tc((User) loginDto.getData());
                         //图片路径
                         String picture1;
-                        if(u.getAvatar()==null){
+                        if(u.getAvatar()==null||u.getAvatar().isEmpty()){
                             //默认图片
                             picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                             u.setAvatar(picture1);

@@ -84,7 +84,7 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
 
             //图片路径
             String picture1;
-            if(user.getAvatar()==null){
+            if(user.getAvatar()==null||user.getAvatar().isEmpty()){
                 //默认图片
                 picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                 user.setAvatar(picture1);
@@ -115,13 +115,12 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
             String check = "select count(*) from user_info where phone = '" + wxUserInfo.getOpenId()+ "'";
             int checked = jdbcTemplate.queryForObject(check, Integer.class);
             redto.setUser(user);
+            redto.setCode("666");
             if(checked == 1){
-                redto.setCode("666");
                 redto.setMsg("操作成功！");
 
             }
             else{
-                redto.setCode("666");
                 redto.setMsg("用户初次登录！");
 
                 userDao.insert(user);

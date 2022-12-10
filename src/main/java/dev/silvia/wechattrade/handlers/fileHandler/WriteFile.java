@@ -145,8 +145,8 @@ public class WriteFile {
     }
 
     public int storeAuthenticationPicture(String phone, MultipartFile picture){
-        // C:/Users/Sunny/Desktop/User/12434789874/Avatar
-        String pathName = auth_url + phone+"/Avatar";
+        // C:/Users/Sunny/Desktop/User/12434789874/Authentication
+        String pathName = auth_url + phone+"/Authentication";
         File folder = new File(pathName);
         if(!folder.isDirectory()){
             if(!folder.mkdirs()){
@@ -168,8 +168,8 @@ public class WriteFile {
     }
 
     public int storeAvatarPicture(String phone, MultipartFile picture){
-        // C:/Users/Sunny/Desktop/User/12434789874/Authentication
-        String pathName = auth_url + phone+"/Authentication";
+        // C:/Users/Sunny/Desktop/User/12434789874/Avatar
+        String pathName = auth_url + phone+"/Avatar";
         File folder = new File(pathName);
         if(!folder.isDirectory()){
             if(!folder.mkdirs()){

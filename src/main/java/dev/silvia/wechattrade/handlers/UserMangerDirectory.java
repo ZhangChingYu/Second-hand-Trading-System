@@ -8,6 +8,7 @@ import java.util.List;
 
 @Component
 public class UserMangerDirectory {
+
     public static List<Integer> createTrade() {
         List<Integer> directory=new ArrayList<>();
         directory.add(5);       //交易目录长度

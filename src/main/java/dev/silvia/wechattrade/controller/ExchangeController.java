@@ -16,7 +16,7 @@ public class ExchangeController {
     @Resource
     private IOrderService service;
 
-    //getSellerInfo
+    //根据商品编号 getSellerInfo
     @RequestMapping(value ="/booking/seller/info",method = RequestMethod.GET)
     public ResponseEntity<?> getSellerInfo(@RequestParam String number) {
         return ResponseEntity.ok(service.getSellerInfo(number));
@@ -31,7 +31,6 @@ public class ExchangeController {
     public ResponseEntity<?> deleteAppointments(@RequestBody Map<String, Object> param) {
         String number = param.get("number").toString();
         return ResponseEntity.ok(service.deleteAppointments(number));
-
     }
     //卖家确认预约
     @RequestMapping(value ="/booking/acquire",method = RequestMethod.PUT)
@@ -39,14 +38,13 @@ public class ExchangeController {
         String number = param.get("number").toString();
         return ResponseEntity.ok(service.acquireAppointments(number));
     }
-    //买方/卖方取消预约
+    //买方取消/卖方拒绝预约
     @RequestMapping(value ="/orders/cancel/booking",method = RequestMethod.PUT)
     public ResponseEntity<?> cancelAppointments(@RequestBody Map<String, Object> param) {
         String number = param.get("number").toString();
         Integer isbuyer= Integer.valueOf(param.get("isbuyer").toString());
         return ResponseEntity.ok(service.cancelAppointments(number,isbuyer));
     }
-
 
 
     //生成订单----/orders/build
