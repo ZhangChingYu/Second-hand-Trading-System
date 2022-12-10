@@ -33,4 +33,16 @@ public class EvaluateController {
         String seller_phone = request.getParameter("sellerPhone");
         return gson.toJson(service.showAllEvaluate(seller_phone));
     }
+    @UserLoginToken
+    @RequestMapping(value = "/seller/grade", method = RequestMethod.GET)
+    public Double calculateSellerGrade(HttpServletRequest request){
+        String phone = request.getParameter("phone");
+        return service.calculateSellerGrade(phone);
+    }
+    @UserLoginToken
+    @RequestMapping(value = "/seller/info", method = RequestMethod.GET)
+    public String getSellerBasicInfo(HttpServletRequest request){
+        String phone = request.getParameter("phone");
+        return gson.toJson(service.getSellerBasicInfo(phone));
+    }
 }
