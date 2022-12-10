@@ -1697,49 +1697,6 @@
  */
 
 /**
- * @api {GET} /evaluations 根據賣家顯示其商品評價
- * @apiName GetEvaluationsBySeller
- * @apiGroup 商品評價
- * @apiPermission none
- *
- * @apiDescription 根據賣家顯示其商品評價
- *
- * @apiParam {String} sellerPhone 賣家手機號
- *
- * @apiSuccessExample 請求成功(例子:非匿名評價)
- *     [
- *          {
- *              "number":"(商品編號)",
- *              "productName":"(商品名稱)",
- *              "date":"(評價日期)",
- *              "score1":(描述相符得分),
- *              "score2":(物流服務得分),
- *              "score3":(服務態度得分),
- *              "evaluate":"(文字評價)",
- *              "isAnonymous":false,
- *              "buyer": {
- *                  "buyerPhone":"(買家手機號)",
- *                  "buyerName":"(買家用戶名)",
- *                  "buyerHeadPic":"(買家頭像)"
- *              }
- *          },....{}
- *      ]
- * @apiSuccessExample 請求成功(例子:匿名評價)
- *    [
- *          {
- *              "number":"(商品編號)",
- *              "productName":"(商品名稱)",
- *              "date":"(評價日期)",
- *              "score1":(描述相符得分),
- *              "score2":(物流服務得分),
- *              "score3":(服務態度得分),
- *              "evaluate":"(文字評價)",
- *              "isAnonymous":ture
- *          },....{}
- *      ]
- */
-
-/**
  * @api {POST} /setting/authentication 發送實名認證請求
  * @apiName UserPostAuthenticationRequest
  * @apiGroup 設置:實名認證
@@ -1893,4 +1850,85 @@
  *     {
  *          404
  *     }
+ */
+
+/**
+ * @api {GET} /seller/grade 根據賣家顯示其系統評分
+ * @apiName GetSystemSellerGrade
+ * @apiGroup 賣家信息主頁
+ * @apiPermission none
+ *
+ * @apiDescription 根據賣家顯示其商品評價，此功能以(用戶違規數/用戶商品評價得分/用戶商品舉報數)三個數值進行加權計算獲取得分，滿分為10分。
+ *
+ * @apiParam {String} phone 賣家手機號
+ *
+ * @apiSuccessExample 請求成功(返回Double)
+ *     {
+ *         10.00
+ *     }
+ */
+
+/**
+ * @api {GET} /seller/info 根據賣家顯示其基本信息(公開)
+ * @apiName GetSellerBasicInfo
+ * @apiGroup 賣家信息主頁
+ * @apiPermission none
+ *
+ * @apiDescription 根據賣家顯示其可公開的基本信息
+ *
+ * @apiParam {String} phone 賣家手機號
+ *
+ * @apiSuccessExample 請求成功(例子:非匿名評價)
+ *     {
+ *         "phone":"(用戶手機號)",
+ *         "email":"(用戶郵箱)",
+ *         "userName":"(用戶名)",
+ *         "tradeCount":(歷史交易數，只當賣家的交易數，買東西的不算),
+ *         "format":"jpg(用戶頭像文件格式)",
+ *         "headPic":"(用戶頭像base64編碼)"
+ *     }
+ */
+
+
+/**
+ * @api {GET} /evaluations 根據賣家顯示其商品評價
+ * @apiName GetEvaluationsBySeller
+ * @apiGroup 賣家信息主頁
+ * @apiPermission none
+ *
+ * @apiDescription 根據賣家顯示其商品評價
+ *
+ * @apiParam {String} sellerPhone 賣家手機號
+ *
+ * @apiSuccessExample 請求成功(例子:非匿名評價)
+ *     [
+ *          {
+ *              "number":"(商品編號)",
+ *              "productName":"(商品名稱)",
+ *              "date":"(評價日期)",
+ *              "score1":(描述相符得分),
+ *              "score2":(物流服務得分),
+ *              "score3":(服務態度得分),
+ *              "evaluate":"(文字評價)",
+ *              "isAnonymous":false,
+ *              "buyer": {
+ *                  "buyerPhone":"(買家手機號)",
+ *                  "buyerName":"(買家用戶名)",
+ *                  "buyerHeadPic":"(買家頭像)"
+ *              }
+ *          },....{}
+ *      ]
+ * @apiSuccessExample 請求成功(例子:匿名評價)
+ *    [
+ *          {
+ *              "number":"(商品編號)",
+ *              "productName":"(商品名稱)",
+ *              "date":"(評價日期)",
+ *              "score1":(描述相符得分),
+ *              "score2":(物流服務得分),
+ *              "score3":(服務態度得分),
+ *              "evaluate":"(文字評價)",
+ *              "isAnonymous":ture
+ *          },....{}
+ *      ]
  */

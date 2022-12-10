@@ -914,49 +914,6 @@ define({ "api": [
     "groupTitle": "商品評價"
   },
   {
-    "type": "GET",
-    "url": "/evaluations",
-    "title": "根據賣家顯示其商品評價",
-    "name": "GetEvaluationsBySeller",
-    "group": "商品評價",
-    "permission": [
-      {
-        "name": "none"
-      }
-    ],
-    "description": "<p>根據賣家顯示其商品評價</p>",
-    "parameter": {
-      "fields": {
-        "Parameter": [
-          {
-            "group": "Parameter",
-            "type": "String",
-            "optional": false,
-            "field": "sellerPhone",
-            "description": "<p>賣家手機號</p>"
-          }
-        ]
-      }
-    },
-    "success": {
-      "examples": [
-        {
-          "title": "請求成功(例子:非匿名評價)",
-          "content": "[\n     {\n         \"number\":\"(商品編號)\",\n         \"productName\":\"(商品名稱)\",\n         \"date\":\"(評價日期)\",\n         \"score1\":(描述相符得分),\n         \"score2\":(物流服務得分),\n         \"score3\":(服務態度得分),\n         \"evaluate\":\"(文字評價)\",\n         \"isAnonymous\":false,\n         \"buyer\": {\n             \"buyerPhone\":\"(買家手機號)\",\n             \"buyerName\":\"(買家用戶名)\",\n             \"buyerHeadPic\":\"(買家頭像)\"\n         }\n     },....{}\n ]",
-          "type": "json"
-        },
-        {
-          "title": "請求成功(例子:匿名評價)",
-          "content": "[\n      {\n          \"number\":\"(商品編號)\",\n          \"productName\":\"(商品名稱)\",\n          \"date\":\"(評價日期)\",\n          \"score1\":(描述相符得分),\n          \"score2\":(物流服務得分),\n          \"score3\":(服務態度得分),\n          \"evaluate\":\"(文字評價)\",\n          \"isAnonymous\":ture\n      },....{}\n  ]",
-          "type": "json"
-        }
-      ]
-    },
-    "version": "0.0.0",
-    "filename": "src/example.js",
-    "groupTitle": "商品評價"
-  },
-  {
     "type": "POST",
     "url": "/setting/address",
     "title": "添加地址",
@@ -3379,5 +3336,124 @@ define({ "api": [
     "version": "0.0.0",
     "filename": "src/example.js",
     "groupTitle": "設置:用戶反饋"
+  },
+  {
+    "type": "GET",
+    "url": "/evaluations",
+    "title": "根據賣家顯示其商品評價",
+    "name": "GetEvaluationsBySeller",
+    "group": "賣家信息主頁",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據賣家顯示其商品評價</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "sellerPhone",
+            "description": "<p>賣家手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:非匿名評價)",
+          "content": "[\n     {\n         \"number\":\"(商品編號)\",\n         \"productName\":\"(商品名稱)\",\n         \"date\":\"(評價日期)\",\n         \"score1\":(描述相符得分),\n         \"score2\":(物流服務得分),\n         \"score3\":(服務態度得分),\n         \"evaluate\":\"(文字評價)\",\n         \"isAnonymous\":false,\n         \"buyer\": {\n             \"buyerPhone\":\"(買家手機號)\",\n             \"buyerName\":\"(買家用戶名)\",\n             \"buyerHeadPic\":\"(買家頭像)\"\n         }\n     },....{}\n ]",
+          "type": "json"
+        },
+        {
+          "title": "請求成功(例子:匿名評價)",
+          "content": "[\n      {\n          \"number\":\"(商品編號)\",\n          \"productName\":\"(商品名稱)\",\n          \"date\":\"(評價日期)\",\n          \"score1\":(描述相符得分),\n          \"score2\":(物流服務得分),\n          \"score3\":(服務態度得分),\n          \"evaluate\":\"(文字評價)\",\n          \"isAnonymous\":ture\n      },....{}\n  ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "賣家信息主頁"
+  },
+  {
+    "type": "GET",
+    "url": "/seller/info",
+    "title": "根據賣家顯示其基本信息(公開)",
+    "name": "GetSellerBasicInfo",
+    "group": "賣家信息主頁",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據賣家顯示其可公開的基本信息</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>賣家手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:非匿名評價)",
+          "content": "{\n    \"phone\":\"(用戶手機號)\",\n    \"email\":\"(用戶郵箱)\",\n    \"userName\":\"(用戶名)\",\n    \"tradeCount\":(歷史交易數，只當賣家的交易數，買東西的不算),\n    \"format\":\"jpg(用戶頭像文件格式)\",\n    \"headPic\":\"(用戶頭像base64編碼)\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "賣家信息主頁"
+  },
+  {
+    "type": "GET",
+    "url": "/seller/grade",
+    "title": "根據賣家顯示其系統評分",
+    "name": "GetSystemSellerGrade",
+    "group": "賣家信息主頁",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據賣家顯示其商品評價，此功能以(用戶違規數/用戶商品評價得分/用戶商品舉報數)三個數值進行加權計算獲取得分，滿分為10分。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>賣家手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(返回Double)",
+          "content": "{\n    10.00\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "賣家信息主頁"
   }
 ] });
