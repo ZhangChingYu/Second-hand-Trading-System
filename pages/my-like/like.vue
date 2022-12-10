@@ -76,7 +76,7 @@
 			this.showAll();
 
 			//获取分类
-			that.api.get('/catalog/catalogs').then(res => {
+			that.api.get('/catalogs').then(res => {
 				this.catalogs = res;
 			})
 		},
@@ -153,7 +153,7 @@
 			},
 			//判断是否全选
 			checkedAll() {
-				return this.LikeList.length === this.selectedList.length;
+				return this.LikeList.length <= this.selectedList.length;
 			},
 			checkedAllFn() {
 				if (this.checkedAll()) {

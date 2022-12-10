@@ -224,9 +224,9 @@ var _default =
       uni.uploadFile({
         url: 'http://localhost:8080//setting/authentication',
         filePath: filePath,
-        name: 'pictures',
+        name: 'idCardPic',
         formData: {
-          pictures: filePath,
+          idCardPic: filePath,
           phone: that.phone,
           realName: that.realName,
           idNumber: that.idCard },
@@ -239,9 +239,12 @@ var _default =
           var res = JSON.parse(response.data);
 
           console.log(res, '----res');
-          if (res.code == 200) {
+          if (res == 200) {
             that.showInfo = res.data;
             console.log('请求成功_______________', res);
+            uni.navigateBack({
+              delta: 1 });
+
             // 调用下载接口
             //that.downloadImg(res.data.attachId);
 

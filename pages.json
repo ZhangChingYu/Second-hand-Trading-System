@@ -170,6 +170,15 @@
 			}
 			
 		},
+        {
+            "path" : "pages/userInfo/userInfo",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看用户信息",
+                "enablePullDownRefresh": false
+            }
+            
+        },
 		
 		
 		

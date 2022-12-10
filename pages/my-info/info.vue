@@ -7,7 +7,7 @@
 			<view class="info-content-item">
 				<view>头像</view>
 				<image v-if="avatar" :src="avatar" style="width: 100rpx; height: 100rpx;" @tap="onGetImgClick"></image>
-				<image v-else src="../../static/image/my_icon/header.png" style="width: 100rpx; height: 100rpx;" @tap="onGetImgClick"></image>
+				<image v-else :src="'data:image/jpg;base64,' + userUpdate.avatar" style="width: 100rpx; height: 100rpx;" @tap="onGetImgClick"></image>
 			</view>
 			<view class="info-content-item">
 				<view>用户名：</view>
@@ -38,8 +38,8 @@
 				<input type="text" value="" placeholder="请输入邮箱" v-model="userUpdate.email"/>
 			</view>
 			<view class="info-content-item">
-				<view>绑定第三方账号</view>
-				<view>&nbsp;&nbsp;&nbsp;></view>
+				<view>个人评分</view>
+				<view style="color: grey;">{{grade}}&nbsp;&nbsp;&nbsp;</view>
 			</view>
 			<button class="commitbtn" @click="commit">确认修改</button>
 		</view>
@@ -61,13 +61,21 @@
 				},
 				//用于storage信息更新
 				user:{},
-				avatar:''
+				avatar:'',
+				grade:''
 			}
 		},
 		mounted(){
 			let res=uni.getStorageSync('user');
 			this.user=res;
 			this.userUpdate=res;
+			
+			//获取评分
+			let that=this;
+			let phone=this.user.phone;
+			that.api.get('/seller/grade',{phone}).then(res=>{
+				this.grade=res;
+			})
 			
 			//获取头像
 			this.avatar=uni.getStorageSync('avatar');

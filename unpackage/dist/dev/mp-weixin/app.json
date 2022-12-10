@@ -16,6 +16,7 @@
     "pages/my-setup/help",
     "pages/my-setup/feedback",
     "pages/my-info/info",
+    "pages/userInfo/userInfo",
     "pages/detail/index"
   ],
   "subPackages": [],

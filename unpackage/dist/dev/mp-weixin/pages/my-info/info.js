@@ -195,13 +195,21 @@ var _default =
 
       //用于storage信息更新
       user: {},
-      avatar: '' };
+      avatar: '',
+      grade: '' };
 
   },
-  mounted: function mounted() {
+  mounted: function mounted() {var _this = this;
     var res = uni.getStorageSync('user');
     this.user = res;
     this.userUpdate = res;
+
+    //获取评分
+    var that = this;
+    var phone = this.user.phone;
+    that.api.get('/seller/grade', { phone: phone }).then(function (res) {
+      _this.grade = res;
+    });
 
     //获取头像
     this.avatar = uni.getStorageSync('avatar');

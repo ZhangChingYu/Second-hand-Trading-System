@@ -239,7 +239,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
     this.showAll();
 
     //获取分类
-    that.api.get('/catalog/catalogs').then(function (res) {
+    that.api.get('/catalogs').then(function (res) {
       _this.catalogs = res;
     });
   },
@@ -316,7 +316,7 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function ownKeys(object, enumera
     },
     //判断是否全选
     checkedAll: function checkedAll() {
-      return this.LikeList.length === this.selectedList.length;
+      return this.LikeList.length <= this.selectedList.length;
     },
     checkedAllFn: function checkedAllFn() {
       if (this.checkedAll()) {

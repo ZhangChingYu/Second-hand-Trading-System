@@ -149,7 +149,6 @@
 		padding-right: 30rpx;
 		font-size: medium;
 	}
-
 	.address-item {
 		display: flex;
 		justify-content: space-between; //左右排开
@@ -162,14 +161,12 @@
 	.title{
 		width: 250rpx;
 	}
-
 	.address-item input {
 		text-align: right;
 		flex: 1;
 		text-align: left;
 		padding-left: 10rpx;
 	}
-
 	.commitbtn {
 		color: white;
 		background-color: #d04b41;

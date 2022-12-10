@@ -260,7 +260,39 @@ var _vuex = __webpack_require__(/*! vuex */ 13); //
 //
 //
 //
-var _default = { data: function data() {return { user: { userName: "" }, avatar: '' };}, onLoad: function onLoad() {var res = uni.getStorageSync('user');console.log(123);this.user.userName = res.userName;this.avatar = uni.getStorageSync('avatar');}, methods: { get: function get(res) {}, collect: function collect() {wx.navigateTo({ url: "../my-like/like" });}, setup: function setup() {wx.navigateTo({ url: "../my-setup/setup" });}, realname: function realname() {wx.navigateTo({ url: "../my-realname/realname" });}, address: function address() {wx.navigateTo({ url: "../my-address/address" });}, info: function info() {wx.navigateTo({ url: "../my-info/info" });} } };exports.default = _default;
+var _default = { data: function data() {return { user: { userName: "", avatar: "" }, //前端存储用
+      avatar: '', buy: '', sell: '', phone: '' //待删除
+    };}, onLoad: function onLoad() {var res = uni.getStorageSync('user');console.log(123);this.user.userName = res.userName;this.user.avatar = res.avatar;this.phone = res.phone;var that = this;var phone = res.phone;that.api.get('/manage/user', { phone: phone }).then(function (res) {that.buy = res.data.buy;that.sell = res.data.sell;console.log(data);console.log(123456789);});}, methods: { collect: function collect() {wx.navigateTo({ url: "../my-like/like" });}, setup: function setup() {wx.navigateTo({ url: "../my-setup/setup" });}, realname: function realname() {wx.navigateTo({ url: "../my-realname/realname" });}, address: function address() {wx.navigateTo({ url: "../my-address/address" });}, //我的商品
+    products: function products() {wx.navigateTo({ url: "" });},
+    //预约
+    pre: function pre() {
+      wx.navigateTo({
+        url: "" });
+
+    },
+    //举报
+    report: function report() {
+      wx.navigateTo({
+        url: "" });
+
+    },
+    //订单
+    exchange: function exchange() {
+      wx.navigateTo({
+        url: "" });
+
+    },
+    info: function info() {
+      wx.navigateTo({
+        url: "../my-info/info" });
+
+    },
+    userDetail: function userDetail(phone) {
+      console.log('phone:', phone);
+      wx.navigateTo({
+        url: "../userInfo/userInfo?phone=" + phone });
+
+    } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

@@ -3,7 +3,7 @@
 		<view class="my-top">
 			<view style="width: 30%; ">
 				<image class="my-header" v-if="avatar" :src="avatar"></image>
-				<image class="my-header" v-else src="../../static/image/my_icon/header.png"></image>
+				<image class="my-header" v-else :src="'data:image/jpg;base64,' + user.avatar" @click="userDetail(phone)"></image>
 			</view>
 			<view>
 				<view class="my-text">
@@ -13,12 +13,12 @@
 						@click="info">个人信息></view>
 				</view>
 				<view class="hr"></view>
-				<view class="my-text" style="padding-top: 20rpx;">已交易：24</view>
+				<view class="my-text" style="padding-top: 20rpx;">买入：{{buy}}&nbsp;&nbsp;卖出：{{sell}}</view>
 			</view>
 		</view>
 		<view class='icons'>
 			<view class="icons-item">
-				<image class="icons-img" src="../../static/image/my_icon/jubao.png" mode=""></image>
+				<image class="icons-img" @click="report" src="../../static/image/my_icon/jubao.png" mode=""></image>
 				<text class='icons-name'>举报</text>
 			</view>
 			<view class="icons-item" @click="setup">
@@ -26,12 +26,12 @@
 				<text class='icons-name'>设置</text>
 			</view>
 			<view class="icons-item">
-				<image class="icons-img" src="../../static/image/my_icon/qianbao.png" mode=""></image>
-				<text class='icons-name'>钱包</text>
+				<image class="icons-img" @click="pre" src="../../static/image/my_icon/qianbao.png" mode=""></image>
+				<text class='icons-name'>我的预约</text>
 			</view>
 			<view class="icons-item">
-				<image class="icons-img" src="../../static/image/my_icon/zuanshi.png" mode=""></image>
-				<text class='icons-name'>已购买</text>
+				<image class="icons-img" @click="exchange" src="../../static/image/my_icon/zuanshi.png" mode=""></image>
+				<text class='icons-name'>我的订单</text>
 			</view>
 			<!-- 分割线-->
 			<view class="hr"></view>
@@ -40,8 +40,8 @@
 				<text class='icons-name'>收藏</text>
 			</view>
 			<view class="icons-item">
-				<image class="icons-img" src="../../static/image/my_icon/zuanshi_o.png" mode=""></image>
-				<text class='icons-name'>已售出</text>
+				<image class="icons-img" @click="products" src="../../static/image/my_icon/zuanshi_o.png" mode=""></image>
+				<text class='icons-name'>我的商品</text>
 			</view>
 			<view class="icons-item" @click="address">
 				<image class="icons-img" src="../../static/image/my_icon/daohangdizhi.png" mode=""></image>
@@ -66,9 +66,14 @@
 		data() {
 			return {
 				user: {
-					userName: ""
+					userName: "",
+					avatar:""
 				},
-				avatar:''
+				//前端存储用
+				avatar:'',
+				buy:'',
+				sell:'',
+				phone:''//待删除
 			}
 		},
 
@@ -76,13 +81,19 @@
 			let res = uni.getStorageSync('user');
 			console.log(123);
 			this.user.userName = res.userName;
-			this.avatar=uni.getStorageSync('avatar')
+			this.user.avatar=res.avatar;
+			this.phone=res.phone;
+			let that=this;
+			let phone=res.phone;
+			that.api.get('/manage/user',{phone}).then(res=>{
+				that.buy=res.data.buy;
+				that.sell=res.data.sell;
+				console.log(data);
+				console.log(123456789)
+			})
 		},
 
 		methods: {
-			get(res) {
-
-			},
 			collect() {
 				wx.navigateTo({
 					url: "../my-like/like"
@@ -103,11 +114,41 @@
 					url: "../my-address/address"
 				});
 			},
+			//我的商品
+			products() {
+				wx.navigateTo({
+					url: ""
+				});
+			},
+			//预约
+			pre() {
+				wx.navigateTo({
+					url: ""
+				});
+			},
+			//举报
+			report() {
+				wx.navigateTo({
+					url: ""
+				});
+			},
+			//订单
+			exchange() {
+				wx.navigateTo({
+					url: ""
+				});
+			},
 			info() {
 				wx.navigateTo({
 					url: "../my-info/info"
 				});
 			},
+			userDetail(phone){
+				console.log('phone:',phone)
+				wx.navigateTo({
+					url:"../userInfo/userInfo?phone="+phone
+				})
+			}
 		}
 	}
 </script>
