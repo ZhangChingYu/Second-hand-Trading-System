@@ -12,6 +12,10 @@ import java.util.Optional;
 public interface ILoginService extends IService<User> {
 
     Optional<LoginResponseDto> login(LoginRequestDto request);
-    Result lostPassward(LostPasswordDto request);//忘记密码
+    Result lostPassword(LostPasswordDto request);//忘记密码
+
+    Result selectAvatar(String phone);
+
+    Result selectAuth(String phone);
 }
 

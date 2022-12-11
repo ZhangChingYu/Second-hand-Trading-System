@@ -13,6 +13,7 @@ import dev.silvia.wechattrade.entity.Feedback;
 import dev.silvia.wechattrade.entity.Seller;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.OrderCodeUtils;
+import dev.silvia.wechattrade.handlers.picSize.PicUtil;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.UserMangerDirectory;
 import dev.silvia.wechattrade.handlers.common.repository.BuyerRepository;
@@ -22,6 +23,7 @@ import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
 import dev.silvia.wechattrade.handlers.fileHandler.DeleteFile;
 import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
+import dev.silvia.wechattrade.handlers.picSize.PictureSize;
 import dev.silvia.wechattrade.service.IUserMangerService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +33,11 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerService {
+    private  final  static int avatar_width=PictureSize.avatar_width;
+    private  final  static  int avatar_height=PictureSize.avatar_height;
     @Autowired
     TransferUTF8 transferUTF8 = new TransferUTF8();
     @Autowired
@@ -56,6 +59,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
 
     List<DirectoryDto> directoryList1;  //交易目录
     List<DirectoryDto> directoryList2;  //违规目录
+
     @Override
     public Result selectUser(String phone) {
         User user=userRepository.findByPhone(phone).get();
@@ -65,10 +69,10 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
         String picture1;
         if (user.getAvatar()==null||user.getAvatar().isEmpty()) {
             //默认图片
-            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+            picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
             userInfo.setAvatar(picture1);
         } else {
-            picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
+            picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user.getPhone()),avatar_width,avatar_height);
             userInfo.setAvatar(picture1);
         }
         Integer auth = user.getAuthority();
@@ -110,15 +114,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
     public Result swapAuthority(List<Integer> ids,Integer violations) {
         for (Integer s : ids) {
             User user = userRepository.findById(s).get();
-            if (violations == 0) {
-                user.setAuthority(2);
-            } else {
-                if (user.getPicture() == null) {
-                    user.setAuthority(1);
-                } else {
-                    user.setAuthority(0);
-                }
-            }
+            user.setAuthority(violations);
             userRepository.save(user);
         }
         res=new Result(ResultCode.SUCCESS);
@@ -157,40 +153,15 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
     @Override
     public Result userManageSelect(Integer number1, Integer number2, Integer number3) {
         List<FeedUserDto> feed;
-        List<User> user;
         if(number1==-1){
-            if(number2==-1){
-                if(number3==-1){
-                    //所有
-                    user=userRepository.findAll();
-                    feed=packFeedUserDto(user);
-                }
-                else{
-                    user=userRepository.findAll();
-                    //按交易范围
-                    feed=selectByRange(number2,number3,user);
-                }
-            }
-            else{
-                //按违规范围、按交易和违规范围
-                user=userRepository.findAll();
-                feed=selectByRange(number2,number3,user);
-            }
+            List<User> user;
+            user=userRepository.findAll();
+            feed=selectByRange(number2,number3,user);
         }
         else{
-            //按权限搜索
-            //权限和违规
-            //交易、权限和违规
-            if(number3==-1){
-                //只按权限搜索
-                user=userRepository.findByAuthority(number1);
-                feed=packFeedUserDto(user);
-            }
-            else{
-                //按权限和交易范围
-                user=userRepository.findByAuthority(number1);
-                feed=selectByRange(number2,number3,user);
-            }
+            List<User> user;
+            user=userRepository.findByAuthority(number1);
+            feed=selectByRange(number2,number3,user);
         }
         res=new Result(ResultCode.SUCCESS,feed);
         return res;
@@ -278,10 +249,10 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
             String picture1;
             if (user.getAvatar()==null||user.getAvatar().isEmpty()) {
                 //默认图片
-                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL, avatar_width,avatar_height);
                 feed.setAvatar(picture1);
             } else {
-                picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user.getPhone()));
+                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user.getPhone()),avatar_width,avatar_height);
                 feed.setAvatar(picture1);
             }
             Integer auth = user.getAuthority();
@@ -310,7 +281,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
             List<Buyer> buyer = buyerRepository.findAllByPhone(phone);
             List<Seller> seller=sellerRepository.findAllByPhone(phone);
             int count,upper1,lower1,violation,upper2,lower2;
-            if(number2==-1){
+            if(number2==-1){   //不按违规
                 upper2=100000;
                 lower2=0;
             }
@@ -318,7 +289,7 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
                 upper2=directoryList2.get(number2).getRange().get(1);
                 lower2=directoryList2.get(number2).getRange().get(0);
             }
-            if(number3==-1){
+            if(number3==-1){   //不按交易
                 upper1=100000;
                 lower1=0;
             }
@@ -341,10 +312,10 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
                 String picture1;
                 if (user1.getAvatar()==null||user1.getAvatar().isEmpty()) {
                     //默认图片
-                    picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+                    picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
                     feed1.setAvatar(picture1);
                 } else {
-                    picture1 = ReadFile.getBaseFile(readFile.getAvatarPicture(user1.getPhone()));
+                    picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user1.getPhone()),avatar_width,avatar_height);
                     feed1.setAvatar(picture1);
                 }
                 Integer auth = user1.getAuthority();

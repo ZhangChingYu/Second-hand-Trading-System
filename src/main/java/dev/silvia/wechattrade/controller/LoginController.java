@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -38,6 +39,18 @@ public class LoginController {
     private final String em = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
     private final String ph = "^[1][3578]\\d{9}$";
 
+    //根据手机号查询头像
+    @RequestMapping(value ="/user/avatar",method = RequestMethod.GET)
+    public ResponseEntity<?> selectAvatar(HttpServletRequest request){
+        String phone= request.getParameter("phone");    //权限
+        return ResponseEntity.ok(service.selectAvatar(phone));
+    }
+    //根据手机号查询认证图片
+    @RequestMapping(value ="/user/auth",method = RequestMethod.GET)
+    public ResponseEntity<?> selectAuth(HttpServletRequest request){
+        String phone= request.getParameter("phone");    //权限
+        return ResponseEntity.ok(service.selectAuth(phone));
+    }
     @RequestMapping(value ="/login",method = RequestMethod.POST)
     public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
         LoginResponseDto user1=new LoginResponseDto();
@@ -70,9 +83,9 @@ public class LoginController {
     }
 
     @RequestMapping(value ="/lost",method = RequestMethod.POST)
-    public ResponseEntity<?> lostpassword(@RequestBody LostPasswordDto request){
+    public ResponseEntity<?> lostPassword(@RequestBody LostPasswordDto request){
         if(Objects.equals(request.getCaptcha1(), request.getCaptcha())){
-            return ResponseEntity.ok(service.lostPassward(request));
+            return ResponseEntity.ok(service.lostPassword(request));
         }
         else{
             redto=new Result(ResultCode.AUTH_CODE_ERROR);

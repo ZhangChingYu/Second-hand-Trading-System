@@ -36,6 +36,7 @@ public class UserCenterController {
     private WriteFile writeFile;
 
     private Result redto;
+
     //根据id获取个人信息
     @RequestMapping(value ="/setting/acquisition",method = RequestMethod.GET)
     public ResponseEntity<?> acquisition(@RequestParam Integer id){

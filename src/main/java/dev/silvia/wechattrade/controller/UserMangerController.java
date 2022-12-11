@@ -92,8 +92,6 @@ public class UserMangerController {
         return ResponseEntity.ok(service.selectUser(phone));
     }
 
-
-
     //获取权限目录
     @RequestMapping(value ="/manage/select/authority",method = RequestMethod.GET)
     public ResponseEntity<?> selectAuth() {
