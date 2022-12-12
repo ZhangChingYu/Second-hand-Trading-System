@@ -5,15 +5,32 @@ import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.vo.report.comment.CommentPack;
 import dev.silvia.wechattrade.vo.report.comment.CommentReportDetailVo;
 import dev.silvia.wechattrade.vo.report.comment.CommentReportOutlineVo;
+import dev.silvia.wechattrade.vo.report.my.MyReportProductVo;
 import dev.silvia.wechattrade.vo.report.product.ProductReportDetailVo;
 import dev.silvia.wechattrade.vo.report.product.ProductReportOutlineVo;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
+import java.util.Map;
 
 @Component
 public class ReportPacking {
     private TransferUTF8 transferUTF8 = new TransferUTF8();
+
+    public MyReportProductVo ReportToMyReportVo(ProductReport report, User seller, Product product, Map<String, Object> map, String headPic){
+        MyReportProductVo reportVo = new MyReportProductVo();
+        reportVo.setId(report.getId());
+        reportVo.setSellerName(transferUTF8.UTF8toC(seller.getUserName()));
+        reportVo.setHeadPicFormat("jpg");
+        reportVo.setSellerHeadPic(headPic);
+        reportVo.setProductName(transferUTF8.UTF8toC(product.getName()));
+        reportVo.setCoverPicFormat(map.get("format").toString());
+        reportVo.setProductCover(map.get("picture").toString());
+        reportVo.setPrice(product.getPrice());
+        reportVo.setContent(transferUTF8.UTF8toC(report.getContent()));
+        reportVo.setStatus(report.getStatus());
+        return reportVo;
+    }
 
     public ProductReportOutlineVo ReportToOutlineVo(ProductReport report){
         ProductReportOutlineVo outlineVo = new ProductReportOutlineVo();

@@ -13,7 +13,10 @@ import dev.silvia.wechattrade.entity.ProductReport;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.Packing.ReportPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.IProductReportService;
+import dev.silvia.wechattrade.vo.report.my.MyReportCommentVo;
+import dev.silvia.wechattrade.vo.report.my.MyReportProductVo;
 import dev.silvia.wechattrade.vo.report.product.ProductReportDetailVo;
 import dev.silvia.wechattrade.vo.report.product.ProductReportOutlineVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +27,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, ProductReport> implements IProductReportService {
@@ -39,6 +43,8 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
     ReportPacking reportPacking;
     @Autowired
     TransferUTF8 transferUTF8;
+    @Autowired
+    ReadFile readFile;
     @Autowired
     JdbcTemplate jdbcTemplate;
 
@@ -63,6 +69,56 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
             }
         }
         return 422; // 舉報發送失敗
+    }
+
+    @Override
+    public List<MyReportProductVo> showAllMyReport(String phone) {
+        QueryWrapper<ProductReport> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        List<ProductReport> reports = productReportDao.selectList(wrapper);
+        List<MyReportProductVo> reportVos = new ArrayList<>();
+        if(reports.isEmpty()){
+            return null;
+        }
+        for(ProductReport report : reports){
+            Product product = getProduct(report.getNumber());
+            User seller = getUser(product.getSPhone());
+            String headPic = readFile.readAvatarPicture(seller.getPhone());
+            Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
+            MyReportProductVo reportVo = reportPacking.ReportToMyReportVo(report, seller, product, map, headPic);
+            reportVos.add(reportVo);
+        }
+        return reportVos;
+    }
+
+    @Override
+    public List<MyReportProductVo> showMyReportByStatus(String phone, Integer status) {
+        QueryWrapper<ProductReport> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        wrapper.eq("status", status);
+        List<ProductReport> reports = productReportDao.selectList(wrapper);
+        if(reports.isEmpty()){
+            return null;
+        }
+        List<MyReportProductVo> reportVos = new ArrayList<>();
+        for(ProductReport report : reports){
+            Product product = getProduct(report.getNumber());
+            User seller = getUser(product.getSPhone());
+            String headPic = readFile.readAvatarPicture(seller.getPhone());
+            Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
+            MyReportProductVo reportVo = reportPacking.ReportToMyReportVo(report, seller, product, map, headPic);
+            reportVos.add(reportVo);
+        }
+        return reportVos;
+    }
+
+    @Override
+    public Integer deleteMyReport(Integer id) {
+        ProductReport report = productReportDao.selectById(id);
+        if(productReportDao.deleteById(report) > 0){
+            return 204; // 舉報成功刪除
+        }
+        return 422; // 舉報刪除失敗(數據庫沒有更新)
     }
 
     @Override

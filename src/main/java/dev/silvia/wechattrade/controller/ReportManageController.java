@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import dev.silvia.wechattrade.dto.report.CommentReportDto;
 import dev.silvia.wechattrade.dto.report.ProductReportDto;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
+import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.ICommentReportService;
 import dev.silvia.wechattrade.service.IProductReportService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,10 +30,29 @@ public class ReportManageController {
 
     Gson gson = new Gson();
 
-    @PassToken
+    @UserLoginToken
     @RequestMapping(value = "/product/report", method = RequestMethod.POST)
     public Integer sendProductReport(@RequestBody ProductReportDto productReportDto){
         return PRService.userPostReport(productReportDto);
+    }
+    //@UserLoginToken
+    @RequestMapping(value = "/my/product/reports", method = RequestMethod.GET)
+    public String showAllMyProductReport(HttpServletRequest request){
+        String phone = request.getParameter("phone");
+        return gson.toJson(PRService.showAllMyReport(phone));
+    }
+    //@UserLoginToken
+    @RequestMapping(value = "/my/product/reports/status", method = RequestMethod.GET)
+    public String showMyProductReportByStatus(HttpServletRequest request){
+        String phone = request.getParameter("phone");
+        Integer status = Integer.parseInt(request.getParameter("status"));
+        return gson.toJson(PRService.showMyReportByStatus(phone, status));
+    }
+    @UserLoginToken
+    @RequestMapping(value = "/my/product/report", method = RequestMethod.DELETE)
+    public Integer deleteMyProductReport(@RequestBody Map<String, Object> param){
+        Integer id = Integer.parseInt(param.get("id").toString());
+        return PRService.deleteMyReport(id);
     }
     @PassToken
     @RequestMapping(value = "/product/reports", method = RequestMethod.GET)
