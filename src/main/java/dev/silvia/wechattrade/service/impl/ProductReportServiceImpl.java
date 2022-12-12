@@ -116,7 +116,12 @@ public class ProductReportServiceImpl extends ServiceImpl<ProductReportDao, Prod
     public Integer deleteMyReport(Integer id) {
         ProductReport report = productReportDao.selectById(id);
         if(productReportDao.deleteById(report) > 0){
-            return 204; // 舉報成功刪除
+            Product product = getProduct(report.getNumber());
+            product.setReportCount(product.getReportCount()-1);
+            if(productDao.updateById(product) > 0){
+                return 204; // 舉報成功刪除
+            }
+            return 404; // 舉報信息已刪除，但商品的舉報數沒有減少
         }
         return 422; // 舉報刪除失敗(數據庫沒有更新)
     }

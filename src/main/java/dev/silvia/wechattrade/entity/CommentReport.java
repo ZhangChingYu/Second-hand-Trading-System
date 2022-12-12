@@ -12,7 +12,7 @@ import java.util.Date;
 
 @Data
 @EqualsAndHashCode(callSuper = false)
-@TableName(value = "product_manage")
+@TableName(value = "comment_report")
 public class CommentReport implements Serializable {
     private static final long serialVersionUID=1L;
 
