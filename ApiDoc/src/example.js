@@ -1337,6 +1337,154 @@
  */
 
 /**
+ * @api {GET} /my/comment/reports 獲取用戶所有留言舉報
+ * @apiName GetUserAllCommentReport
+ * @apiGroup 用戶舉報
+ * @apiPermission none
+ *
+ * @apiDescription 獲取用戶所有留言舉報
+ *
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 舉報發送成功(例子:15059417755)
+ *     [
+ *         {
+ *             "id": 1,
+ *             "targetName": "Jamie Sanders",
+ *             "headPicFormat": "jpg",
+ *             "targetHeadPic": "iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...",
+ *             "commentContent": "有需要同問兩次嗎?無語",
+ *             "content": "留言不友善",
+ *             "status": 0
+ *         },...,{}
+ *     ]
+ */
+
+/**
+ * @api {GET} /my/comment/reports/status 根據處理狀態獲取用戶的留言舉報
+ * @apiName GetUserCommentReportByStatus
+ * @apiGroup 用戶舉報
+ * @apiPermission none
+ *
+ * @apiDescription 根據處理狀態獲取用戶的留言舉報
+ *
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {Integer} status 舉報處理狀態(0:未處理, 1:已通過, 2:不通過)
+ *
+ * @apiSuccessExample 舉報發送成功(例子:phone = 15059417755,status = 0)
+ *     [
+ *         {
+ *             "id": 1,
+ *             "targetName": "Jamie Sanders",
+ *             "headPicFormat": "jpg",
+ *             "targetHeadPic": "iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...",
+ *             "commentContent": "有需要同問兩次嗎?無語",
+ *             "content": "留言不友善",
+ *             "status": 0
+ *         },...,{}
+ *     ]
+ */
+
+/**
+ * @api {GET} /my/product/reports 獲取用戶所有商品舉報
+ * @apiName GetUserAllProductReport
+ * @apiGroup 用戶舉報
+ * @apiPermission none
+ *
+ * @apiDescription 獲取用戶所有商品舉報
+ *
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 舉報發送成功(例子:15059417755)
+ *     [
+ *         {
+ *             "id": 1,
+ *             "sellerName": "天天",
+ *             "headPicFormat": "jpg",
+ *             "sellerHeadPic": "iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...",
+ *             "productName": "連衣裙",
+ *             "coverPicFormat": "jpg",
+ *             "productCover": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQ...",
+ *             "price": 49.9,
+ *             "content": "裙子嚴重脫線，洗一次基本就沒法穿了",
+ *             "status": 1
+ *         },...,{}
+ *     ]
+ */
+
+/**
+ * @api {GET} /my/product/reports/status 根據處理狀態獲取用戶的商品舉報
+ * @apiName GetUserProductReportByStatus
+ * @apiGroup 用戶舉報
+ * @apiPermission none
+ *
+ * @apiDescription 根據處理狀態獲取用戶的商品舉報
+ *
+ * @apiParam {String} phone 用戶手機號
+ * @apiParam {Integer} status 舉報處理狀態(0:未處理, 1:已通過, 2:不通過)
+ *
+ * @apiSuccessExample 舉報發送成功(例子:phone = 15059417755,status = 1)
+ *    [
+ *         {
+ *             "id": 1,
+ *             "sellerName": "天天",
+ *             "headPicFormat": "jpg",
+ *             "sellerHeadPic": "iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...",
+ *             "productName": "連衣裙",
+ *             "coverPicFormat": "jpg",
+ *             "productCover": "/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQ...",
+ *             "price": 49.9,
+ *             "content": "裙子嚴重脫線，洗一次基本就沒法穿了",
+ *             "status": 1
+ *         },...,{}
+ *     ]
+ */
+
+/**
+ * @api {DELETE} /comment/report 用戶刪除留言舉報
+ * @apiName UserDeleteCommentReport
+ * @apiGroup 用戶舉報
+ * @apiPermission none
+ *
+ * @apiDescription 用戶刪除某一留言舉報
+ *
+ * @apiParam {Integer} id 留言舉報序號id
+ *
+ * @apiSuccessExample 舉報刪除成功(例子)
+ *     {
+ *          204
+ *      }
+ * @apiErrorExample 舉報刪除失敗(數據庫未更新)
+ *     {
+ *        422
+ *     }
+ */
+
+/**
+ * @api {DELETE} /product/report 用戶刪除商品舉報
+ * @apiName UserDeleteProductReport
+ * @apiGroup 用戶舉報
+ * @apiPermission none
+ *
+ * @apiDescription 用戶刪除某一商品舉報
+ *
+ * @apiParam {Integer} id 商品舉報序號id
+ *
+ * @apiSuccessExample 舉報刪除成功(例子)
+ *     {
+ *          204
+ *      }
+ * @apiErrorExample 舉報刪除失敗(數據庫未更新)
+ *     {
+ *        422
+ *     }
+ * @apiErrorExample 舉報刪除失敗(商品舉報數未更新)
+ *     {
+ *        404
+ *     }
+ */
+
+/**
  * @api {GET} /product/reports 獲取所有商品舉報請求
  * @apiName GetAllProductReport
  * @apiGroup 服務端:舉報審核
@@ -1680,11 +1828,12 @@
  *
  * @apiParam {String} number 商品編號
  * @apiParam {String} phone 買家手機
- * @apiParam {Integer} score1 描述相符得分
- * @apiParam {Integer} score2 物流服務得分
- * @apiParam {Integer} score3 態度服務得分
- * @apiParam {Boolean} isAnonymous 評價是否匿名(true:是，false:否)
- * @apiParam {String} evaluate 文字評價
+ * @apiParam {Object} oneEvaluate 評價信息
+ * @apiParam {Integer} score1 評價信息:描述相符得分
+ * @apiParam {Integer} score2 評價信息:物流服務得分
+ * @apiParam {Integer} score3 評價信息:態度服務得分
+ * @apiParam {Boolean} isAnonymous 評價信息:評價是否匿名(true:是，false:否)
+ * @apiParam {String} evaluate 評價信息:文字評價
  *
  * @apiSuccessExample 評價成功(例子)
  *     {

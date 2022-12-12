@@ -855,38 +855,45 @@
           },
           {
             "group": "Parameter",
+            "type": "Object",
+            "optional": false,
+            "field": "oneEvaluate",
+            "description": "<p>評價信息</p>"
+          },
+          {
+            "group": "Parameter",
             "type": "Integer",
             "optional": false,
             "field": "score1",
-            "description": "<p>描述相符得分</p>"
+            "description": "<p>評價信息:描述相符得分</p>"
           },
           {
             "group": "Parameter",
             "type": "Integer",
             "optional": false,
             "field": "score2",
-            "description": "<p>物流服務得分</p>"
+            "description": "<p>評價信息:物流服務得分</p>"
           },
           {
             "group": "Parameter",
             "type": "Integer",
             "optional": false,
             "field": "score3",
-            "description": "<p>態度服務得分</p>"
+            "description": "<p>評價信息:態度服務得分</p>"
           },
           {
             "group": "Parameter",
             "type": "Boolean",
             "optional": false,
             "field": "isAnonymous",
-            "description": "<p>評價是否匿名(true:是，false:否)</p>"
+            "description": "<p>評價信息:評價是否匿名(true:是，false:否)</p>"
           },
           {
             "group": "Parameter",
             "type": "String",
             "optional": false,
             "field": "evaluate",
-            "description": "<p>文字評價</p>"
+            "description": "<p>評價信息:文字評價</p>"
           }
         ]
       }
@@ -2648,6 +2655,271 @@
     "version": "0.0.0",
     "filename": "src/example.js",
     "groupTitle": "服務端:舉報審核"
+  },
+  {
+    "type": "GET",
+    "url": "/my/comment/reports",
+    "title": "獲取用戶所有留言舉報",
+    "name": "GetUserAllCommentReport",
+    "group": "用戶舉報",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取用戶所有留言舉報</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "舉報發送成功(例子:15059417755)",
+          "content": "[\n    {\n        \"id\": 1,\n        \"targetName\": \"Jamie Sanders\",\n        \"headPicFormat\": \"jpg\",\n        \"targetHeadPic\": \"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...\",\n        \"commentContent\": \"有需要同問兩次嗎?無語\",\n        \"content\": \"留言不友善\",\n        \"status\": 0\n    },...,{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "用戶舉報"
+  },
+  {
+    "type": "GET",
+    "url": "/my/product/reports",
+    "title": "獲取用戶所有商品舉報",
+    "name": "GetUserAllProductReport",
+    "group": "用戶舉報",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取用戶所有商品舉報</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "舉報發送成功(例子:15059417755)",
+          "content": "[\n    {\n        \"id\": 1,\n        \"sellerName\": \"天天\",\n        \"headPicFormat\": \"jpg\",\n        \"sellerHeadPic\": \"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...\",\n        \"productName\": \"連衣裙\",\n        \"coverPicFormat\": \"jpg\",\n        \"productCover\": \"/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQ...\",\n        \"price\": 49.9,\n        \"content\": \"裙子嚴重脫線，洗一次基本就沒法穿了\",\n        \"status\": 1\n    },...,{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "用戶舉報"
+  },
+  {
+    "type": "GET",
+    "url": "/my/comment/reports/status",
+    "title": "根據處理狀態獲取用戶的留言舉報",
+    "name": "GetUserCommentReportByStatus",
+    "group": "用戶舉報",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據處理狀態獲取用戶的留言舉報</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>舉報處理狀態(0:未處理, 1:已通過, 2:不通過)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "舉報發送成功(例子:phone = 15059417755,status = 0)",
+          "content": "[\n    {\n        \"id\": 1,\n        \"targetName\": \"Jamie Sanders\",\n        \"headPicFormat\": \"jpg\",\n        \"targetHeadPic\": \"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...\",\n        \"commentContent\": \"有需要同問兩次嗎?無語\",\n        \"content\": \"留言不友善\",\n        \"status\": 0\n    },...,{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "用戶舉報"
+  },
+  {
+    "type": "GET",
+    "url": "/my/product/reports/status",
+    "title": "根據處理狀態獲取用戶的商品舉報",
+    "name": "GetUserProductReportByStatus",
+    "group": "用戶舉報",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>根據處理狀態獲取用戶的商品舉報</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "status",
+            "description": "<p>舉報處理狀態(0:未處理, 1:已通過, 2:不通過)</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "舉報發送成功(例子:phone = 15059417755,status = 1)",
+          "content": "[\n     {\n         \"id\": 1,\n         \"sellerName\": \"天天\",\n         \"headPicFormat\": \"jpg\",\n         \"sellerHeadPic\": \"iVBORw0KGgoAAAANSUhEUgAAAf8AAAH/CAYAAABZ8dS+AAAABGdBTUEAALGPC/...\",\n         \"productName\": \"連衣裙\",\n         \"coverPicFormat\": \"jpg\",\n         \"productCover\": \"/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQ...\",\n         \"price\": 49.9,\n         \"content\": \"裙子嚴重脫線，洗一次基本就沒法穿了\",\n         \"status\": 1\n     },...,{}\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "用戶舉報"
+  },
+  {
+    "type": "DELETE",
+    "url": "/comment/report",
+    "title": "用戶刪除留言舉報",
+    "name": "UserDeleteCommentReport",
+    "group": "用戶舉報",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶刪除某一留言舉報</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>留言舉報序號id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "舉報刪除成功(例子)",
+          "content": "{\n     204\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "舉報刪除失敗(數據庫未更新)",
+          "content": "{\n   422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "用戶舉報"
+  },
+  {
+    "type": "DELETE",
+    "url": "/product/report",
+    "title": "用戶刪除商品舉報",
+    "name": "UserDeleteProductReport",
+    "group": "用戶舉報",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>用戶刪除某一商品舉報</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>商品舉報序號id</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "舉報刪除成功(例子)",
+          "content": "{\n     204\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "舉報刪除失敗(數據庫未更新)",
+          "content": "{\n   422\n}",
+          "type": "json"
+        },
+        {
+          "title": "舉報刪除失敗(商品舉報數未更新)",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "用戶舉報"
   },
   {
     "type": "POST",
