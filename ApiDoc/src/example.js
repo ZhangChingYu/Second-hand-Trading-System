@@ -722,6 +722,7 @@
  * @apiSuccessExample 請求成功(手機號為1635905050的例子)
  *     [
  *        {
+ *              "number":"B1667557259691",
  *              "status":0,
  *              "name":"考研真相英語一",
  *              "price":12.0,
@@ -729,6 +730,7 @@
  *              "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgAAg....(base64編碼，原文過長不全部展示)
  *        },
  *        {
+ *             "number":"B1667557541428"
  *             "status":0,
  *             "name":"二手書",
  *             "price":8.0,
@@ -736,6 +738,7 @@
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXh.......
  *        },
  *        {
+ *             "number":"B1667557719337"
  *             "status":0,
  *             "name":"思想道德與法治2021年版",
  *             "price":7.9,
@@ -743,6 +746,7 @@
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYR......
  *         },
  *         {
+ *             "number":"B1667557940336"
  *             "status":0,
  *             "name":"中公小學教師資格證",
  *             "price":68.0,
@@ -750,6 +754,7 @@
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4Q......
  *         },
  *         {
+ *             "number":"B1667558776457"
  *             "status":0,
  *             "name":"二手自考教材04729大學語文2018版徐中玉陶型傳北京大學出版社",
  *             "price":14.66,
@@ -757,6 +762,7 @@
  *             "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAg......
  *         },
  *         {
+ *             "number":"B1667559352213",
  *             "status":0,
  *             "name":"國家教師資格考試",
  *             "price":15.0,

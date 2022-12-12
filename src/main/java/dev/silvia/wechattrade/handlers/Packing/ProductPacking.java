@@ -51,18 +51,6 @@ public class ProductPacking {
         }
         return outline;
     }
-
-    // 將List<Product>包裝成List<ProductLikeVo>的方法
-    public List<ProductLikeVo> ProductToProductLike(List<Product> products){
-        List<ProductLikeVo> productLikeVos = new ArrayList<>();
-        for(int i = 0; i < products.size(); i ++){
-            Product product = products.get(i);
-            ProductLikeVo productLikeVo = ProductToProductLike(product);
-            productLikeVos.add(productLikeVo);
-        }
-        return productLikeVos;
-    }
-
     // 將Product包裝成ProductLikeVo的方法
     public ProductLikeVo ProductToProductLike(Product product){
         ProductLikeVo likeVo = new ProductLikeVo();

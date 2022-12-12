@@ -39,7 +39,7 @@ public class ProductUploadController {
         return service.ProductPictureUpload(pictureUploadDto);
     }
 
-    @UserLoginToken
+    //@UserLoginToken
     @RequestMapping(value = "/my/products", method = RequestMethod.GET)
     public String showAllMyProduct(HttpServletRequest request){
         String phone = request.getParameter("phone");
