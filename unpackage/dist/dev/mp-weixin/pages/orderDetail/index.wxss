@@ -1,0 +1,618 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 分割线 */
+.splitLine{
+	background-color: #efefef;
+	width: 100%;
+	height: 20rpx;
+}
+/* 子分割线 */
+.subSplitLine{
+	background-color: #efefef;
+	width: 94%;
+	height: 6rpx;
+	margin-left: 3%;
+}
+/* 订单信息 */
+.orderMess{
+	width: 94%;
+	height: 356rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: column;
+	justify-content: space-between;
+}
+/* --卖家信息 */
+.sellerMess{
+	width: 100%;
+	height: 120rpx;
+	line-height: 140rpx;
+	display: flex;
+	flex-direction: row;
+}
+.sellerMess>image{
+	height: 111rpx;
+	width: 111rpx;
+	border-radius: 100%;
+	margin-top: 5rpx;
+}
+.sellerMess>text{
+	height: 120rpx;
+	line-height: 120rpx;
+	font-size: 36rpx;
+	font-weight: 600;
+	margin-left: 5%;
+}
+/* --商品信息 */
+.goods-box{
+	width: 100%;
+	height: 210rpx;
+	flex-flow: row;
+	justify-content: space-between;
+	display: flex;
+	position: relative;
+	margin: 8rpx 0;
+}
+/* ----商品图片 */
+.goods-img {
+	height: 96%;
+	width: 50%;
+	overflow: hidden;
+	border-radius: 20rpx;
+}
+.goods-img image {
+	width: 100%;
+	height: 100%;
+}
+.goods-msg {
+	 width: 45%;
+}
+/* ----商品文字描述 */
+.detail-text{
+	padding-top: 10rpx;
+	height: 120rpx;
+	font-size: 28rpx;
+	line-height: 60rpx;
+	padding-left: 5%;
+	
+	word-break: break-all;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+/* ----价格 */
+.price{
+	color: red;
+	font-weight: 700;
+	height: 2rem;
+	line-height: 2rem;
+	font-size: 1rem;
+	position: absolute;
+	bottom: 5%;
+	right: 5%;
+}
+/* 收货地址 */
+.myAddress{
+	width: 94%;
+	height: 180rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: column;
+}
+.myAddress view{
+	width: 100%;
+	height: 90rpx;
+	text-align: center;
+}
+.myAddress text{
+	text-align: center;
+	font-size: 30rpx;
+	font-weight: 300;
+	width: 100%;
+	height: 80rpx;
+	line-height: 80rpx;
+	font-weight: 200;
+}
+.userName{
+	width: 100%;
+	height: 80rpx;
+	line-height: 80rpx;
+}
+.userName>image{
+	margin-top: 7rpx;
+	width: 66rpx;
+	height: 66rpx;
+}
+/* 数量 */
+.count{
+	width: 94%;
+	height: 70rpx;
+	line-height: 70rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: row;
+	justify-content: space-between;
+}
+/* 配送方式 */
+.delivery{
+	width: 94%;
+	height: 70rpx;
+	line-height: 70rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: row;
+	justify-content: space-between;
+}
+/* 优惠 */
+.discount{
+	width: 94%;
+	height: 136rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: column;
+}
+.coupon{
+	width: 100%;
+	height: 60rpx;
+	line-height: 60rpx;
+	flex-flow: row;
+	display: flex;
+	justify-content: space-between;
+}
+.discountAmount{
+	width: 100%;
+	height: 60rpx;
+	line-height: 60rpx;
+	flex-flow: row;
+	justify-content: space-between;
+	display: flex;
+}
+/* 支付方式 */
+.payMethod{
+	width: 94%;
+	height: 60rpx;
+	line-height: 60rpx;
+	text-align: center;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.payMethod>image{
+	width: 52rpx;
+	height: 52rpx;
+}
+.payMethod>text{
+	line-height: 60rpx;
+	height: 60rpx;
+}
+/* 时间信息 */
+.orderTime{
+	width: 94%;
+	text-align: center;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.littleCell{
+	height: 60rpx;
+	line-height: 60rpx;	
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+/* 合计 */
+.total{
+	width: 94%;
+	height: 70rpx;
+	line-height: 70rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: 36rpx;
+}
+.totalAmount{
+	font-size: 40rpx;
+	color: red;
+	font-weight: 600;
+}
+.total>button{
+	font-size: 20rpx;
+	width: 20%;
+	color: white;
+	height: 62rpx;
+	line-height: 62rpx;
+}
+

@@ -1,0 +1,508 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 地址 */
+.myAddress{
+	width: 94%;
+	height: 180rpx;
+	line-height: 180rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.location{
+	width: 88rpx;
+	height: 88rpx;
+	margin-top: 46rpx;
+}
+.addressControl{
+	width: 52rpx;
+	height: 52rpx;
+	margin-top: 64rpx;
+}
+.someMess{
+	text-align: center;
+	font-size: 30rpx;
+	font-weight: 300;
+	width: 100%;
+	height: 80rpx;
+	line-height: 80rpx;
+	font-weight: 200;
+}
+/* 分割线 */
+.splitLine{
+	background-color: #efefef;
+	width: 100%;
+	height: 20rpx;
+}
+/* 子分割线 */
+.subSplitLine{
+	background-color: #efefef;
+	width: 100%;
+	height: 6rpx;
+}
+/* 订单信息 */
+.orderMess{
+	width: 94%;
+	height: 520rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: column;
+	justify-content: space-between;
+}
+/* --卖家信息 */
+.sellerMess{
+	width: 100%;
+	height: 120rpx;
+	line-height: 140rpx;
+	display: flex;
+	flex-direction: row;
+}
+.sellerMess>image{
+	height: 111rpx;
+	width: 111rpx;
+	border-radius: 100%;
+	margin-top: 5rpx;
+}
+.sellerMess>text{
+	height: 120rpx;
+	line-height: 120rpx;
+	font-size: 36rpx;
+	font-weight: 600;
+	margin-left: 5%;
+}
+/* --商品信息 */
+.goods-box{
+	width: 100%;
+	height: 210rpx;
+	flex-flow: row;
+	justify-content: space-between;
+	display: flex;
+	position: relative;
+	margin: 8rpx 0;
+}
+/* ----商品图片 */
+.goods-img {
+	height: 96%;
+	width: 50%;
+	overflow: hidden;
+	border-radius: 20rpx;
+}
+.goods-img image {
+	width: 100%;
+	height: 100%;
+}
+.goods-msg {
+	 width: 45%;
+}
+/* ----商品文字描述 */
+.detail-text{
+	padding-top: 10rpx;
+	height: 120rpx;
+	font-size: 28rpx;
+	line-height: 60rpx;
+	padding-left: 5%;
+	
+	word-break: break-all;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+/* ----价格 */
+.price{
+	color: red;
+	font-weight: 700;
+	height: 2rem;
+	line-height: 2rem;
+	font-size: 1rem;
+	position: absolute;
+	bottom: 5%;
+	right: 5%;
+}
+/* --商品数量 */
+.goodsCount{
+	width: 95%;
+	height: 70rpx;
+	line-height: 70rpx;
+	flex-flow: row;
+	display: flex;
+	justify-content: space-between;
+	right: 5%;
+}
+.count{
+}
+/* --配送方式 */
+.delivery{
+	width: 100%;
+	height: 70rpx;
+	line-height: 70rpx;
+	flex-flow: row;
+	display: flex;
+	justify-content: space-between;
+}
+.delivery>text{
+	width: 50%;
+	height: 100%;
+}
+.method{
+	width: 50%;
+	height: 100%;
+	flex-flow: row;
+	display: flex;
+}
+/* 优惠 */
+.discount{
+	width: 94%;
+	height: 136rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: column;
+}
+.coupon{
+	width: 100%;
+	height: 60rpx;
+	line-height: 60rpx;
+	flex-flow: row;
+	display: flex;
+}
+.coupon>image{
+	width: 52rpx;
+	height: 52rpx;
+}
+.oneCoupon{
+	margin:0 2% 0 9%;
+}
+.discountAmount{
+	width: 100%;
+	height: 60rpx;
+	line-height: 60rpx;
+	flex-flow: row;
+	justify-content: space-between;
+	display: flex;
+}
+/* 支付方式 */
+.payMethod{
+	width: 94%;
+	height: 236rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: column;
+	justify-content: space-between;
+}
+.payTitle{
+	width: 100%;
+	height: 60rpx;
+	line-height: 60rpx;
+}
+.payMethod image{
+	width: 60rpx;
+	height: 60rpx;
+}
+/* 支付宝 */
+.Alipay{
+	width: 100%;
+	height: 80rpx;
+	line-height: 80rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+/* 微信 */
+.WeChat{
+	width: 100%;
+	height: 80rpx;
+	line-height: 80rpx;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.Alipay>text,.WeChat>text{
+	font-size: 30rpx;
+	width: 30%;
+	text-align: center;
+	border-radius: 50%;
+}
+/* 合计 */
+.total{
+	width: 94%;
+	height: 70rpx;
+	line-height: 70rpx;
+	display: flex;
+	margin: 2% 0 0 3%;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: 36rpx;
+}
+.totalAmount{
+	font-size: 40rpx;
+	color: red;
+	font-weight: 600;
+}
+.total>button{
+	background-color: red;
+	font-size: 32rpx;
+	color: white;
+	height: 62rpx;
+	width: 50%;
+	line-height: 62rpx;
+	margin-right: 1%;
+}
+

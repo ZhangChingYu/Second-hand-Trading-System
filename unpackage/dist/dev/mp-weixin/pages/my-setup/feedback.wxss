@@ -1,0 +1,29 @@
+
+.feedback-content{
+	display: flex;
+	flex-direction: column;
+	margin-top: 5%;
+	align-items: center;
+}
+.title{
+	justify-content: center;
+	font-size: medium;
+	margin-bottom: 5%;
+}
+.content{
+	font-size: medium;
+	width: 90%;
+	height: 400rpx;
+	margin: 0 8%;
+	background-color: #ebe3dc;
+	border: #3d3c3b;
+	padding: 2% 3%;
+}
+.commitbtn{
+	background-color: #d04b41;
+	width: 30%;
+	justify-content: center;
+	margin-top: 5%;
+	color: white;
+}
+

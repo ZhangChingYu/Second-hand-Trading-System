@@ -1,0 +1,442 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* 子分割线 */
+.subSplitLine{
+	background-color: #efefef;
+	width: 94%;
+	height: 6rpx;
+	margin-left: 3%;
+}
+/* 举报状态导航 */
+.middle{
+	width: 94vw;
+	margin: 0.48rem auto;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-bottom: 40rpx;
+}
+.middle>image{
+	width: 2rem;
+	height: 2rem;
+}
+.middle>text{
+	width: 125rpx;
+	height: 66rpx;
+	line-height: 66rpx;
+	text-align: center;
+	border-radius: 15%;
+	font-weight: 400;
+}
+/* 我的举报列表 */
+.myReport {
+	width: 90vw;
+	margin: 2% 0 0 3%;
+}
+.oneReport {
+	width: 100%;
+	display: flex;
+	padding: 2%;
+	justify-content: space-between;
+	flex-direction: column;
+	margin-bottom: 50rpx;
+	border: 6rpx solid #b34c26;
+	border-radius: 15rpx;
+}
+/* 商品全部信息 */
+.orderMess{
+	width: 100%;
+	height: 350rpx;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+/* --卖家信息 */
+.sellerMess{
+	width: 100%;
+	height: 93rpx;
+	line-height: 93rpx;
+	display: flex;
+	flex-direction: row;
+}
+.sellerMess>image{
+	height: 88rpx;
+	width: 88rpx;
+	border-radius: 100%;
+	margin-top: 5rpx;
+}
+.sellerMess>text{
+	height: 93rpx;
+	line-height: 93rpx;
+	font-size: 32rpx;
+	font-weight: 600;
+	margin-left: 5%;
+}
+/* --商品信息 */
+.goods-box{
+	width: 100%;
+	height: 210rpx;
+	flex-flow: row;
+	justify-content: space-between;
+	display: flex;
+	position: relative;
+	margin: 8rpx 0;
+}
+/* ----商品图片 */
+.goods-img {
+	height: 96%;
+	width: 50%;
+	overflow: hidden;
+	border-radius: 20rpx;
+}
+.goods-img image {
+	width: 100%;
+	height: 100%;
+}
+.goods-msg {
+	 width: 45%;
+}
+/* ----商品文字描述 */
+.detail-text{
+	padding-top: 10rpx;
+	height: 120rpx;
+	font-size: 28rpx;
+	line-height: 60rpx;
+	padding-left: 5%;
+	
+	word-break: break-all;
+	overflow: hidden;
+	-webkit-line-clamp: 2;
+	text-overflow: ellipsis;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+}
+/* ----价格 */
+.price{
+	color: red;
+	font-weight: 700;
+	height: 2rem;
+	line-height: 2rem;
+	font-size: 1rem;
+	position: absolute;
+	bottom: 5%;
+	right: 5%;
+}
+/* 举报原因 */
+.reportReason{
+	width: 100%;
+	height: 80rpx;
+	text-align: center;
+}
+.reportReason>text{
+	font-size: 28rpx;
+	color: gray;
+	height: 80rpx;
+	line-height: 80rpx;
+}
+/* 操作按钮 */
+.oper{
+	margin-top: 2%;
+	width: 100%;
+	height: 80rpx;
+	display: flex;
+	text-align: center;
+	flex-direction: row;
+	justify-content: space-around;
+}
+.report-state{
+	width: 45%;
+	height: 80rpx;
+	line-height: 80rpx;
+	background-color: #b34c26;
+	border-radius: 15rpx;
+	color: white;
+	font-size: 32rpx;
+}
+.deleteReport{
+	width: 45%;
+	height: 80rpx;
+	line-height: 80rpx;
+	background-color: #efefef;
+	border-radius: 15rpx;
+	color: black;
+	font-size: 32rpx;
+}
+

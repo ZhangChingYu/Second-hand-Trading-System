@@ -1,0 +1,27 @@
+{
+  "name": "second-hand-trading-system",
+  "version": "1.0.0",
+  "description": "- commonn  项目公共文件\r     > uni.css   \r \t> ......\r - components 项目组件\r \t> goods   \r \t\t> index.vue\r - pages 项目页面文件\r \t> home  \r \t\t> index.vue",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZhangChingYu/Second-hand-Trading-System.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ZhangChingYu/Second-hand-Trading-System/issues"
+  },
+  "homepage": "https://github.com/ZhangChingYu/Second-hand-Trading-System#readme",
+  "dependencies": {
+    "uview-ui": "^2.0.31"
+  },
+  "devDependencies": {
+    "sass": "^1.56.1",
+    "sass-loader": "^10.4.1"
+  }
+}

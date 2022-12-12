@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "分类",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-empty": "/uni_modules/uview-ui/components/u-empty/u-empty",
+    "goods": "/components/goods/index",
+    "nomore": "/components/nomore/index"
+  }
+}

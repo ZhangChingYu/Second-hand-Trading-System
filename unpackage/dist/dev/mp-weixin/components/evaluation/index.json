@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "evareply": "/components/evaluationReply/index"
+  }
+}

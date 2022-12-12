@@ -1,0 +1,37 @@
+.eva-reply.data-v-388a6de6 {
+  margin-left: 50rpx;
+  background-color: #eaeaea;
+  border-radius: 10rpx;
+}
+.item-msg.data-v-388a6de6 {
+  overflow: hidden;
+  font-size: 24rpx;
+}
+.item-msg image.data-v-388a6de6 {
+  float: left;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+}
+.item-msg .name.data-v-388a6de6 {
+  float: left;
+  margin: 0 20rpx;
+  display: inline-block;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-weight: 600;
+}
+.item-msg .item-time.data-v-388a6de6 {
+  float: right;
+  margin-right: 20rpx;
+  line-height: 60rpx;
+  font-size: 24rpx;
+  color: #959595;
+}
+/* 留言内容 */
+.item-content.data-v-388a6de6 {
+  margin: 10rpx 20rpx 10rpx 30rpx;
+  font-size: 24rpx;
+  text-indent: 2rem;
+}
+

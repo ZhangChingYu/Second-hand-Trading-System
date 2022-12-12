@@ -1,0 +1,40 @@
+export default{
+	state:{
+		list:[]
+	},
+	getters:{
+		
+	},
+	mutations:{
+		createAddress(state,obj){
+			state.list.unshift(obj);
+		},
+		updateAddress(state,{index,item}){
+			for(let key in item){
+				state.list[index][key]=item[key];
+			}
+		},
+		//把之前选中的改为未选中
+		removeAddress(state){
+			state.list.forEach(v=>{
+				if(v.isDefault){
+					v.isDefault=false;
+				}
+			})
+		}
+	},
+	actions:{
+		createAddressFn({commit},obj){
+			if(obj.isDefault){
+				commit("removeAddress");
+			}
+			commit('createAddress',obj)
+		},
+		updateAddressFn({commit},obj){
+			if(obj.item.isDefault){
+				commit("removeAddress");
+			}
+			commit('updateAddress',obj);
+		}
+	}
+}

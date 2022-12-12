@@ -1,0 +1,83 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/search/index",
+    "pages/login/index",
+    "pages/classify/index",
+    "pages/publish/index",
+    "pages/message/index",
+    "pages/findback/findback",
+    "pages/my/index",
+    "pages/my-address/address",
+    "pages/my-address/add-address",
+    "pages/my-like/like",
+    "pages/my-realname/realname",
+    "pages/my-setup/setup",
+    "pages/my-info/info",
+    "pages/my-setup/help",
+    "pages/my-setup/feedback",
+    "pages/userInfo/userInfo",
+    "pages/detail/index",
+    "pages/register/index",
+    "pages/myAppointment/index",
+    "pages/payment/index",
+    "pages/myItem/index",
+    "pages/purchased/index",
+    "pages/report/index",
+    "pages/orderDetail/index",
+    "pages/agreement/index",
+    "pages/evaluate/index",
+    "pages/applyRefund/index",
+    "pages/bookList/index"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#F8F8F8",
+    "backgroundColor": "#F8F8F8"
+  },
+  "tabBar": {
+    "color": "#b1b5cc",
+    "selectedColor": "#0bb3fa",
+    "borderStyle": "black",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "iconPath": "static/image/home.png",
+        "selectedIconPath": "static/image/home_selected.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/classify/index",
+        "iconPath": "static/image/classify.png",
+        "selectedIconPath": "static/image/classify_selected.png",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/publish/index",
+        "iconPath": "static/image/publish.png",
+        "selectedIconPath": "static/image/publish_selected.png",
+        "text": "发布"
+      },
+      {
+        "pagePath": "pages/message/index",
+        "iconPath": "static/image/message.png",
+        "selectedIconPath": "static/image/message_selected.png",
+        "text": "信息"
+      },
+      {
+        "pagePath": "pages/my/index",
+        "iconPath": "static/image/me.png",
+        "selectedIconPath": "static/image/me_selected.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "requiredPrivateInfos": [
+    "getLocation",
+    "chooseLocation"
+  ],
+  "usingComponents": {}
+}
