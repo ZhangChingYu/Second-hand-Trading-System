@@ -3,6 +3,7 @@ package dev.silvia.wechattrade.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import dev.silvia.wechattrade.dto.booking.BoReDto;
 import dev.silvia.wechattrade.dto.exchangedto.ExRequestDto;
+import dev.silvia.wechattrade.dto.exchangedto.RefundDto;
 import dev.silvia.wechattrade.dto.response.Result;
 import dev.silvia.wechattrade.entity.Product;
 
@@ -21,7 +22,7 @@ public interface IOrderService extends IService<Product> {
     Result received(String number);
 
     //买家确认退款、售后
-    Result after(String number);
+    Result after(RefundDto refundDto);
 
     //卖家确认退款、售后
     Result sellerAfter(String number);
@@ -62,8 +63,12 @@ public interface IOrderService extends IService<Product> {
     Result selectAllByName(String name, Integer type, Integer isbuyer);  //订单查询
 
     //卖方根据商品编号查询预约
-    Result sellerBookingByName(String number);  //预约查询
+    Result sellerBookingByName(String number, String state);  //预约查询
 
     //卖方根据买方手机号和商品编号在预约信息里查找
-    Result bookingByPhone(String phone,String number);  //预约查询
+    Result bookingByPhone(String phone, String number);  //预约查询
+
+    Result sellerDeleteBooking(String number);
+
+    Result buyerDeleteBooking(String number);
 }

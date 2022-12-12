@@ -9,6 +9,7 @@ import dev.silvia.wechattrade.dto.booking.BookingDto;
 import dev.silvia.wechattrade.dto.exchangedto.ExRequestDto;
 import dev.silvia.wechattrade.dto.exchangedto.ExchangeDto;
 import dev.silvia.wechattrade.dto.exchangedto.OrderDetails;
+import dev.silvia.wechattrade.dto.exchangedto.RefundDto;
 import dev.silvia.wechattrade.dto.response.Result;
 import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.*;
@@ -17,6 +18,8 @@ import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.repository.*;
 import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
+import dev.silvia.wechattrade.handlers.picSize.PicUtil;
+import dev.silvia.wechattrade.handlers.picSize.PictureSize;
 import dev.silvia.wechattrade.service.IOrderService;
 import dev.silvia.wechattrade.service.IProductService;
 import dev.silvia.wechattrade.service.IRegisterService;
@@ -30,6 +33,8 @@ import java.util.*;
 
 @Service
 public class OrderService extends ServiceImpl<ProductDao, Product> implements IOrderService {
+    private  final  static int avatar_width= PictureSize.avatar_width;
+    private  final  static  int avatar_height=PictureSize.avatar_height;
     private final String picture_url = FileDirector.PRODUCT_URL;
     @Autowired
     private UserRepository userRepository;
@@ -72,11 +77,11 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         String picture1;
         if(user4.getAvatar()==null||user4.getAvatar().isEmpty()){
             //默认图片
-            picture1 =ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+            picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
             user4.setAvatar(picture1);
         }
         else{
-            picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(user4.getPhone()));
+            picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user4.getPhone()),avatar_width,avatar_height);
             user4.setAvatar(picture1);
         }
         res=new Result(ResultCode.SUCCESS,user4);
@@ -121,7 +126,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
 
         //买家信息表
         Buyer buyer=new Buyer();
-        buyer.setAddress(transferUTF8.CtoUTF8(request.getShipping()));
+        buyer.setAddress(transferUTF8.CtoUTF8(request.getMyAddress()));
         buyer.setRemark(transferUTF8.CtoUTF8(request.getRemark()));
         buyer.setExchangeId(pronum);  //外键
         buyer.setPhone(bo.getBuyerId());
@@ -177,15 +182,19 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     }
 
     @Override
-    public Result after(String number) {
+    public Result after(RefundDto refundDto) {
         //订单
         ExchangeInfo ex;
-        ex=exRepository.findByNumber(number).get();
+        ex=exRepository.findByNumber(refundDto.getNumber()).get();
         ex.setStatus(transferUTF8.CtoUTF8("待退款"));
         exRepository.save(ex);
 
         //买家
-        Buyer buyer=buy.findByExchangeId(number);
+        Buyer buyer=buy.findByExchangeId(refundDto.getNumber());
+        String remark=refundDto.getRefundRequest().getGoodsState()+"#"+
+                refundDto.getRefundRequest().getRefundReason()+"#"
+                +refundDto.getRefundRequest().getDescription();
+        buyer.setRemark(transferUTF8.CtoUTF8(remark));
         buyer.setRefundTime(new Date());
         buy.save(buyer);
 
@@ -197,9 +206,9 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     public Result sellerAfter(String number) {
         //订单状态修改
         ExchangeInfo ex;
-        String pronum = OrderCodeUtils.createCode("TK");
+        String proNum = OrderCodeUtils.createCode("TK");
         ex=exRepository.findByNumber(number).get();
-        ex.setNumber(pronum);
+        ex.setNumber(proNum);
         ex.setStatus(transferUTF8.CtoUTF8("已退款"));
         exRepository.save(ex);
 
@@ -216,8 +225,12 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         Integer num=product.getStorage()+ex.getOrdersNum();
         product.setStorage(num);
         if(product.getStatus()==4){
-
-            product.setStatus(5);
+            List<ExchangeInfo> orders=exRepository.findByProductNum(product.getNumber());
+            if(orders.size()==0){
+                product.setStatus(0);
+            }
+            else
+                product.setStatus(5);
         }
         productDao.updateById(product);
 
@@ -234,15 +247,9 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         Seller seller=sel.findByExchangeId(number);
         //买家
         Buyer buyer=buy.findByExchangeId(number);
-        if(buyer.getReceiptTime()==null){
-            if(seller.getShippingTime()==null){
-                ex.setStatus(transferUTF8.CtoUTF8("待发货"));
-            }
-            else
-                ex.setStatus(transferUTF8.CtoUTF8("待收货"));
-        }
-        else
-            ex.setStatus(transferUTF8.CtoUTF8("已购买"));
+        String remark=transferUTF8.UTF8toC(buyer.getRemark());
+        String[] remark_parts = remark.split("#");
+        ex.setStatus(transferUTF8.CtoUTF8(remark_parts[0]));
         exRepository.save(ex);
 
         res=new Result(ResultCode.SUCCESS);
@@ -260,11 +267,11 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     public Result sellerDelete(String number) {
         ExchangeInfo ex;
         ex=exRepository.findByNumber(number).get();
-        if(ex.getIsDelete()==0){
-            ex.setIsDelete(1);
+        if(ex.getIsDelete()==2){
+            exRepository.delete(ex);
         }
         else{
-            exRepository.delete(ex);
+            ex.setIsDelete(1);
         }
         sel.delete(sel.findByExchangeId(number));
         return res;
@@ -274,11 +281,11 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     public Result buyerDelete(String number) {
         ExchangeInfo ex;
         ex=exRepository.findByNumber(number).get();
-        if(ex.getIsDelete()==0){
-            ex.setIsDelete(2);
+        if(ex.getIsDelete()==1){
+            exRepository.delete(ex);
         }
         else{
-            exRepository.delete(ex);
+            ex.setIsDelete(2);
         }
         buy.delete(buy.findByExchangeId(number));
         return res;
@@ -287,7 +294,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     @Override
     public Result selectAllOrder(String status) {
         List<Seller> sell=sel.findAll();
-        List<ExchangeDto> booklist=new ArrayList<>();
+        List<ExchangeDto> bookLst=new ArrayList<>();
         ProductDetailVo pro;
         ExchangeInfo ex;
         for (Seller value : sell) {
@@ -300,33 +307,33 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
             }
             //获取商品信息
             pro = service.getProductDetail(ex.getProductNum());
-            ExchangeDto bookdto=new ExchangeDto();
+            ExchangeDto bookDto=new ExchangeDto();
 
-            bookdto.setName(pro.getName());
-            bookdto.setState(transferUTF8.UTF8toC(ex.getStatus()));
-            bookdto.setCount(ex.getOrdersNum());
+            bookDto.setName(pro.getName());
+            bookDto.setState(transferUTF8.UTF8toC(ex.getStatus()));
+            bookDto.setCount(ex.getOrdersNum());
             //图片信息
             String path = "";
             if (pro.getPicture_count() == 0) {
-                bookdto.setCoverPic(path);
+                bookDto.setCoverPic(path);
             } else {
                 List<String> pictures = readFile.getPicturesBase64(ex.getProductNum(), pro.getPictures().size());
-                bookdto.setCoverPic(pictures.get(0));
+                bookDto.setCoverPic(pictures.get(0));
             }
             //输出信息
-            bookdto.setPrice(ex.getPrice());
-            bookdto.setProNumber(ex.getProductNum());
-            bookdto.setOrdNumber(ex.getNumber());
-            booklist.add(bookdto);
+            bookDto.setPrice(ex.getPrice());
+            bookDto.setProNumber(ex.getProductNum());
+            bookDto.setOrdNumber(ex.getNumber());
+            bookLst.add(bookDto);
         }
-        res=new Result(ResultCode.SUCCESS, booklist);
+        res=new Result(ResultCode.SUCCESS, bookLst);
         return res;
     }
 
     @Override
     public Result selectSellerOrder(String phone,String status) {
         List<Seller> sell=sel.findAll();
-        List<ExchangeDto> booklist=new ArrayList<>();
+        List<ExchangeDto> bookLst=new ArrayList<>();
         ExchangeInfo ex;
         for (Seller value : sell) {
             if (Objects.equals(value.getPhone(), phone)) {
@@ -343,28 +350,28 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                     QueryWrapper<Product> productWrapper = new QueryWrapper<>();
                     productWrapper.eq("number",ex.getProductNum());
                     Product pro = productDao.selectOne(productWrapper);
-                    ExchangeDto bookdto=new ExchangeDto();
+                    ExchangeDto bookDto=new ExchangeDto();
 
                     //图片信息
                     String path = "";
                     if(pro.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
                         String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
                         path= ReadFile.getBaseFile(url);
-                        bookdto.setCoverPic(path);
+                        bookDto.setCoverPic(path);
 
                     }
 
-                    bookdto.setCount(ex.getOrdersNum());
-                    bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
-                    bookdto.setState(transferUTF8.UTF8toC(ex.getStatus()));
-                    bookdto.setPrice(ex.getPrice());
-                    bookdto.setProNumber(ex.getProductNum());
-                    bookdto.setOrdNumber(ex.getNumber());
-                    booklist.add(bookdto);
+                    bookDto.setCount(ex.getOrdersNum());
+                    bookDto.setName(transferUTF8.UTF8toC(pro.getName()));
+                    bookDto.setState(transferUTF8.UTF8toC(ex.getStatus()));
+                    bookDto.setPrice(ex.getPrice());
+                    bookDto.setProNumber(ex.getProductNum());
+                    bookDto.setOrdNumber(ex.getNumber());
+                    bookLst.add(bookDto);
                 }
             }
         }
-        res=new Result(ResultCode.SUCCESS, booklist);
+        res=new Result(ResultCode.SUCCESS, bookLst);
         return res;
     }
 
@@ -372,7 +379,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     public Result selectBuyerOrder(String phone,String status) {
         //获取用户所有商品
         List<Buyer> bu=buy.findAll();
-        List<ExchangeDto> booklist=new ArrayList<>();
+        List<ExchangeDto> bookLst=new ArrayList<>();
         ExchangeInfo ex;
         for (Buyer value : bu) {
             if (Objects.equals(value.getPhone(), phone)) {
@@ -388,42 +395,43 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                     QueryWrapper<Product> productWrapper = new QueryWrapper<>();
                     productWrapper.eq("number",ex.getProductNum());
                     Product pro = productDao.selectOne(productWrapper);
-                    ExchangeDto bookdto=new ExchangeDto();
+                    ExchangeDto bookDto=new ExchangeDto();
 
                     //图片信息
                     String path = "";
                     if(pro.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
                         String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
                         path= ReadFile.getBaseFile(url);
-                        bookdto.setCoverPic(path);
+                        bookDto.setCoverPic(path);
                     }
-                    bookdto.setCount(ex.getOrdersNum());
-                    bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
-                    bookdto.setState(transferUTF8.UTF8toC(ex.getStatus()));
-                    bookdto.setPrice(ex.getPrice());
-                    bookdto.setProNumber(ex.getProductNum());
-                    bookdto.setOrdNumber(ex.getNumber());
-                    booklist.add(bookdto);
+                    bookDto.setCount(ex.getOrdersNum());
+                    bookDto.setName(transferUTF8.UTF8toC(pro.getName()));
+                    bookDto.setState(transferUTF8.UTF8toC(ex.getStatus()));
+                    bookDto.setPrice(ex.getPrice());
+                    bookDto.setProNumber(ex.getProductNum());
+                    bookDto.setOrdNumber(ex.getNumber());
+                    bookLst.add(bookDto);
                 }
             }
         }
-        res=new Result(ResultCode.SUCCESS, booklist);
+        res=new Result(ResultCode.SUCCESS, bookLst);
         return res;
     }
 
     @Override
     public Result addAppointments(BoReDto request) {
-        String pronum=OrderCodeUtils.createCode("YY");
+        String proNum=OrderCodeUtils.createCode("YY");
         Booking booking =new Booking();
         booking.setStatus(transferUTF8.CtoUTF8("已预约"));
         booking.setAppointmentTime(new Date());
         booking.setProductId(request.getProductId());
-        booking.setNumber(pronum);
+        booking.setNumber(proNum);
         booking.setPrice(request.getPrice());
         booking.setOrdersNum(request.getOrdersNum());
         booking.setBuyerId(request.getBuyerId());
         booking.setSellerId(request.getSellerId());
         booking.setName(transferUTF8.CtoUTF8(request.getProductName()));
+        booking.setIsDelete(0);
         accountRepository.save(booking);
         res=new Result(ResultCode.SUCCESS);
         return res;
@@ -485,7 +493,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     @Override
     public Result selectAllBuyer(String phone, String status) {
         //获取用户所有预约
-        List<BookingDto> booklist=new ArrayList<>();
+        List<BookingDto> bookLst=new ArrayList<>();
         List<Booking> bidList;
         if(Objects.equals(status, "全部")){
             bidList=accountRepository.findByBuyerId(phone);
@@ -500,32 +508,32 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
             QueryWrapper<Product> productWrapper = new QueryWrapper<>();
             productWrapper.eq("number",booking.getProductId());
             Product pro = productDao.selectOne(productWrapper);
-            BookingDto bookdto=new BookingDto();
+            BookingDto bookDto=new BookingDto();
             //图片信息
             String path = " ";
             if(pro.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
                 String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
                 path= ReadFile.getBaseFile(url);
-                bookdto.setCoverPic(path);
+                bookDto.setCoverPic(path);
             }
 
-            bookdto.setCount(booking.getOrdersNum());
-            bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
-            bookdto.setState(transferUTF8.UTF8toC(booking.getStatus()));
-            bookdto.setBookNum(booking.getNumber());
-            bookdto.setPrice(booking.getPrice());
-            bookdto.setNumber(pro.getNumber());
-            booklist.add(bookdto);
+            bookDto.setCount(booking.getOrdersNum());
+            bookDto.setName(transferUTF8.UTF8toC(pro.getName()));
+            bookDto.setState(transferUTF8.UTF8toC(booking.getStatus()));
+            bookDto.setBookNum(booking.getNumber());
+            bookDto.setPrice(booking.getPrice());
+            bookDto.setNumber(pro.getNumber());
+            bookLst.add(bookDto);
 
         }
-        res=new Result(ResultCode.SUCCESS, booklist);
+        res=new Result(ResultCode.SUCCESS, bookLst);
         return res;
     }
 
     @Override
     public Result selectAllSeller(String phone, String status) {
         //获取用户所有预约
-        List<BookingDto> booklist=new ArrayList<>();
+        List<BookingDto> bookLst=new ArrayList<>();
         List<Booking> bidList;
         if(Objects.equals(status, "全部")){
             bidList=accountRepository.findBySellerId(phone);
@@ -535,7 +543,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         }
         for (Booking booking : bidList) {
             if (!Objects.equals(transferUTF8.UTF8toC(booking.getStatus()), "已拒绝")) {
-                BookingDto bookdto=new BookingDto();
+                BookingDto bookDto=new BookingDto();
                 //获取商品图片
                 //获取商品信息
                 QueryWrapper<Product> productWrapper = new QueryWrapper<>();
@@ -547,25 +555,25 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
                 if(pro.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
                     String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
                     path= ReadFile.getBaseFile(url);
-                    bookdto.setCoverPic(path);
+                    bookDto.setCoverPic(path);
                 }
 
-                bookdto.setCount(booking.getOrdersNum());
-                bookdto.setName(transferUTF8.UTF8toC(pro.getName()));
-                bookdto.setState(transferUTF8.UTF8toC(booking.getStatus()));
-                bookdto.setBookNum(booking.getNumber());
-                bookdto.setPrice(booking.getPrice());
-                bookdto.setNumber(pro.getNumber());
-                booklist.add(bookdto);
+                bookDto.setCount(booking.getOrdersNum());
+                bookDto.setName(transferUTF8.UTF8toC(pro.getName()));
+                bookDto.setState(transferUTF8.UTF8toC(booking.getStatus()));
+                bookDto.setBookNum(booking.getNumber());
+                bookDto.setPrice(booking.getPrice());
+                bookDto.setNumber(pro.getNumber());
+                bookLst.add(bookDto);
             }
         }
-        res=new Result(ResultCode.SUCCESS, booklist);
+        res=new Result(ResultCode.SUCCESS, bookLst);
         return res;
     }
 
     @Override
     public Result selectAll(String status) {
-        List<BookingDto> booklist=new ArrayList<>();
+        List<BookingDto> bookLst=new ArrayList<>();
         List<Booking> bidList;
         if(Objects.equals(status, "全部")){
             bidList=accountRepository.findByStatus(transferUTF8.CtoUTF8(status));
@@ -576,26 +584,26 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         ProductDetailVo pro;
         for (Booking booking : bidList) {
             //获取商品信息
-            BookingDto bookdto=new BookingDto();
+            BookingDto bookDto=new BookingDto();
             pro = service.getProductDetail(booking.getProductId());
 
-            bookdto.setName(pro.getName());
-            bookdto.setState(transferUTF8.UTF8toC(booking.getStatus()));
+            bookDto.setName(pro.getName());
+            bookDto.setState(transferUTF8.UTF8toC(booking.getStatus()));
             //图片信息
             String path = "";
             if (pro.getPicture_count() == 0) {
-                bookdto.setCoverPic(path);
+                bookDto.setCoverPic(path);
             } else {
                 List<String> pictures = readFile.getPicturesBase64(booking.getProductId(), pro.getPictures().size());
-                bookdto.setCoverPic(pictures.get(0));
+                bookDto.setCoverPic(pictures.get(0));
             }
-            bookdto.setCount(booking.getOrdersNum());
-            bookdto.setBookNum(booking.getNumber());
-            bookdto.setPrice(booking.getPrice());
-            bookdto.setNumber(booking.getNumber());
-            booklist.add(bookdto);
+            bookDto.setCount(booking.getOrdersNum());
+            bookDto.setBookNum(booking.getNumber());
+            bookDto.setPrice(booking.getPrice());
+            bookDto.setNumber(booking.getNumber());
+            bookLst.add(bookDto);
         }
-        res=new Result(ResultCode.SUCCESS, booklist);
+        res=new Result(ResultCode.SUCCESS, bookLst);
         return res;
     }
 
@@ -606,28 +614,31 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
             List<ExchangeInfo> ei=exRepository.findByNameLike("%"+name+"%");
             List<ExchangeDto> bidList = new ArrayList<>();
             for (ExchangeInfo booking : ei) {
-                ExchangeDto ed=new ExchangeDto();
-                //获取商品图片
-                //获取商品信息
-                QueryWrapper<Product> productWrapper = new QueryWrapper<>();
-                productWrapper.eq("number",booking.getProductNum());
-                Product pro = productDao.selectOne(productWrapper);
+                if(isbuyer==1&&booking.getIsDelete()!=2
+                    ||isbuyer==0&&booking.getIsDelete()!=1){
+                    ExchangeDto ed=new ExchangeDto();
+                    //获取商品图片
+                    //获取商品信息
+                    QueryWrapper<Product> productWrapper = new QueryWrapper<>();
+                    productWrapper.eq("number",booking.getProductNum());
+                    Product pro = productDao.selectOne(productWrapper);
 
-                //图片信息
-                String path = "";
-                if(pro.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
-                    String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
-                    path= ReadFile.getBaseFile(url);
-                    ed.setCoverPic(path);
+                    //图片信息
+                    String path = "";
+                    if(pro.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
+                        String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
+                        path= ReadFile.getBaseFile(url);
+                        ed.setCoverPic(path);
+                    }
+
+                    ed.setCount(booking.getOrdersNum());
+                    ed.setName(transferUTF8.UTF8toC(pro.getName()));
+                    ed.setState(transferUTF8.UTF8toC(booking.getStatus()));
+                    ed.setOrdNumber(booking.getNumber());
+                    ed.setPrice(booking.getPrice());
+                    ed.setProNumber(booking.getProductNum());
+                    bidList.add(ed);
                 }
-
-                ed.setCount(booking.getOrdersNum());
-                ed.setName(transferUTF8.UTF8toC(pro.getName()));
-                ed.setState(transferUTF8.UTF8toC(booking.getStatus()));
-                ed.setOrdNumber(booking.getNumber());
-                ed.setPrice(booking.getPrice());
-                ed.setProNumber(booking.getProductNum());
-                bidList.add(ed);
             }
             res=new Result(ResultCode.SUCCESS, bidList);
         }
@@ -654,26 +665,29 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
             List<BookingDto> bidList = new ArrayList<>();
 
             for (Booking booking : bi) {
-                //获取商品信息
-                QueryWrapper<Product> productWrapper = new QueryWrapper<>();
-                productWrapper.eq("number",booking.getProductId());
-                Product pro = productDao.selectOne(productWrapper);
+                if(isbuyer==1&&booking.getIsDelete()!=2
+                        ||isbuyer==0&&booking.getIsDelete()!=1) {
+                    //获取商品信息
+                    QueryWrapper<Product> productWrapper = new QueryWrapper<>();
+                    productWrapper.eq("number",booking.getProductId());
+                    Product pro = productDao.selectOne(productWrapper);
 
-                //图片信息
-                String path = "";
-                if(pro.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
-                    String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
-                    path= ReadFile.getBaseFile(url);
-                    bok.setCoverPic(path);
+                    //图片信息
+                    String path = "";
+                    if(pro.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
+                        String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
+                        path= ReadFile.getBaseFile(url);
+                        bok.setCoverPic(path);
+                    }
+
+                    bok.setCount(booking.getOrdersNum());
+                    bok.setName(transferUTF8.UTF8toC(pro.getName()));
+                    bok.setState(transferUTF8.UTF8toC(booking.getStatus()));
+                    bok.setBookNum(booking.getNumber());
+                    bok.setPrice(booking.getPrice());
+                    bok.setNumber(booking.getProductId());
+                    bidList.add(bok);
                 }
-
-                bok.setCount(booking.getOrdersNum());
-                bok.setName(transferUTF8.UTF8toC(pro.getName()));
-                bok.setState(transferUTF8.UTF8toC(booking.getStatus()));
-                bok.setBookNum(booking.getNumber());
-                bok.setPrice(booking.getPrice());
-                bok.setNumber(booking.getProductId());
-                bidList.add(bok);
             }
             res=new Result(ResultCode.SUCCESS, bidList);
         }
@@ -681,58 +695,135 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     }
 
     @Override
-    public Result sellerBookingByName(String number) {
-        List<Booking> booklist= accountRepository.findByProductId(number);
-        List<BookDetails> bidlist=new ArrayList<>();
-        User user2;
-        for (Booking value : booklist) {
-            BookDetails bookdto=new BookDetails();
-            user2=userRepository.findByPhone(value.getBuyerId()).get();
-            bookdto.setPhone(user2.getPhone());
-            bookdto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
-            bookdto.setNumber(number);
-      //      bookdto.setTime(value.getAppointmentTime());
+    public Result sellerBookingByName(String number, String state) {
+        List<Booking> bookLst=new ArrayList<>();
+        List<ExchangeInfo> exList=new ArrayList<>();
+        if(Objects.equals(state, "全部")){
+            bookLst=accountRepository.findByProductId(number);
+            exList=exRepository.findByProductNum(number);
+        }
+        if(Objects.equals(state, "待处理")){
+            bookLst=accountRepository.findByProductIdAndStatus(number,transferUTF8.CtoUTF8("已预约"));
+        }
+        if(Objects.equals(state, "已卖出")){
+            exList=exRepository.findByProductNumAndStatus(number,transferUTF8.CtoUTF8("已购买"));
+        }
+        if(Objects.equals(state, "待发货")||Objects.equals(state, "待退款")){
+            exList=exRepository.findByProductNumAndStatus(number,transferUTF8.CtoUTF8(state));
+        }
+        if(Objects.equals(state, "其他")){
+            bookLst=accountRepository.findByProductIdAndStatus(number,transferUTF8.CtoUTF8("待下单"));
+            bookLst.addAll(accountRepository.findByProductIdAndStatus(number,transferUTF8.CtoUTF8("已拒绝")));
+            exList=exRepository.findByProductNumAndStatus(number,transferUTF8.CtoUTF8("待收货"));
+            exList.addAll(exRepository.findByProductNumAndStatus(number,transferUTF8.CtoUTF8("已退款")));
+        }
+        List<BookDetails> bidList=new ArrayList<>();
+        for (Booking value : bookLst) {
+            BookDetails bookDto=new BookDetails();
+            User user2=userRepository.findByPhone(value.getBuyerId()).get();
+            bookDto.setPhone(user2.getPhone());
+            bookDto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
+            bookDto.setNumber(number);
+            String status=transferUTF8.UTF8toC(value.getStatus());
+            if(Objects.equals(status, "已预约")){
+                bookDto.setState("待处理");
+            }
+            else
+                bookDto.setState(transferUTF8.UTF8toC(value.getStatus()));
             //图片路径
             String picture1;
             if(user2.getAvatar()==null||user2.getAvatar().isEmpty()){
                 //默认图片
-                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-                bookdto.setAvatar(picture1);
+                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
+                bookDto.setAvatar(picture1);
             }
             else{
-                picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(user2.getPhone()));
-                bookdto.setAvatar(picture1);
+                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()),avatar_width,avatar_height);
+                bookDto.setAvatar(picture1);
             }
-            bidlist.add(bookdto);
+            bookDto.setCount(value.getOrdersNum());
+            bidList.add(bookDto);
         }
-        res=new Result(ResultCode.SUCCESS, bidlist);
+        for (ExchangeInfo value : exList) {
+            BookDetails bookDto=new BookDetails();
+            Seller seller=sel.findByExchangeId(value.getNumber());
+            Buyer buyer=buy.findByExchangeId(value.getNumber());
+            User user2=userRepository.findByPhone(buyer.getPhone()).get();
+            bookDto.setPhone(user2.getPhone());
+            bookDto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
+            bookDto.setNumber(number);
+            String status=transferUTF8.UTF8toC(value.getStatus());
+            if(Objects.equals(status, "已购买")){
+                bookDto.setState("已卖出");
+            }
+            else
+                bookDto.setState(transferUTF8.UTF8toC(value.getStatus()));
+            //图片路径
+            String picture1;
+            if(user2.getAvatar()==null||user2.getAvatar().isEmpty()){
+                //默认图片
+                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
+                bookDto.setAvatar(picture1);
+            }
+            else{
+                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()),avatar_width,avatar_height);
+                bookDto.setAvatar(picture1);
+            }
+            bookDto.setCount(value.getOrdersNum());
+            bidList.add(bookDto);
+        }
+        res=new Result(ResultCode.SUCCESS, bidList);
         return res;
     }
 
     @Override
-    public Result bookingByPhone(String phone,String number) {
-        Booking booklist= accountRepository.findByProductIdAndSellerId(number,phone);
-        BookDetails bookdto=new BookDetails();
-
+    public Result bookingByPhone(String phone, String number) {
+        Booking bookLst= accountRepository.findByProductIdAndSellerId(number,phone);
+        BookDetails bookDto=new BookDetails();
         User user2;
-        user2=userRepository.findByPhone(booklist.getBuyerId()).get();
-        bookdto.setPhone(user2.getPhone());
-        bookdto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
-        bookdto.setNumber(number);
-       // bookdto.setTime(booklist.getAppointmentTime());
+        user2=userRepository.findByPhone(bookLst.getBuyerId()).get();
+        bookDto.setPhone(user2.getPhone());
+        bookDto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
+        bookDto.setNumber(number);
+        bookDto.setState(transferUTF8.UTF8toC(bookDto.getState()));
         //图片路径
         String picture1;
         if(user2.getAvatar()==null||user2.getAvatar().isEmpty()){
             //默认图片
-            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-            bookdto.setAvatar(picture1);
+            picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
+            bookDto.setAvatar(picture1);
         }
         else{
-            picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(user2.getPhone()));
-            bookdto.setAvatar(picture1);
+            picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()),avatar_width,avatar_height);
+            bookDto.setAvatar(picture1);
         }
+        res=new Result(ResultCode.SUCCESS, bookDto);
+        return res;
+    }
 
-        res=new Result(ResultCode.SUCCESS, bookdto);
+    @Override
+    public Result sellerDeleteBooking(String number) {
+        Booking book;
+        book=accountRepository.findByNumber(number);
+        if(book.getIsDelete()==2){
+            accountRepository.delete(book);
+        }
+        else{
+            book.setIsDelete(1);
+        }
+        return res;
+    }
+
+    @Override
+    public Result buyerDeleteBooking(String number) {
+        Booking book;
+        book=accountRepository.findByNumber(number);
+        if(book.getIsDelete()==1){
+            accountRepository.delete(book);
+        }
+        else{
+            book.setIsDelete(2);
+        }
         return res;
     }
 
@@ -768,38 +859,45 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         Buyer bu=buy.findByExchangeId(number);
         Seller se=sel.findByExchangeId(number);
         ExchangeInfo bidList=exRepository.findByNumber(number).get();
-        OrderDetails bookdto=new OrderDetails();
-        bookdto.setDiscount(bidList.getDiscounts());
+        OrderDetails bookDto=new OrderDetails();
+        bookDto.setDiscount(bidList.getDiscounts());
         if(bidList.getDeliveryId()!=null){
-            bookdto.setDeliveryId(bidList.getDeliveryId());
+            bookDto.setDeliveryId(bidList.getDeliveryId());
         }
-        bookdto.setDelivery(transferUTF8.UTF8toC(bidList.getExpressDelivery()));
-        bookdto.setPay(transferUTF8.UTF8toC(bidList.getPayment()));
-        bookdto.setNumber(number);
+        bookDto.setDelivery(transferUTF8.UTF8toC(bidList.getExpressDelivery()));
+        bookDto.setPay(transferUTF8.UTF8toC(bidList.getPayment()));
+        bookDto.setNumber(number);
         String address=transferUTF8.UTF8toC(bu.getAddress());
         String[] address_parts = address.split("%");
-        bookdto.setConsignee(address_parts[0]);
-        bookdto.setPhone(address_parts[1]);
+        bookDto.setConsignee(address_parts[0]);
+        bookDto.setPhone(address_parts[1]);
         String add=address_parts[1]+address_parts[3];
-        bookdto.setAddress(add);
-        bookdto.setTotal(bidList.getPrice());
+        bookDto.setAddress(add);
+        bookDto.setTotal(bidList.getPrice());
         if(bu.getReceiptTime()!=null){
-            bookdto.setConfirmTime(bu.getReceiptTime());
+            bookDto.setConfirmTime(bu.getReceiptTime());
         }
         if(bu.getRefundTime()!=null){
-            bookdto.setApplyTime(bu.getRefundTime());
+            bookDto.setApplyTime(bu.getRefundTime());
         }
         if(se.getShippingTime()!=null){
-            bookdto.setDeliveryTime(se.getShippingTime());
+            bookDto.setDeliveryTime(se.getShippingTime());
         }
         if(bidList.getBuildTime()!=null){
-            bookdto.setPayTime(bidList.getBuildTime());
+            bookDto.setPayTime(bidList.getBuildTime());
         }
         if(se.getRefundTime()!=null){
-            bookdto.setRefundTime(se.getRefundTime());
+            bookDto.setRefundTime(se.getRefundTime());
         }
-        bookdto.setRemark(transferUTF8.UTF8toC(bu.getRemark()));
-        res=new Result(ResultCode.SUCCESS, bookdto);
+        String remark=transferUTF8.UTF8toC(bu.getRemark());
+        if(Objects.equals(remark, "待退款")){
+            String[] remark_parts = remark.split("#");
+            bookDto.setRemark(remark_parts[1]+","+remark_parts[2]);
+        }
+        if(remark!=null){
+            bookDto.setRemark(transferUTF8.UTF8toC(bu.getRemark()));
+        }
+        res=new Result(ResultCode.SUCCESS, bookDto);
         return res;
     }
 }

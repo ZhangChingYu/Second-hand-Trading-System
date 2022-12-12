@@ -3,6 +3,8 @@ import dev.silvia.wechattrade.vo.FeedbackVo;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.*;
 import java.util.List;
 

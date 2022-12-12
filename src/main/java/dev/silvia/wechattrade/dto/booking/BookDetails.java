@@ -8,4 +8,6 @@ public class BookDetails {
     private String avatar;  //买方头像
     private String phone;  //买方phone
     private String nickName;  //买方昵称
+    private String state;
+    private Integer count;
 }

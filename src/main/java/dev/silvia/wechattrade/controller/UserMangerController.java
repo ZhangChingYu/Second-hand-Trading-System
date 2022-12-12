@@ -5,14 +5,20 @@ import dev.silvia.wechattrade.dto.feedback.ViolationDto;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
+import dev.silvia.wechattrade.handlers.picSize.UploadUtil;
 import dev.silvia.wechattrade.service.IUserMangerService;
+import dev.silvia.wechattrade.vo.AuthenticationVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
+import java.text.ParseException;
 import java.util.*;
 
 @RestController
@@ -112,17 +118,12 @@ public class UserMangerController {
 
 
     //测试
-    @RequestMapping(value ="/manage/user/test",method = RequestMethod.GET)
-    public ResponseEntity<?> test(@RequestParam String phone) {
-        String s = " ";
-//        User user=new User();
-//        user.setPhone("1512344712");
-//        user.setPassword("1321323");
-//        user.setAuthority(1);
-//        user.setRegisterDate(new Date());
-//        user.setId(19);
-//        userRepository.save(user);
-        //List<User> user=userRepository.findByAuthority(phone,Sort.by(Sort.Direction.DESC, "registerDate"));
-        return ResponseEntity.ok(s);
+    @RequestMapping(value ="/manage/user/test")
+    @ResponseBody
+    public ResponseEntity<?> authentication(HttpServletRequest request) throws ParseException, IOException {
+        MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
+        MultipartFile files = ((MultipartHttpServletRequest) request).getFile("pictures");
+        UploadUtil.saveImage(files,"E:/Users/Sunny/Desktop/User/Default");
+        return ResponseEntity.ok(files);
     }
 }

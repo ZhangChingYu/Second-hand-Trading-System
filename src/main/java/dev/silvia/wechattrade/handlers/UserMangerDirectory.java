@@ -12,7 +12,7 @@ public class UserMangerDirectory {
     public static List<Integer> createTrade() {
         List<Integer> directory=new ArrayList<>();
         directory.add(5);       //交易目录长度
-        directory.add(10);       //交易步长
+        directory.add(5);       //交易步长
         return directory;
     }
     public static List<Integer> createViolation() {

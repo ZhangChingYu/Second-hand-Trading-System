@@ -20,41 +20,38 @@ public class OrdersSearchController {
     @RequestMapping(value ="/booking/select/buyer",method = RequestMethod.GET)
     public ResponseEntity<?> selectAllBuyer(HttpServletRequest request){
         String phone = request.getParameter("phone");
-        String status= request.getParameter("status");
+        String status= request.getParameter("state");
         return ResponseEntity.ok(service.selectAllBuyer(phone,status));
-
     }
 
     //查找全部seller预约
     @RequestMapping(value ="/booking/select/seller",method = RequestMethod.GET)
     public ResponseEntity<?> selectAllSeller(HttpServletRequest request){
         String phone = request.getParameter("phone");
-        String status= request.getParameter("status");
+        String status= request.getParameter("state");
         return ResponseEntity.ok(service.selectAllSeller(phone,status));
     }
-
 
     //buyer查找所有订单
     @RequestMapping(value ="/orders/select/buyer",method = RequestMethod.GET)
     public ResponseEntity<?> selectBuyerOrder(HttpServletRequest request){
         String phone = request.getParameter("phone");
-        String status= request.getParameter("status");
+        String status= request.getParameter("state");
         return ResponseEntity.ok(service.selectBuyerOrder(phone,status));
     }
-
 
     //seller查找所有订单
     @RequestMapping(value ="/orders/select/seller",method = RequestMethod.GET)
     public ResponseEntity<?> selectSellerOrder(HttpServletRequest request){
         String phone = request.getParameter("phone");
-        String status= request.getParameter("status");
+        String status= request.getParameter("state");
         return ResponseEntity.ok(service.selectSellerOrder(phone,status));
     }
 
     //查找所有订单
     @RequestMapping(value ="/orders/select/all",method = RequestMethod.GET)
     public ResponseEntity<?> selectAllOrder(HttpServletRequest request){
-        String status= request.getParameter("status");
+        String status= request.getParameter("state");
         return ResponseEntity.ok(service.selectAllOrder(status));
     }
 
@@ -62,7 +59,7 @@ public class OrdersSearchController {
     //查找所有预约
     @RequestMapping(value ="/booking/select/all",method = RequestMethod.GET)
     public ResponseEntity<?> selectAll(HttpServletRequest request){
-        String status= request.getParameter("status");
+        String status= request.getParameter("state");
         return ResponseEntity.ok(service.selectAll(status));
     }
 
@@ -70,7 +67,8 @@ public class OrdersSearchController {
     @RequestMapping(value ="/booking/select/bookings",method = RequestMethod.GET)
     public ResponseEntity<?> sellerBookingByName(HttpServletRequest request){
         String number= request.getParameter("number");
-        return ResponseEntity.ok(service.sellerBookingByName(number));
+        String state= request.getParameter("state");
+        return ResponseEntity.ok(service.sellerBookingByName(number,state));
     }
 
     //在订单中根据商品名称模糊搜索
