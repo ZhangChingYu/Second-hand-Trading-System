@@ -146,6 +146,26 @@ public class UserSettingServiceImpl extends ServiceImpl<UserDao, User> implement
     }
 
     @Override
+    public Integer CheckUserAuthenticationStatus(String phone) {
+        User check = getUser(phone);
+        if(check.getAuthority() == 0){
+            return 201; // 已通過實名認證
+        } else {
+            QueryWrapper<AuthenticationRequest> wrapper = new QueryWrapper<>();
+            wrapper.eq("phone", phone);
+            List<AuthenticationRequest> requests = authRequestDao.selectList(wrapper);
+            if(!requests.isEmpty()){
+                for(AuthenticationRequest request : requests){
+                    if(request.getStatus() == 0){   // 未處理
+                        return 202; // 請求處理中
+                    }
+                }
+            }
+        }
+        return 203; // 非實名認證用戶(沒有請求/請求都沒通過)
+    }
+
+    @Override
     public Result swapRelatedAvatar(String phone,String avatar) {
         User user1=accountRepository.findByPhone(phone).get();
         user1.setAvatar(avatar);

@@ -28,6 +28,7 @@ public interface IUserSettingService extends IService<User> {
     //实名认证
     Result authentication(AuthenticationVo request);
     Integer UserPostAuthenticationRequest(AuthRequestDto authRequestDto);    // 用戶發送實名認證請求
+    Integer CheckUserAuthenticationStatus(String phone);    // 檢查用戶實名認證狀態
 
     Result swapRelatedAvatar(String phone,String avatar);
 

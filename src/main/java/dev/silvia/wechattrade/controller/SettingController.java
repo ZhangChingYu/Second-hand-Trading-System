@@ -131,4 +131,10 @@ public class SettingController {
     public Integer UserPostAuthenticationRequest(AuthRequestDto dto){
         return USService.UserPostAuthenticationRequest(dto);
     }
+    @UserLoginToken
+    @RequestMapping(value = "/setting/authentication", method = RequestMethod.GET)
+    public Integer checkUserAuthenticationStatus(HttpServletRequest request){
+        String phone = request.getParameter("phone");
+        return USService.CheckUserAuthenticationStatus(phone);
+    }
 }
