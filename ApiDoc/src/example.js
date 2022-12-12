@@ -1697,6 +1697,31 @@
  */
 
 /**
+ * @api {GET} /setting/authentication 獲取用戶實名認證狀態
+ * @apiName GetUserAuthenticationStatus
+ * @apiGroup 設置:實名認證
+ * @apiPermission none
+ *
+ * @apiDescription 獲取用戶實名認證狀態
+ *
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 獲取成功(已通過)
+ *     {
+ *          201
+ *     }
+ * @apiSuccessExample 獲取成功(審核中)
+ *     {
+ *          202
+ *     }
+ * @apiSuccessExample 獲取成功(非實名認證用戶)
+ *     {
+ *          203
+ *     }
+ */
+
+
+/**
  * @api {POST} /setting/authentication 發送實名認證請求
  * @apiName UserPostAuthenticationRequest
  * @apiGroup 設置:實名認證

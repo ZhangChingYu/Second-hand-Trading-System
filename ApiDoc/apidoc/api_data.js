@@ -2848,6 +2848,54 @@ define({ "api": [
     "groupTitle": "用戶註冊"
   },
   {
+    "type": "GET",
+    "url": "/setting/authentication",
+    "title": "獲取用戶實名認證狀態",
+    "name": "GetUserAuthenticationStatus",
+    "group": "設置:實名認證",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取用戶實名認證狀態</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "獲取成功(已通過)",
+          "content": "{\n     201\n}",
+          "type": "json"
+        },
+        {
+          "title": "獲取成功(審核中)",
+          "content": "{\n     202\n}",
+          "type": "json"
+        },
+        {
+          "title": "獲取成功(非實名認證用戶)",
+          "content": "{\n     203\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:實名認證"
+  },
+  {
     "type": "POST",
     "url": "/setting/authentication",
     "title": "發送實名認證請求",
