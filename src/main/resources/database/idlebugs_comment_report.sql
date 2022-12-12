@@ -13,3 +13,4 @@ create table comment_report
         unique (id)
 );
 
+INSERT INTO idlebugs.comment_report (id, comment_id, phone, content, date, status) VALUES (1, 6, '15059417755', 'E79599E8A880E4B88DE58F8BE59684', '2022-12-12 13:43:18', 0);
