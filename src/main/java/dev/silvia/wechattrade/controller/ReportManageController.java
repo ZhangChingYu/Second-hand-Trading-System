@@ -35,13 +35,13 @@ public class ReportManageController {
     public Integer sendProductReport(@RequestBody ProductReportDto productReportDto){
         return PRService.userPostReport(productReportDto);
     }
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/product/reports", method = RequestMethod.GET)
     public String showAllMyProductReport(HttpServletRequest request){
         String phone = request.getParameter("phone");
         return gson.toJson(PRService.showAllMyReport(phone));
     }
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/product/reports/status", method = RequestMethod.GET)
     public String showMyProductReportByStatus(HttpServletRequest request){
         String phone = request.getParameter("phone");
@@ -79,10 +79,29 @@ public class ReportManageController {
         String explain = param.get("explain").toString();
         return PRService.processProductReport(id, decision, explain);
     }
-    @PassToken
+    @UserLoginToken
     @RequestMapping(value = "/comment/report", method = RequestMethod.POST)
     public Integer sendCommentReport(@RequestBody CommentReportDto dto){
         return CRService.userPostReport(dto);
+    }
+    @UserLoginToken
+    @RequestMapping(value = "/my/comment/reports", method = RequestMethod.GET)
+    public String showAllMyCommentReport(HttpServletRequest request){
+        String phone = request.getParameter("phone");
+        return gson.toJson(CRService.showAllMyReport(phone));
+    }
+    @UserLoginToken
+    @RequestMapping(value = "/my/comment/reports/status", method = RequestMethod.GET)
+    public String showMyCommentReportByStatus(HttpServletRequest request){
+        String phone = request.getParameter("phone");
+        Integer status = Integer.parseInt(request.getParameter("status"));
+        return gson.toJson(CRService.showMyReportByStatus(phone, status));
+    }
+    @UserLoginToken
+    @RequestMapping(value = "my/comment/report", method = RequestMethod.DELETE)
+    public Integer deleteMyCommentReport(@RequestBody Map<String, Object> param){
+        Integer id = Integer.parseInt(param.get("id").toString());
+        return CRService.deleteMyReport(id);
     }
     @PassToken
     @RequestMapping(value = "/comment/reports", method = RequestMethod.GET)

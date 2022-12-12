@@ -5,6 +5,7 @@ import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.vo.report.comment.CommentPack;
 import dev.silvia.wechattrade.vo.report.comment.CommentReportDetailVo;
 import dev.silvia.wechattrade.vo.report.comment.CommentReportOutlineVo;
+import dev.silvia.wechattrade.vo.report.my.MyReportCommentVo;
 import dev.silvia.wechattrade.vo.report.my.MyReportProductVo;
 import dev.silvia.wechattrade.vo.report.product.ProductReportDetailVo;
 import dev.silvia.wechattrade.vo.report.product.ProductReportOutlineVo;
@@ -27,6 +28,18 @@ public class ReportPacking {
         reportVo.setCoverPicFormat(map.get("format").toString());
         reportVo.setProductCover(map.get("picture").toString());
         reportVo.setPrice(product.getPrice());
+        reportVo.setContent(transferUTF8.UTF8toC(report.getContent()));
+        reportVo.setStatus(report.getStatus());
+        return reportVo;
+    }
+
+    public MyReportCommentVo ReportToMyReportVo(CommentReport report, User target, ProductComment comment, String headPic){
+        MyReportCommentVo reportVo = new MyReportCommentVo();
+        reportVo.setId(report.getId());
+        reportVo.setTargetName(transferUTF8.UTF8toC(target.getUserName()));
+        reportVo.setHeadPicFormat("jpg");
+        reportVo.setTargetHeadPic(headPic);
+        reportVo.setCommentContent(transferUTF8.UTF8toC(comment.getContent()));
         reportVo.setContent(transferUTF8.UTF8toC(report.getContent()));
         reportVo.setStatus(report.getStatus());
         return reportVo;

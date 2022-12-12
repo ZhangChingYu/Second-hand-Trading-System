@@ -13,9 +13,11 @@ import dev.silvia.wechattrade.entity.ProductComment;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.Packing.ReportPacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
+import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.service.ICommentReportService;
 import dev.silvia.wechattrade.vo.report.comment.CommentReportDetailVo;
 import dev.silvia.wechattrade.vo.report.comment.CommentReportOutlineVo;
+import dev.silvia.wechattrade.vo.report.my.MyReportCommentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
@@ -39,6 +41,8 @@ public class CommentReportServiceImpl extends ServiceImpl<CommentReportDao, Comm
     @Autowired
     TransferUTF8 transferUTF8;
     @Autowired
+    ReadFile readFile;
+    @Autowired
     JdbcTemplate jdbcTemplate;
 
     @Override
@@ -56,6 +60,54 @@ public class CommentReportServiceImpl extends ServiceImpl<CommentReportDao, Comm
             return 201;     // 舉報已發送
         }
         return 404;     // 舉報發送失敗
+    }
+
+    @Override
+    public List<MyReportCommentVo> showAllMyReport(String phone) {
+        QueryWrapper<CommentReport> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone",phone);
+        List<CommentReport> reports = commentReportDao.selectList(wrapper);
+        if(reports.isEmpty()){
+            return null;
+        }
+        List<MyReportCommentVo> reportVos = new ArrayList<>();
+        for(CommentReport report : reports){
+            ProductComment comment = productCommentDao.selectById(report.getCommentId());
+            User target = getUser(comment.getPhone());
+            String headPic = readFile.readAvatarPicture(target.getPhone());
+            MyReportCommentVo reportVo = reportPacking.ReportToMyReportVo(report, target, comment, headPic);
+            reportVos.add(reportVo);
+        }
+        return reportVos;
+    }
+
+    @Override
+    public List<MyReportCommentVo> showMyReportByStatus(String phone, Integer status) {
+        QueryWrapper<CommentReport> wrapper = new QueryWrapper<>();
+        wrapper.eq("phone", phone);
+        wrapper.eq("status", status);
+        List<CommentReport> reports = commentReportDao.selectList(wrapper);
+        if(reports.isEmpty()){
+            return null;
+        }
+        List<MyReportCommentVo> reportVos = new ArrayList<>();
+        for(CommentReport report : reports){
+            ProductComment comment = productCommentDao.selectById(report.getCommentId());
+            User target = getUser(comment.getPhone());
+            String headPic = readFile.readAvatarPicture(target.getPhone());
+            MyReportCommentVo reportVo = reportPacking.ReportToMyReportVo(report, target, comment, headPic);
+            reportVos.add(reportVo);
+        }
+        return reportVos;
+    }
+
+    @Override
+    public Integer deleteMyReport(Integer id) {
+        CommentReport report = commentReportDao.selectById(id);
+        if(commentReportDao.deleteById(report) > 0){
+            return 204; // 刪除舉報成功
+        }
+        return 422; // 舉報刪除失敗(數據庫未更新)
     }
 
     @Override
