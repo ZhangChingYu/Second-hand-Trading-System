@@ -1,7 +1,7 @@
 package dev.silvia.wechattrade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import dev.silvia.wechattrade.dto.product.EvaluateDto;
+import dev.silvia.wechattrade.dto.evaluate.EvaluateDto;
 import dev.silvia.wechattrade.entity.BuyerEvaluate;
 import dev.silvia.wechattrade.vo.seller.ProductEvaluateVo;
 import dev.silvia.wechattrade.vo.seller.SellerBasicInfoVo;

@@ -1,11 +1,9 @@
-package dev.silvia.wechattrade.dto.product;
+package dev.silvia.wechattrade.dto.evaluate;
 
 import lombok.Data;
 
 @Data
-public class EvaluateDto {
-    private String number;  // 商品編號
-    private String phone;   // 買家手機
+public class Evaluation {  // 評價信息
     private Integer score1; // 描述相符得分
     private Integer score2; // 物流服務得分
     private Integer score3; // 態度服務得分

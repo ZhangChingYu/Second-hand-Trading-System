@@ -1,7 +1,7 @@
 package dev.silvia.wechattrade.controller;
 
 import com.google.gson.Gson;
-import dev.silvia.wechattrade.dto.product.EvaluateDto;
+import dev.silvia.wechattrade.dto.evaluate.EvaluateDto;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.IEvaluateService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +21,7 @@ public class EvaluateController {
 
     private Gson gson = new Gson();
 
-    @UserLoginToken
+    //@UserLoginToken
     @RequestMapping(value = "/evaluation", method = RequestMethod.POST)
     public Integer evaluateProduct(@RequestBody EvaluateDto dto){
         return service.evaluateProduct(dto);

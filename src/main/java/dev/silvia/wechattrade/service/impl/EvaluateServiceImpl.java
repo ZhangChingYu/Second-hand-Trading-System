@@ -6,7 +6,7 @@ import dev.silvia.wechattrade.dao.BuyerEvaluateDao;
 import dev.silvia.wechattrade.dao.ProductDao;
 import dev.silvia.wechattrade.dao.SellerDao;
 import dev.silvia.wechattrade.dao.UserDao;
-import dev.silvia.wechattrade.dto.product.EvaluateDto;
+import dev.silvia.wechattrade.dto.evaluate.EvaluateDto;
 import dev.silvia.wechattrade.entity.BuyerEvaluate;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.Seller;
@@ -48,12 +48,12 @@ public class EvaluateServiceImpl extends ServiceImpl<BuyerEvaluateDao, BuyerEval
         evaluate.setNumber(dto.getNumber());
         evaluate.setBuyerPhone(dto.getPhone());
         evaluate.setSellerPhone(product.getSPhone());
-        evaluate.setScore1(dto.getScore1());
-        evaluate.setScore2(dto.getScore2());
-        evaluate.setScore3(dto.getScore3());
-        evaluate.setEvaluate(transferUTF8.CtoUTF8(dto.getEvaluate()));
+        evaluate.setScore1(dto.getOneEvaluate().getScore1());
+        evaluate.setScore2(dto.getOneEvaluate().getScore2());
+        evaluate.setScore3(dto.getOneEvaluate().getScore3());
+        evaluate.setEvaluate(transferUTF8.CtoUTF8(dto.getOneEvaluate().getEvaluate()));
         evaluate.setDate(new Date());
-        if(dto.getIsAnonymous() == true){
+        if(dto.getOneEvaluate().getIsAnonymous() == true){
             evaluate.setIsAnonymous(1); // 匿名
         }else {
             evaluate.setIsAnonymous(0); // 不匿名
