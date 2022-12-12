@@ -29,6 +29,7 @@
 - App.vue 项目主文件
 - index.html 项目页面容器
 - main.js 项目入口js文件
+- mixin.js vue混入文件
 - mannifest.js 项目配置
 - pages.json 项目全局页面配置
 - uni.scss uni样式文件
