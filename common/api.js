@@ -1,6 +1,5 @@
 // const commoneUrl  = "http://localhost:8080"; //公共路径 
 const commoneUrl  = "http://192.168.1.11:8080"; //手机测试公共路径 
-
 const userId = uni.getStorageSync("user").id //用户id
 
 //post请求封装
@@ -19,7 +18,7 @@ function postRequest(url,data,type){
 			},
 				
 			success:function(res){
-				if(res.statusCode == 500) responseError()
+				if(res.statusCode == 500) responseError(res)
 				else if(res.statusCode == 200) resolve(res.data);
 				
 			},
@@ -47,7 +46,8 @@ function getRequest(url,data,type){
 					'token':uni.getStorageSync('token')
 				},
 				success:function(res){
-					if(res.statusCode == 500) responseError()
+					
+					if(res.statusCode == 500) responseError(res)
 					else if(res.statusCode == 200) resolve(res.data);
 				},
 				fail:function(e){
@@ -72,7 +72,7 @@ function putRequest(url,data){
 					'token': uni.getStorageSync('token')
 				},
 				success:function(res){
-					if(res.statusCode == 500) responseError()
+					if(res.statusCode == 500) responseError(res)
 					else if(res.statusCode == 200) resolve(res.data);
 				},
 				fail:function(e){
@@ -96,7 +96,7 @@ function delRequest(url,data){
 					'token': uni.getStorageSync('token')
 				},
 				success:function(res){
-					if(res.statusCode == 500) responseError()
+					if(res.statusCode == 500) responseError(res)
 					else if(res.statusCode == 200) resolve(res.data);
 				},
 				fail:function(e){
@@ -106,17 +106,36 @@ function delRequest(url,data){
 	});
 	return promise;
 }
-function responseError(){
-	uni.showToast({
+function responseError(res){
+	const that =  this;
+	
+	switch(res.message){
 		
-		title: '服务器错误!',
-		duration: 2000,
-		icon:'error'
-	});
-	uni.removeStorageSync('user');
-	uni.redirectTo({
-		url:'/pages/login/index'
-	})
+		case '401':
+			uni.showToast({
+				
+				title: '身份验证失败，请重新登录!',
+				duration: 2000,
+				icon:'none'
+			});
+			setTimeout(()=>{
+				uni.removeStorageSync('user');
+				uni.redirectTo({
+					url:'/pages/login/index'
+				})
+			},1000)
+			break;
+		default :
+			uni.showToast({
+				
+				title: '服务器错误!',
+				duration: 2000,
+				icon:'none'
+			});
+	}
+	
+	
+	
 }
 
 module.exports = {

@@ -145,7 +145,6 @@
 			this.user = uni.getStorageSync('user');
 			this.getMessage();
 			this.getEvaluation();
-			console.log(1,this.evaluationList)
 			
 		},
 		methods: {
