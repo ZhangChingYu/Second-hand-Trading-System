@@ -211,11 +211,25 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
         }
     }
 
+    // 若與其他關鍵字相似度都低於0.9則需要添加該關鍵字返回true，反之返回false
+    public boolean Filter(List<HotKey> hotKeys, String target){
+        boolean flag = true;
+        for(HotKey hotKey : hotKeys){
+            if(similarityFilter.levenshtein(hotKey.getContent(), target) >= 0.9){
+                // 視為相似的關鍵詞click_count+1
+                hotKey.setClickCount(hotKey.getClickCount()+1);
+                hotKeyDao.updateById(hotKey);
+                flag = false;
+            }
+        }
+        return flag;
+    }
+
     private void updateHotKey(String keyword){  // 每次搜索時都對HotKey進行相應的更新
         QueryWrapper<HotKey> wrapper = new QueryWrapper<>();
         List<HotKey> hotKeys = hotKeyDao.selectList(wrapper);
         // keyword是UTF-8
-        if(similarityFilter.Filter(hotKeys, keyword)){  // 若需要添加
+        if(Filter(hotKeys, keyword)){  // 若需要添加
             HotKey hotKey = new HotKey();
             hotKey.setContent(keyword);
             hotKey.setCreateDate(new Date());

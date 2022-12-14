@@ -8,19 +8,8 @@ import java.util.List;
 @Component
 public class SimilarityFilter { // 過濾相似度過高的關鍵字
 
-    // 若與其他關鍵字相似度都低於0.9則需要添加該關鍵字返回true，反之返回false
-    public boolean Filter(List<HotKey> hotKeys, String target){
-        boolean flag = true;
-        for(HotKey hotKey : hotKeys){
-            if(levenshtein(hotKey.getContent(), target) >= 0.9){
-                flag = false;
-            }
-        }
-        return flag;
-    }
-
     // 返回相似度[0~1]，大於0.9則視為相同關鍵字需近一步篩選
-    public static Float levenshtein(String str1, String str2){
+    public Float levenshtein(String str1, String str2){
         // 1. 計算兩個字符串的長度
         int len1 = str1.length();
         int len2 = str2.length();
