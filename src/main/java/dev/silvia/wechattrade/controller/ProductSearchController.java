@@ -47,13 +47,13 @@ public class ProductSearchController {
     }
     // 顯示熱門查詢關鍵字
     @UserLoginToken
-    @RequestMapping(value = "/search/hotkeys", method = RequestMethod.GET)
+    @RequestMapping(value = "/hotkeys", method = RequestMethod.GET)
     public String getHotKey(HttpServletRequest request){
         return gson.toJson(service.showHotKey());
     }
     // 點擊熱門關鍵字進行商品查詢
     @UserLoginToken
-    @RequestMapping(value = "/search/hotkey", method = RequestMethod.GET)
+    @RequestMapping(value = "/hotkey/products", method = RequestMethod.GET)
     public String clickHotKey(HttpServletRequest request){
         Integer id = Integer.parseInt(request.getParameter("id"));
         return gson.toJson(service.clickHotKey(id));
