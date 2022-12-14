@@ -3,13 +3,19 @@ package dev.silvia.wechattrade.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
+import dev.silvia.wechattrade.dao.HotKeyDao;
 import dev.silvia.wechattrade.dao.ProductDao;
+import dev.silvia.wechattrade.entity.HotKey;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.handlers.Packing.ProductPacking;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
+import dev.silvia.wechattrade.handlers.keyword.HotKeyFilter;
+import dev.silvia.wechattrade.handlers.keyword.KeyClearer;
+import dev.silvia.wechattrade.handlers.keyword.SimilarityFilter;
 import dev.silvia.wechattrade.service.IProductService;
+import dev.silvia.wechattrade.vo.HotKeyVo;
 import dev.silvia.wechattrade.vo.product.ProductDetailVo;
 import dev.silvia.wechattrade.vo.product.ProductOutlineVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +24,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,9 +33,15 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
     @Autowired
     private ProductDao productDao;
     @Autowired
+    private HotKeyDao hotKeyDao;
+    @Autowired
     private JdbcTemplate jdbcTemplate;
     @Autowired
-    private Gson gson = new Gson();
+    private HotKeyFilter hotKeyFilter;
+    @Autowired
+    private SimilarityFilter similarityFilter;
+    @Autowired
+    private KeyClearer keyClearer;
     @Autowired
     private TransferUTF8 transferUTF8 = new TransferUTF8();
     @Autowired
@@ -68,17 +81,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.eq("catalog", c_number);
         wrapper.eq("status", 0);
-        List<Product> products = productDao.selectList(wrapper);
-        List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
-        return productOutlines;
-    }
-
-    @Override
-    public List<ProductOutlineVo> searchProductByKey(String keyword) {
-        String key = transferUTF8.CtoUTF8(keyword);
-        QueryWrapper<Product> wrapper = new QueryWrapper<>();
-        wrapper.eq("status", 0);
-        wrapper.like("name", key);
         List<Product> products = productDao.selectList(wrapper);
         List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
         return productOutlines;
@@ -148,6 +150,81 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
         wrapper.eq("status",0);
         List<Product> products = productDao.selectList(wrapper);
         return get10Outline(products);
+    }
+
+    @Override
+    public List<ProductOutlineVo> searchProductByKey(String keyword) {
+        String key = transferUTF8.CtoUTF8(keyword);
+        updateHotKey(key);  // 若key滿足條件則自動添加進HotKey表中
+        QueryWrapper<Product> wrapper = new QueryWrapper<>();
+        wrapper.eq("status", 0);
+        wrapper.like("name", key);
+        List<Product> products = productDao.selectList(wrapper);
+        List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
+        return productOutlines;
+    }
+
+    @Override
+    public List<HotKeyVo> showHotKey() {
+        QueryWrapper<HotKey> wrapper = new QueryWrapper<>();
+        List<HotKey> hotKeys = hotKeyDao.selectList(wrapper);
+        if(hotKeys.isEmpty()){
+            return null;
+        }
+        // 先進判斷HotKey表數據是否需要進行刪除
+        deleteHotKey(keyClearer.getClearList(hotKeys));
+        // 再排序(frequency)
+        List<HotKey> chosenKeys = hotKeyFilter.ChosenKeys(hotKeys);
+        List<HotKeyVo> hotKeyVos = new ArrayList<>();
+        for(HotKey key : chosenKeys){
+            HotKeyVo keyVo = new HotKeyVo();
+            keyVo.setId(key.getId());
+            keyVo.setContent(transferUTF8.UTF8toC(key.getContent()));
+            hotKeyVos.add(keyVo);
+        }
+        return hotKeyVos;
+    }
+
+    @Override
+    public List<ProductOutlineVo> clickHotKey(Integer id) {
+        // click_count要增加
+        HotKey hotKey = hotKeyDao.selectById(id);
+        hotKey.setClickCount(hotKey.getClickCount()+1);
+        // recent_date要更新
+        hotKey.setRecentDate(new Date());
+        if(hotKeyDao.updateById(hotKey) > 0){
+            System.out.println("Hot Key update success.");
+        }
+        QueryWrapper<Product> wrapper = new QueryWrapper<>();
+        wrapper.eq("status", 0);
+        wrapper.like("name", hotKey.getContent());
+        List<Product> products = productDao.selectList(wrapper);
+        List<ProductOutlineVo> productOutlines = productPacking.ProductToOutline(products);
+        return productOutlines;
+    }
+
+    private void deleteHotKey(List<HotKey> targets){    // 若hot key超過1000調數據就進行清理
+        if(targets != null && !targets.isEmpty()){
+            for(HotKey target : targets){
+                hotKeyDao.deleteById(target);
+            }
+        }
+    }
+
+    private void updateHotKey(String keyword){  // 每次搜索時都對HotKey進行相應的更新
+        QueryWrapper<HotKey> wrapper = new QueryWrapper<>();
+        List<HotKey> hotKeys = hotKeyDao.selectList(wrapper);
+        // keyword是UTF-8
+        if(similarityFilter.Filter(hotKeys, keyword)){  // 若需要添加
+            HotKey hotKey = new HotKey();
+            hotKey.setContent(keyword);
+            hotKey.setCreateDate(new Date());
+            hotKey.setRecentDate(new Date());
+            hotKey.setClickCount(1);    // 當作是以經點擊一次了
+            if(hotKeyDao.insert(hotKey) > 0){
+                System.out.println("one hot key has been inserted.");
+            }
+        }
     }
 
     private List<ProductOutlineVo> get10Outline(List<Product> products){
