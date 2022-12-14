@@ -488,6 +488,31 @@
   },
   {
     "type": "get",
+    "url": "/hotkeys",
+    "title": "獲取熱門搜索詞",
+    "name": "GetHotKeys",
+    "group": "商品查詢",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取熱門搜索詞功能會從關鍵字數據庫中篩選出點擊頻率最高的3~5個關鍵詞進行顯示。</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功",
+          "content": "[\n   {\n     \"id\":1,\n     \"content\":\"二手\",\n   },\n     ....,{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "商品查詢"
+  },
+  {
+    "type": "get",
     "url": "/homepage",
     "title": "主頁面商品顯示",
     "name": "Homepage",
@@ -498,6 +523,44 @@
       }
     ],
     "description": "<p>主頁面商品顯示，返回商品信息的List</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功",
+          "content": "[\n   {\n     \"number\":\"B1667559776586\",\n     \"coverPicFormat\":\"jpg\",\n     \"coverPic\":\"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)\n     \"name\":學生心理健康教育第二版\",\n     \"price\":7.9\n   },\n     ....,{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "商品查詢"
+  },
+  {
+    "type": "get",
+    "url": "/hotkey/products",
+    "title": "熱門搜索詞檢索",
+    "name": "HotKeySearchProducts",
+    "group": "商品查詢",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>熱門搜索詞檢索，通過點擊熱門關鍵詞檢索相應的商品，每次點擊都會增加該關鍵詞的點擊數。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "id",
+            "description": "<p>熱門關鍵詞id</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "examples": [
         {

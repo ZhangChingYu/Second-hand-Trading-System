@@ -179,6 +179,47 @@
  */
 
 /**
+ * @api {get} /hotkeys 獲取熱門搜索詞
+ * @apiName GetHotKeys
+ * @apiGroup 商品查詢
+ * @apiPermission none
+ *
+ * @apiDescription 獲取熱門搜索詞功能會從關鍵字數據庫中篩選出點擊頻率最高的3~5個關鍵詞進行顯示。
+ *
+ * @apiSuccessExample 請求成功
+ *     [
+ *        {
+ *          "id":1,
+ *          "content":"二手",
+ *        },
+ *          ....,{}
+ *     ]
+ */
+
+/**
+ * @api {get} /hotkey/products 熱門搜索詞檢索
+ * @apiName HotKeySearchProducts
+ * @apiGroup 商品查詢
+ * @apiPermission none
+ *
+ * @apiDescription 熱門搜索詞檢索，通過點擊熱門關鍵詞檢索相應的商品，每次點擊都會增加該關鍵詞的點擊數。
+ *
+ * @apiParam {Integer} id 熱門關鍵詞id
+ *
+ * @apiSuccessExample 請求成功
+ *     [
+ *        {
+ *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
+ *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
+ *          "name":學生心理健康教育第二版",
+ *          "price":7.9
+ *        },
+ *          ....,{}
+ *     ]
+ */
+
+/**
  * @api {get} /homepage/new/products 最新商品(top 10)
  * @apiName TopTenNewestProducts
  * @apiGroup 商品查詢
