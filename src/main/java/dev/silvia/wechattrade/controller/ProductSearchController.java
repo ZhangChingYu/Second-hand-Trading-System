@@ -70,7 +70,7 @@ public class ProductSearchController {
     }
     // 首頁商品推送
     @UserLoginToken
-    @RequestMapping(value = "/homepage/promote", method = RequestMethod.GET)
+    @RequestMapping(value = "/homepage", method = RequestMethod.GET)
     public String homepage(HttpServletRequest request){
         String phone = request.getParameter("phone");
         return gson.toJson(promoteService.homepagePromote(phone));
