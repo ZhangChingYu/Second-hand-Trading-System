@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.gson.Gson;
 import dev.silvia.wechattrade.dao.HotKeyDao;
 import dev.silvia.wechattrade.dao.ProductDao;
+import dev.silvia.wechattrade.entity.FavoriteInfo;
 import dev.silvia.wechattrade.entity.HotKey;
 import dev.silvia.wechattrade.entity.Product;
 import dev.silvia.wechattrade.entity.User;
@@ -139,15 +140,6 @@ public class ProductServiceImpl extends ServiceImpl<ProductDao, Product> impleme
         QueryWrapper<Product> wrapper = new QueryWrapper<>();
         wrapper.orderByDesc("like_count");
         wrapper.eq("status", 0);
-        List<Product> products = productDao.selectList(wrapper);
-        return get10Outline(products);
-    }
-
-    @Override
-    public List<ProductOutlineVo> homepagePromote(String number) {
-        QueryWrapper<Product> wrapper = new QueryWrapper<>();
-        wrapper.orderByDesc("like_count");
-        wrapper.eq("status",0);
         List<Product> products = productDao.selectList(wrapper);
         return get10Outline(products);
     }

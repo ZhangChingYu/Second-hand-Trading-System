@@ -18,7 +18,7 @@ public interface IProductService extends IService<Product> {
     List<ProductOutlineVo> homepageProductPromote(String number);    // 首頁促銷商品
     List<ProductOutlineVo> homepageProductNew();          // 最新商品顯示
     List<ProductOutlineVo> homepageProductLike();         // 最多收藏商品顯示
-    List<ProductOutlineVo> homepagePromote(String number);         // 通過用戶收藏內容推薦商品
+
 
     /** 關鍵字查詢功能 */
     List<ProductOutlineVo> searchProductByKey(String keyword);   // 通過輸入商品名查詢相關商品(簡化)

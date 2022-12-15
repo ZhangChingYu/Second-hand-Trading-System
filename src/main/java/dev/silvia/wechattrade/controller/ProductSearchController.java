@@ -5,8 +5,8 @@ import com.google.gson.Gson;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.handlers.common.annotation.UserLoginToken;
 import dev.silvia.wechattrade.service.IProductService;
+import dev.silvia.wechattrade.service.IPromoteService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +19,9 @@ public class ProductSearchController {
     @Autowired
     @Resource
     private IProductService service;
+    @Autowired
+    @Resource
+    private IPromoteService promoteService;
 
     Gson gson = new Gson();
 
@@ -59,11 +62,18 @@ public class ProductSearchController {
         return gson.toJson(service.clickHotKey(id));
     }
 
-    // 首頁商品推送(暫時)
+    // 顯示所有商品
     @UserLoginToken
-    @RequestMapping(value = "/homepage", method = RequestMethod.GET)
-    public String homepageProduct(){
+    @RequestMapping(value = "/products", method = RequestMethod.GET)
+    public String showAllProduct(){
         return gson.toJson(service.homepageProducts());
+    }
+    // 首頁商品推送
+    @UserLoginToken
+    @RequestMapping(value = "/homepage/promote", method = RequestMethod.GET)
+    public String homepage(HttpServletRequest request){
+        String phone = request.getParameter("phone");
+        return gson.toJson(promoteService.homepagePromote(phone));
     }
 
     // 最新商品(top 10)
