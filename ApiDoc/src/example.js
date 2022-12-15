@@ -117,7 +117,30 @@
  * @apiGroup 商品查詢
  * @apiPermission none
  * 
- * @apiDescription 主頁面商品顯示，返回商品信息的List
+ * @apiDescription 主頁面商品顯示，根據登入用戶的歷史行為對所有商品進行打分，進行個性化排序顯示首頁商品。
+ *
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 請求成功
+ *     [
+ *        {
+ *          "number":"B1667559776586",
+ *          "coverPicFormat":"jpg",
+ *          "coverPic":"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)
+ *          "name":學生心理健康教育第二版",
+ *          "price":7.9
+ *        },
+ *          ....,{}
+ *     ]
+ */
+
+/**
+ * @api {get} /products 顯示所有商品
+ * @apiName GetAllProducts
+ * @apiGroup 商品查詢
+ * @apiPermission none
+ *
+ * @apiDescription 單純顯示所有商品
  *
  * @apiSuccessExample 請求成功
  *     [

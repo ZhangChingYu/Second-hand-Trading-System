@@ -488,6 +488,31 @@
   },
   {
     "type": "get",
+    "url": "/products",
+    "title": "顯示所有商品",
+    "name": "GetAllProducts",
+    "group": "商品查詢",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>單純顯示所有商品</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功",
+          "content": "[\n   {\n     \"number\":\"B1667559776586\",\n     \"coverPicFormat\":\"jpg\",\n     \"coverPic\":\"/9j/4AAQSkZJRgABAQAASABIAAD/4QBYRXhpZgAATU0AKgAAAAgA...(base64編碼，原文過長不全部展示)\n     \"name\":學生心理健康教育第二版\",\n     \"price\":7.9\n   },\n     ....,{}\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "商品查詢"
+  },
+  {
+    "type": "get",
     "url": "/hotkeys",
     "title": "獲取熱門搜索詞",
     "name": "GetHotKeys",
@@ -522,7 +547,20 @@
         "name": "none"
       }
     ],
-    "description": "<p>主頁面商品顯示，返回商品信息的List</p>",
+    "description": "<p>主頁面商品顯示，根據登入用戶的歷史行為對所有商品進行打分，進行個性化排序顯示首頁商品。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
     "success": {
       "examples": [
         {
