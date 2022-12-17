@@ -838,10 +838,10 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
     public Result bookingBuyer(String phone, String number) {
         List<Booking> bookLst= accountRepository.findByProductIdAndBuyerId(number,phone);
         if(bookLst.size()>0){
-            res=new Result(ResultCode.SUCCESS, "已预约");
+            res=new Result(ResultCode.SUCCESS, true);
         }
         else{
-            res=new Result(ResultCode.SUCCESS, "未预约");
+            res=new Result(ResultCode.SUCCESS, false);
         }
         return res;
     }
