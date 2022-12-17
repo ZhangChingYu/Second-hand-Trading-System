@@ -15,6 +15,12 @@ public class Result<T> {
         this.msg = resultCode.msg();
     }
 
+    public Result(String code,String msg, T data) {
+        this.code = code;
+        this.msg = msg;
+        this.data = data;
+    }
+
     public Result(ResultCode resultCode, T data) {
         this.code = resultCode.code();
         this.msg = resultCode.msg();

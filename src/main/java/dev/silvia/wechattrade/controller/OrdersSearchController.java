@@ -101,4 +101,28 @@ public class OrdersSearchController {
         String number= request.getParameter("number");
         return ResponseEntity.ok(service.bookingByPhone(phone,number));
     }
+
+    //买方根据买方手机号和商品编号在预约信息里查找
+    @RequestMapping(value ="/booking/buyer/select",method = RequestMethod.GET)
+    public ResponseEntity<?> bookingByBuyer(HttpServletRequest request){
+        String phone= request.getParameter("phone");
+        String number= request.getParameter("number");
+        return ResponseEntity.ok(service.bookingByBuyer(phone,number));
+    }
+
+    //买方根据买方手机号和商品编号判断该商品是否已预约
+    @RequestMapping(value ="/booking/buyer/judgment",method = RequestMethod.GET)
+    public ResponseEntity<?> bookingBuyer(HttpServletRequest request){
+        String phone= request.getParameter("phone");
+        String number= request.getParameter("number");
+        return ResponseEntity.ok(service.bookingBuyer(phone,number));
+    }
+
+    //买方根据买方手机号和商品编号判断该商品是否已购买,以及购买次数
+    @RequestMapping(value ="/orders/buyer/judgment",method = RequestMethod.GET)
+    public ResponseEntity<?> orderByBuyer(HttpServletRequest request){
+        String phone= request.getParameter("phone");
+        String number= request.getParameter("number");
+        return ResponseEntity.ok(service.orderByBuyer(phone,number));
+    }
 }

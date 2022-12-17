@@ -778,26 +778,88 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
 
     @Override
     public Result bookingByPhone(String phone, String number) {
-        Booking bookLst= accountRepository.findByProductIdAndSellerId(number,phone);
-        BookDetails bookDto=new BookDetails();
-        User user2;
-        user2=userRepository.findByPhone(bookLst.getBuyerId()).get();
-        bookDto.setPhone(user2.getPhone());
-        bookDto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
-        bookDto.setNumber(number);
-        bookDto.setState(transferUTF8.UTF8toC(bookDto.getState()));
-        //图片路径
-        String picture1;
-        if(user2.getAvatar()==null||user2.getAvatar().isEmpty()){
-            //默认图片
-            picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
-            bookDto.setAvatar(picture1);
+        List<Booking> bookLst= accountRepository.findByProductIdAndSellerId(number,phone);
+        List<BookDetails> details=new ArrayList<>();
+        for (Booking booking : bookLst) {
+            BookDetails bookDto = new BookDetails();
+            User user2;
+            user2 = userRepository.findByPhone(booking.getBuyerId()).get();
+            bookDto.setPhone(user2.getPhone());
+            bookDto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
+            bookDto.setNumber(number);
+            bookDto.setState(transferUTF8.UTF8toC(booking.getStatus()));
+            bookDto.setCount(booking.getOrdersNum());
+            //图片路径
+            String picture1;
+            if (user2.getAvatar() == null || user2.getAvatar().isEmpty()) {
+                //默认图片
+                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL, avatar_width, avatar_height);
+                bookDto.setAvatar(picture1);
+            } else {
+                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()), avatar_width, avatar_height);
+                bookDto.setAvatar(picture1);
+            }
+            details.add(bookDto);
+        }
+        res=new Result(ResultCode.SUCCESS, details);
+        return res;
+    }
+
+    @Override
+    public Result bookingByBuyer(String phone, String number) {
+        List<Booking> bookLst= accountRepository.findByProductIdAndBuyerId(number,phone);
+        List<BookDetails> details=new ArrayList<>();
+        for (Booking booking : bookLst) {
+            BookDetails bookDto = new BookDetails();
+            User user2;
+            user2 = userRepository.findByPhone(booking.getBuyerId()).get();
+            bookDto.setPhone(user2.getPhone());
+            bookDto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
+            bookDto.setNumber(number);
+            bookDto.setState(transferUTF8.UTF8toC(booking.getStatus()));
+            bookDto.setCount(booking.getOrdersNum());
+            //图片路径
+            String picture1;
+            if (user2.getAvatar() == null || user2.getAvatar().isEmpty()) {
+                //默认图片
+                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL, avatar_width, avatar_height);
+                bookDto.setAvatar(picture1);
+            } else {
+                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()), avatar_width, avatar_height);
+                bookDto.setAvatar(picture1);
+            }
+            details.add(bookDto);
+        }
+        res=new Result(ResultCode.SUCCESS, details);
+        return res;
+    }
+
+    @Override
+    public Result bookingBuyer(String phone, String number) {
+        List<Booking> bookLst= accountRepository.findByProductIdAndBuyerId(number,phone);
+        if(bookLst.size()>0){
+            res=new Result(ResultCode.SUCCESS, "已预约");
         }
         else{
-            picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()),avatar_width,avatar_height);
-            bookDto.setAvatar(picture1);
+            res=new Result(ResultCode.SUCCESS, "未预约");
         }
-        res=new Result(ResultCode.SUCCESS, bookDto);
+        return res;
+    }
+
+    @Override
+    public Result orderByBuyer(String phone, String number) {
+        List<ExchangeInfo> exLst= exRepository.findByProductNum(number);
+        List<Buyer> buyers=new ArrayList<>();
+        for (ExchangeInfo exchangeInfo : exLst) {
+            String num = exchangeInfo.getNumber();
+            List<Buyer> buyers1 = buy.findByExchangeIdAndPhone(num, phone);
+            buyers.addAll(buyers1);
+        }
+        if(buyers.size()>0){
+            res=new Result("666", "已购买",exLst.size());
+        }
+        else
+            res=new Result(ResultCode.SUCCESS, "未购买");
         return res;
     }
 
@@ -871,7 +933,7 @@ public class OrderService extends ServiceImpl<ProductDao, Product> implements IO
         String[] address_parts = address.split("%");
         bookDto.setConsignee(address_parts[0]);
         bookDto.setPhone(address_parts[1]);
-        String add=address_parts[1]+address_parts[3];
+        String add=address_parts[2]+address_parts[3];
         bookDto.setAddress(add);
         bookDto.setTotal(bidList.getPrice());
         if(bu.getReceiptTime()!=null){

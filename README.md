@@ -482,10 +482,13 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * 前端api: **GET**  /booking/select/bookings
 * json语句: {"number":"商品编号"}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDetails>}
-* BookingDetails{    String number;  //预约编号
+* BookingDetails{    
+  String number;  //预约编号
   String avatar;  //买方头像
   String phone;  //买方phone
-  String nickName;  //买方昵称}
+  String nickName;  //买方昵称
+  String state;
+  Integer count;}
   6,在订单中根据商品名称模糊搜索:
 * 前端api: **GET**   /orders/fuzzy/name
 * json语句: {"name":"商品名称/电话","isbuyer":1未buyer，0为seller}
@@ -497,7 +500,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   8,卖方根据买方手机号和商品编号在预约信息里查找:
 * 前端api: **GET**  /booking/select/phone
 * json语句: {"phone":"手机号","number":"商品编号"}
-* 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDto>}
+* 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDetails>}
   9,根据订单编号获取订单详情:
 * 前端api: **GET** /orders/details
 * json语句: {"number":"订单编号"}
@@ -516,6 +519,21 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   Double discounts;  //优惠
   String status;    //订单状态
   }
+  10,买方根据买方手机号和商品编号在预约信息里查找:
+* 前端api: **GET**  /booking/buyer/select
+* json语句: {"phone":"手机号","number":"商品编号"}
+* 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDetails>}
+* BookingDetails{    
+  String number;  //预约编号
+  String avatar;  //买方头像
+  String phone;  //买方phone
+  String nickName;  //买方昵称
+  String state;
+  Integer count;}
+  11,买方根据买方手机号和商品编号判断该商品是否已预约:
+* 前端api: **GET** /booking/buyer/judgment
+* json语句: {"phone":"手机号","number":"商品编号"}
+* 返回信息(Object):{code: "666" （成功）;mag:  ; data:“已预约”/"未预约“}
   二，订单相关
 5. 查找seller:
 * 前端api: **GET**  /booking/seller/info

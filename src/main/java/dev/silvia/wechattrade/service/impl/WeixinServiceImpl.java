@@ -118,11 +118,9 @@ public class WeixinServiceImpl extends ServiceImpl implements IWeixinService {
             redto.setCode("666");
             if(checked == 1){
                 redto.setMsg("操作成功！");
-
             }
             else{
                 redto.setMsg("用户初次登录！");
-
                 userDao.insert(user);
             }
             return redto;

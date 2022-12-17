@@ -68,6 +68,15 @@ public interface IOrderService extends IService<Product> {
     //卖方根据买方手机号和商品编号在预约信息里查找
     Result bookingByPhone(String phone, String number);  //预约查询
 
+    //买方根据买方手机号和商品编号在预约信息里查找
+    Result bookingByBuyer(String phone, String number);
+
+    //买方根据买方手机号和商品编号判断该商品是否已预约
+    Result bookingBuyer(String phone, String number);
+
+    //买方根据买方手机号和商品编号判断该商品是否已购买
+    Result orderByBuyer(String phone, String number);
+
     Result sellerDeleteBooking(String number);
 
     Result buyerDeleteBooking(String number);
