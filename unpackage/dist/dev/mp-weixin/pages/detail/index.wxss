@@ -235,4 +235,16 @@
   text-align: center;
 }
 /* 没有留言 */
+.reply-box.data-v-12dbf08d {
+  padding: 30rpx 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.reply-box .reply-input.data-v-12dbf08d {
+  width: 80%;
+}
+.reply-box .reply-btn.data-v-12dbf08d {
+  width: 15%;
+}
 

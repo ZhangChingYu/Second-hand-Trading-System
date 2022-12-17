@@ -36,11 +36,13 @@ _vue.default.prototype.$toast = function (title) {var duration = arguments.lengt
     duration: duration });
 
 };
-var app = new _vue.default(_objectSpread({
+var app = new _vue.default(_objectSpread(_objectSpread({
   store: _index.default },
-_App.default));
+_App.default), {}, {
+  beforeCreate: function beforeCreate() {
+    _vue.default.prototype.$bus = this;
+  } }));
 
-// app.$store = store;
 createApp(app).$mount();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["createApp"]))
 

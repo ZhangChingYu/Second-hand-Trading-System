@@ -1,5 +1,5 @@
 <template>
-	<view class="eva-reply">
+	<view class="eva-reply" @click.stop="reply(evaluation)">
 		<view class="item-msg">
 			<image :src="imageSrcformat(evaluation.headPic)"></image>
 			<text class="name">
@@ -30,6 +30,11 @@
 		computed:{
 			nameMsg(){
 				return this.evaluation.userName + ' 回复 ' + this.evaluation.fatherName;
+			}
+		},
+		methods:{
+			reply(obj){
+				this.$bus.$emit('reply',obj.id);
 			}
 		}
 	}

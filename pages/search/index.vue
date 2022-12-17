@@ -58,14 +58,7 @@
 				<view class="res-title">共找到{{searchResult.length}}条结果</view>
 				<view class="search-result">
 					<!-- 每个搜索结果 -->
-					<!-- <view 
-						class="result-item"
-						v-for="(item,index) of searchResult"
-						:key="index"
-					>
-						<Search :goods="item"></Search>
-					</view>	 -->
-					
+										
 					<view class="result-item">
 						<Goods class="goods"
 							v-for="(item,index) of searchResult" 

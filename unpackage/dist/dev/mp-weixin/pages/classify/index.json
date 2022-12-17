@@ -4,6 +4,7 @@
   "usingComponents": {
     "u-empty": "/uni_modules/uview-ui/components/u-empty/u-empty",
     "goods": "/components/goods/index",
+    "classitem": "/components/classitem/index",
     "nomore": "/components/nomore/index"
   }
 }

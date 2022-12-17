@@ -1,5 +1,5 @@
 <template>
-	<view class="item">
+	<view class="item" @click.stop="reply(evaluation)" >
 		<view class="item-msg">
 			<image :src="imageSrcformat(evaluation.headPic)"></image>
 			<text class="name">{{evaluation.userName}}</text>
@@ -11,6 +11,7 @@
 				v-for="(item,index) of evaluation.subComments"
 				:key="item.id"
 				:evaluation="item"
+				@click="reply(item)"
 			></Evareply>
 		</view>
 	</view>
@@ -30,8 +31,9 @@
 			};
 		},
 		methods:{
-			// 时间格式化
-			
+			reply(obj){
+				this.$bus.$emit('reply',obj.id)
+			}
 		}
 	}
 </script>

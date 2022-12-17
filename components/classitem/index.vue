@@ -1,19 +1,21 @@
 <template>
 	<view class="item" v-if="goods" @click="toGoodsDetail">
-		<view class="top-msg" >
-			<image :src='src'></image>
-			<view>
-				<text class="name">天天</text>
-				<text class="time">20分钟前发布</text>
-			</view>
-			<text class="price">￥{{goods.price.toFixed(2)}}</text>
+		
+		<view class="pro-name">
+			<text>{{goods.name}}</text>
 		</view>
+		
 		<view class="img">
 			<image :src="'data:image/jpg;base64,' + goods.coverPic"></image>
 			
 		</view>
-		<view class="pro-name">
-			<text>{{goods.name}}</text>
+		<view class="footer-price" >
+			<!-- <image :src='src'></image>
+			<view>
+				<text class="name">天天</text>
+				<text class="time">20分钟前发布</text>
+			</view> -->
+			<text class="price">￥{{goods.price.toFixed(2)}}</text>
 		</view>
 	</view>
 </template>
@@ -46,7 +48,7 @@
 		box-shadow: 0 9px 10px 1px rgba(0, 0, 0, .2);
 		
 	}
-	 .item .top-msg {
+	 .item .footer-price {
 		height: 108rpx;
 		// background-color: #d0b4ff;
 		display: flex;
@@ -96,6 +98,7 @@
 	}
 	.item .pro-name {
 		height: 72rpx;
+		margin-left: 1em;
 		// background-color: aliceblue;
 		& text {
 			display: block;

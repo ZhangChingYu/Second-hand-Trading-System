@@ -102,6 +102,28 @@
 				</view>
 		</u-popup>
 		
+		<!-- 回复窗口 -->
+		<view>
+			<u-popup :show="showR" :round="10"  mode="bottom" @close="close" @open="open">
+				<view class="reply-box">
+					<view class="reply-input">
+						<u--input
+						    placeholder="输入你的回复~"
+						    border="surround"
+						    v-model="replyContent"
+							@confirm="replyEvaluation"
+							confirm-type="send"
+							focus='true'
+						  ></u--input>
+					</view>
+					<view class="reply-btn" @click="replyEvaluation">
+						 <u-button type="primary" text="留言"></u-button>
+					</view>
+				</view>
+			</u-popup>
+			
+		</view>
+		
 	</view>
 </template>
 
@@ -136,6 +158,14 @@
 					// 是否已经预约
 					isBooked:false,
 					bookNumber:'',//预约数量
+					// 预约编号
+					Bnumber:'',
+					sellerId:'',
+					
+					showR:false,//回复窗口
+					replyContent:'',
+					replyFatherId:'',
+					
 				}
 		},
 		onLoad: function (option) { 
@@ -144,24 +174,72 @@
 		mounted() {
 			this.user = uni.getStorageSync('user');
 			this.getMessage();
+			this.getBooked();
 			this.getEvaluation();
+			// 回复留言
+			this.$bus.$on('reply',(data)=>{
+				this.replyFatherId = data
+				this.showR = true;
+				console.log(this.replyFatherId);
+			});
+			
 			
 		},
 		methods: {
+			
+			//回复留言
+			async replyEvaluation(){
+				try{
+					if(this.replyContent != '' &&  this.replyFatherId != ''){
+						this.close();
+						let res = await this.api.post('/product/reply',{
+							number:this.number,
+							phone:this.user.phone,
+							father:this.replyFatherId,
+							content:this.replyContent
+						});
+						this.replyContent = '';
+						this.replyFatherId = '';
+						let title = '请稍后重试！';
+						switch(res){
+							case 201:
+								console.log(12345)
+								title = '回复成功！'
+								this.getEvaluation()
+								break;
+							case 400:
+								title = '回复失败：无权限！'
+								break;
+							case 422:
+								title = '回复失败：商品不存在！'
+								break;
+							case 404:
+								title = '回复失败：数据库更新失败！'
+								break;
+						}
+						this.$toast(title);
+					}
+					
+				}catch(e){
+					//TODO handle the exception
+					this.$toast(e)
+					
+				}
+			},
 			// 发布留言
 			async sentEvaluation(){
-				console.log(1232345)
+				console.log('发布的内容：'+this.evaluation)
 				try{
 					if(this.evaluation == ''){
 						this.$toast('请输入内容！');
 						return;
 					}
-					let res = this.api.post('/product/comment',{number:this.number,phone:this.user.phone,content:this.evaluation});
-					let title = '';
+					let res = await this.api.post('/product/comment',{number:this.number,phone:this.user.phone,content:this.evaluation});
+					let title = '请稍后重试！';
 					switch(res){
 						case 201:
 							title = '发布成功！'
-							getEvaluation()
+							this.getEvaluation()
 							break;
 						case 400:
 							title = '发布失败：无权限！'
@@ -176,12 +254,15 @@
 					this.$toast(title);
 				}catch(e){
 					//TODO handle the exception
+					this.$toast(e)
 				}
 			},
 			// 获取留言
 			async getEvaluation(){
 				try{
-					this.evaluationList = await this.api.get('/product/comment',{number:this.number});
+					let res = await this.api.get('/product/comment',{number:this.number});
+					this.evaluationList = [];
+					this.evaluationList = res;
 				}catch(e){
 					//TODO handle the exception
 					this.$toast(e)
@@ -190,11 +271,10 @@
 			
 			
 			open(){
-		        console.log('open');
 		    },
 		    close() {
 		        this.show = false;
-		        console.log('close');
+				this.showR = false;
 		    },
 			back1(){
 				uni.navigateBack({
@@ -220,6 +300,23 @@
 			// 举报
 			report(){
 				this.$toast('举报');
+			},
+			async getBooked(){
+				try{
+					let res = await this.api.get('/appointments/selectallbuyer',{
+						phone:this.user.phone
+					})
+					
+					res.data.forEach(item=>{
+						if(item.number == this.number){
+							this.isBooked = true;
+							return;
+						}
+					})
+				}catch(e){
+					//TODO handle the exception
+					this.$toast(e)
+				}
 			},
 			 // 收藏
 			async like(){
@@ -263,15 +360,59 @@
 				this.show = true;
 			},
 			
-			book(){
-				this.$toast('预约商品');
-				this.close()
+			async book(){
+				if(!this.bookNumber || this.bookNumber > this.product.storage){
+					this.bookNumber = '';
+					this.$toast('请输入合法的数量')
+				}else{
+					this.close()
+					// /appointments/add
+					try{
+						// /appointments/getsellerinfo
+						let res = await this.api.get('/appointments/getsellerinfo',{number:this.number});
+						console.log(res)
+						if(res.code == '666') this.sellerId = res.data.phone;
+						console.log(this.sellerId)
+						if(this.sellerId == '') {
+							this.$toast('预约失败')
+							return;
+						}
+						
+						let res1 = this.api.post('/appointments/add',{
+							sellerId:this.sellerId,   //seller phone
+							buyerId:this.user.phone,    //buy phone
+							productId:this.number,   //product number
+							ordersNum:this.bookNumber,  //product 数量
+							price:this.product.price
+						})
+						if(res.code == '666'){
+							this.$toast('预约成功！')
+							//预约成功
+							this.isBooked = true;
+						}
+					}catch(e){
+						//TODO handle the exception
+						this.$toast('预约失败')
+					}
+					
+					
+				}
 				
-				//预约成功
-				this.isBooked = true;
+				
 			},
-			cancelBook(){
+			async cancelBook(){
 				this.$toast('取消预约');
+				try{
+					let res = await this.api.put('/orders/cancelappointments',{
+						number:this.Bnumber,
+						isbuyer:true
+					});
+					if(res.code == "666") this.$toast('成功取消预约！')
+					else this.$toast('请稍后重试！');
+				}catch(e){
+					//TODO handle the exception
+				}
+				
 				this.isBooked = false;
 			},
 			
@@ -549,6 +690,20 @@
 	}
 	/* 没有留言 */
 	.no-result {
+	}
+	.reply-box {
+		padding: 30rpx 0;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		
+		& .reply-input {
+			width: 80%;
+			
+		}
+		& .reply-btn {
+			width: 15%;
+		}
 	}
 	
 	

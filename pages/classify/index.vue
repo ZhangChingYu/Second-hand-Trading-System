@@ -42,12 +42,19 @@
 		<!-- 商品列表 -->
 		<view v-if="showProductList.length !== 0" class="class-result">
 			
-			<Goods class="goods"
+			<!-- <Goods class="goods"
 				v-for="(item,index) of showProductList" 
 				:key="index"
 				:goods="item"
 			 >
-			 </Goods>
+			 </Goods> -->
+			 
+			 
+			 <Classitem class="goods"
+				v-for="(item,index) of showProductList"
+				:key="index"
+				:goods="item"
+			 ></Classitem>
 			<!-- 没有更多 -->
 			<Nomore v-if="isGet" notips="没有更多了..."></Nomore>	
 		</view>
@@ -64,7 +71,7 @@
 	import Goods from '@/components/goods/index.vue'
 	
 	export default {
-		components:{Goods,Nomore},
+		components:{Goods,Classitem,Nomore},
 		data() {
 			return {
 				classify:false,
@@ -164,6 +171,8 @@
 						this.productList =  await this.api.get('/homepage');
 					}
 					this.showProductList = this.productList;
+					
+					console.log(this.showProductList)
 				}catch(e){
 					//TODO handle the exception
 					this.$toast(e);
@@ -208,6 +217,7 @@
 <style scoped lang="less">
 	.calssify {
 		min-height: 100vh;
+		background-color: #f4f4f4;
 	}
 	
 	.top-contain {
@@ -291,25 +301,30 @@
 	
 	/* 商品展示区域 */
 	.class-result {
-		padding: 0 10rpx;
-		width: 100%;
-		margin:128rpx 0 20rpx;
+		padding: 100rpx 10rpx 10rpx 10rpx;
+		width: 96%;
+		// margin:128rpx 0 20rpx;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: space-between;
-		z-index: 0 ;
-	}
-	
-	.goods{
+		
+		
+		& .goods{
 		width: 47.5%;
+		// width: 90%;
 		height: 340rpx;
-		margin-top: 10rpx;
-		z-index:-1;
+		margin: 30rpx 5rpx;
+		background-color: #fff;
+		// z-index: -1;
+		}
+		
 	}
 	/* 没有结果 */
 	.no-result {
-		margin-top: 200rpx;
+		padding-top: 200rpx;
 	}
+	
+	
 	
 	
 </style>

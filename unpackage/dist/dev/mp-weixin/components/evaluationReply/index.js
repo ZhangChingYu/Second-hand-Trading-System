@@ -160,7 +160,7 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 291); //
 //
 //
 //
-var _default = { name: "evaluationReply", props: ['evaluation'], mixins: [_mixin.mixin], data: function data() {return {};}, computed: { nameMsg: function nameMsg() {return this.evaluation.userName + ' 回复 ' + this.evaluation.fatherName;} } };exports.default = _default;
+var _default = { name: "evaluationReply", props: ['evaluation'], mixins: [_mixin.mixin], data: function data() {return {};}, computed: { nameMsg: function nameMsg() {return this.evaluation.userName + ' 回复 ' + this.evaluation.fatherName;} }, methods: { reply: function reply(obj) {this.$bus.$emit('reply', obj.id);} } };exports.default = _default;
 
 /***/ }),
 

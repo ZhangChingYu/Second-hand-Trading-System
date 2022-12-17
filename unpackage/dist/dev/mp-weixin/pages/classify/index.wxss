@@ -1,62 +1,3 @@
-.item.data-v-2e5bcee3 {
-  height: 360rpx;
-  margin-bottom: 20px;
-  box-shadow: 0 9px 10px 1px rgba(0, 0, 0, 0.2);
-}
-.item .top-msg.data-v-2e5bcee3 {
-  height: 108rpx;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-.item .top-msg image.data-v-2e5bcee3 {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%;
-  background-color: #22d3c8;
-}
-.item .top-msg view.data-v-2e5bcee3 {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
-}
-.item .top-msg view .name.data-v-2e5bcee3 {
-  font-size: 30rpx;
-  font-weight: 600;
-}
-.item .top-msg view .time.data-v-2e5bcee3 {
-  font-size: 24rpx;
-  color: #a5a5a5;
-}
-.item .top-msg .price.data-v-2e5bcee3 {
-  font-size: 36rpx;
-  color: red;
-  font-weight: 600;
-}
-.item .img.data-v-2e5bcee3 {
-  height: 180rpx;
-  display: flex;
-  justify-content: flex-start;
-  flex-wrap: wrap;
-  align-items: center;
-}
-.item .img image.data-v-2e5bcee3 {
-  margin: 0 10rpx;
-  width: 160rpx;
-  height: 160rpx;
-  background-color: #22d3c8;
-}
-.item .pro-name.data-v-2e5bcee3 {
-  height: 72rpx;
-}
-.item .pro-name text.data-v-2e5bcee3 {
-  display: block;
-  line-height: 72rpx;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 @font-face {
   font-family: "iconfont"; /* Project id 3786346 */
   src: url(data:font/woff2;base64,d09GMgABAAAAAAV4AAsAAAAACtQAAAUrAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHFQGYACDbAqHUIY8ATYCJAMgCxIABCAFhGcHgQ4bagkRFaR7kX1RYDeTHQ4qtRC+cMUPV3EAjVlWV61m5HkQwcd+bd931JtqhsZ0kuaLN53IkLgE7VImafZszTP5fnhPe6knpBPTQRmo1hPRHtgZ92cxAbA459QB9V3U5UjOnjz6rEvbjDJgkGOaQf11taY6SC6WNnhCiAcVQCgQqFcFdChUhCoByQrfqaowNdZXoXanQKz8820E2q3zQdoJieKCYj29qgS0UbjTg6J51PNz04GheGQDslDZC3TXDOICqCQN0lngPPn++IPNYIBEnoJ7lN2c4Cw4+Bx7g5LbiDaA9BWiaQJdPUGOFMsn88XZcOQUyFnFMrL2rr+l2APQrZIoPrHngc/zn5e+JP4+QVTpr7c7NXR7/+JRyIRSLpESBVBLJ2fVKks+sQBR8BmIyPjMRwSfpYiSbwKR86eOSPhDre4Io7L2Ul7MeJvgCreUJUJERLJ8OUSj0+2cmQpmOCLjyQvF3KvSNt41qURwQ9rOv35UId+OJ7DIzebksLPic3Pjs+JyOI1Sy85a3A3m0nlmXC7mLqpfnVA3eglFN8ptDLGg3dwJM4nGgtWFNY6cdTVKfXZWfYOpLNKOMMWIWCornbe8zp6/mWBgQOOG3A3eRhSxQDU2FTjDZ2auca82HsQEUjI+O/cKdSM36GFFo1edtp4/3H7kguTcocbtTke99uLXr3Njz1kcw736u9xRjT2+NzZ9MuQ6f7PP/nS+dHhkAY0WKEg2IdT2ZVlF6SJQTpbk5CRLbYOysuLLHYorckqSS790UVY+QbZtSbKpfVm8mJ4tSnSmxNpGW1tH28bu9bEYy7Ey9V7tUn1PNzQeqkq/cOED/N6ytV22cNxdUrIbXmMOtrup+YD6eW4vyyMmcWwRcBB+sNQ4yC5IEMiGxFi2Y2LaSvN1WO9IT1TAls+nArqpKv5s5RlDJ8yKNljod6TjM0f7WH0WaxUawrw3nPASG7NddAH0JiQkEzEe/Rwd+EmajKuwlvg6E8LULzjUH8LcN56Fqxyi8Td7NH8IBb8gU8KUV27abFwNhqlfNt+Bg+McB352pG6Qjr8ag0qnmSRfQicwCrIceDiHg/MdtCN8/P2fBDxMCtWeCj2mCOt32M3fVlNffq2wV0bHKFlMUffqByfxg3Jc4tOFIX487wvo9nn0IMH486QJXdlB2QIQ6Qft+TZpm3o6u4f5eW1Tyz2oRR6R15aHzvuD9CiIgreCseZHeX+WE6aNObLOshxJRydW+v18XH2PuTeqjFp+MmgFQOuKIlI3AOkeic/oR3qt234gG1YctIrsh4Suk91o1WsPkZm/82r+NZ/0pCp5fWPIfeIzPuaMklm6dbBgHvk7WsHkz2tNAikzK0uVdQ0u8Ii1YjWgv8wQ7d4Q/tdEv/tr2gbgpoTKQAGJ0gSkKpO0jLUIuQ6bUKhsQ7slwXt3GFAGZJHJALM6CYReS5DodgmpXidoGesG5Ia9gEKvf9BuD1E4XAfQNdStIewogXgGVlJq394lpb7J9Dk2bcU/NS3TPAS2eL36RSU1S2zRDibsOg26kQKe0tkozwWqRlJSnWu7roo8u5yuF3GVFM6tIewoAfEMWEmpI+qu+vPeZPocG5D2DzUtJ1jpIODyAdrLUkL9nqRtO5hQx8o00HJTKcBzXohyr0JA1b1SSqpz2RllVcRjVBq1uPvbisu8ANq5t6gikaIZlsON1XGP5UKnuFbNrZVe2M/lZRaLZYa8S/vWugpLsxpJLeNLguLYjRGYubddzlhO7Dg=) format('woff2'),
@@ -103,6 +44,7 @@
 
 .calssify.data-v-75edbac0 {
   min-height: 100vh;
+  background-color: #f4f4f4;
 }
 .top-contain.data-v-75edbac0 {
   position: fixed;
@@ -174,22 +116,20 @@
 }
 /* 商品展示区域 */
 .class-result.data-v-75edbac0 {
-  padding: 0 10rpx;
-  width: 100%;
-  margin: 128rpx 0 20rpx;
+  padding: 100rpx 10rpx 10rpx 10rpx;
+  width: 96%;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  z-index: 0 ;
 }
-.goods.data-v-75edbac0 {
+.class-result .goods.data-v-75edbac0 {
   width: 47.5%;
   height: 340rpx;
-  margin-top: 10rpx;
-  z-index: -1;
+  margin: 30rpx 5rpx;
+  background-color: #fff;
 }
 /* 没有结果 */
 .no-result.data-v-75edbac0 {
-  margin-top: 200rpx;
+  padding-top: 200rpx;
 }
 

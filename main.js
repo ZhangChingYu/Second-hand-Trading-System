@@ -27,9 +27,11 @@ Vue.prototype.$toast = function(title,duration=850,icon='none'){
 }
 const app = new Vue({
 	store,
-    ...App
+    ...App,
+	beforeCreate(){
+		Vue.prototype.$bus = this;
+	}
 })
-// app.$store = store;
 app.$mount()
 // #endif
 
