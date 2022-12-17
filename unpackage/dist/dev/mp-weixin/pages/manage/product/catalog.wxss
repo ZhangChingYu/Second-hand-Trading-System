@@ -48,6 +48,10 @@
   color: #be0000;
   text-shadow: 5rpx 5rpx 2rpx #24c3be;
 }
+.title.data-v-b748eaf0 {
+  width: 5em;
+  margin: 20rpx auto;
+}
 .add-catalog.data-v-b748eaf0 {
   box-sizing: border-box;
   margin-top: 30rpx;
@@ -56,5 +60,29 @@
 .add-catalog .add-box.data-v-b748eaf0 {
   width: 80vw;
   height: 500rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.add-catalog .id.data-v-b748eaf0, .add-catalog .number.data-v-b748eaf0, .add-catalog .name.data-v-b748eaf0 {
+  width: 80%;
+  height: 50rpx;
+  display: flex;
+}
+.add-catalog .id label.data-v-b748eaf0, .add-catalog .number label.data-v-b748eaf0, .add-catalog .name label.data-v-b748eaf0 {
+  width: 3em;
+}
+.add-catalog .id input.data-v-b748eaf0, .add-catalog .number input.data-v-b748eaf0, .add-catalog .name input.data-v-b748eaf0 {
+  flex: 1;
+}
+.add-catalog .add-submit.data-v-b748eaf0 {
+  width: 200rpx;
+  height: 60rpx;
+  background-color: #c35a50;
+  border-radius: 15rpx;
+  color: #fff;
+  text-align: center;
+  line-height: 60rpx;
 }
 

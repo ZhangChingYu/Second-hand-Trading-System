@@ -98,19 +98,22 @@ var components
 try {
   components = {
     uSwipeAction: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action/u-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action/u-swipe-action")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action/u-swipe-action.vue */ 176))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action/u-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action/u-swipe-action")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action/u-swipe-action.vue */ 196))
     },
     uSwipeActionItem: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item.vue */ 182))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item.vue */ 202))
     },
     uEmpty: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 194))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 214))
     },
     uIcon: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 202))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 222))
     },
     uPopup: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 219))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 231))
+    },
+    "u-Input": function() {
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u--input/u--input.vue */ 287))
     }
   }
 } catch (e) {
@@ -134,15 +137,6 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  if (!_vm._isMounted) {
-    _vm.e0 = function($event) {
-      _vm.show = true
-    }
-
-    _vm.e1 = function($event) {
-      _vm.show = false
-    }
-  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -206,13 +200,39 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _vue = __webpack_require__(/*! vue */ 4);
 var _api = __webpack_require__(/*! @/common/request/api.js */ 140);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   data: function data() {
     return {
       show: false,
+      isAdd: true,
+      updateId: '',
       classList: [],
+      form: {
+        number: '',
+        name: '' },
+
       options: [
       {
         text: '编辑',
@@ -234,20 +254,72 @@ var _api = __webpack_require__(/*! @/common/request/api.js */ 140);function _int
   },
 
   methods: {
-    operateCatalog: function operateCatalog(option) {
-      if (option.index == 0) {
-        this.show = true;
-      } else if (option.index == 1) {
-        this.$toast("\u5220\u9664\u4E86\u7B2C".concat(option.name + 1, "\u4E2A\u6570\u636E"));
-      }
-    },
-    getClassList: function getClassList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.prev = 0;_context.next = 3;return (
+    removeCatalog: function removeCatalog(index) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.prev = 0;_context.next = 3;return (
 
-                  (0, _api.getCatalog)());case 3:_this.classList = _context.sent;
-                console.log(_this.classList);_context.next = 10;break;case 7:_context.prev = 7;_context.t0 = _context["catch"](0);
+                  (0, _api.removeCatalog)({ id: _this.classList[index].id }));case 3:res = _context.sent;
+                if (res == 204) {
+                  _this.$toast('分类删除成功！');
+                  _this.classList.splice(index, 1);
+                } else
+                if (res == 400) _this.$toast('删除失败！');_context.next = 10;break;case 7:_context.prev = 7;_context.t0 = _context["catch"](0);
+
 
                 //TODO handle the exception
                 _this.$toast(_context.t0);case 10:case "end":return _context.stop();}}}, _callee, null, [[0, 7]]);}))();
+
+    },
+    submit: function submit() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var res, _res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:if (!(
+                _this2.form.name != '' && _this2.form.number != '')) {_context2.next = 20;break;}_context2.prev = 1;if (!
+
+                _this2.isAdd) {_context2.next = 9;break;}_context2.next = 5;return (
+                  (0, _api.addCatalog)({ name: _this2.form.name, number: _this2.form.number }));case 5:res = _context2.sent;
+                if (res == 201) _this2.$toast('添加成功！');else
+                if (res == 422) _this2.$toast('添加失败：已存在分类！');_context2.next = 13;break;case 9:_context2.next = 11;return (
+
+
+                  (0, _api.updateCatalog)({ id: _this2.updateId, name: _this2.form.name, number: _this2.form.number }));case 11:_res = _context2.sent;
+                if (_res == 800) _this2.$toast('更新成功！');else
+                if (_res == 808) _this2.$toast('更新失败！');case 13:_context2.next = 18;break;case 15:_context2.prev = 15;_context2.t0 = _context2["catch"](1);
+
+
+
+                //TODO handle the exception
+                _this2.$toast(_context2.t0);case 18:
+
+
+                _this2.getClassList();
+                _this2.close();case 20:case "end":return _context2.stop();}}}, _callee2, null, [[1, 15]]);}))();
+
+    },
+    close: function close() {
+      this.updateId = '';
+      this.form.name = '';
+      this.form.number = '';
+      this.show = false;
+    },
+    addpop: function addpop() {
+      this.isAdd = true;
+      this.show = true;
+    },
+    operateCatalog: function operateCatalog(option) {
+      if (option.index == 0) {
+        this.isAdd = false;
+        this.updateId = this.classList[option.name].id;
+        this.form.name = this.classList[option.name].name;
+        this.form.number = this.classList[option.name].number;
+        this.show = true;
+
+      } else if (option.index == 1) {
+        this.removeCatalog(option.name);
+      }
+    },
+    getClassList: function getClassList() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:_context3.prev = 0;_context3.next = 3;return (
+
+                  (0, _api.getCatalog)());case 3:_this3.classList = _context3.sent;
+                console.log(_this3.classList);_context3.next = 10;break;case 7:_context3.prev = 7;_context3.t0 = _context3["catch"](0);
+
+                //TODO handle the exception
+                _this3.$toast(_context3.t0);case 10:case "end":return _context3.stop();}}}, _callee3, null, [[0, 7]]);}))();
 
     } } };exports.default = _default;
 

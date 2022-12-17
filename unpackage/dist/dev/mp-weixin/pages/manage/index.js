@@ -132,7 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MenuItem = function MenuItem() {__webpack_require__.e(/*! require.ensure | components/menuItem/index */ "components/menuItem/index").then((function () {return resolve(__webpack_require__(/*! @/components/menuItem/index.vue */ 169));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MenuItem = function MenuItem() {__webpack_require__.e(/*! require.ensure | components/menuItem/index */ "components/menuItem/index").then((function () {return resolve(__webpack_require__(/*! @/components/menuItem/index.vue */ 189));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -164,14 +164,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       {
         title: '商品查询',
         url: 'pages/manage/product/query',
-
         icon: 'https://t11.baidu.com/it/u=2685890614,3511995960&fm=173&app=49&f=JPEG?w=500&h=502&s=9404FC160FE24E8492A6E97C0300806B' },
       {
         title: '商品类别',
         url: 'pages/manage/product/catalog',
         icon: 'https://img1.baidu.com/it/u=3162166177,1798046746&fm=253&fmt=auto&app=138&f=JPEG?w=650&h=458' },
       {
-        title: '商品审核',
+        title: '上架审核',
+        url: 'pages/manage/product/review',
+        icon: 'https://img1.baidu.com/it/u=3994578752,3321787456&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500' },
+      {
+        title: '下架审核',
         url: 'pages/manage/product/review',
         icon: 'https://img1.baidu.com/it/u=3994578752,3321787456&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500' },
       {
@@ -182,7 +185,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
       // 用户管理:用户审核、用户信息、账号...
       userItem: [],
-      // 其他管理:首页轮播图、公告....
+      // 其他管理:首页轮播图、公告、用户协议....
       otherItem: [] };
 
   },
