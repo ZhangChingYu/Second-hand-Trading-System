@@ -21,6 +21,7 @@ Vue.prototype.$toast = function(title,duration=850,icon='none'){
 import {login} from '@/common/request/api.js'
 login().then(res=>{
 	if(res.code == 666){
+		console.log(res)
 		let user = res.user;
 		let token = res.token;
 		uni.setStorage({
