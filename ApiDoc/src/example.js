@@ -1789,6 +1789,22 @@
  */
 
 /**
+ * @api {GET} /setting/unread/count 顯示未讀信息的數量
+ * @apiName GetUnreadCount
+ * @apiGroup 設置:用戶反饋
+ * @apiPermission none
+ *
+ * @apiDescription 顯示未讀信息的數量
+ *
+ * @apiParam {String} phone 用戶手機號
+ *
+ * @apiSuccessExample 請求成功(例子:15083622395)
+ *     {
+ *         3
+ *     }
+ */
+
+/**
  * @api {GET} /setting/notifications/unread 顯示所有未讀系統信息
  * @apiName GetUnreadNotification
  * @apiGroup 設置:用戶反饋

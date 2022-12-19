@@ -3531,6 +3531,44 @@
   },
   {
     "type": "GET",
+    "url": "/setting/unread/count",
+    "title": "顯示未讀信息的數量",
+    "name": "GetUnreadCount",
+    "group": "設置:用戶反饋",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>顯示未讀信息的數量</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "phone",
+            "description": "<p>用戶手機號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(例子:15083622395)",
+          "content": "{\n    3\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "設置:用戶反饋"
+  },
+  {
+    "type": "GET",
     "url": "/setting/notifications/unread",
     "title": "顯示所有未讀系統信息",
     "name": "GetUnreadNotification",
