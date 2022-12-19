@@ -64,6 +64,16 @@ public class UserNotificationServiceImpl extends ServiceImpl<NotificationDao, No
     }
 
     @Override
+    public Integer showUnreadCount(String phone) {
+        QueryWrapper<Notification> wrapper = new QueryWrapper<>();
+        wrapper.eq("target", phone);
+        wrapper.eq("status", 1);    // 未讀
+        Long count = notificationDao.selectCount(wrapper);
+        Integer result = count.intValue();
+        return result;
+    }
+
+    @Override
     public List<NotificationOutlineVo> showAllNotification(String phone) {
         List<NotificationOutlineVo> outlineVos = new ArrayList<>();
         QueryWrapper<Notification> wrapper = new QueryWrapper<>();

@@ -12,6 +12,7 @@ public interface IUserNotificationService extends IService<Notification> {
     Integer sendNotification(Notification notification); // 發送通知
     NotificationDetailVo readNotification(Integer id);    // 閱讀通知
     /** 通知都是根據日期 新-->舊 排序的*/
+    Integer showUnreadCount(String phone);                          // 顯示用戶未讀通知數量
     List<NotificationOutlineVo> showAllNotification(String phone);   // 顯示該用戶的所有通知
     List<NotificationOutlineVo> showUnReadNotification(String phone);    // 顯示所有未讀通知
     Integer deleteNotification(Integer id); // 刪除通知

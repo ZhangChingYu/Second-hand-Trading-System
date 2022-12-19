@@ -90,11 +90,17 @@ public class SettingController {
         String content = param.get("content").toString();
         return USService.sendFeedback(phone, content);
     }
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/setting/notifications", method = RequestMethod.GET)
     public String showAllNotification(HttpServletRequest request){
         String phone = request.getParameter("phone");
         return gson.toJson(UNService.showAllNotification(phone));
+    }
+    @UserLoginToken
+    @RequestMapping(value = "/setting/unread/count", method = RequestMethod.GET)
+    public Integer showUnreadCount(HttpServletRequest request){
+        String phone = request.getParameter("phone");
+        return UNService.showUnreadCount(phone);
     }
     @UserLoginToken
     @RequestMapping(value = "/setting/notifications/unread", method = RequestMethod.GET)
