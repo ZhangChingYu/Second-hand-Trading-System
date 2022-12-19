@@ -56,7 +56,7 @@ public class UserNotificationServiceImpl extends ServiceImpl<NotificationDao, No
     public NotificationDetailVo readNotification(Integer id) {
         Notification notification = notificationDao.selectById(id);
         if(!isRead(id)){
-            notification.setStatus(1);  // 設置為已讀
+            notification.setStatus(0);  // 設置為已讀
             notificationDao.updateById(notification);
         }
         NotificationDetailVo detailVo = notePacking.NoteToDetailVo(notification, getUser(notification.getTarget()));
@@ -83,7 +83,7 @@ public class UserNotificationServiceImpl extends ServiceImpl<NotificationDao, No
         List<NotificationOutlineVo> outlineVos = new ArrayList<>();
         QueryWrapper<Notification> wrapper = new QueryWrapper<>();
         wrapper.eq("target", phone);
-        wrapper.eq("status",0);
+        wrapper.eq("status",1); // 未讀
         wrapper.orderByDesc("id");  // 日期新的排前面
         List<Notification> notifications = notificationDao.selectList(wrapper);
         for(Notification note : notifications){
@@ -106,6 +106,7 @@ public class UserNotificationServiceImpl extends ServiceImpl<NotificationDao, No
     public Integer deleteReadNotification(String phone) {
         QueryWrapper<Notification> wrapper = new QueryWrapper<>();
         wrapper.eq("target", phone);
+        wrapper.eq("status", 0);    // 已讀
         List<Notification> notes = notificationDao.selectList(wrapper);
         for(Notification note : notes){
             if(deleteNotification(note.getId()) == 204){
