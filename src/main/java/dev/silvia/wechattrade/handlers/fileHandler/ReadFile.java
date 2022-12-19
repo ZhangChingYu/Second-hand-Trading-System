@@ -76,6 +76,18 @@ public class ReadFile {
         map.put("picture", picture);
         return map;
     }
+    public Map<String, Object> readAuthPicture(String phone){
+        Map<String, Object> map = new HashMap<>();
+        File folder = new File(auth_url+phone+"/Authentication");
+        File[] pic_file = folder.listFiles();
+        String pic_url = pic_file[0].getPath(); // 只有一張
+        Integer index = pic_url.lastIndexOf(".");
+        String format = pic_url.substring(index+1);
+        map.put("picture", getBaseFile(pic_url));
+        map.put("format", format);
+        return map;
+    }
+
     // 獲取商品的封面圖片
     public Map<String, Object> getProductCoverPic(String number){
         Map<String, Object> cover_pic = new HashMap<>();

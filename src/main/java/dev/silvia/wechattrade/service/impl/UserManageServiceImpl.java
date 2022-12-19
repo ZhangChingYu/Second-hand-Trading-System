@@ -19,10 +19,7 @@ import dev.silvia.wechattrade.vo.request.auth.AuthRequestOutlineVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserManageServiceImpl extends ServiceImpl<UserDao, User> implements IUserManageService {
@@ -72,10 +69,21 @@ public class UserManageServiceImpl extends ServiceImpl<UserDao, User> implements
     @Override
     public AuthRequestDetailVo readAuthRequest(Integer id) {
         AuthenticationRequest request = authRequestDao.selectById(id);
-        Map<String, Object> map = readFile.getAuthTempPic(request.getPhone());
-        String format = map.get("format").toString();
-        String picture = map.get("picture").toString();
-        AuthRequestDetailVo detailVo = authPacking.AuthRequestToDetail(request, format, picture);
+        AuthRequestDetailVo detailVo;
+        Map<String, Object> map;
+        String format, picture;
+        if(request.getStatus() == 0){   // 沒處理
+            map = readFile.getAuthTempPic(request.getPhone());
+            format = map.get("format").toString();
+            picture = map.get("picture").toString();
+        } else if (request.getStatus() == 1) {  // pass
+            map = readFile.readAuthPicture(request.getPhone());
+            format = map.get("format").toString();
+            picture = map.get("picture").toString();
+        } else {
+            return null;
+        }
+        detailVo = authPacking.AuthRequestToDetail(request, format, picture);
         return detailVo;
     }
 
