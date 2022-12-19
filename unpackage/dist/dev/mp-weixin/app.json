@@ -16,6 +16,7 @@
     "pages/my-info/info",
     "pages/my-setup/help",
     "pages/my-setup/feedback",
+    "pages/singleNotification/singleNotification",
     "pages/userInfo/userInfo",
     "pages/detail/index",
     "pages/register/index",
@@ -28,7 +29,8 @@
     "pages/agreement/index",
     "pages/evaluate/index",
     "pages/applyRefund/index",
-    "pages/bookList/index"
+    "pages/bookList/index",
+    "pages/notifications/notifications"
   ],
   "subPackages": [],
   "window": {

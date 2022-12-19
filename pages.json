@@ -171,6 +171,14 @@
 		        "enablePullDownRefresh": false
 		    }
 		    
+		},{
+		    "path" : "pages/singleNotification/singleNotification",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "系统消息",
+		        "enablePullDownRefresh": false
+		    }
+		    
 		},
 		{
 		    "path" : "pages/userInfo/userInfo",
@@ -302,6 +310,15 @@
 		    }
 		    
 		}
+        ,{
+            "path" : "pages/notifications/notifications",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "系统消息",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

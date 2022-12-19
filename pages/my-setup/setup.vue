@@ -6,8 +6,11 @@
 				<view>></view>
 			</view>
 			<view class="setup-content-item" @click="message">
-				<view>消息提醒</view>
-				<view>></view>
+				<view>系统消息</view>
+				<view style="display: flex; flex-wrap: wrap;">
+					<view v-show="unreadCount!=0" class="unread">{{unreadCount}}</view>
+					>
+				</view>
 			</view>
 			<view class="setup-content-item" @click="help">
 				<view>帮助</view>
@@ -25,48 +28,69 @@
 	export default {
 		data() {
 			return {
-				
+				unreadCount: ''
 			}
-		
+		},
+		mounted() {
+			this.getUnread()
 		},
 		methods: {
-			logout(){
+			logout() {
 				uni.removeStorageSync('user');
 				uni.redirectTo({
-					url:'/pages/login/index'
-				})	
+					url: '/pages/login/index'
+				})
 			},
-			feedback(){
+			feedback() {
 				uni.navigateTo({
-					url:'/pages/my-setup/feedback'
+					url: '/pages/my-setup/feedback'
 				})
 			},
-			help(){
+			help() {
 				uni.navigateTo({
-					url:'/pages/my-setup/help'
+					url: '/pages/my-setup/help'
 				})
 			},
-			message(){
-				uni.showToast({
-					title:'开发中'
+			message() {
+				uni.navigateTo({
+					url: '/pages/notifications/notifications'
 				})
-			}
+			},
+			getUnread() {
+				let phone = uni.getStorageSync('user').phone;
+				this.api.get('/setting/unread/count', {
+					phone
+				}).then(res => {
+					this.unreadCount = res;
+				})
+			},
 		},
-		}
+	}
 </script>
 
 <style scoped>
-	.setup-content{
+	.setup-content {
 		font-size: medium;
 		margin: 30rpx 0;
 		padding: 0 20rpx;
-		
+
 	}
-	.setup-content-item{
+
+	.setup-content-item {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
 		padding: 30rpx 0;
 		border-bottom: 2px solid #cccccc;
+	}
+
+	.unread {
+		margin-right: 5rpx;
+		border-radius: 50%;
+		background-color: red;
+		color: white;
+		height: 40rpx;
+		width: 40rpx;
+		text-align: center;
 	}
 </style>

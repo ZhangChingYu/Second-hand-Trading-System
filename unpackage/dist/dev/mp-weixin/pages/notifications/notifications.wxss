@@ -1,0 +1,55 @@
+
+.content {
+	vertical-align: middle;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 30rpx;
+	font-size: medium;
+}
+.head {
+	display: flex;
+	justify-content: space-between;
+	height: 10%;
+	border-bottom: 2rpx solid #d04b41;
+	width: 90%;
+	justify-items: center;
+}
+.notiItem {
+	margin: 20rpx 0;
+	border-radius: 15rpx;
+	border: 2rpx solid #d04b41;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	padding: 10rpx 10rpx;
+	width: 90%;
+}
+.delete {
+	font-size: medium;
+	background-color: #d04b41;
+	color: white;
+	height: 80%;
+	margin-bottom: 10rpx;
+	margin-left: 200rpx;
+}
+.type {
+	border: 3rpx solid #e2be2d;
+	background-color: #e8debf;
+	margin-right: 2rpx;
+	font-size: small;
+	color: black;
+}
+.title {
+	justify-content: space-between;
+	display: flex;
+	flex-wrap: wrap;
+	font-size: large;
+	width: 100%;
+	color: #d04b41;
+}
+.date {
+	font-size: small;
+	color: #9c9c9c;
+}
+

@@ -1,0 +1,30 @@
+
+.content.data-v-70570366{
+	justify-content: center;
+	align-items: center;
+	margin-top: 2%;
+	font-size: medium;
+}
+.title.data-v-70570366{
+	font-size: large;
+	font-weight: 700;
+	color: #d04b41;
+	text-align: center;
+}
+.date.data-v-70570366{
+	text-align: center;
+	color: #747474;
+	font-size: small;
+}
+.to.data-v-70570366{
+	margin: 10% 5%;
+}
+.text.data-v-70570366{
+	margin: 0 10%;
+}
+.from.data-v-70570366{
+	text-align: right;
+	margin-right: 5%;
+	margin-top: 10%;
+}
+

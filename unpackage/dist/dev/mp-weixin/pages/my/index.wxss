@@ -47,4 +47,15 @@
 	margin: 0 auto;
 	opacity: 0.3;
 }
+.unread.data-v-4dcceeb0 {
+	border-radius: 50%;
+	background-color: red;
+	color: white;
+	height: 40rpx;
+	width: 40rpx;
+	text-align: center;
+	position: fixed;
+	left: 42%;
+	top: 29%;
+}
 
