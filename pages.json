@@ -1,0 +1,116 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		
+		{
+		    "path" : "pages/manage/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "管理中心",
+		        "enablePullDownRefresh": true
+		    }
+		    
+		},
+		{
+		    "path" : "pages/login/login",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "登录",
+		        "enablePullDownRefresh": true
+		    }
+		},
+		{
+		    "path" : "pages/userManage/userManage",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "用户管理",
+		        "enablePullDownRefresh": true
+		    }
+		},
+		{
+		    "path" : "pages/main/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "主页",
+		        "enablePullDownRefresh": true
+		    }
+		    
+		},
+		{
+            "path" : "pages/realName/realName",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "实名认证",
+                "enablePullDownRefresh": true
+            }
+        },
+		{
+		    "path" : "pages/me/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "我的",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        ,{
+            "path" : "pages/manage/catalog/index",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "商品类别管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/userDetail/userDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "用户详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+        ,{
+            "path" : "pages/realNameDetail/realNameDetail",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "查看实名认证详情",
+                "enablePullDownRefresh": false
+            }
+            
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	},
+	"easycom": {
+		  "autoscan": true,
+		  "custom": {
+		    "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+		  }
+	},
+	"uniIdRouter": {},
+	"tabBar": {
+		"color": "#b1b5cc",
+		"selectedColor": "#0bb3fa",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"text": "主页",
+				"pagePath": "pages/main/index"
+			},
+			{
+				"text": "管理",
+				"pagePath": "pages/manage/index"
+			},
+			{
+				"text": "我的",
+				"pagePath": "pages/me/index"
+			}
+		]
+	}
+}

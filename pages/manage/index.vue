@@ -1,0 +1,98 @@
+<template>
+	<view class="manage">
+		<view class="product-manage box">
+			<view class="title">商品管理</view>
+			<MenuItem :list="productItem"></MenuItem>
+		</view>
+		
+		<view class="user-manage box">
+			<view class="title">用户管理</view>
+			<MenuItem :list="userItem"></MenuItem>
+		</view>
+		
+		<view class="user-manage box">
+			<view class="title">其他</view>
+			<MenuItem :list="otherItem"></MenuItem>
+		</view>
+		
+	</view>
+</template>
+
+<script>
+	import MenuItem from '@/components/menuItem/index.vue'
+	export default {
+		components:{MenuItem},
+		data() {
+			return {
+				// 管理中心菜单
+				// 商品管理
+				productItem: [
+					{
+						title: '商品查询',
+						// url: 'pages/manage/catalog/index',
+						icon: 'https://t11.baidu.com/it/u=2685890614,3511995960&fm=173&app=49&f=JPEG?w=500&h=502&s=9404FC160FE24E8492A6E97C0300806B'
+					},{
+						title: '商品类别',
+						url: 'pages/manage/catalog/index',
+						icon: 'https://img1.baidu.com/it/u=3162166177,1798046746&fm=253&fmt=auto&app=138&f=JPEG?w=650&h=458'
+					},{
+						title: '商品审核',
+						// url: 'pages/manage/catalog/index',
+						icon: 'https://img1.baidu.com/it/u=3994578752,3321787456&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'
+					},{
+						title: '违规下架',
+						// url: 'pages/manage/catalog/index',
+						icon: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnewoss.zhulong.com%2Ftfs%2Fpic%2Fv1%2Ftfs%2FT1EEb_B7dT1RCvBVdK.jpg&refer=http%3A%2F%2Fnewoss.zhulong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672910048&t=74f72311fe5a12302dadc21613584c07'
+					}
+				],
+				// 用户管理:用户审核、用户信息、账号...
+				userItem:[
+					{
+						title: '用户信息管理',
+						url: 'pages/userManage/userManage',
+						icon: 'http://img95.699pic.com/element/40149/2920.png_860.png'
+					},{
+						title: '实名认证管理',
+						url: 'pages/realName/realName',
+						icon: 'https://bpic.588ku.com/element_origin_min_pic/20/08/26/632c752cfe4b9a6bf92cb50442e26f67.jpg'
+					},
+				],
+				// 其他管理:首页轮播图、公告....
+				otherItem:[],
+			}
+		},
+		methods: {
+			left() {
+			console.log('left');
+			},
+			right() {
+				console.log('right');
+			}
+		}
+	}
+</script>
+
+<style lang="scss" scoped>
+
+// 整体
+.manage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.box {
+	margin-top: 50rpx;
+	width: 90%;
+}
+.title {
+	width: 95%;
+	margin-bottom: 10px;
+	font-weight: 500;
+	font-size: 36rpx;
+	color: gray;
+	}
+
+// 商品管理中心
+	
+	
+</style>
