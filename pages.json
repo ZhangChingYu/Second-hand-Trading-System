@@ -55,15 +55,7 @@
             }
             
         }
-        ,{
-            "path" : "pages/manage/product/ban",
-            "style" :                                                                                    
-            {
-                "navigationBarTitleText": "商品下架",
-                "enablePullDownRefresh": false
-            }
-            
-        }
+        
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

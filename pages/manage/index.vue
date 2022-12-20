@@ -39,14 +39,6 @@
 						title: '上架审核',
 						url: 'pages/manage/product/review',
 						icon: 'https://img1.baidu.com/it/u=3994578752,3321787456&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'
-					},{
-						title: '下架审核',
-						url: 'pages/manage/product/review',
-						icon: 'https://img1.baidu.com/it/u=3994578752,3321787456&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'
-					},{
-						title: '违规下架',
-						url: 'pages/manage/product/ban',
-						icon: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnewoss.zhulong.com%2Ftfs%2Fpic%2Fv1%2Ftfs%2FT1EEb_B7dT1RCvBVdK.jpg&refer=http%3A%2F%2Fnewoss.zhulong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672910048&t=74f72311fe5a12302dadc21613584c07'
 					}
 				],
 				// 用户管理:用户审核、用户信息、账号...

@@ -11,6 +11,10 @@
 		<u-popup :show="showDetail" @close="close" closeable="true" round="10">
 			<view class="detail" v-if="product !== ''">
 				<view class="top-message">
+					<view class="seller">
+						<text class="innerTitle">发布者：</text>
+						<text>{{product.sellerName}}</text>
+					</view>
 					<view class="basic-msg">
 						<view class="num inner">
 							<text><text class="innerTitle">编号：</text>{{product.number}}</text>
@@ -19,7 +23,7 @@
 						
 						<view class="count inner">
 							<text><text class="innerTitle">数量：</text>{{product.storage}}</text>
-							<text><text class="innerTitle">状态：</text>{{product.status}}</text>
+							<text><text class="innerTitle">状态：</text>{{proStatus}}</text>
 							<text class="price">￥{{product.price.toFixed(2)}}</text>
 						</view>
 					</view>
@@ -149,6 +153,14 @@
 		mounted() {
 			this.getCatalogList();
 			this.getProductList(this.catalog)
+		},
+		computed:{
+			proStatus(){
+				if(this.product.status == 0) return '已上架'
+				else if(this.product.status == 1) return '待审核'
+				else return '未审核通过'
+				
+			}
 		},
 		methods: {
 			async submit(){
@@ -298,6 +310,13 @@
 	.top-message {
 		
 		overflow: hidden;
+	}
+	.seller {
+		margin-left: 64rpx;
+		& .innerTitle {
+			color: #5abbd8;
+			font-weight: 600;
+		}
 	}
 	
 	.basic-msg {

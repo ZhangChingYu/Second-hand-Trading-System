@@ -28,4 +28,9 @@ export const uploadDetail = (data) => request.get('/product/upload',data)
 //提交商品上架请求
 export const submitUpload = (data) => request.put('/product/upload',data)
 
+//获取所有商品
+export const getAllProducts = () => request.get('/products')
+
+//分类获取商品
+export const getCatalogProducts = (data) => request.get('/catalog/products',data)
 

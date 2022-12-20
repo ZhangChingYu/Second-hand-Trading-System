@@ -132,7 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MenuItem = function MenuItem() {__webpack_require__.e(/*! require.ensure | components/menuItem/index */ "components/menuItem/index").then((function () {return resolve(__webpack_require__(/*! @/components/menuItem/index.vue */ 192));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var MenuItem = function MenuItem() {__webpack_require__.e(/*! require.ensure | components/menuItem/index */ "components/menuItem/index").then((function () {return resolve(__webpack_require__(/*! @/components/menuItem/index.vue */ 194));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -172,15 +172,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       {
         title: '上架审核',
         url: 'pages/manage/product/review',
-        icon: 'https://img1.baidu.com/it/u=3994578752,3321787456&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500' },
-      {
-        title: '下架审核',
-        url: 'pages/manage/product/review',
-        icon: 'https://img1.baidu.com/it/u=3994578752,3321787456&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500' },
-      {
-        title: '违规下架',
-        url: 'pages/manage/product/ban',
-        icon: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fnewoss.zhulong.com%2Ftfs%2Fpic%2Fv1%2Ftfs%2FT1EEb_B7dT1RCvBVdK.jpg&refer=http%3A%2F%2Fnewoss.zhulong.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1672910048&t=74f72311fe5a12302dadc21613584c07' }],
+        icon: 'https://img1.baidu.com/it/u=3994578752,3321787456&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500' }],
 
 
       // 用户管理:用户审核、用户信息、账号...
