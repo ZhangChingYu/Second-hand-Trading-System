@@ -58,7 +58,7 @@ public class ProductManageServiceImpl extends ServiceImpl<ProductDao, Product> i
         List<UploadRequestOutlineVo> allOutlineVos = showAllRequest();
         List<UploadRequestOutlineVo> outlineVos = new ArrayList<>();
         for(UploadRequestOutlineVo outlineVo : allOutlineVos){
-            if(outlineVo.getCatalog() == catalog){
+            if(outlineVo.getCatalog().equals(catalog)){
                 outlineVos.add(outlineVo);
             }
         }
