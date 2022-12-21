@@ -22,9 +22,9 @@
 					<!-- 卖家信息 -->
 					<view class="sellerMess">
 						<!-- 卖家头像 -->
-						<image @click="" :src="sellerMess.avatar" class="location"></image>
+						<image @click="" :src="item.sellerHeadPic" class="location"></image>
 						<!-- 卖家昵称 -->
-						<text>{{sellerMess.userName}}</text>
+						<text>{{item.sellerName}}</text>
 					</view>
 					<!-- 子分割线 -->
 					<view class="subSplitLine"></view>
@@ -32,11 +32,11 @@
 					<view class="goods-box" @click="toGoodsDetail">
 						<!-- 图片 -->
 						<view class="goods-img">
-							<image :src="item.coverPic" mode="widthFix" @error="doDefault"></image>
+							<image :src="item.productCover" mode="widthFix" @error="doDefault"></image>
 						</view>						
 						<!-- 信息 -->
 						<view class="goods-msg">
-							<text class="detail-text">{{item.name}}</text>
+							<text class="detail-text">{{item.productName}}</text>
 							<text class="price">￥ {{item.price.toFixed(2)}}</text>
 						</view>
 					</view>				
@@ -47,14 +47,19 @@
 				
 				<view class="reportReason">
 					<text>举报原因：</text>
-					<text>{{item.reason}}</text>
+					<text>{{item.content}}</text>
 				</view>
 				
 				<!-- 子分割线 -->
 				<view class="subSplitLine"></view>
 				
 				<view class="oper">
-					<view class="report-state">{{item.state}}</view>
+					<view class="report-state" @click="checkOne(item)">查看</view>
+					<uni-popup ref="popdown" type="center" background-color="#fff">
+						<view class="oneState">
+							<text style="font-size: 30rpx;">举报状态： {{state}}</text>
+						</view>		
+					</uni-popup>
 					<view class="deleteReport" @click="deleteOne(item,index)">删除</view>
 				</view>
 			</view>
@@ -63,43 +68,18 @@
 </template>
 
 <script>
+	import {mixin} from '../../mixin.js'
 	export default {
+		mixins:[mixin],
 		data() {
 			return {
 				user:{},
-				// 举报进度state（待审核，已通过，未通过）myReportItem:[number,name,coverPic,price,state,reason][商品编号，商品名称，商品图片，价格，举报进度,举报原因]
-				myReportItem:[
-					{
-											number:"B3267559776586",
-											name:'参加培训班',
-											coverPic:'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-											price:1250,
-											state:'待审核',
-											reason:'广告或垃圾信息',
-										},
-										{
-											number:"B1637559776586",
-											name:'使图片的宽高完全拉伸至填满 image 元素',
-											coverPic:'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-											price:268,
-											state:'已通过',
-											reason:'广告或垃圾信息',
-										},
-										{
-																number:"B3267559776586",
-																name:'参加培训班',
-																coverPic:'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-																price:1250,
-																state:'未通过',
-																reason:'广告或垃圾信息',
-															}
-				],
-				// 卖家信息：avatar(头像)，userName(昵称)
-				sellerMess:{
-					avatar:"../../static/image/avatar.png",
-					userName:"徐必成",
-				},
+				// 商品举报列表
+				myReportItem:[],
 				// 举报状态
+				status:-1,
+				state:'',
+				one:{},
 				state0:'全部',
 				allcolor:'#b34c26',
 				allfont:'white',
@@ -121,14 +101,14 @@
 		methods: {
 			toMe(){
 				uni.redirectTo({
-					url:'/pages/me/index'
+					url:'/pages/my/index'
 				})
 			},
 			
 			// 商品详情页
 			toGoodsDetail(number){
 				uni.navigateTo({
-					url:'/pages/detail/index?goodsNum='+ number
+					url:'/pages/detail/index?number='+ number
 				})
 			},
 			
@@ -144,7 +124,8 @@
 					this.secondcolor = '#efefef';
 					this.secondfont = 'gray';
 					this.thirdcolor = '#efefef';
-					this.thirdfont = 'gray';		
+					this.thirdfont = 'gray';
+					this.status = -1;
 				}
 				else if(state == '已通过'){
 					this.allcolor = '';
@@ -155,6 +136,7 @@
 					this.secondfont = 'gray';
 					this.thirdcolor = '#efefef';
 					this.thirdfont = 'gray';	
+					this.status = 1;
 				}
 				else if(state == '待审核'){
 					this.allcolor = '#efefef';
@@ -164,7 +146,8 @@
 					this.secondcolor = '#b34c26';
 					this.secondfont = 'white';
 					this.thirdcolor = '#efefef';
-					this.thirdfont = 'gray';	
+					this.thirdfont = 'gray';
+					this.status = 0;
 				}
 				else{
 					this.allcolor = '#efefef';
@@ -175,19 +158,39 @@
 					this.secondfont = 'gray';
 					this.thirdcolor = '#b34c26';
 					this.thirdfont = 'white';	
+					this.status = 2;
 				}
 				
-				try{
-					that.myReportItem = await this.api.get('/',{phone:this.user.phone,state:state})			
-				}catch(e){
-					//TODO handle the exception
-					that.$toast(e)
+				if(this.status == -1){
+					this.getMyReport();
 				}
+				else{
+					try{
+						that.myReportItem = await this.api.get('/my/product/reports/status',{phone:this.user.phone,status:this.status});
+						for(let i = 0;i<this.myReportItem.length;i++){
+							this.myReportItem[i].sellerHeadPic = this.imageSrcformat(that.myReportItem[i].sellerHeadPic,that.myReportItem[i].headPicFormat);
+							this.myReportItem[i].productCover = this.imageSrcformat(that.myReportItem[i].productCover,that.myReportItem[i].coverPicFormat);
+						}
+					}catch(e){
+						//TODO handle the exception
+						that.$toast(e)
+					}
+				}				
+			},
+			
+			// 查看举报记录状态
+			checkOne(item){
+				if(item.status == 0) this.state = '待审核';
+				else if(item.status == 1) this.state = '已通过';
+				else this.state = '未通过';
+
+				this.$refs.popdown[0].open('center');
 			},
 			
 			// 删除某条举报记录
 			deleteOne(item,index){	
-				if(item.state == '待审核'){
+				let that = this;
+				if(item.status == 0){
 					uni.showModal({
 						title: '提示',
 						// 提示文字
@@ -202,12 +205,7 @@
 						cancelColor:'#000000',
 						success: function(res) {
 							if (res.confirm) {
-								this.cancelReport(item,index);
-								uni.showToast({
-									title: '已成功取消并删除该举报记录！',
-									icon: 'success',
-									duration: 30000
-								})	
+								that.deleteReport(item,index);	
 							} 										 
 						}
 					})
@@ -227,12 +225,7 @@
 						cancelColor:'#000000',
 						success: function(res) {
 							if (res.confirm) {
-								this.deleteReport(item,index);
-								uni.showToast({
-									title: '已成功删除该举报记录！',
-									icon: 'success',
-									duration: 30000
-								})	
+								that.deleteReport(item,index);
 							} 	
 						}
 					})
@@ -242,19 +235,22 @@
 			async deleteReport(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.del('/',{});
-					that.myReportItem.splice(index,1);
-				}catch(e){
-					//TODO handle the exception
-					that.$toast(e)
-				}
-			},
-			
-			async cancelReport(item,index){
-				const that  = this;
-				try{
-					let res = await this.api.put('/',{});
-					that.myReportItem.splice(index,1);
+					let res = await this.api.del('/product/report',{id:this.myReportItem.id});
+					if(res == 204){
+						uni.showToast({
+							title: '已成功删除该举报记录！',
+							icon: 'success',
+							duration: 30000
+						})
+						that.myReportItem.splice(index,1);
+					}
+					else {
+						uni.showToast({
+							title: '舉報刪除失敗！',
+							icon: 'warning',
+							duration: 30000
+						})
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -265,7 +261,11 @@
 			async getMyReport(){
 				const that  = this;
 				try{
-					that.myReportItem = await this.api.get('/',{phone:this.user.phone})				
+					that.myReportItem = await this.api.get('/my/product/reports',{phone:this.user.phone});
+					for(let i = 0;i<this.myReportItem.length;i++){
+						this.myReportItem[i].sellerHeadPic = this.imageSrcformat(that.myReportItem[i].sellerHeadPic,that.myReportItem[i].headPicFormat);
+						this.myReportItem[i].productCover = this.imageSrcformat(that.myReportItem[i].productCover,that.myReportItem[i].coverPicFormat);
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -446,6 +446,19 @@
 		background-color: #efefef;
 		border-radius: 15rpx;
 		color: black;
+		font-size: 32rpx;
+	}
+	
+	.oneState{
+		text-align: center;
+		width: 425rpx;
+		height: 210rpx;
+		line-height: 236rpx;
+	}
+	.oneState>text{
+		height: 80rpx;
+		line-height: 80rpx;
+		padding: 10rpx;
 		font-size: 32rpx;
 	}
 </style>

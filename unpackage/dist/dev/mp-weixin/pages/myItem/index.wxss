@@ -243,6 +243,283 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 顶部搜索 */
 .top{
 	display: flex;
@@ -280,7 +557,7 @@
 }
 /* 商品状态导航 */
 .middle{
-	width: 86vw;
+	width: 96vw;
 	margin: 0.48rem auto;
 	display: flex;
 	flex-direction: row;
@@ -288,12 +565,13 @@
 	margin-bottom: 40rpx;
 }
 .middle>text{
-	width: 100rpx;
+	width: 78rpx;
 	height: 66rpx;
 	line-height: 66rpx;
 	text-align: center;
 	border-radius: 15%;
 	font-weight: 400;
+	font-size: 21rpx;
 }
 /* 我的商品列表 */
 .mybook {
@@ -308,9 +586,9 @@
 	margin-bottom: 75rpx;
 }
 .goods-box{
-	width: 75%;
+	width: 100%;
 	height: 100%;
-	border-radius: 15rpx 0 0 15rpx;
+	border-radius: 15rpx;
 	background-color: #efefef;
 	padding: 2%;
 	flex-flow: row;
@@ -318,19 +596,6 @@
 	display: flex;
 	border: 6rpx solid #b34c26;
 	position: relative;
-}
-.book-state{
-	width: 18%;
-	height: 100%;
-	padding: 2%;
-	text-align: center;
-	background-color: #efefef;
-	color: gray;
-	border: 6rpx solid #b34c26;
-	font-weight: 600;
-	font-size: 36rpx;
-	line-height: 230rpx;
-	border-radius: 0 9% 9% 0;
 }
 /* 商品图片 */
 .goods-img {
@@ -371,6 +636,36 @@
 	position: absolute;
 	bottom: 5%;
 	right: 5%;
+}
+.oneState{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 666rpx;
+	height: 466rpx;
+}
+.subLine{
+	background-color: #b34c26;
+	width: 66%;
+	height: 6rpx;
+	margin-left: 17%;
+}
+.oneState>text{
+	height: 80rpx;
+	line-height: 80rpx;
+	padding: 10rpx;
+}
+.oneOper{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.oneOper>button{
+	width: 200rpx;
+	height: 80rpx;
+	line-height: 80rpx;
+	font-size: 30rpx;
+	border-radius: 9%;
 }
 
 

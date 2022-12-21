@@ -15,7 +15,7 @@
 			<view class="goods-box">
 				<!-- 图片 -->
 				<view class="goods-img">
-					<image :src="orderGoods.coverPic" mode="widthFix" @error="doDefault"></image>
+					<image :src="coverPic" mode="widthFix" @error="doDefault"></image>
 				</view>						
 				<!-- 信息 -->
 				<view class="goods-msg">
@@ -49,7 +49,7 @@
 		
 		<!-- 商品评价 -->
 		<view class="evaluate">
-			<uni-easyinput type="textarea" autoHeight v-model="oneEvaluate.evaluation" placeholder="从多个角度评价宝贝,可以帮助更多想买的人"></uni-easyinput>
+			<uni-easyinput type="textarea" autoHeight v-model="oneEvaluate.evaluate" placeholder="从多个角度评价宝贝,可以帮助更多想买的人"></uni-easyinput>
 		</view>
 		
 		<!-- 匿名选择 -->
@@ -69,11 +69,14 @@
 </template>
 
 <script>
+	import {mixin} from '../../mixin.js'
 	export default {
+		mixins:[mixin],
 		data() {
 			return {
 				user:{},
 				orderGoods:{},
+				coverPic:'',
 				sellerMess:{},	
 				current:0,
 				// 返回的评价
@@ -83,18 +86,45 @@
 					score3:5,
 					// 是否匿名
 					isAnonymous:false,
-					evaluation:'',
+					evaluate:'',
 				},
 			}
 		},
 		mounted() {
 			this.user = uni.getStorageSync('user');	
+			this.getSeller();
+			this.getCoverPic();
 		},
 		onLoad(option){
 			this.orderGoods = JSON.parse(option.orderGoods);
-			this.sellerMess = JSON.parse(option.sellerMess);
 		},
 		methods: {
+			// 获取商品图片
+			async getCoverPic(){
+				const that  = this;
+				try{
+					let res = await this.api.get('/orders/product/pic',{number:this.orderGoods.proNumber});
+					that.coverPic = res.data;
+					this.coverPic = this.imageSrcformat(that.coverPic,'jpg');
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			},
+			
+			// 获取该卖家信息
+			async getSeller(){
+				const that  = this;
+				try{
+					let res = await this.api.get('/booking/seller/info',{number:this.orderGoods.proNumber});
+					that.sellerMess = res.data;
+					this.sellerMess.avatar = this.imageSrcformat(that.sellerMess.avatar,'jpg');
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			},
+			
 			// 是否匿名评价
 			handleChange(e){
 			   this.oneEvaluate.isAnonymous = !this.oneEvaluate.isAnonymous;
@@ -102,10 +132,9 @@
 			
 			// 发布评价
 			async toSubmit(){
-				var item = JSON.stringify(this.orderGoods);
 				const that  = this;
 				try{
-					let res = await this.api.post('/evaluation',{phone:this.user.phone,number:this.orderGoods.proNumber,evaluate:this.oneEvaluate});
+					let res = await this.api.post('/evaluation',{number:this.orderGoods.proNumber,phone:this.user.phone,oneEvaluate:this.oneEvaluate});
 					if(res == 201){
 						uni.showToast({
 							title: '评价成功！',
@@ -113,7 +142,7 @@
 							duration: 30000
 						})
 						uni.navigateBack({
-								delta:2, //返回层数，2则上上页
+							delta:2, //返回层数，2则上上页
 						})
 					}
 				}catch(e){

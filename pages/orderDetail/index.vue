@@ -3,7 +3,7 @@
 		<!-- 订单信息 -->
 		<view class="orderMess">
 			<!-- 卖家信息 -->
-			<view class="sellerMess">
+			<view class="sellerMess" @click="toSeller">
 				<!-- 卖家头像 -->
 				<image @click="" :src="sellerMess.avatar" class="location"></image>
 				<!-- 卖家昵称 -->
@@ -12,10 +12,10 @@
 			<!-- 子分割线 -->
 			<view class="subSplitLine"></view>
 			<!-- 商品信息 -->
-			<view class="goods-box">
+			<view class="goods-box" @click="toGoodsDetail">
 				<!-- 图片 -->
 				<view class="goods-img">
-					<image :src="oneOrderGoods.coverPic" mode="widthFix" @error="doDefault"></image>
+					<image :src="coverPic" mode="widthFix" @error="doDefault"></image>
 				</view>						
 				<!-- 信息 -->
 				<view class="goods-msg">
@@ -134,48 +134,21 @@
 </template>
 
 <script>
+	import {mixin} from '../../mixin.js'
 	export default {
+		mixins:[mixin],
 		data() {
 			return {
 				user:{},
 				// 订单里的商品
+				coverPic:'',
 				oneOrderGoods:{},
 				// 订单其他信息
-				order:{
-					// 收货人姓名
-					consignee:'白白',
-					// 收货人手机号
-					phone:'15123255122',
-					// 收货人地址
-					address:'重庆市沙坪坝重庆大学',
-					// 配送方式
-					delivery:'快递',
-					// 优惠
-					discount: 0,
-					// 支付方式
-					pay:'微信',
-					// 订单生成时间
-					payTime:'2022-11-29 13:52',
-					// 发货时间
-					deliveryTime:'2022-11-29 13:52',
-					// 快递单号
-					deliveryId:'20194256202211291352',
-					// 收货时间
-					confirmTime:'2022-11-29 13:52',
-					// 申请退款时间
-					applyTime:'2022-11-29 13:52',
-					// 卖家同意退款时间
-					refundTime:'2022-11-29 13:52',
-					// 成交价格
-					total:200125,
-				},
+				order:{},
 				// 支付方式显示
 				payImage:"",
 				// 卖家信息：avatar(头像)，userName(昵称)
-				sellerMess:{
-					avatar:"../../static/image/avatar.png",
-					userName:"徐必成",
-				},
+				sellerMess:{},
 				// 订单时间信息的显示
 				isDelivery:false,
 				noSelf:false,
@@ -193,6 +166,7 @@
 		mounted() {
 			this.user = uni.getStorageSync('user');	
 			this.getSeller();
+			this.getCoverPic();
 			this.getOneOrder();	
 		},
 		onLoad(option){
@@ -225,11 +199,26 @@
 			
 		},
 		methods: {
+			// 获取商品图片
+			async getCoverPic(){
+				const that  = this;
+				try{
+					let res = await this.api.get('/orders/product/pic',{number:this.oneOrderGoods.proNumber});
+					that.coverPic = res.data;
+					this.coverPic = this.imageSrcformat(that.coverPic,'jpg');
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			},
+			
 			// 获取该卖家信息
 			async getSeller(){
 				const that  = this;
 				try{
-					that.sellerMess = await this.api.get('/booking/seller/info',{number:this.oneOrderGoods.proNumber})				
+					let res = await this.api.get('/booking/seller/info',{number:this.oneOrderGoods.proNumber});
+					that.sellerMess = res.data;
+					this.sellerMess.avatar = this.imageSrcformat(that.sellerMess.avatar,'jpg');
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -240,15 +229,24 @@
 			async getOneOrder(){
 				const that  = this;
 				try{
-					that.order = await this.api.get('/orders/details',{number:this.oneOrderGoods.ordNumber})	
+					let res = await this.api.get('/orders/details',{number:this.oneOrderGoods.ordNumber});
+					that.order = res.data;
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
 				}
 			},	
 			
+			// 查看卖家信息
+			toSeller(){
+				uni.navigateTo({
+					url:'/pages/userInfo/userInfo?phone=' + this.sellerMess.phone
+				})
+			},
+			
 			// 确认收货
 			toConfirm(){
+				let that = this;
 				uni.showModal({
 					title: '确认收货',
 					// 提示文字
@@ -263,7 +261,7 @@
 					cancelColor:'#000000',
 					success: function(res) {
 						if (res.confirm) {
-							this.confirmGet();
+							that.confirmGet();
 						} 
 					}
 				})
@@ -291,12 +289,13 @@
 			toCancel(){
 				var oneGoods = JSON.stringify(this.oneOrderGoods)
 				uni.navigateTo({
-					url:'/pages/applyRefund/index?orderGoods='+ oneGoods + '&refundTotal='+ this.total
+					url:'/pages/applyRefund/index?orderGoods='+ oneGoods + '&total='+ this.order.total
 				})
 			},
 			
 			// 取消退款
 			cancelRefund(){
+				let that = this;
 				uni.showModal({
 					title: '取消退款',
 					// 提示文字
@@ -311,7 +310,7 @@
 					cancelColor:'#000000',
 					success: function(res) {
 						if (res.confirm) {
-							this.cancelRefund();
+							that.cancelRefund();
 						} 
 					}
 				})
@@ -346,6 +345,7 @@
 			
 			// 删除该订单
 			toDelete(){
+				let that = this;
 				uni.showModal({
 					title: '提示',
 					// 提示文字
@@ -360,7 +360,7 @@
 					cancelColor:'#000000',
 					success: function(res) {
 						if (res.confirm) {
-							this.deleteOrder();
+							that.deleteOrder();
 							uni.showToast({
 								title: '已成功删除该订单！',
 								icon: 'success',
@@ -382,6 +382,13 @@
 					//TODO handle the exception
 					that.$toast(e)
 				}
+			},
+			
+			// 商品详情页(该商品编号)
+			toGoodsDetail(){
+				uni.redirectTo({
+					url:'/pages/detail/index?number='+ this.oneOrderGoods.number
+				})
 			},
 		}
 	}

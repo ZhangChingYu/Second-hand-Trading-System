@@ -6,8 +6,8 @@
 			<image @click="Map" src="../../static/image/location.png" class="location"></image>
 			<view class="someMess">
 				<!-- 默认地址的收件人姓名，号码，详细地址 -->
-				<view class="userName"><text>收货人：{{myAddress.buyerName}} {{myAddress.buyerPhone}}</text></view>
-				<view class="userAddress"><text>收货地址：{{myAddress.shipping}}</text></view>	
+				<view class="userName"><text>收货人：{{myAddress.receiverName}} {{myAddress.receiverPhone}}</text></view>
+				<view class="userAddress"><text>收货地址：{{myAddress.region}} {{myAddress.addressDetail}}</text></view>	
 			</view>
 			<!-- 地址管理 -->
 			<image @click="toAddressManagement" src="../../static/image/return_right .png" class="addressControl"></image>
@@ -19,19 +19,19 @@
 		<!-- 订单信息 -->
 		<view class="orderMess">
 			<!-- 卖家信息 -->
-			<view class="sellerMess">
+			<view class="sellerMess" @click="toSeller">
 				<!-- 卖家头像 -->
-				<image @click="" :src="sellerMess.avatar" class="location"></image>
+				<image :src="sellerMess.avatar" class="location"></image>
 				<!-- 卖家昵称 -->
 				<text>{{sellerMess.userName}}</text>
 			</view>
 			<!-- 子分割线 -->
 			<view class="subSplitLine"></view>
 			<!-- 商品信息 -->
-			<view class="goods-box">
+			<view class="goods-box" @click="toGoodsDetail">
 				<!-- 图片 -->
 				<view class="goods-img">
-					<image :src="oneBook.coverPic" mode="widthFix" @error="doDefault"></image>
+					<image :src="coverPic" mode="widthFix" @error="doDefault"></image>
 				</view>						
 				<!-- 信息 -->
 				<view class="goods-msg">
@@ -112,16 +112,13 @@
 </template>
 
 <script>
+	import {mixin} from '../../mixin.js'
 	export default {
+		mixins:[mixin],
 		data() {
 			return {
 				user:{},
-				myAddress:{
-					buyerName:'白白',
-					buyerPhone:'15123255122',
-					shipping:'重庆重庆沙坪坝重庆大学虎溪校区',
-					detail:'',
-				},
+				myAddress:{},
 				title:'确认订单',
 				items: [{
 					value: 'self',
@@ -135,11 +132,9 @@
 				current: 0,
 				// 待下单的商品信息（从我的预约获取）
 				oneBook:{},
+				coverPic:'',
 				// 卖家信息：avatar(头像)，userName(昵称)
-				sellerMess:{
-					avatar:"../../static/image/avatar.png",
-					userName:"徐必成",
-				},
+				sellerMess:{},
 				// 支付宝支付
 				isAlipay: false,
 				Alipaycolor: 'white',
@@ -157,6 +152,7 @@
 		mounted() {
 			this.user = uni.getStorageSync('user');	
 			this.getSeller();	
+			this.getCoverPic();
 		},
 		onLoad(option){
 			//this.oneBook = JSON.parse(decodeURIComponent(option.oneBookItem));
@@ -164,6 +160,19 @@
 			this.total = this.oneBook.price;
 		},
 		methods: {
+			// 获取商品图片
+			async getCoverPic(){
+				const that  = this;
+				try{
+					let res = await this.api.get('/orders/product/pic',{number:this.oneBook.number});
+					that.coverPic = res.data;
+					this.coverPic = this.imageSrcformat(that.coverPic,'jpg');
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			},
+			
 			// 返回我的预约
 			toMyAppointment(){
 				uni.redirectTo({
@@ -173,7 +182,27 @@
 			
 			// 去往地址管理
 			toAddressManagement(){
-				
+				uni.navigateTo({
+					url: "../my-address/address"
+				})
+			},
+			
+			// 获取默认地址
+			async getAddress(){
+				const that  = this;
+				try{
+					that.myAddress = await this.api.get('/default/address',{phone:this.user.phone});
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			},
+			
+			// 查看卖家信息
+			toSeller(){
+				uni.navigateTo({
+					url:'/pages/userInfo/userInfo?phone=' + this.sellerMess.phone
+				})
 			},
 			
 			// 配送方式选择
@@ -226,30 +255,40 @@
 				const that  = this;
 				try{
 					let res = await this.api.post('/orders/build',{bookNum:this.oneBook.bookNum,myAddress:this.myAddress,expressDelivery:delivery,price:this.total,payment:pay,discounts:this.discount});	
-					uni.navigateBack({
+					if(res.code == '666'){
+						uni.showToast({
+							title: '下单成功！',
+							icon: 'success',
+							duration: 30000
+						})
+						uni.navigateBack({
 							delta:1,//返回层数，2则上上页
-					})			
+						})	
+					}				
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
 				}
-				
-				uni.showToast({
-					title: '下单成功！',
-					icon: 'success',
-					duration: 30000
-				})
 			},
 			
 			// 获取该卖家信息
 			async getSeller(){
 				const that  = this;
 				try{
-					that.sellerMess = await this.api.get('/booking/seller/info',{number:this.oneBook.number})				
+					let res = await this.api.get('/booking/seller/info',{number:this.oneBook.number});
+					that.sellerMess = res.data;
+					this.sellerMess.avatar = this.imageSrcformat(that.sellerMess.avatar,'jpg');
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
 				}
+			},
+			
+			// 商品详情页(该商品编号)
+			toGoodsDetail(){
+				uni.redirectTo({
+					url:'/pages/detail/index?number='+ this.oneBook.number
+				})
 			},
 		}
 	}

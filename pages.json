@@ -310,6 +310,17 @@
 		    }
 		    
 		}
+		,{
+		    "path" : "pages/updateMess/index",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "更新商品信息",
+		        "enablePullDownRefresh": true,
+				"navigationBarBackgroundColor":"#b34c26",
+				"navigationBarTextStyle": "white" 
+		    }
+		    
+		}
         ,{
             "path" : "pages/notifications/notifications",
             "style" :                                                                                    

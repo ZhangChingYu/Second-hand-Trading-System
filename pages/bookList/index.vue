@@ -42,7 +42,46 @@
 						<view class="oneState">
 							<text style="font-size: 30rpx;">请填写快递单号</text>
 							<view class="subLine" ></view>
-							<input />
+							<input type="text" v-model="deliveryId" placeholder="请输入快递单号~"/>
+							<button @click="confirmOrder(item,index)">确认发货</button>
+						</view>		
+					</uni-popup>
+					<uni-popup ref="pop2" type="center" background-color="#fff">
+						<view class="twoState">
+							<text style="font-size: 30rpx;">退款申请</text>
+							<view class="subLine" ></view>						
+							<text>退款金额： {{applyRefund.refund}}</text>
+							<text>货物状态： {{applyRefund.goodsState}}</text>
+							<text>退款原因： {{applyRefund.reason}}</text>
+							<text>申请退款时间： {{applyRefund.refundTime}}</text>
+							<view class="subLine" ></view>
+							<text>补充描述</text>
+							<view class="subLine" ></view>
+							<text style="height: 160rpx;line-height: 160rpx;">{{applyRefund.supplement}}</text>
+							<view class="somebt">
+								<button @click="refuse(item,index)" style="background-color: gray;color: white;">拒绝</button>
+								<button @click="confirm(item,index)" style="background-color: #b34c26;color: white;">同意</button>
+							</view>
+						</view>		
+					</uni-popup>
+					<uni-popup ref="pop3" type="center" background-color="#fff">
+						<view class="threeState">
+							<text style="font-size: 30rpx;">订单详情</text>
+							<view class="subLine" ></view>
+							<text>收货人： {{order.consignee}} {{order.phone}}</text>
+							<text>收货地址： {{order.address}}</text>
+							<text>配送方式： {{order.delivery}}</text>
+							<text>收货地址： {{order.address}}</text>
+							<text>配送方式： {{order.delivery}}</text>
+							<text>优惠： {{order.discount}}</text>
+							<text>成交价格： {{order.total}}</text>
+							<text>支付方式： {{order.pay}}</text>
+							<text>订单生成时间： {{order.payTime}}</text>
+							<text>发货时间： {{order.deliveryTime}}</text>
+							<text v-if="noSelf">快递单号： {{order.deliveryId}}</text>
+							<text v-if="isConfirm">收货时间： {{order.confirmTime}}</text>
+							<button v-if="!isConfirm" class="returnPage" @click="returnPage">返回</button>
+							<button v-if="isConfirm" class="deleteOrder" @click="deleteOrder(item,index)">删除订单</button>
 						</view>		
 					</uni-popup>
 				</view>
@@ -78,56 +117,16 @@
 				// 某个商品编号
 				oneNum:'',
 				// 某个商品的预约列表
-				oneBookList:[
-					{
-						avatar:"../../static/image/avatar.png",
-						userName:"徐必成",
-						count:2,
-						state:'待处理',
-					},
-					{
-						avatar:"../../static/image/avatar.png",
-						userName:"徐必成",
-						count:5,
-						state:'待下单',
-					},
-					{
-						avatar:"../../static/image/avatar.png",
-						userName:"徐必成",
-						count:6,
-						state:'待发货',
-					},
-					{
-						avatar:"../../static/image/avatar.png",
-						userName:"徐必成",
-						count:7,
-						state:'待收货',
-					},
-					{
-						avatar:"../../static/image/avatar.png",
-						userName:"徐必成",
-						count:8,
-						state:'待退款',
-					},
-					{
-						avatar:"../../static/image/avatar.png",
-						userName:"徐必成",
-						count:9,
-						state:'已退款',
-					},
-					{
-						avatar:"../../static/image/avatar.png",
-						userName:"徐必成",
-						count:10,
-						state:'已卖出',
-					},
-					{
-						avatar:"../../static/image/avatar.png",
-						userName:"徐必成",
-						count:4,
-						state:'已拒绝',
-					},
-				],
+				oneBookList:[],
+				// 快递单号
+				deliveryId:'',
+				// 退款申请
+				applyRefund:{},
+				// 订单其他信息
+				order:{},
+				// 订单时间信息的显示
+				noSelf:false,
+				isConfirm:false,
 			}
 		},
 		mounted() {
@@ -140,7 +139,49 @@
 		methods: {
 			
 			openState1(){
-			    this.$refs.pop1.open('center');
+			    this.$refs.pop1[0].open('center');
+			},
+			
+			async openState2(item){
+				const that  = this;
+				try{
+					let res = await this.api.get('/orders/after/reason',{number:this.item.bookNum});
+					that.applyRefund = res.data;
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			    this.$refs.pop2[0].open('center');
+			},
+			
+			async openState3(item){
+				const that  = this;
+				try{
+					let res = await this.api.get('/orders/details',{number:this.item.bookNum});
+					that.order = res.data;
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+				if(this.order.delivery == '快递') this.noSelf = true;
+				else this.noSelf = false;
+			    this.$refs.pop3[0].open('center');
+			},
+			
+			// 卖家确认发货
+			async confirmOrder(item,index){
+				if(this.deliveryId != ''){
+					try{
+						// 订单编号
+						let res = await this.api.put('/orders/receiving',{number:this.item.bookNum,deliveryId:this.deliveryId});
+						this.oneBookList[index].state = '待收货';
+						this.$refs.pop1[0].close();
+					}catch(e){
+						//TODO handle the exception
+						that.$toast(e)
+					}
+				}
+				else this.$toast('请填写快递单号~');	
 			},
 			
 			// 获取该商品的预约列表
@@ -148,7 +189,11 @@
 				const that  = this;
 				let state = '全部';
 				try{
-					that.oneBookList = await this.api.get('/booking/select/bookings',{number:this.oneNum,state:state})				
+					let res = await this.api.get('/booking/select/bookings',{number:this.oneNum,state:state});
+					that.oneBookList = res.data;
+					for(let i = 0;i<this.oneBookList.length;i++){
+						this.oneBookList[i].avatar = this.imageSrcformat(that.oneBookList[i].avatar,'jpg');
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -250,7 +295,11 @@
 				}
 				
 				try{
-					that.oneBookList = await this.api.get('/booking/select/bookings',{number:this.oneNum,state:state})			
+					let res = await this.api.get('/booking/select/bookings',{number:this.oneNum,state:state});
+					that.oneBookList = res.data;
+					for(let i = 0;i<this.oneBookList.length;i++){
+						this.oneBookList[i].avatar = this.imageSrcformat(that.oneBookList[i].avatar,'jpg');
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -259,6 +308,7 @@
 			
 			// 不同的状态对应的处理操作
 			operOne(item,index){
+				let that = this;
 				if(item.state == '待处理'){
 					uni.showModal({
 						title: '预约处理',
@@ -274,17 +324,17 @@
 						cancelColor:'#000000',
 						success: function(res) {
 							if(res.confirm) {  
-								this.confirmBook(item,index);
-								this.getOneBookList();	
+								that.confirmBook(item,index);
+								that.getOneBookList();	
 							} 
 							else {  
-								this.refuseBook(item,index);
-								this.getOneBookList();	
+								that.refuseBook(item,index);
+								that.getOneBookList();	
 							}  								 
 						},
 					})
 				}
-				else if(item.state == '已拒绝' || item.state == '已卖出' || item.state == '已退款'){
+				else if(item.state == '已退款'){
 					uni.showModal({
 						title: '提示',
 						// 提示文字
@@ -299,13 +349,31 @@
 						cancelColor:'#000000',
 						success: function(res) { 
 							if(res.confirm) {
-								
+								uni.showToast({
+									title: '成功删除该条预约记录！',
+									icon: 'success',
+									duration: 30000
+								})
 							} 
 						},
 					})
 				}
 				else if(item.state == '待发货'){
 					this.openState1();
+				}
+				else if(item.state == '待退款'){
+					this.openState2(item);
+				}
+				else if(item.state == '待下单'){
+					this.$toast('请等待买家下单哟~');
+				}
+				else if(item.state == '待收货'){
+					this.isConfirm = false;
+					this.openState3(item);
+				}
+				else{
+					this.isConfirm = true;
+					this.openState3(item);
 				}
 			},
 			
@@ -314,6 +382,7 @@
 				const that  = this;
 				try{
 					let res = await this.api.put('/booking/acquire',{number:this.item.bookNum});
+					this.oneBookList[index].state = '待下单';
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -331,6 +400,47 @@
 				}
 			},
 			
+			// 卖家同意退款
+			async confirm(item,index){
+				const that  = this;
+				try{
+					let res = await this.api.put('/orders/refund',{number:this.item.bookNum});
+					this.oneBookList[index].state = '已退款';
+					this.$refs.pop2[0].close();
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			},
+			
+			// 卖家拒绝退款
+			async refuse(item,index){
+				const that  = this;
+				try{
+					let res = await this.api.put('/orders/disagree',{number:this.item.bookNum});
+					this.oneBookList[index].state = res.data;
+					this.$refs.pop2[0].close();
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			},
+			
+			returnPage(){
+				this.$refs.pop3[0].close();
+			},
+			
+			// 删除已卖出的订单
+			async deleteOrder(item,index){
+				const that  = this;
+				try{
+					let res = await this.api.put('/orders/seller/delete',{number:this.item.bookNum});
+					that.oneBookList.splice(index,1);
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			},		
 		}
 	}
 </script>
@@ -451,5 +561,112 @@
 		border-radius: 15rpx;
 		color: white;
 		font-size: 32rpx;
+	}
+	.oneState{
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		width: 666rpx;
+		height: 466rpx;
+	}
+	
+	.subLine{
+		background-color: #b34c26;
+		width: 78%;
+		height: 6rpx;
+		margin-left: 11%;
+	}
+	
+	.oneState>text{
+		height: 80rpx;
+		line-height: 80rpx;
+		padding: 10rpx;
+	}
+	
+	.oneState>input{
+		height: 100rpx;
+		width: 486rpx;
+		margin-left: 90rpx;
+		padding: 10rpx;
+		background-color: #efefef;
+		color: gray;
+		font-size: 32rpx;
+		margin-top: 88rpx;
+		margin-bottom: 88rpx;
+	}
+	
+	.oneState>button{
+		background-color: #b34c26;
+		color: white;
+		width: 250rpx;
+		height: 60rpx;
+		font-size: 28rpx;
+		line-height: 60rpx;
+		text-align: center;
+	}
+	
+	.twoState{
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		width: 666rpx;
+		height: 850rpx;
+	}
+	
+	.twoState>text{
+		height: 80rpx;
+		line-height: 80rpx;
+		padding: 10rpx;
+	}
+	
+	.somebt{
+		display: flex;
+		flex-direction: row;
+		text-align: center;
+		justify-content: space-between;
+	}
+	
+	.somebt>button{
+		width: 250rpx;
+		height: 60rpx;
+		font-size: 28rpx;
+		line-height: 60rpx;
+		text-align: center;
+	}
+	
+	.threeState{
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+		width: 666rpx;
+		height: 975rpx;
+	}
+	
+	.threeState>text{
+		height: 60rpx;
+		line-height: 60rpx;
+		padding: 5rpx;
+	}
+	
+	.returnPage{
+		margin-top: 80rpx;
+		width: 250rpx;
+		height: 60rpx;
+		font-size: 28rpx;
+		line-height: 60rpx;
+		text-align: center;
+		background-color: gray;
+		color: white;
+	}
+	
+	.deleteOrder{
+		margin-top: 10rpx;
+		width: 250rpx;
+		height: 60rpx;
+		font-size: 28rpx;
+		line-height: 60rpx;
+		text-align: center;
+		background-color: #b34c26;
+		color: white;
 	}
 </style>
