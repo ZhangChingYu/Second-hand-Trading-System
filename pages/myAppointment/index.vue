@@ -74,10 +74,13 @@
 			}
 		},
 		mounted() {
-					this.user = uni.getStorageSync('user');
-					this.getMybook();	
-					this.allBook = that.mybookItem;
-				},
+			this.user = uni.getStorageSync('user');
+			this.getMybook();	
+			this.allBook = that.mybookItem;
+		},
+		onShow(){
+			this.getMybook();
+		},
 		methods: {
 			toMe(){
 				uni.redirectTo({

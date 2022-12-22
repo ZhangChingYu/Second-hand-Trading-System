@@ -110,9 +110,12 @@
 			}
 		},
 		mounted() {
-				this.user = uni.getStorageSync('user');
-				this.getMyGoods();	
-			},
+			this.user = uni.getStorageSync('user');
+			this.getMyGoods();	
+		},
+		onShow(){
+			this.getMyGoods();	
+		},
 		methods: {
 			toMe(){
 				uni.redirectTo({

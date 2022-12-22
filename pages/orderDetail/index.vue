@@ -277,7 +277,7 @@
 						duration: 30000
 					})
 					uni.navigateBack({
-							delta:1,//返回层数，2则上上页
+						delta:1,//返回层数，2则上上页
 					})
 				}catch(e){
 					//TODO handle the exception

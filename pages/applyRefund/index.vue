@@ -192,7 +192,7 @@
 							duration: 30000
 						})
 						uni.navigateBack({
-								delta:2, //返回层数，2则上上页
+							delta:2, //返回层数，2则上上页
 						})
 					}
 				}catch(e){
