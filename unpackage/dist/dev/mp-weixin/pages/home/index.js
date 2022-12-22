@@ -98,7 +98,7 @@ var components
 try {
   components = {
     uSwiper: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swiper/u-swiper */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swiper/u-swiper")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swiper/u-swiper.vue */ 380))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swiper/u-swiper */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swiper/u-swiper")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swiper/u-swiper.vue */ 379))
     }
   }
 } catch (e) {
@@ -155,7 +155,12 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 388));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Nomore = function Nomore() {__webpack_require__.e(/*! require.ensure | components/nomore/index */ "components/nomore/index").then((function () {return resolve(__webpack_require__(/*! @/components/nomore/index.vue */ 395));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 387));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Nomore = function Nomore() {__webpack_require__.e(/*! require.ensure | components/nomore/index */ "components/nomore/index").then((function () {return resolve(__webpack_require__(/*! @/components/nomore/index.vue */ 394));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
 
 
 
@@ -277,6 +282,7 @@ __webpack_require__.r(__webpack_exports__);
   onPullDownRefresh: function onPullDownRefresh() {
     this.getMostbookItem();
     this.getNewProduct();
+    this.getRecommendProduct();
   },
   onShow: function onShow() {
     this.getMostbookItem();
@@ -312,7 +318,7 @@ __webpack_require__.r(__webpack_exports__);
                 that = _this2;_context2.prev = 1;_context2.next = 4;return (
 
                   _this2.api.get('/homepage/promote/products'));case 4:res = _context2.sent;
-                that.mostbookItem = res;_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
+                that.recommendProductItem = res;_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
 
 
                 //TODO handle the exception
@@ -324,11 +330,12 @@ __webpack_require__.r(__webpack_exports__);
                 that = _this3;_context3.prev = 1;_context3.next = 4;return (
 
                   _this3.api.get('/homepage/like/products'));case 4:res = _context3.sent;
-                that.mostbookItem = res;_context3.next = 11;break;case 8:_context3.prev = 8;_context3.t0 = _context3["catch"](1);
+                that.mostbookItem = res;
+                console.log(that.mostbookItem);_context3.next = 12;break;case 9:_context3.prev = 9;_context3.t0 = _context3["catch"](1);
 
 
                 //TODO handle the exception
-                that.$toast(_context3.t0);case 11:case "end":return _context3.stop();}}}, _callee3, null, [[1, 8]]);}))();
+                that.$toast(_context3.t0);case 12:case "end":return _context3.stop();}}}, _callee3, null, [[1, 9]]);}))();
 
 
 

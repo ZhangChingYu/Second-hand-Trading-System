@@ -98,7 +98,7 @@ var components
 try {
   components = {
     uEmpty: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 402))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 401))
     }
   }
 } catch (e) {
@@ -155,7 +155,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 388));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Search = function Search() {__webpack_require__.e(/*! require.ensure | components/search/index */ "components/search/index").then((function () {return resolve(__webpack_require__(/*! @/components/search/index.vue */ 410));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Nomore = function Nomore() {__webpack_require__.e(/*! require.ensure | components/nomore/index */ "components/nomore/index").then((function () {return resolve(__webpack_require__(/*! @/components/nomore/index.vue */ 395));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 387));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Search = function Search() {__webpack_require__.e(/*! require.ensure | components/search/index */ "components/search/index").then((function () {return resolve(__webpack_require__(/*! @/components/search/index.vue */ 409));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Nomore = function Nomore() {__webpack_require__.e(/*! require.ensure | components/nomore/index */ "components/nomore/index").then((function () {return resolve(__webpack_require__(/*! @/components/nomore/index.vue */ 394));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -253,17 +253,17 @@ __webpack_require__.r(__webpack_exports__);
       searchResult: [],
       searchValue: '',
       isIndex: true,
-      exitTitle: '返回' };
+      exitTitle: '返回',
+
+      ispopular: false };
 
 
   },
   mounted: function mounted() {
-    console.log(123456);
     // uni.setStorageSync('historyWords',['鸡','电脑','iPhone12','车载手表','自然堂','小米10','华为','氢跑鞋','娃娃']);
     // uni.setStorageSync('popularWords',['iPhone12','车载手表','自然堂','小米10']);
     this.queryHistory();
     this.queryPopular();
-    console.log(this.popularWords);
   },
 
   methods: {
@@ -277,14 +277,14 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
 
-    queryPopular: function queryPopular() {
-      try {
-        this.popularWords = uni.getStorageSync('popularWords') || [];
-      } catch (e) {
-        //TODO handle the exception
-        this.popularWords = [];
-        this.$toast(e);
-      }
+    queryPopular: function queryPopular() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.prev = 0;_context.next = 3;return (
+
+                  _this.api.get('/hotkeys'));case 3:_this.popularWords = _context.sent;_context.next = 10;break;case 6:_context.prev = 6;_context.t0 = _context["catch"](0);
+
+                //TODO handle the exception
+                _this.popularWords = [];
+                _this.$toast(_context.t0);case 10:case "end":return _context.stop();}}}, _callee, null, [[0, 6]]);}))();
+
     },
 
     clearHistory: function clearHistory() {
@@ -307,27 +307,35 @@ __webpack_require__.r(__webpack_exports__);
 
     historyTap: function historyTap(item) {
       this.searchValue = item;
-      this.search();
+      this.ispopular = false;
+      this.search(item);
+    },
+    popularTap: function popularTap(item) {
+      this.searchValue = item.content;
+      this.ispopular = true;
+      this.search(item.id);
     },
 
-    search: function search() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var keyword, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                keyword = _this.searchValue;
-                _this.isIndex = false;
+    search: function search(key) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var keyword, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                keyword = _this2.searchValue;
+                _this2.isIndex = false;
                 if (keyword.trim() !== '') {
-                  _this.historyWords = _this.historyWords.filter(function (item) {return item != keyword;});
-                  _this.historyWords.unshift(keyword);
+                  _this2.historyWords = _this2.historyWords.filter(function (item) {return item != keyword;});
+                  _this2.historyWords.unshift(keyword);
                   // 存储
-                  uni.setStorageSync('historyWords', _this.historyWords);
+                  uni.setStorageSync('historyWords', _this2.historyWords);
                 }
 
                 // 发送请求
-                _context.prev = 3;_context.next = 6;return (
-                  _this.api.get('/search/products', { keyword: keyword }));case 6:res = _context.sent;
-                _this.searchResult = res;
-                console.log(_this.searchResult);_context.next = 14;break;case 11:_context.prev = 11;_context.t0 = _context["catch"](3);
+                _context2.prev = 3;
+                res = '';if (!
+                _this2.ispopular) {_context2.next = 11;break;}_context2.next = 8;return _this2.api.get('/hotkey/products', { id: key });case 8:res = _context2.sent;_context2.next = 14;break;case 11:_context2.next = 13;return (
+                  _this2.api.get('/search/products', { keyword: keyword }));case 13:res = _context2.sent;case 14:
+                _this2.searchResult = res;
+                console.log(_this2.searchResult);_context2.next = 21;break;case 18:_context2.prev = 18;_context2.t0 = _context2["catch"](3);
 
                 //TODO handle the exception
-                _this.$toast(_context.t0);case 14:case "end":return _context.stop();}}}, _callee, null, [[3, 11]]);}))();
+                _this2.$toast(_context2.t0);case 21:case "end":return _context2.stop();}}}, _callee2, null, [[3, 18]]);}))();
 
 
 
