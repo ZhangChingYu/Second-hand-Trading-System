@@ -31,6 +31,7 @@
     "pages/evaluate/index",
     "pages/applyRefund/index",
     "pages/bookList/index",
+    "pages/updateMess/index",
     "pages/notifications/notifications"
   ],
   "subPackages": [],

@@ -6,12 +6,12 @@
 			<view class="goods-box">
 				<!-- 图片 -->
 				<view class="goods-img">
-					<image :src="oreder.coverPic" mode="widthFix" @error="doDefault"></image>
+					<image :src="coverPic" mode="widthFix" @error="doDefault"></image>
 				</view>						
 				<!-- 信息 -->
 				<view class="goods-msg">
-					<text class="detail-text">{{oreder.name}}</text>
-					<text class="price">￥ {{oreder.price.toFixed(2)}}</text>
+					<text class="detail-text">{{order.name}}</text>
+					<text class="price">￥ {{order.price.toFixed(2)}}</text>
 				</view>
 			</view>
 		</view>
@@ -23,7 +23,7 @@
 		<view class="someMess">
 			<view class="littleCell goodsCount">
 				<text>货物数量：</text>
-				<text style="margin-right: 6%;">{{oreder.count}}</text>
+				<text style="margin-right: 6%;">{{order.count}}</text>
 			</view>
 			<!-- 子分割线 -->
 			<view class="subSplitLine"></view>
@@ -57,7 +57,7 @@
 			<view class="subSplitLine"></view>
 			<view class="littleCell refundAmount">
 				<text>退款金额：</text>
-				<text class="totalAmount">￥ {{total.toFixed(2)}}</text>
+				<text class="totalAmount" style="margin-right: 3%;">￥ {{total.toFixed(2)}}</text>
 			</view>
 		</view>
 		
@@ -81,11 +81,16 @@
 </template>
 
 <script>
+	import {mixin} from '../../mixin.js'
 	export default {
+		mixins:[mixin],
 		data() {
 			return {
 				user:{},
-				oreder:{},
+				coverPic:'',
+				order:{
+					price:0,
+				},
 				total: 0,
 				// 货物状态
 				goodsState:[
@@ -119,12 +124,29 @@
 		},
 		mounted() {
 			this.user = uni.getStorageSync('user');	
+			this.getCoverPic();
 		},
 		onLoad(option){
-			this.oreder = JSON.parse(option.orderGoods);
-			this.total = option.refundTotal;
+			this.order = JSON.parse(option.orderGoods);
+			this.total = option.total;
+			console.log(this.order.price);
+			console.log(this.total);
 		},
 		methods: {
+			// 获取商品图片
+			async getCoverPic(){
+				const that  = this;
+				try{
+					let res = await this.api.get('/orders/product/pic',{number:this.order.proNumber});
+					that.coverPic = res.data;
+					this.coverPic = this.imageSrcformat(that.coverPic,'jpg');
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
+			},
+			
+			
 			toSubmit(){
 				if(this.isReason && this.isState){
 					this.refundRequest.goodsState = this.select1;
@@ -162,15 +184,17 @@
 			// 申请退款
 			async applyRefund(){
 				try{
-					let res = await this.api.put('/orders/after',{number:this.order.ordNumber,refundRequest:this.refundRequest});
-					uni.showToast({
-						title: '已成功提交退款申请！',
-						icon: 'success',
-						duration: 30000
-					})
-					uni.navigateBack({
+					let res = await this.api.put('/orders/after',{state:this.order.state,number:this.order.ordNumber,refundRequest:this.refundRequest});
+					if(res.code == "666"){
+						uni.showToast({
+							title: '已成功提交退款申请！',
+							icon: 'success',
+							duration: 30000
+						})
+						uni.navigateBack({
 							delta:2, //返回层数，2则上上页
-					})
+						})
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

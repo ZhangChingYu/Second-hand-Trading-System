@@ -439,4 +439,16 @@
 	color: black;
 	font-size: 32rpx;
 }
+.oneState{
+	text-align: center;
+	width: 425rpx;
+	height: 210rpx;
+	line-height: 236rpx;
+}
+.oneState>text{
+	height: 80rpx;
+	line-height: 80rpx;
+	padding: 10rpx;
+	font-size: 32rpx;
+}
 

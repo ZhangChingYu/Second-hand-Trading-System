@@ -141,82 +141,85 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _mixin = __webpack_require__(/*! ../../mixin.js */ 194);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
+  mixins: [_mixin.mixin],
   data: function data() {
     return {
       user: {},
       orderGoods: {},
+      coverPic: '',
       sellerMess: {},
       current: 0,
       // 返回的评价
@@ -226,29 +229,55 @@ var _default =
         score3: 5,
         // 是否匿名
         isAnonymous: false,
-        evaluation: '' } };
+        evaluate: '' } };
 
 
   },
   mounted: function mounted() {
     this.user = uni.getStorageSync('user');
+    this.getSeller();
+    this.getCoverPic();
   },
   onLoad: function onLoad(option) {
     this.orderGoods = JSON.parse(option.orderGoods);
-    this.sellerMess = JSON.parse(option.sellerMess);
   },
   methods: {
+    // 获取商品图片
+    getCoverPic: function getCoverPic() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                that = _this;_context.prev = 1;_context.next = 4;return (
+
+                  _this.api.get('/orders/product/pic', { number: _this.orderGoods.proNumber }));case 4:res = _context.sent;
+                that.coverPic = res.data;
+                _this.coverPic = _this.imageSrcformat(that.coverPic, 'jpg');_context.next = 12;break;case 9:_context.prev = 9;_context.t0 = _context["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context.t0);case 12:case "end":return _context.stop();}}}, _callee, null, [[1, 9]]);}))();
+
+    },
+
+    // 获取该卖家信息
+    getSeller: function getSeller() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                that = _this2;_context2.prev = 1;_context2.next = 4;return (
+
+                  _this2.api.get('/booking/seller/info', { number: _this2.orderGoods.proNumber }));case 4:res = _context2.sent;
+                that.sellerMess = res.data;
+                _this2.sellerMess.avatar = _this2.imageSrcformat(that.sellerMess.avatar, 'jpg');_context2.next = 12;break;case 9:_context2.prev = 9;_context2.t0 = _context2["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context2.t0);case 12:case "end":return _context2.stop();}}}, _callee2, null, [[1, 9]]);}))();
+
+    },
+
     // 是否匿名评价
     handleChange: function handleChange(e) {
       this.oneEvaluate.isAnonymous = !this.oneEvaluate.isAnonymous;
     },
 
     // 发布评价
-    toSubmit: function toSubmit() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var item, that, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                item = JSON.stringify(_this.orderGoods);
-                that = _this;_context.prev = 2;_context.next = 5;return (
+    toSubmit: function toSubmit() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var that, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                that = _this3;_context3.prev = 1;_context3.next = 4;return (
 
-                  _this.api.post('/evaluation', { phone: _this.user.phone, number: _this.orderGoods.proNumber, evaluate: _this.oneEvaluate }));case 5:res = _context.sent;
+                  _this3.api.post('/evaluation', { number: _this3.orderGoods.proNumber, phone: _this3.user.phone, oneEvaluate: _this3.oneEvaluate }));case 4:res = _context3.sent;
                 if (res == 201) {
                   uni.showToast({
                     title: '评价成功！',
@@ -258,10 +287,10 @@ var _default =
                   uni.navigateBack({
                     delta: 2 //返回层数，2则上上页
                   });
-                }_context.next = 12;break;case 9:_context.prev = 9;_context.t0 = _context["catch"](2);
+                }_context3.next = 11;break;case 8:_context3.prev = 8;_context3.t0 = _context3["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context.t0);case 12:case "end":return _context.stop();}}}, _callee, null, [[2, 9]]);}))();
+                that.$toast(_context3.t0);case 11:case "end":return _context3.stop();}}}, _callee3, null, [[1, 8]]);}))();
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

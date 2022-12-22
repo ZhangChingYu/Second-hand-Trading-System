@@ -137,6 +137,24 @@
   font-size: 24rpx;
   text-align: center;
 }
+/* 举报 */
+.oneState.data-v-12dbf08d {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+.subLine.data-v-12dbf08d {
+  background-color: #b34c26;
+  width: 66%;
+  height: 6rpx;
+  margin-left: 17%;
+}
+.oneState > text.data-v-12dbf08d {
+  height: 80rpx;
+  line-height: 80rpx;
+  padding: 10rpx;
+  font-size: 26rpx;
+}
 /* 留言 */
 .evaluation.data-v-12dbf08d {
   margin-bottom: 120rpx;

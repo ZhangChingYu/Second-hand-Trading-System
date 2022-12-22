@@ -21,7 +21,7 @@
 		<view class='icons'>
 			<view class="icons-item">
 				<image class="icons-img" @click="report" src="../../static/image/my_icon/jubao.png" mode=""></image>
-				<text class='icons-name'>举报</text>
+				<text class='icons-name'>举报进度</text>
 			</view>
 			<view class="icons-item" @click="setup">
 				<view v-show="unreadCount!=0" class="unread">{{unreadCount}}</view>

@@ -39,45 +39,21 @@
 				<view class="oper">
 					<view class="book-state" @click="toOper(item)">{{item.state}}</view>
 					<view class="deleteBook" @click="deleteOne(item,index)">删除</view>
-				</view>
-					
+				</view>		
 			</view>
 		</view>		
 	</view>
 </template>
 
 <script>
+	import {mixin} from '../../mixin.js'
 	export default {
+		mixins:[mixin],
 		data() {
 			return {
 				user:{},
 				// 预约状态state（已预约、待下单、已拒绝）mybookItem:[number,name,coverPic,price,state][商品编号，商品名称，商品图片，价格，预约状态]
-				mybookItem:[
-					{
-											number:"B3267559776586",
-											name:'参加培训班',
-											coverPic:'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-											price:1250,
-											state:'已预约',
-											count:2,
-										},
-										{
-											number:"B1637559776586",
-											name:'使图片的宽高完全拉伸至填满 image 元素',
-											coverPic:'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-											price:268,
-											state:'待下单',
-											count:2,
-										},
-															{
-																number:"B1637559776586",
-																name:'使图片的宽高完全拉伸至填满 image 元素',
-																coverPic:'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-																price:268,
-																state:'已拒绝',
-																count:2,
-															}
-				],
+				mybookItem:[],
 				// 全部预约
 				allBook:[],
 				// 预约状态
@@ -98,21 +74,24 @@
 			}
 		},
 		mounted() {
-					this.user = uni.getStorageSync('user');
-					this.getMybook();	
-					this.allBook = that.mybookItem;
-				},
+			this.user = uni.getStorageSync('user');
+			this.getMybook();	
+			this.allBook = that.mybookItem;
+		},
+		onShow(){
+			this.getMybook();
+		},
 		methods: {
 			toMe(){
 				uni.redirectTo({
-					url:'/pages/me/index'
+					url:'/pages/my/index'
 				})
 			},
 			
 			// 商品详情页(该商品编号)
 			toGoodsDetail(number){
 				uni.navigateTo({
-					url:'/pages/detail/index?goodsNum='+ number
+					url:'/pages/detail/index?number='+ number
 				})
 			},
 			
@@ -162,7 +141,11 @@
 				}
 				
 				try{
-					that.mybookItem = await this.api.get('/booking/select/buyer',{phone:this.user.phone,state:state})			
+					let res = await this.api.get('/booking/select/buyer',{phone:this.user.phone,state:state});
+					that.mybookItem = res.data;
+					for(let i = 0;i<this.mybookItem.length;i++){
+						this.mybookItem[i].coverPic = this.imageSrcformat(that.mybookItem[i].coverPic,'jpg');
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -170,7 +153,8 @@
 			},
 			
 			// 删除某个预约
-			deleteOne(item,index){				
+			deleteOne(item,index){
+				let that = this;
 				uni.showModal({
 					title: '提示',
 					// 提示文字
@@ -186,9 +170,9 @@
 					success: function(res) {
 						if (res.confirm) {
 							if(item.state == '已拒绝'){
-								this.deleteBook(item,index);
+								that.deleteBook(item,index);
 							}
-							else  this.cancelBook(item,index);
+							else  that.cancelBook(item,index);
 							
 							uni.showToast({
 								title: '已成功删除该预约！',
@@ -203,7 +187,7 @@
 			async deleteBook(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.del('/booking/delete',{number:item.bookNum});
+					let res = await this.api.del('/booking/buyer/delete',{number:item.bookNum});
 					that.mybookItem.splice(index,1);
 				}catch(e){
 					//TODO handle the exception
@@ -230,7 +214,7 @@
 				// 已预约状态查看商品详情
 				if(item.state=="已预约" || item.state=="已拒绝"){
 					uni.navigateTo({
-						url:'/pages/detail/index?goodsNum='+ item.number
+						url:'/pages/detail/index?number='+ item.number
 					})
 				}
 				// 待下单状态到达下单界面
@@ -245,7 +229,11 @@
 			async toSomeOf(){
 				const that  = this;
 				try{
-					that.mybookItem = await this.api.get('/booking/fuzzy/name',{name:this.keyWord,isbuyer:1})			
+					let res = await this.api.get('/booking/fuzzy/name',{name:this.keyWord,phone:this.user.phone,isbuyer:1});
+					that.mybookItem = res.data;
+					for(let i = 0;i<this.mybookItem.length;i++){
+						this.mybookItem[i].coverPic = this.imageSrcformat(that.mybookItem[i].coverPic,'jpg');
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -257,7 +245,11 @@
 				const that  = this;
 				let state = '全部';
 				try{
-					that.mybookItem = await this.api.get('/booking/select/buyer',{phone:this.user.phone,state:state})			
+					let res = await this.api.get('/booking/select/buyer',{phone:this.user.phone,state:state});
+					that.mybookItem = res.data;
+					for(let i = 0;i<this.mybookItem.length;i++){
+						this.mybookItem[i].coverPic = this.imageSrcformat(that.mybookItem[i].coverPic,'jpg');
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

@@ -150,87 +150,78 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _mixin = __webpack_require__(/*! ../../mixin.js */ 194);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
+  mixins: [_mixin.mixin],
   data: function data() {
     return {
       user: {},
       // 商品状态goodsState（待审核、待预约、查预约、已下架）myGoodsItem:[number,name,coverPic,price,goodsState][商品编号，商品名称，商品图片，价格，商品状态]
-      myGoodsItem: [
-      {
-        number: "B3267559776586",
-        name: '参加培训班',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-        price: 1250,
-        goodsState: '待审核' },
-
-      {
-        number: "B1637559776586",
-        name: '使图片的宽高完全拉伸至填满 image 元素',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-        price: 268,
-        goodsState: '待预约' },
-
-      {
-        number: "B3267559776586",
-        name: '参加培训班',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-        price: 1250,
-        goodsState: '查预约' },
-
-      {
-        number: "B1637559776586",
-        name: '使图片的宽高完全拉伸至填满 image 元素',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-        price: 268,
-        goodsState: '已下架' }],
-
-
+      state: '',
+      status: 0,
+      myGoodsItem: [],
       // 商品状态
       state0: '全部',
       allcolor: '#b34c26',
@@ -247,146 +238,435 @@ var _default =
       state4: '已下架',
       fourthcolor: '#efefef',
       fourthfont: 'gray',
+      state5: '未通过',
+      fifthcolor: '#efefef',
+      fifthfont: 'gray',
+      state6: '已售空',
+      sixthcolor: '#efefef',
+      sixthfont: 'gray',
+      state7: '已违规',
+      seventhcolor: '#efefef',
+      seventhfont: 'gray',
       // 搜索栏关键词
-      keyWord: '' };
+      keyWord: '',
+      // 是否有预约
+      haveBook: false,
+      // 审核是否通过
+      isCheck: false,
+      // 是否恢复主动下架的商品
+      isDown: false,
+      // 能否删除
+      isDel: false,
+      // 一件商品
+      one: {} };
 
   },
   mounted: function mounted() {
     this.user = uni.getStorageSync('user');
     this.getMyGoods();
   },
+  onShow: function onShow() {
+    this.getMyGoods();
+  },
   methods: {
     toMe: function toMe() {
       uni.redirectTo({
-        url: '/pages/me/index' });
+        url: '/pages/my/index' });
 
     },
 
-    // 商品详情页
-    toGoodsDetail: function toGoodsDetail(number) {
+    // 查看预约
+    toBook: function toBook() {
       uni.navigateTo({
-        url: '/pages/detail/index?goodsNum=' + number });
+        url: '/pages/bookList/index?goodsNum=' + this.one.number });
 
+      this.$refs.popCenter.close();
+    },
+
+    // 更新商品信息
+    updateOne: function updateOne() {
+      var oneitem = JSON.stringify(this.one);
+      uni.navigateTo({
+        url: '/pages/updateMess/index?goods=' + oneitem });
+
+      this.$refs.popCenter.close();
+    },
+
+    // 恢复上架
+    recoveryOne: function recoveryOne() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                that = _this;_context.prev = 1;_context.next = 4;return (
+
+                  _this.api.put('/my/product/on', { number: _this.one.number }));case 4:res = _context.sent;
+                if (res == 201) {
+                  uni.showToast({
+                    title: '恢复上架成功！',
+                    icon: 'success',
+                    duration: 30000 });
+
+                } else
+                if (res == 422) {
+                  uni.showToast({
+                    title: '商品不存在/商品回復上架失敗！',
+                    icon: 'warning',
+                    duration: 30000 });
+
+                } else
+                {
+                  uni.showToast({
+                    title: '商品為不可下架狀態！',
+                    icon: 'warning',
+                    duration: 30000 });
+
+                }_context.next = 11;break;case 8:_context.prev = 8;_context.t0 = _context["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context.t0);case 11:
+
+
+                _this.$refs.popCenter.close();case 12:case "end":return _context.stop();}}}, _callee, null, [[1, 8]]);}))();
+    },
+
+    // 下架商品
+    offOne: function offOne() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                that = _this2;_context2.prev = 1;_context2.next = 4;return (
+
+                  _this2.api.put('/my/product/off', { number: _this2.one.number }));case 4:res = _context2.sent;
+                if (res == 201) {
+                  uni.showToast({
+                    title: '下架成功！',
+                    icon: 'success',
+                    duration: 30000 });
+
+                } else
+                if (res == 422) {
+                  uni.showToast({
+                    title: '商品不存在/商品下架失敗！',
+                    icon: 'warning',
+                    duration: 30000 });
+
+                } else
+                if (res == 300) {
+                  uni.showToast({
+                    title: '商品為不可下架狀態！',
+                    icon: 'warning',
+                    duration: 30000 });
+
+                } else
+                {
+                  uni.showToast({
+                    title: '商品狀態異常！',
+                    icon: 'warning',
+                    duration: 30000 });
+
+                }_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context2.t0);case 11:
+
+
+                _this2.$refs.popCenter.close();case 12:case "end":return _context2.stop();}}}, _callee2, null, [[1, 8]]);}))();
+    },
+
+    // 删除商品
+    deleteOne: function deleteOne() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var that, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
+                that = _this3;_context3.prev = 1;_context3.next = 4;return (
+
+                  _this3.api.del('/my/product', { number: _this3.one.number }));case 4:res = _context3.sent;
+                if (res == 204) {
+                  uni.showToast({
+                    title: '删除成功！',
+                    icon: 'success',
+                    duration: 30000 });
+
+                } else
+                if (res == 422) {
+                  uni.showToast({
+                    title: '商品不存在！',
+                    icon: 'warning',
+                    duration: 30000 });
+
+                } else
+                if (res == 400) {
+                  uni.showToast({
+                    title: '刪除失敗！',
+                    icon: 'warning',
+                    duration: 30000 });
+
+                } else
+                {
+                  uni.showToast({
+                    title: '商品為不可刪除狀態(需先下架)！',
+                    icon: 'warning',
+                    duration: 30000 });
+
+                }_context3.next = 11;break;case 8:_context3.prev = 8;_context3.t0 = _context3["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context3.t0);case 11:
+
+
+                _this3.$refs.popCenter.close();case 12:case "end":return _context3.stop();}}}, _callee3, null, [[1, 8]]);}))();
     },
 
     // 预约状态分类
-    toOne: function toOne(state) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                that = _this;
+    toOne: function toOne(state) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var that, i;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                that = _this4;
 
                 if (state == '全部') {
-                  _this.allcolor = '#b34c26';
-                  _this.allfont = 'white';
-                  _this.firstcolor = '#efefef',
-                  _this.firstfont = 'gray';
-                  _this.secondcolor = '#efefef';
-                  _this.secondfont = 'gray';
-                  _this.thirdcolor = '#efefef';
-                  _this.thirdfont = 'gray';
-                  _this.fourthcolor = '#efefef';
-                  _this.fourthfont = 'gray';
+                  _this4.allcolor = '#b34c26';
+                  _this4.allfont = 'white';
+                  _this4.firstcolor = '#efefef',
+                  _this4.firstfont = 'gray';
+                  _this4.secondcolor = '#efefef';
+                  _this4.secondfont = 'gray';
+                  _this4.thirdcolor = '#efefef';
+                  _this4.thirdfont = 'gray';
+                  _this4.fourthcolor = '#efefef';
+                  _this4.fourthfont = 'gray';
+                  _this4.fifthcolor = '#efefef';
+                  _this4.fifthfont = 'gray';
+                  _this4.sixthcolor = '#efefef';
+                  _this4.sixthfont = 'gray';
+                  _this4.seventhcolor = '#efefef';
+                  _this4.seventhfont = 'gray';
+                  _this4.status = -1;
                 } else
                 if (state == '待审核') {
-                  _this.allcolor = '#efefef';
-                  _this.allfont = 'gray';
-                  _this.firstcolor = '#b34c26',
-                  _this.firstfont = 'white';
-                  _this.secondcolor = '#efefef';
-                  _this.secondfont = 'gray';
-                  _this.thirdcolor = '#efefef';
-                  _this.thirdfont = 'gray';
-                  _this.fourthcolor = '#efefef';
-                  _this.fourthfont = 'gray';
+                  _this4.allcolor = '#efefef';
+                  _this4.allfont = 'gray';
+                  _this4.firstcolor = '#b34c26',
+                  _this4.firstfont = 'white';
+                  _this4.secondcolor = '#efefef';
+                  _this4.secondfont = 'gray';
+                  _this4.thirdcolor = '#efefef';
+                  _this4.thirdfont = 'gray';
+                  _this4.fourthcolor = '#efefef';
+                  _this4.fourthfont = 'gray';
+                  _this4.fifthcolor = '#efefef';
+                  _this4.fifthfont = 'gray';
+                  _this4.sixthcolor = '#efefef';
+                  _this4.sixthfont = 'gray';
+                  _this4.seventhcolor = '#efefef';
+                  _this4.seventhfont = 'gray';
+                  _this4.status = 1;
                 } else
                 if (state == '待预约') {
-                  _this.allcolor = '#efefef';
-                  _this.allfont = 'gray';
-                  _this.firstcolor = '#efefef',
-                  _this.firstfont = 'gray';
-                  _this.secondcolor = '#b34c26';
-                  _this.secondfont = 'white';
-                  _this.thirdcolor = '#efefef';
-                  _this.thirdfont = 'gray';
-                  _this.fourthcolor = '#efefef';
-                  _this.fourthfont = 'gray';
+                  _this4.allcolor = '#efefef';
+                  _this4.allfont = 'gray';
+                  _this4.firstcolor = '#efefef',
+                  _this4.firstfont = 'gray';
+                  _this4.secondcolor = '#b34c26';
+                  _this4.secondfont = 'white';
+                  _this4.thirdcolor = '#efefef';
+                  _this4.thirdfont = 'gray';
+                  _this4.fourthcolor = '#efefef';
+                  _this4.fourthfont = 'gray';
+                  _this4.fifthcolor = '#efefef';
+                  _this4.fifthfont = 'gray';
+                  _this4.sixthcolor = '#efefef';
+                  _this4.sixthfont = 'gray';
+                  _this4.seventhcolor = '#efefef';
+                  _this4.seventhfont = 'gray';
+                  _this4.status = 0;
                 } else
                 if (state == '查预约') {
-                  _this.allcolor = '#efefef';
-                  _this.allfont = 'gray';
-                  _this.firstcolor = '#efefef',
-                  _this.firstfont = 'gray';
-                  _this.secondcolor = '#efefef';
-                  _this.secondfont = 'gray';
-                  _this.thirdcolor = '#b34c26';
-                  _this.thirdfont = 'white';
-                  _this.fourthcolor = '#efefef';
-                  _this.fourthfont = 'gray';
+                  _this4.allcolor = '#efefef';
+                  _this4.allfont = 'gray';
+                  _this4.firstcolor = '#efefef',
+                  _this4.firstfont = 'gray';
+                  _this4.secondcolor = '#efefef';
+                  _this4.secondfont = 'gray';
+                  _this4.thirdcolor = '#b34c26';
+                  _this4.thirdfont = 'white';
+                  _this4.fourthcolor = '#efefef';
+                  _this4.fourthfont = 'gray';
+                  _this4.fifthcolor = '#efefef';
+                  _this4.fifthfont = 'gray';
+                  _this4.sixthcolor = '#efefef';
+                  _this4.sixthfont = 'gray';
+                  _this4.seventhcolor = '#efefef';
+                  _this4.seventhfont = 'gray';
+                  _this4.status = 5;
+                } else
+                if (state == '已下架') {
+                  _this4.allcolor = '#efefef';
+                  _this4.allfont = 'gray';
+                  _this4.firstcolor = '#efefef',
+                  _this4.firstfont = 'gray';
+                  _this4.secondcolor = '#efefef';
+                  _this4.secondfont = 'gray';
+                  _this4.thirdcolor = '#efefef';
+                  _this4.thirdfont = 'gray';
+                  _this4.fourthcolor = '#b34c26';
+                  _this4.fourthfont = 'white';
+                  _this4.fifthcolor = '#efefef';
+                  _this4.fifthfont = 'gray';
+                  _this4.sixthcolor = '#efefef';
+                  _this4.sixthfont = 'gray';
+                  _this4.seventhcolor = '#efefef';
+                  _this4.seventhfont = 'gray';
+                  _this4.status = 6;
+                } else
+                if (state == '未通过') {
+                  _this4.allcolor = '#efefef';
+                  _this4.allfont = 'gray';
+                  _this4.firstcolor = '#efefef',
+                  _this4.firstfont = 'gray';
+                  _this4.secondcolor = '#efefef';
+                  _this4.secondfont = 'gray';
+                  _this4.thirdcolor = '#efefef';
+                  _this4.thirdfont = 'gray';
+                  _this4.fourthcolor = '#efefef';
+                  _this4.fourthfont = 'gray';
+                  _this4.fifthcolor = '#b34c26';
+                  _this4.fifthfont = 'white';
+                  _this4.sixthcolor = '#efefef';
+                  _this4.sixthfont = 'gray';
+                  _this4.seventhcolor = '#efefef';
+                  _this4.seventhfont = 'gray';
+                  _this4.status = 2;
+                } else
+                if (state == '已售空') {
+                  _this4.allcolor = '#efefef';
+                  _this4.allfont = 'gray';
+                  _this4.firstcolor = '#efefef',
+                  _this4.firstfont = 'gray';
+                  _this4.secondcolor = '#efefef';
+                  _this4.secondfont = 'gray';
+                  _this4.thirdcolor = '#efefef';
+                  _this4.thirdfont = 'gray';
+                  _this4.fourthcolor = '#efefef';
+                  _this4.fourthfont = 'gray';
+                  _this4.fifthcolor = '#efefef';
+                  _this4.fifthfont = 'gray';
+                  _this4.sixthcolor = '#b34c26';
+                  _this4.sixthfont = 'white';
+                  _this4.seventhcolor = '#efefef';
+                  _this4.seventhfont = 'gray';
+                  _this4.status = 4;
                 } else
                 {
-                  _this.allcolor = '#efefef';
-                  _this.allfont = 'gray';
-                  _this.firstcolor = '#efefef',
-                  _this.firstfont = 'gray';
-                  _this.secondcolor = '#efefef';
-                  _this.secondfont = 'gray';
-                  _this.thirdcolor = '#efefef';
-                  _this.thirdfont = 'gray';
-                  _this.fourthcolor = '#b34c26';
-                  _this.fourthfont = 'white';
-                }_context.prev = 2;_context.next = 5;return (
+                  _this4.allcolor = '#efefef';
+                  _this4.allfont = 'gray';
+                  _this4.firstcolor = '#efefef',
+                  _this4.firstfont = 'gray';
+                  _this4.secondcolor = '#efefef';
+                  _this4.secondfont = 'gray';
+                  _this4.thirdcolor = '#efefef';
+                  _this4.thirdfont = 'gray';
+                  _this4.fourthcolor = '#efefef';
+                  _this4.fourthfont = 'gray';
+                  _this4.fifthcolor = '#efefef';
+                  _this4.fifthfont = 'gray';
+                  _this4.sixthcolor = '#efefef';
+                  _this4.sixthfont = 'gray';
+                  _this4.seventhcolor = '#b34c26';
+                  _this4.seventhfont = 'white';
+                  _this4.status = 3;
+                }if (!(
+
+                _this4.status == -1)) {_context4.next = 6;break;}
+                _this4.getMyGoods();_context4.next = 16;break;case 6:_context4.prev = 6;_context4.next = 9;return (
 
 
-                  _this.api.get('/my/products', { phone: _this.user.phone, state: state }));case 5:that.myGoodsItem = _context.sent;_context.next = 11;break;case 8:_context.prev = 8;_context.t0 = _context["catch"](2);
+
+                  _this4.api.get('/my/products', { phone: _this4.user.phone, status: _this4.status }));case 9:that.myGoodsItem = _context4.sent;
+                for (i = 0; i < _this4.myGoodsItem.length; i++) {
+                  _this4.myGoodsItem[i].coverPic = _this4.imageSrcformat(that.myGoodsItem[i].coverPic, that.myGoodsItem[i].coverPicFormat);
+                }_context4.next = 16;break;case 13:_context4.prev = 13;_context4.t0 = _context4["catch"](6);
 
                 //TODO handle the exception
-                that.$toast(_context.t0);case 11:case "end":return _context.stop();}}}, _callee, null, [[2, 8]]);}))();
+                that.$toast(_context4.t0);case 16:case "end":return _context4.stop();}}}, _callee4, null, [[6, 13]]);}))();
+
 
     },
 
     // 商品状态相关操作
     toOper: function toOper(item) {
+      this.one = item;
+      this.operDetail(item);
+      this.$refs.popCenter.open('center');
+    },
+
+    operDetail: function operDetail(item) {
       //let data = encodeURIComponent(JSON.stringify(item));
       var oneitem = JSON.stringify(item);
-      // 待审核状态查看商品发布信息详情
-      if (item.goodsState == "待审核") {
-
+      if (item.status == 0) {
+        this.state = '商品审核已通过，正在等在预约~';
+        this.isCheck = true;
+        this.haveBook = false;
+        this.isDown = false;
+        this.isDel = false;
+      } else
+      if (item.status == 1) {
+        this.state = '商品正在等待审核，请稍等~';
+        this.isCheck = false;
+        this.haveBook = false;
+        this.isDown = false;
+        this.isDel = false;
+      } else
+      if (item.status == 2) {
+        this.state = '非常抱歉，商品审核未通过！';
+        this.isCheck = false;
+        this.haveBook = false;
+        this.isDown = false;
+        this.isDel = false;
+      } else
+      if (item.status == 3) {
+        this.state = '商品被举报违规，已强制下架！';
+        this.isCheck = false;
+        this.haveBook = false;
+        this.isDown = false;
+        this.isDel = true;
+      } else
+      if (item.status == 4) {
+        this.state = '商品超级抢手，已售空！';
+        this.isCheck = true;
+        this.haveBook = false;
+        this.isDown = false;
+        this.isDel = false;
+      } else
+      if (item.status == 5) {
+        this.state = '商品已被预约，可查看相关预约详情~';
+        this.isCheck = true;
+        this.haveBook = true;
+        this.isDown = false;
+        this.isDel = false;
+      } else
+      {
+        this.state = '商品已被您主动下架~';
+        this.isDown = true;
+        this.isCheck = false;
+        this.haveBook = false;
+        this.isDel = true;
       }
-      // 待预约状态到达商品详情界面
-      else if (item.goodsState == "待预约") {
-          uni.navigateTo({
-            url: '/pages/detail/index?goodsNum=' + item.number });
-
-        }
-        // 查预约状态到达该商品预约列表界面
-        else if (item.goodsState == "查预约") {
-            uni.navigateTo({
-              url: '/pages/bookList/index?goodsNum=' + item.number });
-
-          }
-          // 已下架状态
-          else {
-              this.$toast('商品已下架，相关信息已删除！');
-            }
     },
 
     // 搜索相关我的商品
-    toSomeOf: function toSomeOf() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                that = _this2;_context2.prev = 1;_context2.next = 4;return (
+    toSomeOf: function toSomeOf() {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var that, i;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
+                that = _this5;_context5.prev = 1;_context5.next = 4;return (
 
-                  _this2.api.get('/my/products/key', { phone: _this2.user.phone, keyword: _this2.keyWord }));case 4:that.myGoodsItem = _context2.sent;_context2.next = 10;break;case 7:_context2.prev = 7;_context2.t0 = _context2["catch"](1);
+                  _this5.api.get('/my/products/key', { phone: _this5.user.phone, keyword: _this5.keyWord }));case 4:that.myGoodsItem = _context5.sent;
+                for (i = 0; i < _this5.myGoodsItem.length; i++) {
+                  _this5.myGoodsItem[i].coverPic = _this5.imageSrcformat(that.myGoodsItem[i].coverPic, that.myGoodsItem[i].coverPicFormat);
+                }_context5.next = 11;break;case 8:_context5.prev = 8;_context5.t0 = _context5["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context2.t0);case 10:case "end":return _context2.stop();}}}, _callee2, null, [[1, 7]]);}))();
+                that.$toast(_context5.t0);case 11:case "end":return _context5.stop();}}}, _callee5, null, [[1, 8]]);}))();
 
     },
 
     // 获取该用户所有商品
-    getMyGoods: function getMyGoods() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var that;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                that = _this3;_context3.prev = 1;_context3.next = 4;return (
+    getMyGoods: function getMyGoods() {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var that, i;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+                that = _this6;_context6.prev = 1;_context6.next = 4;return (
 
-                  _this3.api.get('/my/products', { phone: _this3.user.phone }));case 4:that.myGoodsItem = _context3.sent;_context3.next = 10;break;case 7:_context3.prev = 7;_context3.t0 = _context3["catch"](1);
+                  _this6.api.get('/my/products', { phone: _this6.user.phone }));case 4:that.myGoodsItem = _context6.sent;
+                for (i = 0; i < _this6.myGoodsItem.length; i++) {
+                  _this6.myGoodsItem[i].coverPic = _this6.imageSrcformat(that.myGoodsItem[i].coverPic, that.myGoodsItem[i].coverPicFormat);
+                }_context6.next = 11;break;case 8:_context6.prev = 8;_context6.t0 = _context6["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context3.t0);case 10:case "end":return _context3.stop();}}}, _callee3, null, [[1, 7]]);}))();
+                that.$toast(_context6.t0);case 11:case "end":return _context6.stop();}}}, _callee6, null, [[1, 8]]);}))();
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

@@ -256,8 +256,7 @@
 	.main .myId,.main .country,.main .username,.main .mailbox,.main .password {
 		height: 2.5rem;
 		position: relative;
-		width: 90vw;
-		
+		width: 90vw;	
 	}
 	
 	.label {

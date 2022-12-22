@@ -150,113 +150,64 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _mixin = __webpack_require__(/*! ../../mixin.js */ 194);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
+  mixins: [_mixin.mixin],
   data: function data() {
     return {
       user: {},
       // myOrderItem:[proNumber,ordNumber,name,coverPic,price,state][商品编号，订单编号，商品名称，商品图片，价格，订单状态]
-      myOrderItem: [
-      {
-        number: "B3267559776586",
-        name: '参加培训班',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-        price: 1250,
-        state: '已购买',
-        count: 4,
-        // 订单编号
-        ordNumber: '20194256202211291352' },
-
-      {
-        number: "B1637559776586",
-        name: '使图片的宽高完全拉伸至填满 image 元素',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-        price: 268,
-        state: '待退款',
-        count: 2,
-        // 订单编号
-        ordNumber: '20194256202211291352' },
-
-      {
-        number: "B1637559776586",
-        name: '使图片的宽高完全拉伸至填满 image 元素',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-        price: 268,
-        state: '已退款',
-        count: 5,
-        // 订单编号
-        ordNumber: '20194256202211291352' },
-
-      {
-        number: "B3267559776586",
-        name: '参加培训班',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-        price: 1250,
-        state: '待发货',
-        count: 1,
-        // 订单编号
-        ordNumber: '20194256202211291352' },
-
-      {
-        number: "B1637559776586",
-        name: '使图片的宽高完全拉伸至填满 image 元素',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-        price: 268,
-        state: '待收货',
-        count: 3,
-        // 订单编号
-        ordNumber: '20194256202211291352' }],
-
-
+      myOrderItem: [],
       // 订单状态
       state0: '全部',
       allcolor: '#b34c26',
@@ -284,17 +235,20 @@ var _default =
     this.user = uni.getStorageSync('user');
     this.getMyOrder();
   },
+  onShow: function onShow() {
+    this.getMyOrder();
+  },
   methods: {
     toMe: function toMe() {
       uni.redirectTo({
-        url: '/pages/me/index' });
+        url: '/pages/my/index' });
 
     },
 
     // 商品详情页
     toGoodsDetail: function toGoodsDetail(number) {
       uni.navigateTo({
-        url: '/pages/detail/index?goodsNum=' + number });
+        url: '/pages/detail/index?number=' + number });
 
     },
 
@@ -308,18 +262,22 @@ var _default =
     },
 
     // 搜索相关我的订单(关键词：商品名称，卖家手机号)
-    toSomeOf: function toSomeOf() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+    toSomeOf: function toSomeOf() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, res, i;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 that = _this;_context.prev = 1;_context.next = 4;return (
 
-                  _this.api.get('/orders/fuzzy/name', { name: _this.keyWord, isbuyer: 1 }));case 4:that.myOrderItem = _context.sent;_context.next = 10;break;case 7:_context.prev = 7;_context.t0 = _context["catch"](1);
+                  _this.api.get('/orders/fuzzy/name', { name: _this.keyWord, phone: _this.user.phone, isbuyer: 1 }));case 4:res = _context.sent;
+                that.myOrderItem = res.data;
+                for (i = 0; i < _this.myOrderItem.length; i++) {
+                  _this.myOrderItem[i].coverPic = _this.imageSrcformat(that.myOrderItem[i].coverPic, 'jpg');
+                }_context.next = 12;break;case 9:_context.prev = 9;_context.t0 = _context["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context.t0);case 10:case "end":return _context.stop();}}}, _callee, null, [[1, 7]]);}))();
+                that.$toast(_context.t0);case 12:case "end":return _context.stop();}}}, _callee, null, [[1, 9]]);}))();
 
     },
 
     // 订单状态分类
-    toOne: function toOne(state) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+    toOne: function toOne(state) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res, i;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 that = _this2;
 
                 if (state == '全部') {
@@ -408,15 +366,20 @@ var _default =
                 }_context2.prev = 2;_context2.next = 5;return (
 
 
-                  _this2.api.get('/orders/select/buyer', { phone: _this2.user.phone, state: state }));case 5:that.myOrderItem = _context2.sent;_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](2);
+                  _this2.api.get('/orders/select/buyer', { phone: _this2.user.phone, state: state }));case 5:res = _context2.sent;
+                that.myOrderItem = res.data;
+                for (i = 0; i < _this2.myOrderItem.length; i++) {
+                  _this2.myOrderItem[i].coverPic = _this2.imageSrcformat(that.myOrderItem[i].coverPic, 'jpg');
+                }_context2.next = 13;break;case 10:_context2.prev = 10;_context2.t0 = _context2["catch"](2);
 
                 //TODO handle the exception
-                that.$toast(_context2.t0);case 11:case "end":return _context2.stop();}}}, _callee2, null, [[2, 8]]);}))();
+                that.$toast(_context2.t0);case 13:case "end":return _context2.stop();}}}, _callee2, null, [[2, 10]]);}))();
 
     },
 
     // 删除某个订单
     deleteOne: function deleteOne(item, index) {
+      var that = this;
       uni.showModal({
         title: '提示',
         // 提示文字
@@ -431,7 +394,7 @@ var _default =
         cancelColor: '#000000',
         success: function success(res) {
           if (res.confirm) {
-            this.deleteOrder(item, index);
+            that.deleteOrder(item, index);
             uni.showToast({
               title: '已成功删除该订单！',
               icon: 'success',
@@ -454,14 +417,18 @@ var _default =
     },
 
     // 获取该用户所有订单
-    getMyOrder: function getMyOrder() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var that, state;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+    getMyOrder: function getMyOrder() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var that, state, res, i;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
                 that = _this4;
                 state = '全部';_context4.prev = 2;_context4.next = 5;return (
 
-                  _this4.api.get('/orders/select/buyer', { phone: _this4.user.phone, state: state }));case 5:that.myOrderItem = _context4.sent;_context4.next = 11;break;case 8:_context4.prev = 8;_context4.t0 = _context4["catch"](2);
+                  _this4.api.get('/orders/select/buyer', { phone: _this4.user.phone, state: state }));case 5:res = _context4.sent;
+                that.myOrderItem = res.data;
+                for (i = 0; i < _this4.myOrderItem.length; i++) {
+                  _this4.myOrderItem[i].coverPic = _this4.imageSrcformat(that.myOrderItem[i].coverPic, 'jpg');
+                }_context4.next = 13;break;case 10:_context4.prev = 10;_context4.t0 = _context4["catch"](2);
 
                 //TODO handle the exception
-                that.$toast(_context4.t0);case 11:case "end":return _context4.stop();}}}, _callee4, null, [[2, 8]]);}))();
+                that.$toast(_context4.t0);case 13:case "end":return _context4.stop();}}}, _callee4, null, [[2, 10]]);}))();
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

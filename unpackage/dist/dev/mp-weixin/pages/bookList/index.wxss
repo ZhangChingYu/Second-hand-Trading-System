@@ -336,6 +336,116 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 子分割线 */
 .subSplitLine{
 	background-color: #efefef;
@@ -444,5 +554,100 @@
 	border-radius: 15rpx;
 	color: white;
 	font-size: 32rpx;
+}
+.oneState{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 666rpx;
+	height: 466rpx;
+}
+.subLine{
+	background-color: #b34c26;
+	width: 78%;
+	height: 6rpx;
+	margin-left: 11%;
+}
+.oneState>text{
+	height: 80rpx;
+	line-height: 80rpx;
+	padding: 10rpx;
+}
+.oneState>input{
+	height: 100rpx;
+	width: 486rpx;
+	margin-left: 90rpx;
+	padding: 10rpx;
+	background-color: #efefef;
+	color: gray;
+	font-size: 32rpx;
+	margin-top: 88rpx;
+	margin-bottom: 88rpx;
+}
+.oneState>button{
+	background-color: #b34c26;
+	color: white;
+	width: 250rpx;
+	height: 60rpx;
+	font-size: 28rpx;
+	line-height: 60rpx;
+	text-align: center;
+}
+.twoState{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 666rpx;
+	height: 850rpx;
+}
+.twoState>text{
+	height: 80rpx;
+	line-height: 80rpx;
+	padding: 10rpx;
+}
+.somebt{
+	display: flex;
+	flex-direction: row;
+	text-align: center;
+	justify-content: space-between;
+}
+.somebt>button{
+	width: 250rpx;
+	height: 60rpx;
+	font-size: 28rpx;
+	line-height: 60rpx;
+	text-align: center;
+}
+.threeState{
+	display: flex;
+	flex-direction: column;
+	text-align: center;
+	width: 666rpx;
+	height: 975rpx;
+}
+.threeState>text{
+	height: 60rpx;
+	line-height: 60rpx;
+	padding: 5rpx;
+}
+.returnPage{
+	margin-top: 80rpx;
+	width: 250rpx;
+	height: 60rpx;
+	font-size: 28rpx;
+	line-height: 60rpx;
+	text-align: center;
+	background-color: gray;
+	color: white;
+}
+.deleteOrder{
+	margin-top: 10rpx;
+	width: 250rpx;
+	height: 60rpx;
+	font-size: 28rpx;
+	line-height: 60rpx;
+	text-align: center;
+	background-color: #b34c26;
+	color: white;
 }
 

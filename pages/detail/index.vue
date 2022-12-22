@@ -1,5 +1,4 @@
-<template>
-	<u-skeleton
+<u-skeleton
 		 rows="2"
 		:loading="product === ''"
 		avatar
@@ -49,6 +48,13 @@
 				<view class="report" @click="report">
 					{{reportText}}
 				</view>
+				<uni-popup ref="popdown" type="bottom" background-color="#fff">
+					<view class="oneState">
+						<text style="font-size: 30rpx;">请选择举报理由</text>
+						<view class="subLine" ></view>
+						<text v-for="(item,index) of reportReason" :key="index" @click="setReason(index)">{{item.reason}}</text>
+					</view>		
+				</uni-popup>
 				<view >收藏：{{product.like_count}}</view>
 				<view >留言：{{evaluationList.length}}</view>
 				<view >数量：{{product.storage}}</view>
@@ -174,6 +180,16 @@
 					showR:false,//回复窗口
 					replyContent:'',
 					replyFatherId:'',
+					
+					// 商品举报原因
+					reportReason:[
+						{reason:'广告或垃圾信息',},
+						{reason:'违法或政治敏感信息',},
+						{reason:'色情类信息',},
+						{reason:'欺诈类信息',},
+						{reason:'不举报了',}
+					],
+					oneReport:'',
 					
 				}
 		},
@@ -306,9 +322,41 @@
 					this.$toast(e)
 				}
 			},
-			// 举报
+			// 商品举报
 			report(){
-				this.$toast('举报');
+				this.$refs.popdown.open('bottom');
+			},
+			setReason(index){
+				this.oneReport = this.reportReason[index].reason;
+				this.$refs.popdown.close();
+				if(this.oneReport != '不举报了' && this.oneReport != ''){
+					this.postReport();
+				}		
+			},
+			async postReport(){
+				let that = this;
+				try{
+					let res = await this.api.post('/product/report',{number:this.number,phone:this.user.phone,content:this.oneReport});
+					let title = '';
+					switch(res){
+						case 201:
+							title = '举报发送成功！';
+							break;
+							
+						case 400:
+							title = '举报失败！';
+							break;
+							
+						case 422:
+							title = '发送失败！';
+							break;
+				
+					}
+					that.$toast(title);
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e);
+				}
 			},
 			async getBooked(){
 				try{
@@ -583,6 +631,24 @@
 		color: #fff;
 		font-size: 24rpx;
 		text-align: center;
+	}
+	/* 举报 */
+	.oneState{
+		display: flex;
+		flex-direction: column;
+		text-align: center;
+	}
+	.subLine{
+		background-color: #b34c26;
+		width: 66%;
+		height: 6rpx;
+		margin-left: 17%;
+	}
+	.oneState>text{
+		height: 80rpx;
+		line-height: 80rpx;
+		padding: 10rpx;
+		font-size: 26rpx;
 	}
 	
 	/* 留言 */

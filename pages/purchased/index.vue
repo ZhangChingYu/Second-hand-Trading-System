@@ -48,63 +48,14 @@
 </template>
 
 <script>
+	import {mixin} from '../../mixin.js'
 	export default {
+		mixins:[mixin],
 		data() {
 			return {
 				user:{},
 				// myOrderItem:[proNumber,ordNumber,name,coverPic,price,state][商品编号，订单编号，商品名称，商品图片，价格，订单状态]
-				myOrderItem:[
-					{
-											number:"B3267559776586",
-											name:'参加培训班',
-											coverPic:'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-											price:1250,
-											state:'已购买',
-											count:4,
-											// 订单编号
-											ordNumber:'20194256202211291352',
-										},
-										{
-											number:"B1637559776586",
-											name:'使图片的宽高完全拉伸至填满 image 元素',
-											coverPic:'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-											price:268,
-											state:'待退款',
-											count:2,
-											// 订单编号
-											ordNumber:'20194256202211291352',
-										},
-										{
-											number:"B1637559776586",
-											name:'使图片的宽高完全拉伸至填满 image 元素',
-											coverPic:'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-											price:268,
-											state:'已退款',
-											count:5,
-											// 订单编号
-											ordNumber:'20194256202211291352',
-										},
-										{
-																number:"B3267559776586",
-																name:'参加培训班',
-																coverPic:'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-																price:1250,
-																state:'待发货',
-																count:1,
-																// 订单编号
-																ordNumber:'20194256202211291352',
-															},
-															{
-																number:"B1637559776586",
-																name:'使图片的宽高完全拉伸至填满 image 元素',
-																coverPic:'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-																price:268,
-																state:'待收货',
-																count:3,
-																// 订单编号
-																ordNumber:'20194256202211291352',
-															}
-				],
+				myOrderItem:[],
 				// 订单状态
 				state0:'全部',
 				allcolor:'#b34c26',
@@ -129,20 +80,23 @@
 			}
 		},
 		mounted() {
-					this.user = uni.getStorageSync('user');
-					this.getMyOrder();					
-				},
+			this.user = uni.getStorageSync('user');
+			this.getMyOrder();					
+		},
+		onShow(){
+			this.getMyOrder();	
+		},
 		methods: {
 			toMe(){
 				uni.redirectTo({
-					url:'/pages/me/index'
+					url:'/pages/my/index'
 				})
 			},
 			
 			// 商品详情页
 			toGoodsDetail(number){
 				uni.navigateTo({
-					url:'/pages/detail/index?goodsNum='+ number
+					url:'/pages/detail/index?number='+ number
 				})
 			},
 			
@@ -159,7 +113,11 @@
 			async toSomeOf(){
 				const that  = this;
 				try{
-					that.myOrderItem = await this.api.get('/orders/fuzzy/name',{name:this.keyWord,isbuyer:1})			
+					let res = await this.api.get('/orders/fuzzy/name',{name:this.keyWord,phone:this.user.phone,isbuyer:1});
+					that.myOrderItem = res.data;
+					for(let i = 0;i<this.myOrderItem.length;i++){
+						this.myOrderItem[i].coverPic = this.imageSrcformat(that.myOrderItem[i].coverPic,'jpg');
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -256,7 +214,11 @@
 				}
 							
 				try{
-					that.myOrderItem = await this.api.get('/orders/select/buyer',{phone:this.user.phone,state:state})			
+					let res = await this.api.get('/orders/select/buyer',{phone:this.user.phone,state:state});
+					that.myOrderItem = res.data;
+					for(let i = 0;i<this.myOrderItem.length;i++){
+						this.myOrderItem[i].coverPic = this.imageSrcformat(that.myOrderItem[i].coverPic,'jpg');
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -264,7 +226,8 @@
 			},
 			
 			// 删除某个订单
-			deleteOne(item,index){				
+			deleteOne(item,index){
+				let that = this;
 				uni.showModal({
 					title: '提示',
 					// 提示文字
@@ -279,7 +242,7 @@
 					cancelColor:'#000000',
 					success: function(res) {
 						if (res.confirm) {
-							this.deleteOrder(item,index);
+							that.deleteOrder(item,index);
 							uni.showToast({
 								title: '已成功删除该订单！',
 								icon: 'success',
@@ -306,7 +269,11 @@
 				const that  = this;
 				let state = '全部';
 				try{
-					that.myOrderItem = await this.api.get('/orders/select/buyer',{phone:this.user.phone,state:state})				
+					let res = await this.api.get('/orders/select/buyer',{phone:this.user.phone,state:state});
+					that.myOrderItem = res.data;
+					for(let i = 0;i<this.myOrderItem.length;i++){
+						this.myOrderItem[i].coverPic = this.imageSrcformat(that.myOrderItem[i].coverPic,'jpg');
+					}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

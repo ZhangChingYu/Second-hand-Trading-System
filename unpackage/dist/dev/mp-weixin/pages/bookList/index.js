@@ -185,6 +185,45 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
@@ -212,56 +251,16 @@ var _default =
       // 某个商品编号
       oneNum: '',
       // 某个商品的预约列表
-      oneBookList: [
-      {
-        avatar: "../../static/image/avatar.png",
-        userName: "徐必成",
-        count: 2,
-        state: '待处理' },
-
-      {
-        avatar: "../../static/image/avatar.png",
-        userName: "徐必成",
-        count: 5,
-        state: '待下单' },
-
-      {
-        avatar: "../../static/image/avatar.png",
-        userName: "徐必成",
-        count: 6,
-        state: '待发货' },
-
-      {
-        avatar: "../../static/image/avatar.png",
-        userName: "徐必成",
-        count: 7,
-        state: '待收货' },
-
-      {
-        avatar: "../../static/image/avatar.png",
-        userName: "徐必成",
-        count: 8,
-        state: '待退款' },
-
-      {
-        avatar: "../../static/image/avatar.png",
-        userName: "徐必成",
-        count: 9,
-        state: '已退款' },
-
-      {
-        avatar: "../../static/image/avatar.png",
-        userName: "徐必成",
-        count: 10,
-        state: '已卖出' },
-
-      {
-        avatar: "../../static/image/avatar.png",
-        userName: "徐必成",
-        count: 4,
-        state: '已拒绝' }] };
-
-
+      oneBookList: [],
+      // 快递单号
+      deliveryId: '',
+      // 退款申请
+      applyRefund: {},
+      // 订单其他信息
+      order: {},
+      // 订单时间信息的显示
+      noSelf: false,
+      isConfirm: false };
 
   },
   mounted: function mounted() {
@@ -274,18 +273,64 @@ var _default =
   methods: {
 
     openState1: function openState1() {
-      this.$refs.pop1.open('center');
+      this.$refs.pop1[0].open('center');
+    },
+
+    openState2: function openState2(item) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                that = _this;_context.prev = 1;_context.next = 4;return (
+
+                  _this.api.get('/orders/after/reason', { number: _this.item.number }));case 4:res = _context.sent;
+                that.applyRefund = res.data;_context.next = 11;break;case 8:_context.prev = 8;_context.t0 = _context["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context.t0);case 11:
+
+                _this.$refs.pop2[0].open('center');case 12:case "end":return _context.stop();}}}, _callee, null, [[1, 8]]);}))();
+    },
+
+    openState3: function openState3(item) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                that = _this2;_context2.prev = 1;_context2.next = 4;return (
+
+                  _this2.api.get('/orders/details', { number: _this2.item.number }));case 4:res = _context2.sent;
+                that.order = res.data;_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context2.t0);case 11:
+
+                if (_this2.order.delivery == '快递') _this2.noSelf = true;else
+                _this2.noSelf = false;
+                _this2.$refs.pop3[0].open('center');case 13:case "end":return _context2.stop();}}}, _callee2, null, [[1, 8]]);}))();
+    },
+
+    // 卖家确认发货
+    confirmOrder: function confirmOrder(item, index) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:if (!(
+                _this3.deliveryId != '')) {_context3.next = 14;break;}_context3.prev = 1;_context3.next = 4;return (
+
+
+                  _this3.api.put('/orders/receiving', { number: _this3.item.number, deliveryId: _this3.deliveryId }));case 4:res = _context3.sent;
+                _this3.oneBookList[index].state = '待收货';
+                _this3.$refs.pop1[0].close();_context3.next = 12;break;case 9:_context3.prev = 9;_context3.t0 = _context3["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context3.t0);case 12:_context3.next = 15;break;case 14:
+
+
+                _this3.$toast('请填写快递单号~');case 15:case "end":return _context3.stop();}}}, _callee3, null, [[1, 9]]);}))();
     },
 
     // 获取该商品的预约列表
-    getOneBookList: function getOneBookList() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, state;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                that = _this;
-                state = '全部';_context.prev = 2;_context.next = 5;return (
+    getOneBookList: function getOneBookList() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var that, state, res, i;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                that = _this4;
+                state = '全部';_context4.prev = 2;_context4.next = 5;return (
 
-                  _this.api.get('/booking/select/bookings', { number: _this.oneNum, state: state }));case 5:that.oneBookList = _context.sent;_context.next = 11;break;case 8:_context.prev = 8;_context.t0 = _context["catch"](2);
+                  _this4.api.get('/booking/select/bookings', { number: _this4.oneNum, state: state }));case 5:res = _context4.sent;
+                that.oneBookList = res.data;
+                for (i = 0; i < _this4.oneBookList.length; i++) {
+                  _this4.oneBookList[i].avatar = _this4.imageSrcformat(that.oneBookList[i].avatar, 'jpg');
+                }_context4.next = 13;break;case 10:_context4.prev = 10;_context4.t0 = _context4["catch"](2);
 
                 //TODO handle the exception
-                that.$toast(_context.t0);case 11:case "end":return _context.stop();}}}, _callee, null, [[2, 8]]);}))();
+                that.$toast(_context4.t0);case 13:case "end":return _context4.stop();}}}, _callee4, null, [[2, 10]]);}))();
 
     },
 
@@ -295,104 +340,109 @@ var _default =
     },
 
     // 预约状态分类
-    toOne: function toOne(state) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                that = _this2;
+    toOne: function toOne(state) {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var that, res, i;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
+                that = _this5;
 
                 if (state == '全部') {
-                  _this2.allcolor = '#b34c26';
-                  _this2.allfont = 'white';
-                  _this2.firstcolor = '#efefef',
-                  _this2.firstfont = 'gray';
-                  _this2.secondcolor = '#efefef';
-                  _this2.secondfont = 'gray';
-                  _this2.thirdcolor = '#efefef';
-                  _this2.thirdfont = 'gray';
-                  _this2.fourthcolor = '#efefef';
-                  _this2.fourthfont = 'gray';
-                  _this2.fifthcolor = '#efefef';
-                  _this2.fifthfont = 'gray';
+                  _this5.allcolor = '#b34c26';
+                  _this5.allfont = 'white';
+                  _this5.firstcolor = '#efefef',
+                  _this5.firstfont = 'gray';
+                  _this5.secondcolor = '#efefef';
+                  _this5.secondfont = 'gray';
+                  _this5.thirdcolor = '#efefef';
+                  _this5.thirdfont = 'gray';
+                  _this5.fourthcolor = '#efefef';
+                  _this5.fourthfont = 'gray';
+                  _this5.fifthcolor = '#efefef';
+                  _this5.fifthfont = 'gray';
                 } else
                 if (state == '待处理') {
-                  _this2.allcolor = '#efefef';
-                  _this2.allfont = 'gray';
-                  _this2.firstcolor = '#b34c26',
-                  _this2.firstfont = 'white';
-                  _this2.secondcolor = '#efefef';
-                  _this2.secondfont = 'gray';
-                  _this2.thirdcolor = '#efefef';
-                  _this2.thirdfont = 'gray';
-                  _this2.fourthcolor = '#efefef';
-                  _this2.fourthfont = 'gray';
-                  _this2.fifthcolor = '#efefef';
-                  _this2.fifthfont = 'gray';
+                  _this5.allcolor = '#efefef';
+                  _this5.allfont = 'gray';
+                  _this5.firstcolor = '#b34c26',
+                  _this5.firstfont = 'white';
+                  _this5.secondcolor = '#efefef';
+                  _this5.secondfont = 'gray';
+                  _this5.thirdcolor = '#efefef';
+                  _this5.thirdfont = 'gray';
+                  _this5.fourthcolor = '#efefef';
+                  _this5.fourthfont = 'gray';
+                  _this5.fifthcolor = '#efefef';
+                  _this5.fifthfont = 'gray';
                 } else
                 if (state == '待发货') {
-                  _this2.allcolor = '#efefef';
-                  _this2.allfont = 'gray';
-                  _this2.firstcolor = '#efefef',
-                  _this2.firstfont = 'gray';
-                  _this2.secondcolor = '#b34c26';
-                  _this2.secondfont = 'white';
-                  _this2.thirdcolor = '#efefef';
-                  _this2.thirdfont = 'gray';
-                  _this2.fourthcolor = '#efefef';
-                  _this2.fourthfont = 'gray';
-                  _this2.fifthcolor = '#efefef';
-                  _this2.fifthfont = 'gray';
+                  _this5.allcolor = '#efefef';
+                  _this5.allfont = 'gray';
+                  _this5.firstcolor = '#efefef',
+                  _this5.firstfont = 'gray';
+                  _this5.secondcolor = '#b34c26';
+                  _this5.secondfont = 'white';
+                  _this5.thirdcolor = '#efefef';
+                  _this5.thirdfont = 'gray';
+                  _this5.fourthcolor = '#efefef';
+                  _this5.fourthfont = 'gray';
+                  _this5.fifthcolor = '#efefef';
+                  _this5.fifthfont = 'gray';
                 } else
                 if (state == '待退款') {
-                  _this2.allcolor = '#efefef';
-                  _this2.allfont = 'gray';
-                  _this2.firstcolor = '#efefef',
-                  _this2.firstfont = 'gray';
-                  _this2.secondcolor = '#efefef';
-                  _this2.secondfont = 'gray';
-                  _this2.thirdcolor = '#b34c26';
-                  _this2.thirdfont = 'white';
-                  _this2.fourthcolor = '#efefef';
-                  _this2.fourthfont = 'gray';
-                  _this2.fifthcolor = '#efefef';
-                  _this2.fifthfont = 'gray';
+                  _this5.allcolor = '#efefef';
+                  _this5.allfont = 'gray';
+                  _this5.firstcolor = '#efefef',
+                  _this5.firstfont = 'gray';
+                  _this5.secondcolor = '#efefef';
+                  _this5.secondfont = 'gray';
+                  _this5.thirdcolor = '#b34c26';
+                  _this5.thirdfont = 'white';
+                  _this5.fourthcolor = '#efefef';
+                  _this5.fourthfont = 'gray';
+                  _this5.fifthcolor = '#efefef';
+                  _this5.fifthfont = 'gray';
                 } else
                 if (state == '已卖出') {
-                  _this2.allcolor = '#efefef';
-                  _this2.allfont = 'gray';
-                  _this2.firstcolor = '#efefef',
-                  _this2.firstfont = 'gray';
-                  _this2.secondcolor = '#efefef';
-                  _this2.secondfont = 'gray';
-                  _this2.thirdcolor = '#efefef';
-                  _this2.thirdfont = 'gray';
-                  _this2.fourthcolor = '#b34c26';
-                  _this2.fourthfont = 'white';
-                  _this2.fifthcolor = '#efefef';
-                  _this2.fifthfont = 'gray';
+                  _this5.allcolor = '#efefef';
+                  _this5.allfont = 'gray';
+                  _this5.firstcolor = '#efefef',
+                  _this5.firstfont = 'gray';
+                  _this5.secondcolor = '#efefef';
+                  _this5.secondfont = 'gray';
+                  _this5.thirdcolor = '#efefef';
+                  _this5.thirdfont = 'gray';
+                  _this5.fourthcolor = '#b34c26';
+                  _this5.fourthfont = 'white';
+                  _this5.fifthcolor = '#efefef';
+                  _this5.fifthfont = 'gray';
                 } else
                 {
-                  _this2.allcolor = '#efefef';
-                  _this2.allfont = 'gray';
-                  _this2.firstcolor = '#efefef',
-                  _this2.firstfont = 'gray';
-                  _this2.secondcolor = '#efefef';
-                  _this2.secondfont = 'gray';
-                  _this2.thirdcolor = '#efefef';
-                  _this2.thirdfont = 'gray';
-                  _this2.fourthcolor = '#efefef';
-                  _this2.fourthfont = 'gray';
-                  _this2.fifthcolor = '#b34c26';
-                  _this2.fifthfont = 'white';
-                }_context2.prev = 2;_context2.next = 5;return (
+                  _this5.allcolor = '#efefef';
+                  _this5.allfont = 'gray';
+                  _this5.firstcolor = '#efefef',
+                  _this5.firstfont = 'gray';
+                  _this5.secondcolor = '#efefef';
+                  _this5.secondfont = 'gray';
+                  _this5.thirdcolor = '#efefef';
+                  _this5.thirdfont = 'gray';
+                  _this5.fourthcolor = '#efefef';
+                  _this5.fourthfont = 'gray';
+                  _this5.fifthcolor = '#b34c26';
+                  _this5.fifthfont = 'white';
+                }_context5.prev = 2;_context5.next = 5;return (
 
 
-                  _this2.api.get('/booking/select/bookings', { number: _this2.oneNum, state: state }));case 5:that.oneBookList = _context2.sent;_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](2);
+                  _this5.api.get('/booking/select/bookings', { number: _this5.oneNum, state: state }));case 5:res = _context5.sent;
+                that.oneBookList = res.data;
+                for (i = 0; i < _this5.oneBookList.length; i++) {
+                  _this5.oneBookList[i].avatar = _this5.imageSrcformat(that.oneBookList[i].avatar, 'jpg');
+                }_context5.next = 13;break;case 10:_context5.prev = 10;_context5.t0 = _context5["catch"](2);
 
                 //TODO handle the exception
-                that.$toast(_context2.t0);case 11:case "end":return _context2.stop();}}}, _callee2, null, [[2, 8]]);}))();
+                that.$toast(_context5.t0);case 13:case "end":return _context5.stop();}}}, _callee5, null, [[2, 10]]);}))();
 
     },
 
     // 不同的状态对应的处理操作
     operOne: function operOne(item, index) {
+      var that = this;
       if (item.state == '待处理') {
         uni.showModal({
           title: '预约处理',
@@ -408,17 +458,17 @@ var _default =
           cancelColor: '#000000',
           success: function success(res) {
             if (res.confirm) {
-              this.confirmBook(item, index);
-              this.getOneBookList();
+              that.confirmBook(item, index);
+              that.getOneBookList();
             } else
             {
-              this.refuseBook(item, index);
-              this.getOneBookList();
+              that.refuseBook(item, index);
+              that.getOneBookList();
             }
           } });
 
       } else
-      if (item.state == '已拒绝' || item.state == '已卖出' || item.state == '已退款') {
+      if (item.state == '已退款') {
         uni.showModal({
           title: '提示',
           // 提示文字
@@ -433,6 +483,10 @@ var _default =
           cancelColor: '#000000',
           success: function success(res) {
             if (res.confirm) {
+              uni.showToast({
+                title: '成功删除该条预约记录！',
+                icon: 'success',
+                duration: 30000 });
 
             }
           } });
@@ -440,28 +494,85 @@ var _default =
       } else
       if (item.state == '待发货') {
         this.openState1();
+      } else
+      if (item.state == '待退款') {
+        this.openState2(item);
+      } else
+      if (item.state == '待下单') {
+        this.$toast('请等待买家下单哟~');
+      } else
+      if (item.state == '待收货') {
+        this.isConfirm = false;
+        this.openState3(item);
+      } else
+      {
+        this.isConfirm = true;
+        this.openState3(item);
       }
     },
 
     // 卖家同意预约
-    confirmBook: function confirmBook(item, index) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var that, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
-                that = _this3;_context3.prev = 1;_context3.next = 4;return (
+    confirmBook: function confirmBook(item, index) {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var that, res;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
+                that = _this6;_context6.prev = 1;_context6.next = 4;return (
 
-                  _this3.api.put('/booking/acquire', { number: _this3.item.bookNum }));case 4:res = _context3.sent;_context3.next = 10;break;case 7:_context3.prev = 7;_context3.t0 = _context3["catch"](1);
+                  _this6.api.put('/booking/acquire', { number: _this6.item.number }));case 4:res = _context6.sent;
+                _this6.oneBookList[index].state = '待下单';_context6.next = 11;break;case 8:_context6.prev = 8;_context6.t0 = _context6["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context3.t0);case 10:case "end":return _context3.stop();}}}, _callee3, null, [[1, 7]]);}))();
+                that.$toast(_context6.t0);case 11:case "end":return _context6.stop();}}}, _callee6, null, [[1, 8]]);}))();
 
     },
 
     // 卖家拒绝预约
-    refuseBook: function refuseBook(item, index) {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var that, res;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
-                that = _this4;_context4.prev = 1;_context4.next = 4;return (
+    refuseBook: function refuseBook(item, index) {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {var that, res;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
+                that = _this7;_context7.prev = 1;_context7.next = 4;return (
 
-                  _this4.api.put('/orders/cancel/booking', { number: _this4.item.bookNum, isbuyer: 0 }));case 4:res = _context4.sent;_context4.next = 10;break;case 7:_context4.prev = 7;_context4.t0 = _context4["catch"](1);
+                  _this7.api.put('/orders/cancel/booking', { number: _this7.item.number, isbuyer: 0 }));case 4:res = _context7.sent;_context7.next = 10;break;case 7:_context7.prev = 7;_context7.t0 = _context7["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context4.t0);case 10:case "end":return _context4.stop();}}}, _callee4, null, [[1, 7]]);}))();
+                that.$toast(_context7.t0);case 10:case "end":return _context7.stop();}}}, _callee7, null, [[1, 7]]);}))();
+
+    },
+
+    // 卖家同意退款
+    confirm: function confirm(item, index) {var _this8 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {var that, res;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:
+                that = _this8;_context8.prev = 1;_context8.next = 4;return (
+
+                  _this8.api.put('/orders/refund', { number: _this8.item.number }));case 4:res = _context8.sent;
+                _this8.oneBookList[index].state = '已退款';
+                _this8.$refs.pop2[0].close();_context8.next = 12;break;case 9:_context8.prev = 9;_context8.t0 = _context8["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context8.t0);case 12:case "end":return _context8.stop();}}}, _callee8, null, [[1, 9]]);}))();
+
+    },
+
+    // 卖家拒绝退款
+    refuse: function refuse(item, index) {var _this9 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {var that, res;return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:
+                that = _this9;_context9.prev = 1;_context9.next = 4;return (
+
+                  _this9.api.put('/orders/disagree', { number: _this9.item.number }));case 4:res = _context9.sent;
+                _this9.oneBookList[index].state = res.data;
+                _this9.$refs.pop2[0].close();_context9.next = 12;break;case 9:_context9.prev = 9;_context9.t0 = _context9["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context9.t0);case 12:case "end":return _context9.stop();}}}, _callee9, null, [[1, 9]]);}))();
+
+    },
+
+    returnPage: function returnPage() {
+      this.$refs.pop3[0].close();
+    },
+
+    // 删除已卖出的订单
+    deleteOrder: function deleteOrder(item, index) {var _this10 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee10() {var that, res;return _regenerator.default.wrap(function _callee10$(_context10) {while (1) {switch (_context10.prev = _context10.next) {case 0:
+                that = _this10;_context10.prev = 1;_context10.next = 4;return (
+
+                  _this10.api.put('/orders/seller/delete', { number: _this10.item.number }));case 4:res = _context10.sent;
+                that.oneBookList.splice(index, 1);_context10.next = 11;break;case 8:_context10.prev = 8;_context10.t0 = _context10["catch"](1);
+
+                //TODO handle the exception
+                that.$toast(_context10.t0);case 11:case "end":return _context10.stop();}}}, _callee10, null, [[1, 8]]);}))();
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

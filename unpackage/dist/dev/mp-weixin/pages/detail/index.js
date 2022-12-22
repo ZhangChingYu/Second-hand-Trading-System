@@ -27,12 +27,11 @@ wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__;createPage(_index.def
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _index_vue_vue_type_template_id_12dbf08d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=template&id=12dbf08d&scoped=true& */ 295);
-/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ 297);
-/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__[key]; }) }(__WEBPACK_IMPORT_KEY__));
-/* harmony import */ var _index_vue_vue_type_style_index_0_id_12dbf08d_lang_less_scoped_true___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./index.vue?vue&type=style&index=0&id=12dbf08d&lang=less&scoped=true& */ 299);
-/* harmony import */ var _D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 11);
-
+/* harmony import */ var _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./index.vue?vue&type=script&lang=js& */ 297);
+/* harmony reexport (unknown) */ for(var __WEBPACK_IMPORT_KEY__ in _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__) if(__WEBPACK_IMPORT_KEY__ !== 'default') (function(key) { __webpack_require__.d(__webpack_exports__, key, function() { return _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__[key]; }) }(__WEBPACK_IMPORT_KEY__));
+/* harmony import */ var _index_vue_vue_type_style_index_0_id_12dbf08d_lang_less_scoped_true___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./index.vue?vue&type=style&index=0&id=12dbf08d&lang=less&scoped=true& */ 299);
+/* harmony import */ var _D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js */ 11);
+var render, staticRenderFns, recyclableRender, components
 var renderjs
 
 
@@ -41,120 +40,21 @@ var renderjs
 
 /* normalize component */
 
-var component = Object(_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__["default"])(
-  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _index_vue_vue_type_template_id_12dbf08d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _index_vue_vue_type_template_id_12dbf08d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+var component = Object(_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _index_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"],
+  render,
+  staticRenderFns,
   false,
   null,
   "12dbf08d",
   null,
   false,
-  _index_vue_vue_type_template_id_12dbf08d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["components"],
+  components,
   renderjs
 )
 
 component.options.__file = "pages/detail/index.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
-
-/***/ }),
-
-/***/ 295:
-/*!********************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Client/pages/detail/index.vue?vue&type=template&id=12dbf08d&scoped=true& ***!
-  \********************************************************************************************************/
-/*! exports provided: render, staticRenderFns, recyclableRender, components */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_template_id_12dbf08d_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!./index.vue?vue&type=template&id=12dbf08d&scoped=true& */ 296);
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_template_id_12dbf08d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["render"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_template_id_12dbf08d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return _D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_template_id_12dbf08d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["recyclableRender"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "components", function() { return _D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_preprocess_loader_index_js_ref_16_0_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_template_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_webpack_uni_app_loader_page_meta_js_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_vue_cli_plugin_uni_packages_vue_loader_lib_index_js_vue_loader_options_D_Application_HBuilderX_plugins_uniapp_cli_node_modules_dcloudio_webpack_uni_mp_loader_lib_style_js_index_vue_vue_type_template_id_12dbf08d_scoped_true___WEBPACK_IMPORTED_MODULE_0__["components"]; });
-
-
-
-/***/ }),
-
-/***/ 296:
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader??ref--16-0!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/template.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-uni-app-loader/page-meta.js!./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib??vue-loader-options!./node_modules/@dcloudio/webpack-uni-mp-loader/lib/style.js!E:/Hbuilder/Second-Hand-Client/pages/detail/index.vue?vue&type=template&id=12dbf08d&scoped=true& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
-/*! exports provided: render, staticRenderFns, recyclableRender, components */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "recyclableRender", function() { return recyclableRender; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "components", function() { return components; });
-var components
-try {
-  components = {
-    uSkeleton: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-skeleton/u-skeleton */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-skeleton/u-skeleton")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-skeleton/u-skeleton.vue */ 508))
-    },
-    uSwiper: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swiper/u-swiper */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swiper/u-swiper")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swiper/u-swiper.vue */ 395))
-    },
-    "u-Input": function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u--input/u--input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u--input/u--input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u--input/u--input.vue */ 516))
-    },
-    uButton: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-button/u-button */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-button/u-button")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-button/u-button.vue */ 522))
-    },
-    uEmpty: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 417))
-    },
-    uPopup: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 532))
-    }
-  }
-} catch (e) {
-  if (
-    e.message.indexOf("Cannot find module") !== -1 &&
-    e.message.indexOf(".vue") !== -1
-  ) {
-    console.error(e.message)
-    console.error("1. 排查组件名称拼写是否正确")
-    console.error(
-      "2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"
-    )
-    console.error(
-      "3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件"
-    )
-  } else {
-    throw e
-  }
-}
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  var g0 =
-    _vm.product !== "" && _vm.product.price
-      ? _vm.product.price.toFixed(2)
-      : null
-  _vm.$mp.data = Object.assign(
-    {},
-    {
-      $root: {
-        g0: g0
-      }
-    }
-  )
-}
-var recyclableRender = false
-var staticRenderFns = []
-render._withStripped = true
-
-
 
 /***/ }),
 
@@ -183,6 +83,12 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));
+
+
+
+
+
+
 
 
 
@@ -357,7 +263,17 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 194);function _interopReq
 
       showR: false, //回复窗口
       replyContent: '',
-      replyFatherId: '' };
+      replyFatherId: '',
+
+      // 商品举报原因
+      reportReason: [
+      { reason: '广告或垃圾信息' },
+      { reason: '违法或政治敏感信息' },
+      { reason: '色情类信息' },
+      { reason: '欺诈类信息' },
+      { reason: '不举报了' }],
+
+      oneReport: '' };
 
 
   },
@@ -490,53 +406,85 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 194);function _interopReq
                 _this5.$toast(_context4.t0);case 16:case "end":return _context4.stop();}}}, _callee4, null, [[1, 13]]);}))();
 
     },
-    // 举报
+    // 商品举报
     report: function report() {
-      this.$toast('举报');
+      this.$refs.popdown.open('bottom');
     },
-    getBooked: function getBooked() {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var res;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:_context5.prev = 0;_context5.next = 3;return (
+    setReason: function setReason(index) {
+      this.oneReport = this.reportReason[index].reason;
+      this.$refs.popdown.close();
+      if (this.oneReport != '不举报了' && this.oneReport != '') {
+        this.postReport();
+      }
+    },
+    postReport: function postReport() {var _this6 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var that, res, title;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
+                that = _this6;_context5.prev = 1;_context5.next = 4;return (
 
-                  _this6.api.get('/booking/buyer/judgment', {
-                    phone: _this6.user.phone,
-                    number: _this6.number }));case 3:res = _context5.sent;
+                  _this6.api.post('/product/report', { number: _this6.number, phone: _this6.user.phone, content: _this6.oneReport }));case 4:res = _context5.sent;
+                title = '';_context5.t0 =
+                res;_context5.next = _context5.t0 ===
+                201 ? 9 : _context5.t0 ===
 
-                _this6.isBooked = res.data;_context5.next = 10;break;case 7:_context5.prev = 7;_context5.t0 = _context5["catch"](0);
+
+
+                400 ? 11 : _context5.t0 ===
+
+
+
+                422 ? 13 : 15;break;case 9:title = '举报发送成功！';return _context5.abrupt("break", 15);case 11:title = '举报失败！';return _context5.abrupt("break", 15);case 13:
+                title = '发送失败！';return _context5.abrupt("break", 15);case 15:
+
+
+
+                that.$toast(title);_context5.next = 21;break;case 18:_context5.prev = 18;_context5.t1 = _context5["catch"](1);
 
                 //TODO handle the exception
-                _this6.$toast(_context5.t0);case 10:case "end":return _context5.stop();}}}, _callee5, null, [[0, 7]]);}))();
+                that.$toast(_context5.t1);case 21:case "end":return _context5.stop();}}}, _callee5, null, [[1, 18]]);}))();
+
+    },
+    getBooked: function getBooked() {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var res;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:_context6.prev = 0;_context6.next = 3;return (
+
+                  _this7.api.get('/booking/buyer/judgment', {
+                    phone: _this7.user.phone,
+                    number: _this7.number }));case 3:res = _context6.sent;
+
+                _this7.isBooked = res.data;_context6.next = 10;break;case 7:_context6.prev = 7;_context6.t0 = _context6["catch"](0);
+
+                //TODO handle the exception
+                _this7.$toast(_context6.t0);case 10:case "end":return _context6.stop();}}}, _callee6, null, [[0, 7]]);}))();
 
     },
     // 收藏
-    like: function like() {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee6() {var that, res, title;return _regenerator.default.wrap(function _callee6$(_context6) {while (1) {switch (_context6.prev = _context6.next) {case 0:
-                that = _this7;
+    like: function like() {var _this8 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {var that, res, title;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
+                that = _this8;
 
-                _this7.isLike = !_this7.isLike;_context6.prev = 2;_context6.next = 5;return (
+                _this8.isLike = !_this8.isLike;_context7.prev = 2;_context7.next = 5;return (
 
-                  _this7.api.post('/like', { number: _this7.number, phone: _this7.user.phone }));case 5:res = _context6.sent;
-                title = '';_context6.t0 =
-                res;_context6.next = _context6.t0 ===
-                201 ? 10 : _context6.t0 ===
-
-
-
-                204 ? 12 : _context6.t0 ===
+                  _this8.api.post('/like', { number: _this8.number, phone: _this8.user.phone }));case 5:res = _context7.sent;
+                title = '';_context7.t0 =
+                res;_context7.next = _context7.t0 ===
+                201 ? 10 : _context7.t0 ===
 
 
 
-                403 ? 14 : _context6.t0 ===
+                204 ? 12 : _context7.t0 ===
+
+
+
+                403 ? 14 : _context7.t0 ===
 
 
 
 
-                404 ? 17 : 20;break;case 10:title = '收藏成功！';return _context6.abrupt("break", 20);case 12:title = '取消收藏成功！';return _context6.abrupt("break", 20);case 14:title = '用户无权限！';_this7.isLike = !_this7.isLike;return _context6.abrupt("break", 20);case 17:
+                404 ? 17 : 20;break;case 10:title = '收藏成功！';return _context7.abrupt("break", 20);case 12:title = '取消收藏成功！';return _context7.abrupt("break", 20);case 14:title = '用户无权限！';_this8.isLike = !_this8.isLike;return _context7.abrupt("break", 20);case 17:
                 title = '收藏失败！';
-                _this7.isLike = !_this7.isLike;return _context6.abrupt("break", 20);case 20:
+                _this8.isLike = !_this8.isLike;return _context7.abrupt("break", 20);case 20:
 
 
-                that.$toast(title);_context6.next = 26;break;case 23:_context6.prev = 23;_context6.t1 = _context6["catch"](2);
+                that.$toast(title);_context7.next = 26;break;case 23:_context7.prev = 23;_context7.t1 = _context7["catch"](2);
 
                 //TODO handle the exception
-                that.$toast(_context6.t1);case 26:case "end":return _context6.stop();}}}, _callee6, null, [[2, 23]]);}))();
+                that.$toast(_context7.t1);case 26:case "end":return _context7.stop();}}}, _callee7, null, [[2, 23]]);}))();
 
     },
 
@@ -548,39 +496,39 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 194);function _interopReq
       this.show = true;
     },
 
-    book: function book() {var _this8 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {var res, res1;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:if (!(
-                !_this8.bookNumber || _this8.bookNumber > _this8.product.storage)) {_context7.next = 5;break;}
-                _this8.bookNumber = '';
-                _this8.$toast('请输入合法的数量');_context7.next = 23;break;case 5:
+    book: function book() {var _this9 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {var res, res1;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:if (!(
+                !_this9.bookNumber || _this9.bookNumber > _this9.product.storage)) {_context8.next = 5;break;}
+                _this9.bookNumber = '';
+                _this9.$toast('请输入合法的数量');_context8.next = 23;break;case 5:
 
-                _this8.close();
+                _this9.close();
                 // /appointments/add
-                _context7.prev = 6;_context7.next = 9;return (
+                _context8.prev = 6;_context8.next = 9;return (
 
-                  _this8.api.get('/appointments/getsellerinfo', { number: _this8.number }));case 9:res = _context7.sent;
+                  _this9.api.get('/appointments/getsellerinfo', { number: _this9.number }));case 9:res = _context8.sent;
                 console.log(res);
-                if (res.code == '666') _this8.sellerId = res.data.phone;
-                console.log(_this8.sellerId);if (!(
-                _this8.sellerId == '')) {_context7.next = 16;break;}
-                _this8.$toast('预约失败');return _context7.abrupt("return");case 16:
+                if (res.code == '666') _this9.sellerId = res.data.phone;
+                console.log(_this9.sellerId);if (!(
+                _this9.sellerId == '')) {_context8.next = 16;break;}
+                _this9.$toast('预约失败');return _context8.abrupt("return");case 16:
 
 
 
-                res1 = _this8.api.post('/appointments/add', {
-                  sellerId: _this8.sellerId, //seller phone
-                  buyerId: _this8.user.phone, //buy phone
-                  productId: _this8.number, //product number
-                  ordersNum: _this8.bookNumber, //product 数量
-                  price: _this8.product.price });
+                res1 = _this9.api.post('/appointments/add', {
+                  sellerId: _this9.sellerId, //seller phone
+                  buyerId: _this9.user.phone, //buy phone
+                  productId: _this9.number, //product number
+                  ordersNum: _this9.bookNumber, //product 数量
+                  price: _this9.product.price });
 
                 if (res.code == '666') {
-                  _this8.$toast('预约成功！');
+                  _this9.$toast('预约成功！');
                   //预约成功
-                  _this8.isBooked = true;
-                }_context7.next = 23;break;case 20:_context7.prev = 20;_context7.t0 = _context7["catch"](6);
+                  _this9.isBooked = true;
+                }_context8.next = 23;break;case 20:_context8.prev = 20;_context8.t0 = _context8["catch"](6);
 
                 //TODO handle the exception
-                _this8.$toast('预约失败');case 23:case "end":return _context7.stop();}}}, _callee7, null, [[6, 20]]);}))();
+                _this9.$toast('预约失败');case 23:case "end":return _context8.stop();}}}, _callee8, null, [[6, 20]]);}))();
 
 
 
@@ -588,20 +536,20 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 194);function _interopReq
 
 
     },
-    cancelBook: function cancelBook() {var _this9 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {var res;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:
-                _this9.$toast('取消预约');_context8.prev = 1;_context8.next = 4;return (
+    cancelBook: function cancelBook() {var _this10 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {var res;return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:
+                _this10.$toast('取消预约');_context9.prev = 1;_context9.next = 4;return (
 
-                  _this9.api.put('/orders/cancelappointments', {
-                    number: _this9.Bnumber,
-                    isbuyer: true }));case 4:res = _context8.sent;
+                  _this10.api.put('/orders/cancelappointments', {
+                    number: _this10.Bnumber,
+                    isbuyer: true }));case 4:res = _context9.sent;
 
-                if (res.code == "666") _this9.$toast('成功取消预约！');else
-                _this9.$toast('请稍后重试！');_context8.next = 10;break;case 8:_context8.prev = 8;_context8.t0 = _context8["catch"](1);case 10:
-
-
+                if (res.code == "666") _this10.$toast('成功取消预约！');else
+                _this10.$toast('请稍后重试！');_context9.next = 10;break;case 8:_context9.prev = 8;_context9.t0 = _context9["catch"](1);case 10:
 
 
-                _this9.isBooked = false;case 11:case "end":return _context8.stop();}}}, _callee8, null, [[1, 8]]);}))();
+
+
+                _this10.isBooked = false;case 11:case "end":return _context9.stop();}}}, _callee9, null, [[1, 8]]);}))();
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

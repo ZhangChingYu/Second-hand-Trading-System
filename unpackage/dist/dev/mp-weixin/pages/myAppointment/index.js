@@ -150,86 +150,62 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-var _default =
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _mixin = __webpack_require__(/*! ../../mixin.js */ 194);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
+  mixins: [_mixin.mixin],
   data: function data() {
     return {
       user: {},
       // 预约状态state（已预约、待下单、已拒绝）mybookItem:[number,name,coverPic,price,state][商品编号，商品名称，商品图片，价格，预约状态]
-      mybookItem: [
-      {
-        number: "B3267559776586",
-        name: '参加培训班',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded///asearch.alicdn.com/bao/uploaded/O1CN015rH4tD2LKkJrMhIlx_!!0-item_pic.jpg_300x300q90.jpg_.webp',
-        price: 1250,
-        state: '已预约',
-        count: 2 },
-
-      {
-        number: "B1637559776586",
-        name: '使图片的宽高完全拉伸至填满 image 元素',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-        price: 268,
-        state: '待下单',
-        count: 2 },
-
-      {
-        number: "B1637559776586",
-        name: '使图片的宽高完全拉伸至填满 image 元素',
-        coverPic: 'https://gw.alicdn.com/bao/uploaded/i1/510160174/O1CN01gGdwFj1D9jhVnZgEo_!!0-saturn_solar.jpg_300x300q90.jpg_.webp',
-        price: 268,
-        state: '已拒绝',
-        count: 2 }],
-
-
+      mybookItem: [],
       // 全部预约
       allBook: [],
       // 预约状态
@@ -254,22 +230,25 @@ var _default =
     this.getMybook();
     this.allBook = that.mybookItem;
   },
+  onShow: function onShow() {
+    this.getMybook();
+  },
   methods: {
     toMe: function toMe() {
       uni.redirectTo({
-        url: '/pages/me/index' });
+        url: '/pages/my/index' });
 
     },
 
     // 商品详情页(该商品编号)
     toGoodsDetail: function toGoodsDetail(number) {
       uni.navigateTo({
-        url: '/pages/detail/index?goodsNum=' + number });
+        url: '/pages/detail/index?number=' + number });
 
     },
 
     // 预约状态分类
-    toOne: function toOne(state) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+    toOne: function toOne(state) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, res, i;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 that = _this;
 
                 if (state == '全部') {
@@ -314,15 +293,20 @@ var _default =
                 }_context.prev = 2;_context.next = 5;return (
 
 
-                  _this.api.get('/booking/select/buyer', { phone: _this.user.phone, state: state }));case 5:that.mybookItem = _context.sent;_context.next = 11;break;case 8:_context.prev = 8;_context.t0 = _context["catch"](2);
+                  _this.api.get('/booking/select/buyer', { phone: _this.user.phone, state: state }));case 5:res = _context.sent;
+                that.mybookItem = res.data;
+                for (i = 0; i < _this.mybookItem.length; i++) {
+                  _this.mybookItem[i].coverPic = _this.imageSrcformat(that.mybookItem[i].coverPic, 'jpg');
+                }_context.next = 13;break;case 10:_context.prev = 10;_context.t0 = _context["catch"](2);
 
                 //TODO handle the exception
-                that.$toast(_context.t0);case 11:case "end":return _context.stop();}}}, _callee, null, [[2, 8]]);}))();
+                that.$toast(_context.t0);case 13:case "end":return _context.stop();}}}, _callee, null, [[2, 10]]);}))();
 
     },
 
     // 删除某个预约
     deleteOne: function deleteOne(item, index) {
+      var that = this;
       uni.showModal({
         title: '提示',
         // 提示文字
@@ -338,9 +322,9 @@ var _default =
         success: function success(res) {
           if (res.confirm) {
             if (item.state == '已拒绝') {
-              this.deleteBook(item, index);
+              that.deleteBook(item, index);
             } else
-            this.cancelBook(item, index);
+            that.cancelBook(item, index);
 
             uni.showToast({
               title: '已成功删除该预约！',
@@ -355,7 +339,7 @@ var _default =
     deleteBook: function deleteBook(item, index) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 that = _this2;_context2.prev = 1;_context2.next = 4;return (
 
-                  _this2.api.del('/booking/delete', { number: item.bookNum }));case 4:res = _context2.sent;
+                  _this2.api.del('/booking/buyer/delete', { number: item.bookNum }));case 4:res = _context2.sent;
                 that.mybookItem.splice(index, 1);_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
 
                 //TODO handle the exception
@@ -382,7 +366,7 @@ var _default =
       // 已预约状态查看商品详情
       if (item.state == "已预约" || item.state == "已拒绝") {
         uni.navigateTo({
-          url: '/pages/detail/index?goodsNum=' + item.number });
+          url: '/pages/detail/index?number=' + item.number });
 
       }
       // 待下单状态到达下单界面
@@ -394,25 +378,33 @@ var _default =
     },
 
     // 搜索相关我的预约(关键词：商品名称，卖家手机号)
-    toSomeOf: function toSomeOf() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var that;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+    toSomeOf: function toSomeOf() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var that, res, i;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
                 that = _this4;_context4.prev = 1;_context4.next = 4;return (
 
-                  _this4.api.get('/booking/fuzzy/name', { name: _this4.keyWord, isbuyer: 1 }));case 4:that.mybookItem = _context4.sent;_context4.next = 10;break;case 7:_context4.prev = 7;_context4.t0 = _context4["catch"](1);
+                  _this4.api.get('/booking/fuzzy/name', { name: _this4.keyWord, phone: _this4.user.phone, isbuyer: 1 }));case 4:res = _context4.sent;
+                that.mybookItem = res.data;
+                for (i = 0; i < _this4.mybookItem.length; i++) {
+                  _this4.mybookItem[i].coverPic = _this4.imageSrcformat(that.mybookItem[i].coverPic, 'jpg');
+                }_context4.next = 12;break;case 9:_context4.prev = 9;_context4.t0 = _context4["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context4.t0);case 10:case "end":return _context4.stop();}}}, _callee4, null, [[1, 7]]);}))();
+                that.$toast(_context4.t0);case 12:case "end":return _context4.stop();}}}, _callee4, null, [[1, 9]]);}))();
 
     },
 
     // 获取该用户所有预约
-    getMybook: function getMybook() {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var that, state;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
+    getMybook: function getMybook() {var _this5 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee5() {var that, state, res, i;return _regenerator.default.wrap(function _callee5$(_context5) {while (1) {switch (_context5.prev = _context5.next) {case 0:
                 that = _this5;
                 state = '全部';_context5.prev = 2;_context5.next = 5;return (
 
-                  _this5.api.get('/booking/select/buyer', { phone: _this5.user.phone, state: state }));case 5:that.mybookItem = _context5.sent;_context5.next = 11;break;case 8:_context5.prev = 8;_context5.t0 = _context5["catch"](2);
+                  _this5.api.get('/booking/select/buyer', { phone: _this5.user.phone, state: state }));case 5:res = _context5.sent;
+                that.mybookItem = res.data;
+                for (i = 0; i < _this5.mybookItem.length; i++) {
+                  _this5.mybookItem[i].coverPic = _this5.imageSrcformat(that.mybookItem[i].coverPic, 'jpg');
+                }_context5.next = 13;break;case 10:_context5.prev = 10;_context5.t0 = _context5["catch"](2);
 
                 //TODO handle the exception
-                that.$toast(_context5.t0);case 11:case "end":return _context5.stop();}}}, _callee5, null, [[2, 8]]);}))();
+                that.$toast(_context5.t0);case 13:case "end":return _context5.stop();}}}, _callee5, null, [[2, 10]]);}))();
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
