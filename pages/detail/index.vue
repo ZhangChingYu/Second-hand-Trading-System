@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 	<view class="detail" v-if="product">
 		<view class="top-message">
 			<view class="saller">
@@ -64,41 +65,26 @@
 						@confirm="sentEvaluation"
 						confirm-type="send"
 					  ></u--input>
+=======
+	<u-skeleton
+		 rows="2"
+		:loading="product === ''"
+		avatar
+		:title="false"
+	>
+		<view class="detail" v-if="product !== ''">
+			<view class="top-message">
+				<view class="saller">
+					<image class="avatar":src="product.seller_pic"></image>
+					<text class="saller-name">{{product.seller_name}}</text>
+>>>>>>> f27da6198c698d8d69d1e4ea56dfb29ef0398c93
 				</view>
-				<view class="send-btn" @click="sentEvaluation">
-					 <u-button type="primary" text="留言"></u-button>
+				<view class="saller-price">
+					<text>{{priceType}}</text>
+					<text v-if="product.price" class="sprice">￥{{product.price.toFixed(2)}}</text>
 				</view>
-				 
-			</view>
-			<view v-if="evaluationList.length !== 0">
-				<Evaluation v-for="(item,index) of evaluationList" :key="item.id" :evaluation="item"></Evaluation>
-			</view>
-			<view v-else class="no-result">
-				<u-empty></u-empty>
-			</view>
-			
-		</view>
-		
-		<view class="footer-operator">
-			<view class="like" @click="like" v-if="!isLike">
-				<text class="iconfont">&#xe643;</text>
-				<text >收藏</text>
-			</view>
-			<view class="notlike" @click="like" v-else>
-				<text class="iconfont hasLiake">&#xe625;</text>
-				<text >取消收藏</text>
-			</view>
-			<view class="contact" @click="contact">
-				<text class="iconfont">&#xe66f;</text>
-				<text>联系卖家</text>
-			</view>
-			<view v-if="!isBooked" class="book-goods" @click="showBook">预约商品</view>
-			<view v-else class="book-goods" @click="cancelBook()">已预约</view>
-			
-		</view>
-		<!-- 预约窗口 -->
-		<u-popup :show="show" :round="10" mode="bottom" @close="close" @open="open">
 				
+<<<<<<< HEAD
 			<view class="popup-content">
 				<view class="book-count">
 					<label for="book-input">数量：</label>
@@ -110,6 +96,126 @@
 		</u-popup>
 		
 	</view>
+=======
+				<view class="publish-message">
+					<view v-if="product.date" class="publish-time">{{product.date}}发布</view>
+					
+					<view class="publish-address">
+						<text class="iconfont">&#xe8ff;</text>
+						<text>{{product.address}}</text>
+						</view>
+				</view>
+				
+				
+			</view>
+			
+			<!-- 商品图片和文字描述 -->
+			<view class="goods-message">
+				<h2 class="goods-title">{{product.name}}</h2>
+				<view class="goods-describe">{{product.intro}}</view>
+				
+				<view class="home-swiper">
+					<u-swiper
+						:list="product.pictures"
+						indicator
+						indicatorMode="line"
+						circular
+						height="750rpx"
+					></u-swiper>
+				</view>
+				
+			</view>
+			
+			<view class="goods-otherMsg">
+				<view class="report" @click="report">
+					{{reportText}}
+				</view>
+				<view >收藏：{{product.like_count}}</view>
+				<view >留言：{{evaluationList.length}}</view>
+				<view >数量：{{product.storage}}</view>
+			</view>
+			<view class="evaluation">
+				<h3>留言 · {{evaluationList.length}}</h3>
+				<view class="add-evaluation">
+					<view class="send-input">
+						<u--input
+							placeholder="输入你的留言~"
+							border="surround"
+							v-model="evaluation"
+							@confirm="sentEvaluation"
+							confirm-type="send"
+						  ></u--input>
+					</view>
+					<view class="send-btn" @click="sentEvaluation">
+						 <u-button type="primary" text="留言"></u-button>
+					</view>
+					 
+				</view>
+				<view v-if="evaluationList.length !== 0">
+					<Evaluation v-for="(item,index) of evaluationList" :key="item.id" :evaluation="item"></Evaluation>
+				</view>
+				<view v-else class="no-result">
+					<u-empty></u-empty>
+				</view>
+				
+			</view>
+			
+			<view class="footer-operator">
+				<view class="like" @click="like" v-if="!isLike">
+					<text class="iconfont">&#xe643;</text>
+					<text >收藏</text>
+				</view>
+				<view class="notlike" @click="like" v-else>
+					<text class="iconfont hasLiake">&#xe625;</text>
+					<text >取消收藏</text>
+				</view>
+				<view class="contact" @click="contact">
+					<text class="iconfont">&#xe66f;</text>
+					<text>联系卖家</text>
+				</view>
+				<view v-if="!isBooked" class="book-goods" @click="showBook">预约商品</view>
+				<view v-else class="book-goods" @click="cancelBook()">已预约</view>
+				
+			</view>
+			<!-- 预约窗口 -->
+			<u-popup :show="show" :round="10" mode="bottom" @close="close" @open="open">
+					
+					<view class="popup-content">
+						<view class="book-count">
+							<label for="book-input">数量：</label>
+							<input type="number" v-model.number="bookNumber" id="book-input" :placeholder="'最大：'+ product.storage || 1" />
+						</view>
+						<view class="book-submit" @click="book">预约</view>
+						
+					</view>
+			</u-popup>
+			
+			<!-- 回复窗口 -->
+			<view>
+				<u-popup :show="showR" :round="10"  mode="bottom" @close="close" @open="open">
+					<view class="reply-box">
+						<view class="reply-input">
+							<u--input
+								placeholder="输入你的回复~"
+								border="surround"
+								v-model="replyContent"
+								@confirm="replyEvaluation"
+								confirm-type="send"
+								focus='true'
+							  ></u--input>
+						</view>
+						<view class="reply-btn" @click="replyEvaluation">
+							 <u-button type="primary" text="留言"></u-button>
+						</view>
+					</view>
+				</u-popup>
+				
+			</view>
+			
+		</view>
+	</u-skeleton>
+	
+>>>>>>> f27da6198c698d8d69d1e4ea56dfb29ef0398c93
 </template>
 
 <script>
@@ -121,7 +227,7 @@
 		data() {
 			return {
 					number:'',
-					product:{},
+					product:'',
 					evaluationList:[],
 					user:{},
 					isLike:false,
@@ -250,6 +356,7 @@
 			async postReport(){
 				let that = this;
 				try{
+<<<<<<< HEAD
 					let res = await this.api.post('/product/report',{number:this.number,phone:this.user.phone,content:this.oneReport});
 					let title = '';
 					switch(res){
@@ -267,6 +374,13 @@
 	
 					}
 					that.$toast(title);
+=======
+					let res = await this.api.get('/booking/buyer/judgment',{
+						phone:this.user.phone,
+						number:this.number
+					});
+					this.isBooked = res.data;
+>>>>>>> f27da6198c698d8d69d1e4ea56dfb29ef0398c93
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e);

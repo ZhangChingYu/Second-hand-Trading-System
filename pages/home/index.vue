@@ -25,7 +25,7 @@
 		</view>
 		
 		<!-- 预约物品 -->
-		<view class="most-book" v-if="mostbookItem.length != 0">
+		<view class="most-book" v-if="mostbookItem.length > 0">
 			<view class="title">
 				
 				<text class="title-main">
@@ -39,9 +39,14 @@
 				</text>
 			</view>
 			<view class="book-detail">
-				
-				<Goods v-if="mostbookItem.length > 0" class="goods" :goods="mostbookItem[0]"></Goods>
+				<Goods  class="goods" :goods="mostbookItem[0]"></Goods>
 				<Goods v-if="mostbookItem.length > 1" class="goods" :goods="mostbookItem[1]"></Goods>
+				<!-- <Goods class="goods"
+					v-for="(item,index) of mostbookItem" 
+					:key="index"
+					:goods="item"
+				 >
+				 </Goods> -->
 				
 			</view>
 		</view>
@@ -69,7 +74,7 @@
 		</view>
 		
 		<!-- 推荐物品 -->
-		<view class="recommend-product" v-if="newProductItem.length != 0">
+		<view class="recommend-product" v-if="recommendProductItem.length != 0">
 			<view class="title">		
 				<text class="title-main">
 					<text class="recommend-bg main-icon"></text>
@@ -81,7 +86,7 @@
 			<!-- 子项 -->
 			<view class="recommend-detail">
 				<Goods class="goods"
-					v-for="(item,index) of newProductItem" 
+					v-for="(item,index) of recommendProductItem" 
 					:key="index"
 					:goods="item"
 				 >
@@ -120,6 +125,7 @@
 		onPullDownRefresh(){
 			this.getMostbookItem();
 			this.getNewProduct();
+			this.getRecommendProduct();
 		},
 		onShow() {
 			this.getMostbookItem();
@@ -155,7 +161,7 @@
 				const that  = this;
 				try{
 					let res = await this.api.get('/homepage/promote/products')
-					that.mostbookItem = res;
+					that.recommendProductItem = res;
 					
 				}catch(e){
 					//TODO handle the exception
@@ -168,6 +174,7 @@
 				try{
 					let res = await this.api.get('/homepage/like/products')
 					that.mostbookItem = res;
+					console.log(that.mostbookItem)
 					
 				}catch(e){
 					//TODO handle the exception

@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/login/index",
     "pages/home/index",
     "pages/search/index",
-    "pages/login/index",
     "pages/classify/index",
     "pages/publish/index",
     "pages/message/index",
+    "pages/message/chat",
     "pages/findback/findback",
     "pages/my/index",
     "pages/my-address/address",

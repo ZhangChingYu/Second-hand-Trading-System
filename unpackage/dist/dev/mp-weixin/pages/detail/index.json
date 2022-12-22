@@ -2,6 +2,7 @@
   "navigationBarTitleText": "商品详情",
   "enablePullDownRefresh": true,
   "usingComponents": {
+    "u-skeleton": "/uni_modules/uview-ui/components/u-skeleton/u-skeleton",
     "u-swiper": "/uni_modules/uview-ui/components/u-swiper/u-swiper",
     "u--input": "/uni_modules/uview-ui/components/u--input/u--input",
     "u-button": "/uni_modules/uview-ui/components/u-button/u-button",

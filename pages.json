@@ -2,6 +2,12 @@
 	
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		
+		{
+			"path": "pages/login/index",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
 		
 	    {
             "path" : "pages/home/index",
@@ -22,12 +28,7 @@
 		    
 		},
 		
-		{
-			"path": "pages/login/index",
-			"style": {
-				"navigationBarTitleText": "登录"
-			}
-		},
+		
         {
             "path" : "pages/classify/index",
             "style" :                                                                                    
@@ -53,6 +54,15 @@
             {
                 "navigationBarTitleText": "消息",
                 "enablePullDownRefresh": true
+            }
+            
+        },{
+            "path" : "pages/message/chat",
+            "style" :                                                                                    
+            {
+                // "navigationBarTitleText": "聊天",
+				"navigationBarTitleText": "",
+                "enablePullDownRefresh": false
             }
             
         },

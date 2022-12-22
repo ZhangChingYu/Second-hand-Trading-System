@@ -74,6 +74,7 @@
 		components:{Goods,Classitem,Nomore},
 		data() {
 			return {
+				user:{},
 				classify:false,
 				sort:false,
 				isGet: false,
@@ -107,6 +108,9 @@
 			console.log(catalog)
 			this.getProductList(catalog);
 			this.getClassList();
+		},
+		mounted() {
+			this.user = uni.getStorageSync('user');
 		},
 		
 		computed:{
@@ -168,7 +172,7 @@
 					if(catalog != -1) {
 						this.productList = await this.api.get('/catalog/products',{catalog});
 					}else{
-						this.productList =  await this.api.get('/homepage');
+						this.productList =  await this.api.get('/homepage',{phone:this.user.phone});
 					}
 					this.showProductList = this.productList;
 					

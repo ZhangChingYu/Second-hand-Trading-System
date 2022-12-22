@@ -32,7 +32,7 @@
 				</view>
 			</view>
 			
-			<view class="popular-wrap">
+			<view class="popular-wrap" v-if="popularWords.length !== 0">
 				<view class="search-header">
 					<text class="search-title">热门搜索</text>
 				</view>
@@ -43,10 +43,10 @@
 					  hover-class="hover-history-item"
 					  v-for="(item,index) of popularWords"
 					  :key="index"
-					  @click="historyTap(item)"
+					  @click="popularTap(item)"
 					  
 					>
-						{{item}}
+						{{item.content}}
 					</view>
 				</view>
 			</view>
@@ -96,17 +96,17 @@
 				searchResult:[],
 				searchValue: '',
 				isIndex : true,
-				exitTitle:'返回'
+				exitTitle:'返回',
+				
+				ispopular: false
 				    
 			}
 		},
 		mounted(){
-			console.log(123456)
 			// uni.setStorageSync('historyWords',['鸡','电脑','iPhone12','车载手表','自然堂','小米10','华为','氢跑鞋','娃娃']);
 			// uni.setStorageSync('popularWords',['iPhone12','车载手表','自然堂','小米10']);
 			this.queryHistory();
 			this.queryPopular();
-			console.log(this.popularWords)
 		},
 		
 		methods:{
@@ -120,9 +120,9 @@
 				}
 			},
 			
-			queryPopular() {
+			async queryPopular() {
 				try{
-					this.popularWords = uni.getStorageSync('popularWords') || [];
+					this.popularWords = await this.api.get('/hotkeys')
 				}catch(e){
 					//TODO handle the exception
 					this.popularWords = [];
@@ -150,10 +150,16 @@
 		
 			historyTap(item){
 				this.searchValue = item;
-				this.search();
+				this.ispopular = false;
+				this.search(item);
+			},
+			popularTap(item){
+				this.searchValue = item.content;
+				this.ispopular = true;
+				this.search(item.id);
 			},
 			
-			async search(){
+			async search(key){
 				let keyword = this.searchValue;
 				this.isIndex = false;
 				if(keyword.trim() !== ''){
@@ -165,7 +171,9 @@
 				
 				// 发送请求
 				try{
-					let res = await this.api.get('/search/products',{keyword});
+					let res = '';
+					if(this.ispopular) res = await this.api.get('/hotkey/products',{id:key});
+					else res = await this.api.get('/search/products',{keyword});
 					this.searchResult = res;
 					console.log(this.searchResult);
 				}catch(e){
