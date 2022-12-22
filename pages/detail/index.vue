@@ -1,72 +1,4 @@
-<template>
-<<<<<<< HEAD
-	<view class="detail" v-if="product">
-		<view class="top-message">
-			<view class="saller">
-				<image class="avatar":src="product.seller_pic"></image>
-				<text class="saller-name">{{product.seller_name}}</text>
-			</view>
-			<view class="saller-price">
-				<text>{{priceType}}</text>
-				<text v-if="product.price" class="sprice">￥{{product.price.toFixed(2)}}</text>
-			</view>
-			
-			<view class="publish-message">
-				<view v-if="product.date" class="publish-time">{{product.date}}发布</view>
-				
-				<view class="publish-address">
-					<text class="iconfont">&#xe8ff;</text>
-					<text>{{product.address}}</text>
-					</view>
-			</view>
-			
-			
-		</view>
-		
-		<!-- 商品图片和文字描述 -->
-		<view class="goods-message">
-			<h2 class="goods-title">{{product.name}}</h2>
-			<view class="goods-describe">{{product.intro}}</view>
-			
-			<view class="home-swiper">
-				<u-swiper
-					:list="product.pictures"
-					indicator
-					indicatorMode="line"
-					circular
-					height="750rpx"
-				></u-swiper>
-			</view>
-			
-		</view>
-		
-		<view class="goods-otherMsg">
-			<view class="report" @click="report">
-				{{reportText}}
-			</view>
-			<uni-popup ref="popdown" type="bottom" background-color="#fff">
-				<view class="oneState">
-					<text style="font-size: 30rpx;">请选择举报理由</text>
-					<view class="subLine" ></view>
-					<text v-for="(item,index) of reportReason" :key="index" @click="setReason(index)">{{item.reason}}</text>
-				</view>		
-			</uni-popup>
-			<view >收藏：{{product.like_count}}</view>
-			<view >留言：{{evaluationList.length}}</view>
-		</view>
-		<view class="evaluation">
-			<h3>留言 · {{evaluationList.length}}</h3>
-			<view class="add-evaluation">
-				<view class="send-input">
-					<u--input
-					    placeholder="输入你的留言~"
-					    border="surround"
-					    v-model="evaluation"
-						@confirm="sentEvaluation"
-						confirm-type="send"
-					  ></u--input>
-=======
-	<u-skeleton
+<u-skeleton
 		 rows="2"
 		:loading="product === ''"
 		avatar
@@ -77,26 +9,12 @@
 				<view class="saller">
 					<image class="avatar":src="product.seller_pic"></image>
 					<text class="saller-name">{{product.seller_name}}</text>
->>>>>>> f27da6198c698d8d69d1e4ea56dfb29ef0398c93
 				</view>
 				<view class="saller-price">
 					<text>{{priceType}}</text>
 					<text v-if="product.price" class="sprice">￥{{product.price.toFixed(2)}}</text>
 				</view>
 				
-<<<<<<< HEAD
-			<view class="popup-content">
-				<view class="book-count">
-					<label for="book-input">数量：</label>
-					<input type="number" v-model.number="bookNumber" id="book-input" :placeholder="'最大：'+ storage || 1" />
-				</view>
-				<view class="book-submit" @click="book">预约</view>
-				
-			</view>
-		</u-popup>
-		
-	</view>
-=======
 				<view class="publish-message">
 					<view v-if="product.date" class="publish-time">{{product.date}}发布</view>
 					
@@ -130,6 +48,13 @@
 				<view class="report" @click="report">
 					{{reportText}}
 				</view>
+				<uni-popup ref="popdown" type="bottom" background-color="#fff">
+					<view class="oneState">
+						<text style="font-size: 30rpx;">请选择举报理由</text>
+						<view class="subLine" ></view>
+						<text v-for="(item,index) of reportReason" :key="index" @click="setReason(index)">{{item.reason}}</text>
+					</view>		
+				</uni-popup>
 				<view >收藏：{{product.like_count}}</view>
 				<view >留言：{{evaluationList.length}}</view>
 				<view >数量：{{product.storage}}</view>
@@ -215,7 +140,6 @@
 		</view>
 	</u-skeleton>
 	
->>>>>>> f27da6198c698d8d69d1e4ea56dfb29ef0398c93
 </template>
 
 <script>
@@ -249,17 +173,24 @@
 					// 是否已经预约
 					isBooked:false,
 					bookNumber:'',//预约数量
+					// 预约编号
+					Bnumber:'',
+					sellerId:'',
 					
-					// 举报原因
+					showR:false,//回复窗口
+					replyContent:'',
+					replyFatherId:'',
+					
+					// 商品举报原因
 					reportReason:[
 						{reason:'广告或垃圾信息',},
 						{reason:'违法或政治敏感信息',},
 						{reason:'色情类信息',},
 						{reason:'欺诈类信息',},
-						{reason:'其他',},
 						{reason:'不举报了',}
 					],
 					oneReport:'',
+					
 				}
 		},
 		onLoad: function (option) { 
@@ -268,24 +199,72 @@
 		mounted() {
 			this.user = uni.getStorageSync('user');
 			this.getMessage();
+			this.getBooked();
 			this.getEvaluation();
-			console.log(1,this.evaluationList)
+			// 回复留言
+			this.$bus.$on('reply',(data)=>{
+				this.replyFatherId = data
+				this.showR = true;
+				console.log(this.replyFatherId);
+			});
+			
 			
 		},
 		methods: {
+			
+			//回复留言
+			async replyEvaluation(){
+				try{
+					if(this.replyContent != '' &&  this.replyFatherId != ''){
+						this.close();
+						let res = await this.api.post('/product/reply',{
+							number:this.number,
+							phone:this.user.phone,
+							father:this.replyFatherId,
+							content:this.replyContent
+						});
+						this.replyContent = '';
+						this.replyFatherId = '';
+						let title = '请稍后重试！';
+						switch(res){
+							case 201:
+								console.log(12345)
+								title = '回复成功！'
+								this.getEvaluation()
+								break;
+							case 400:
+								title = '回复失败：无权限！'
+								break;
+							case 422:
+								title = '回复失败：商品不存在！'
+								break;
+							case 404:
+								title = '回复失败：数据库更新失败！'
+								break;
+						}
+						this.$toast(title);
+					}
+					
+				}catch(e){
+					//TODO handle the exception
+					this.$toast(e)
+					
+				}
+			},
 			// 发布留言
 			async sentEvaluation(){
+				console.log('发布的内容：'+this.evaluation)
 				try{
 					if(this.evaluation == ''){
 						this.$toast('请输入内容！');
 						return;
 					}
-					let res = this.api.post('/product/comment',{number:this.number,phone:this.user.phone,content:this.evaluation});
-					let title = '';
+					let res = await this.api.post('/product/comment',{number:this.number,phone:this.user.phone,content:this.evaluation});
+					let title = '请稍后重试！';
 					switch(res){
 						case 201:
 							title = '发布成功！'
-							getEvaluation()
+							this.getEvaluation()
 							break;
 						case 400:
 							title = '发布失败：无权限！'
@@ -300,13 +279,15 @@
 					this.$toast(title);
 				}catch(e){
 					//TODO handle the exception
+					this.$toast(e)
 				}
 			},
 			// 获取留言
 			async getEvaluation(){
 				try{
-					this.evaluationList = await this.api.get('/product/comment',{number:this.number});
-					console.log(this.evaluationList)
+					let res = await this.api.get('/product/comment',{number:this.number});
+					this.evaluationList = [];
+					this.evaluationList = res;
 				}catch(e){
 					//TODO handle the exception
 					this.$toast(e)
@@ -315,11 +296,10 @@
 			
 			
 			open(){
-		        console.log('open');
 		    },
 		    close() {
 		        this.show = false;
-		        console.log('close');
+				this.showR = false;
 		    },
 			back1(){
 				uni.navigateBack({
@@ -342,7 +322,7 @@
 					this.$toast(e)
 				}
 			},
-			// 举报
+			// 商品举报
 			report(){
 				this.$refs.popdown.open('bottom');
 			},
@@ -356,7 +336,6 @@
 			async postReport(){
 				let that = this;
 				try{
-<<<<<<< HEAD
 					let res = await this.api.post('/product/report',{number:this.number,phone:this.user.phone,content:this.oneReport});
 					let title = '';
 					switch(res){
@@ -371,19 +350,24 @@
 						case 422:
 							title = '发送失败！';
 							break;
-	
+				
 					}
 					that.$toast(title);
-=======
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e);
+				}
+			},
+			async getBooked(){
+				try{
 					let res = await this.api.get('/booking/buyer/judgment',{
 						phone:this.user.phone,
 						number:this.number
 					});
 					this.isBooked = res.data;
->>>>>>> f27da6198c698d8d69d1e4ea56dfb29ef0398c93
 				}catch(e){
 					//TODO handle the exception
-					that.$toast(e);
+					this.$toast(e)
 				}
 			},
 			 // 收藏
@@ -428,15 +412,59 @@
 				this.show = true;
 			},
 			
-			book(){
-				this.$toast('预约商品');
-				this.close()
+			async book(){
+				if(!this.bookNumber || this.bookNumber > this.product.storage){
+					this.bookNumber = '';
+					this.$toast('请输入合法的数量')
+				}else{
+					this.close()
+					// /appointments/add
+					try{
+						// /appointments/getsellerinfo
+						let res = await this.api.get('/appointments/getsellerinfo',{number:this.number});
+						console.log(res)
+						if(res.code == '666') this.sellerId = res.data.phone;
+						console.log(this.sellerId)
+						if(this.sellerId == '') {
+							this.$toast('预约失败')
+							return;
+						}
+						
+						let res1 = this.api.post('/appointments/add',{
+							sellerId:this.sellerId,   //seller phone
+							buyerId:this.user.phone,    //buy phone
+							productId:this.number,   //product number
+							ordersNum:this.bookNumber,  //product 数量
+							price:this.product.price
+						})
+						if(res.code == '666'){
+							this.$toast('预约成功！')
+							//预约成功
+							this.isBooked = true;
+						}
+					}catch(e){
+						//TODO handle the exception
+						this.$toast('预约失败')
+					}
+					
+					
+				}
 				
-				//预约成功
-				this.isBooked = true;
+				
 			},
-			cancelBook(){
+			async cancelBook(){
 				this.$toast('取消预约');
+				try{
+					let res = await this.api.put('/orders/cancelappointments',{
+						number:this.Bnumber,
+						isbuyer:true
+					});
+					if(res.code == "666") this.$toast('成功取消预约！')
+					else this.$toast('请稍后重试！');
+				}catch(e){
+					//TODO handle the exception
+				}
+				
 				this.isBooked = false;
 			},
 			
@@ -604,7 +632,6 @@
 		font-size: 24rpx;
 		text-align: center;
 	}
-	
 	/* 举报 */
 	.oneState{
 		display: flex;
@@ -623,6 +650,7 @@
 		padding: 10rpx;
 		font-size: 26rpx;
 	}
+	
 	/* 留言 */
 	.evaluation {
 		margin-bottom: 120rpx;
@@ -732,6 +760,20 @@
 	}
 	/* 没有留言 */
 	.no-result {
+	}
+	.reply-box {
+		padding: 30rpx 0;
+		display: flex;
+		justify-content: space-around;
+		align-items: center;
+		
+		& .reply-input {
+			width: 80%;
+			
+		}
+		& .reply-btn {
+			width: 15%;
+		}
 	}
 	
 	
