@@ -21,8 +21,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -73,25 +71,22 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                     if(Objects.equals(user.getCode(), "666")){
                         //转换utf8
                         User u=transferUTF8.switchUtf8Tc((User) loginDto.getData());
-
-
                         //图片路径
-                        List<String> picture1;
-                        List<String> picture2;
-                        if(u.getAvatar().isEmpty()){
+                        String picture1;
+                        if(u.getAvatar()==null||u.getAvatar().isEmpty()){
                             //默认图片
-                            picture1 = Collections.singletonList(ReadFile.getBaseFile(FileDirector.AVATAR_DEFAULT_URL));
-                            u.setAvatar(picture1.get(0));
+                            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+                            u.setAvatar(picture1);
                         }
                         else{
-                          //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
-                            picture1= Collections.singletonList(ReadFile.getBaseFile(u.getAvatar()));
-                            u.setAvatar(picture1.get(0));
+                            //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
+                            picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(u.getPhone()));
+                            u.setAvatar(picture1);
                         }
-                        if(!u.getPicture().isEmpty()){
-                            picture2= Collections.singletonList(ReadFile.getBaseFile(u.getPicture()));
-                            // picture2 = readFile.getpictureBase64("Authentication",u.getPhone(),1);
-                            u.setPicture(picture2.get(0));
+                        if(u.getPicture()!=null){
+                            String picture2;
+                            picture2= ReadFile.getBaseFile(readFile.getAuthPicture(u.getPhone()));
+                            u.setPicture(picture2);
                         }
 
                         user.setUser(u);
@@ -107,7 +102,6 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
     }
 
     private Optional<Result> verifyAccount(LoginRequestDto request) {
-
         // 用户状态: 2 已被永久封禁
         int two = 2;
         String username=request.getUsername();
@@ -156,7 +150,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
     }
 
     @Override
-    public Result lostPassward(LostPasswordDto request) {
+    public Result lostPassword(LostPasswordDto request) {
         try{
             String phone=request.getPhone();
             String password=request.getPassword();
@@ -184,7 +178,6 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
             }
             if(Objects.equals(pa, password)){
                 redto=new Result(ResultCode.USER_PASSWORD_EXIST);
-                return redto;
             }
             else{
                 String sql1="update user_info set password='"+ password +"' " +
@@ -193,17 +186,48 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         "where email = '" + phone+ "'";
                 if(jdbcTemplate.update(sql1)==1||jdbcTemplate.update(sql2)==1){
                     redto=new Result(ResultCode.SUCCESS);
-                    return redto;
                 }
                 else{
                     redto=new Result(ResultCode.FAIL);
-                    return redto;
                 }
             }
+            return redto;
         }catch (Exception e){
 
         }
         redto=new Result(ResultCode.USER_NOT_EXIST);
         return redto;
+    }
+
+    @Override
+    public Result selectAvatar(String phone) {
+        User user3=accountRepository.findByPhone(phone).get();
+        //图片路径
+        String picture1;
+        if(user3.getAvatar()==null||user3.getAvatar().isEmpty()){
+            //默认图片
+            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+            user3.setAvatar(picture1);
+        }
+        else{
+            //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
+            picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(user3.getPhone()));
+            user3.setAvatar(picture1);
+        }
+        use=new Result(ResultCode.SUCCESS,picture1);
+        return use;
+    }
+
+    @Override
+    public Result selectAuth(String phone) {
+        User user3=accountRepository.findByPhone(phone).get();
+        //图片路径
+        String picture2=" ";
+        if(user3.getPicture()!=null){
+            picture2= ReadFile.getBaseFile(readFile.getAuthPicture(user3.getPhone()));
+            user3.setPicture(picture2);
+        }
+        use=new Result(ResultCode.SUCCESS,picture2);
+        return use;
     }
 }

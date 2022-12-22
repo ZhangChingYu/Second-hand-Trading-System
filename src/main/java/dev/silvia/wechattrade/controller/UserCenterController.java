@@ -51,7 +51,7 @@ public class UserCenterController {
 
     //修改个人信息
     @RequestMapping(value ="/setting/edit", method = RequestMethod.PUT)
-    public ResponseEntity<?> personalinfo(@RequestBody User user){
+    public ResponseEntity<?> personalInfo(@RequestBody User user){
         return ResponseEntity.ok(service.PersonalInfo(user));
     }
    /**

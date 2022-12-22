@@ -27,6 +27,8 @@ public class ExchangeInfo implements Serializable {
 
     private String productNum;
 
+    private String name;
+
     private Integer ordersNum;
 
     private Double price;
@@ -40,9 +42,11 @@ public class ExchangeInfo implements Serializable {
     private Double discounts;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date buildTime;
+    private Date   buildTime;
 
     private String payment;
 
-    private Integer status;
+    private Integer isDelete;
+
+    private String status;
 }

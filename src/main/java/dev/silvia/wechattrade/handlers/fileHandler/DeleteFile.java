@@ -55,6 +55,23 @@ public class DeleteFile {
         return flag;
     }
 
+    public boolean deleteAvatarPictures(String phone){    // 根據用户手机号編號刪除头像
+        boolean flag = false;
+        String dirPath = FileDirector.AVATAR_URL+"Avatar"+"/"+phone;
+        System.out.println(dirPath);
+        File dir = new File(dirPath);
+        if(dir.exists()){
+            deleteDirFile(dir);
+            if(!dir.exists()){  // 檢查檔案是否還存在，不存在則刪除成功
+                flag = true;
+            }
+            System.out.println("File delete failed!");
+        }else {
+            System.out.println("File does not exist!");
+        }
+        return flag;
+    }
+
     private static void deleteDirFile(File dir){   // 刪除文件目錄需遞歸刪除所有子文件後，再刪除該目錄
         // 獲取目錄下所有子文件和目錄
         File[] subFiles = dir.listFiles();

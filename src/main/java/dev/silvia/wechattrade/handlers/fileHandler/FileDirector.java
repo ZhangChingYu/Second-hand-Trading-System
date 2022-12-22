@@ -9,8 +9,8 @@ public interface FileDirector {// 整理所有文件路徑相關的參數
     String HELP_URL = "C:/Users/Sunny/Desktop/Help";
     // 头像和认证文件存储路径
     String AUTH_URL = "C:/Users/Sunny/Desktop/User/";
-    // 默認頭像圖片路徑
-    String AVATAR_DEFAULT_URL = "C:/Users/Sunny/Desktop/User/Default/default.jpg";
+    //默认头像路径
+    String  AVATAR_URL= "C:/Users/Sunny/Desktop/User/Default/default/default.jpg";
     // 證件照站存處(注意!!!後面少一個斜槓喔!!!)
     String AUTHENTICATION_TEMP_URL = "C:/Users/Sunny/Desktop/User/AuthTemp";
 }
