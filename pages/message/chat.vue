@@ -104,7 +104,7 @@
 				chatMsg:[
 					{
 						id:1,
-						fromId:'15059417755',  //这个只是对方或者我的手机号
+						fromId:'15083622395',  //这个只是对方或者我的手机号
 						types:'0',			//判断是文字信息、图片、视频...
 						content:'你好！',	//消息内容
 						isShowTime: true,  //在聊天窗口是否显示时间 ，比如一般的短时间内的聊天不显示时间
@@ -121,7 +121,7 @@
 					},
 					{
 						id:3,
-						fromId:'15059417755',
+						fromId:'15083622395',
 						types:'0',
 						content:'这个衣服是新的吗？',
 						isShowTime:false,
@@ -129,7 +129,7 @@
 					},
 					{
 						id:4,
-						fromId:'15059417755',
+						fromId:'15083622395',
 						types:'0',
 						content:'是九成新吗',
 						isShowTime:true,
@@ -146,7 +146,7 @@
 					
 					{
 						id:6,
-						fromId:'15059417755',  //这个只是对方或者我的手机号
+						fromId:'15083622395',  //这个只是对方或者我的手机号
 						types:'0',			//判断是文字信息、图片、视频...
 						content:'你好！',	//消息内容
 						isShowTime: true,  //在聊天窗口是否显示时间 ，比如一般的短时间内的聊天不显示时间
@@ -163,7 +163,7 @@
 					},
 					{
 						id:8,
-						fromId:'15059417755',
+						fromId:'15083622395',
 						types:'0',
 						content:'这个衣服是新的吗？',
 						isShowTime:false,
@@ -171,7 +171,7 @@
 					},
 					{
 						id:9,
-						fromId:'15059417755',
+						fromId:'15083622395',
 						types:'0',
 						content:'是九成新吗',
 						isShowTime:true,
@@ -187,7 +187,7 @@
 					},
 					{
 						id:11,
-						fromId:'15059417755',
+						fromId:'15083622395',
 						types:'0',
 						content:'这个衣服是新的吗？',
 						isShowTime:false,
@@ -195,7 +195,7 @@
 					},
 					{
 						id:12,
-						fromId:'15059417755',
+						fromId:'15083622395',
 						types:'0',
 						content:'是九成新吗',
 						isShowTime:true,
@@ -232,6 +232,7 @@
 				title:this.other.name
 			});
 			this.user = uni.getStorageSync('user');
+			console.log(this.user.phone)
 			this.scrollToView = 'msg' + this.chatMsg[this.chatMsg.length - 1].id;
 			
 			// 发送的消息

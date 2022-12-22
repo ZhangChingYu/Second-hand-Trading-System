@@ -44,7 +44,7 @@
 					{
 						phone:'18187865081',
 						userName:'小赵',
-						avatar:'https://ss2.meipian.me/users/49049784/17461190-adb3-11e9-9e74-9944cff16de0.JPG?imageView2/2/w/750/h/1400/q/80',
+						avatar:'https://cdn.uviewui.com/uview/album/4.jpg',
 						lastChat:'请问在吗'
 					},
 					{
