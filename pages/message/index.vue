@@ -13,6 +13,7 @@
 					:label = "item.lastChat"
 					@click="toChat(item)"
 				>
+				<u-badge  max="99" value="3"></u-badge>
 					<u-avatar
 						slot="icon"
 						shape="square"
