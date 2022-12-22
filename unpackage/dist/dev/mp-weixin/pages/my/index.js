@@ -200,6 +200,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
 var _vue = __webpack_require__(/*! vue */ 4);
 
 
@@ -260,10 +264,26 @@ var _vuex = __webpack_require__(/*! vuex */ 13); //
 //
 //
 //
+//
+//
+//
+//
 var _default = { data: function data() {return { user: { userName: "", avatar: "" }, //前端存储用
-      avatar: '', buy: '', sell: '', phone: '' //待删除
-    };}, onLoad: function onLoad() {var res = uni.getStorageSync('user');console.log(123);this.user.userName = res.userName;this.user.avatar = res.avatar;this.phone = res.phone;var that = this;var phone = res.phone;that.api.get('/manage/user', { phone: phone }).then(function (res) {that.buy = res.data.buy;that.sell = res.data.sell;console.log(data);console.log(123456789);});}, methods: { collect: function collect() {wx.navigateTo({ url: "../my-like/like" });}, setup: function setup() {wx.navigateTo({ url: "../my-setup/setup" });}, realname: function realname() {wx.navigateTo({ url: "../my-realname/realname" });}, address: function address() {wx.navigateTo({ url: "../my-address/address" });}, //我的商品
-    products: function products() {wx.navigateTo({ url: '/pages/myItem/index' });},
+      avatar: '', buy: '', sell: '', phone: '', //待删除
+      unreadCount: '' };}, onLoad: function onLoad() {var res = uni.getStorageSync('user');console.log(123);this.user.userName = res.userName;this.user.avatar = res.avatar;this.phone = res.phone;var that = this;var phone = res.phone;that.api.get('/manage/user', { phone: phone }).then(function (res) {that.buy = res.data.buy;that.sell = res.data.sell;console.log(data);console.log(123456789);});this.getUnread();}, methods: { collect: function collect() {wx.navigateTo({ url: "../my-like/like" });}, setup: function setup() {wx.navigateTo({ url: "../my-setup/setup" });}, realname: function realname() {var _this = this;var phone = this.phone;this.api.get('/setting/authentication', { phone: phone }).then(function (res) {console.log(res);if (res == 202) {_this.$toast('您的实名认证请求正在审核中，请耐心等待');} else if (res == 201) {_this.$toast('您已通过实名认证，无需再次认证');} else if (res == 203) {wx.navigateTo({ url: "../my-realname/realname" });}
+      });
+    },
+    address: function address() {
+      wx.navigateTo({
+        url: "../my-address/address" });
+
+    },
+    //我的商品
+    products: function products() {
+      wx.navigateTo({
+        url: '/pages/myItem/index' });
+
+    },
     //预约
     pre: function pre() {
       wx.navigateTo({
@@ -292,6 +312,14 @@ var _default = { data: function data() {return { user: { userName: "", avatar: "
       wx.navigateTo({
         url: "../userInfo/userInfo?phone=" + phone });
 
+    },
+    getUnread: function getUnread() {var _this2 = this;
+      var phone = this.phone;
+      this.api.get('/setting/unread/count', {
+        phone: phone }).
+      then(function (res) {
+        _this2.unreadCount = res;
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

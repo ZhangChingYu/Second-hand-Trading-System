@@ -1,0 +1,72 @@
+{
+  "id": "3778134",
+  "name": "ui",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "1973189",
+      "name": "女头像",
+      "font_class": "user__easyico",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "666885",
+      "name": "设置",
+      "font_class": "shezhi",
+      "unicode": "e68f",
+      "unicode_decimal": 59023
+    },
+    {
+      "icon_id": "5353505",
+      "name": "导航地址",
+      "font_class": "daohangdizhi",
+      "unicode": "e65e",
+      "unicode_decimal": 58974
+    },
+    {
+      "icon_id": "5387497",
+      "name": "钻石",
+      "font_class": "zuanshi",
+      "unicode": "eaee",
+      "unicode_decimal": 60142
+    },
+    {
+      "icon_id": "5387628",
+      "name": "钱包",
+      "font_class": "qianbao",
+      "unicode": "eb1a",
+      "unicode_decimal": 60186
+    },
+    {
+      "icon_id": "5387846",
+      "name": "钻石_o",
+      "font_class": "zuanshi_o",
+      "unicode": "eb70",
+      "unicode_decimal": 60272
+    },
+    {
+      "icon_id": "11372777",
+      "name": "收藏",
+      "font_class": "shoucang",
+      "unicode": "e8c6",
+      "unicode_decimal": 59590
+    },
+    {
+      "icon_id": "14656482",
+      "name": "实名认证",
+      "font_class": "shimingrenzheng",
+      "unicode": "e742",
+      "unicode_decimal": 59202
+    },
+    {
+      "icon_id": "22978005",
+      "name": "举报",
+      "font_class": "jubao",
+      "unicode": "e89c",
+      "unicode_decimal": 59548
+    }
+  ]
+}

@@ -304,7 +304,7 @@ var _default =
     },
     commit: function commit() {
       var that = this;
-      that.api.post('/personal/edit', that.user).then(function (res) {
+      that.api.post('/setting/edit', that.user).then(function (res) {
         console.log(res);
       });
       this.user = this.userUpdate;

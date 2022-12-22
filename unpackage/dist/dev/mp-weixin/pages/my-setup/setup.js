@@ -155,13 +155,18 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 var _default =
 {
   data: function data() {
-    return {};
+    return {
+      unreadCount: '' };
 
-
-
+  },
+  mounted: function mounted() {
+    this.getUnread();
   },
   methods: {
     logout: function logout() {
@@ -181,9 +186,17 @@ var _default =
 
     },
     message: function message() {
-      uni.showToast({
-        title: '开发中' });
+      uni.navigateTo({
+        url: '/pages/notifications/notifications' });
 
+    },
+    getUnread: function getUnread() {var _this = this;
+      var phone = uni.getStorageSync('user').phone;
+      this.api.get('/setting/unread/count', {
+        phone: phone }).
+      then(function (res) {
+        _this.unreadCount = res;
+      });
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

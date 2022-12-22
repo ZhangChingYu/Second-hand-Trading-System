@@ -1,14 +1,23 @@
 
-.setup-content.data-v-1480b183{
+.setup-content.data-v-1480b183 {
 	font-size: medium;
 	margin: 30rpx 0;
 	padding: 0 20rpx;
 }
-.setup-content-item.data-v-1480b183{
+.setup-content-item.data-v-1480b183 {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 	padding: 30rpx 0;
 	border-bottom: 2px solid #cccccc;
+}
+.unread.data-v-1480b183 {
+	margin-right: 5rpx;
+	border-radius: 50%;
+	background-color: red;
+	color: white;
+	height: 40rpx;
+	width: 40rpx;
+	text-align: center;
 }
 

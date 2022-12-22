@@ -170,7 +170,7 @@
 			},
 			commit(){
 				let that=this;
-				that.api.post('/personal/edit',that.user).then(res=>{
+				that.api.post('/setting/edit',that.user).then(res=>{
 					console.log(res);
 				})
 				this.user=this.userUpdate;

@@ -132,9 +132,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
-//
-//
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
 //
 //
 //
@@ -156,31 +154,25 @@ var _default =
     return {
       catalog: [],
       secCatelog: [],
-      popText: '' };
+      popText: '',
+      show: -1 };
 
   },
   mounted: function mounted() {var _this = this;
     var that = this;
     that.api.get('/setting/help').then(function (res) {
       _this.catalog = res;
-      _this.catalog.forEach(function (v) {
-        _this.$set(v, 'show', false);
-      });
       console.log('catalog:', _this.catalog);
     });
   },
   methods: {
     helpFor: function helpFor(index) {var _this2 = this;
-      var state = this.catalog[index].show;
-      this.catalog.forEach(function (v) {
-        if (v.show) {
-          v.show = false;
-        }
-      });
-      this.catalog[index].show = !state;
-      if (this.catalog[index].show == true) {
+      if (index == this.show) {
+        this.show = -1;
+      } else {
+        this.show = index;
+        var catalog = this.catalog[index];
         var that = this;
-        var catalog = this.catalog[index].catalog;
         that.api.get('/setting/help/catalog', {
           catalog: catalog }).
         then(function (res) {
@@ -188,21 +180,21 @@ var _default =
           console.log('sec:', _this2.secCatelog);
         });
       }
+      console.log(this.show);
     },
-    showHelp: function showHelp(secCatalog) {var _this3 = this;
+    showHelp: function showHelp(secCatalog) {
       var that = this;
-      var question = secCatalog.question;
+      var question = secCatalog;
       that.api.get('/setting/help/catalog/question', {
         question: question }).
       then(function (res) {
-        _this3.popText = res;
-        _this3.open();
+        uni.showModal({
+          content: res,
+          showCancel: false });
+
       });
-    },
-    open: function open() {
-      // 通过组件定义的ref调用uni-popup方法 ,如果传入参数 ，type 属性将失效 ，仅支持 ['top','left','bottom','right','center']
-      this.$refs.popup.open('center');
     } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 
