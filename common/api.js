@@ -108,8 +108,7 @@ function delRequest(url,data){
 }
 function responseError(res){
 	const that =  this;
-	
-	switch(res.message){
+	switch(res.data.message){
 		
 		case '401':
 			uni.showToast({

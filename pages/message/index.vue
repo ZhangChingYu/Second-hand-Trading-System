@@ -1,8 +1,8 @@
 <template>
-	<view class="message">
+	<view class="message">	
 		<!-- <u-list
 			@scrolltolower="scrolltolower"
-		> -->
+		> --> 
 		<u-list>
 			<u-list-item
 				v-for="item in chatList"
@@ -13,7 +13,7 @@
 					:label = "item.lastChat"
 					@click="toChat(item)"
 				>
-				<u-badge  max="99" value="3"></u-badge>
+				<!-- <u-badge  max="99" value="3"></u-badge> -->
 					<u-avatar
 						slot="icon"
 						shape="square"

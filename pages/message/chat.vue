@@ -3,6 +3,7 @@
 		
 		<scroll-view class="chat" 
 		 scroll-y="true" 
+		 enable-flex
 		 :scroll-into-view="scrollToView"
 		 :scroll-with-animation="needScrollAnimation"
 		 :style="{height:scrollViewHeight}">

@@ -211,7 +211,8 @@
             }
             
         }
-		,{
+		,
+		{
 		    "path" : "pages/register/index",
 		    "style" :                                                                                    
 		    {

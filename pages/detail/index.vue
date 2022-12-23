@@ -1,4 +1,5 @@
-<u-skeleton
+<template>
+	<u-skeleton
 		 rows="2"
 		:loading="product === ''"
 		avatar
@@ -41,7 +42,6 @@
 						height="750rpx"
 					></u-swiper>
 				</view>
-				
 			</view>
 			
 			<view class="goods-otherMsg">
@@ -775,9 +775,5 @@
 			width: 15%;
 		}
 	}
-	
-	
-	
-	
 	
 </style>
