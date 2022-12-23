@@ -130,7 +130,7 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         String address=request.getMyAddress().getReceiverPhone()+"%"
                 +request.getMyAddress().getReceiverName()+"%"
                 +request.getMyAddress().getRegion()+"%"
-                +request.getMyAddress().getAddressDetail()+"%";
+                +request.getMyAddress().getAddressDetail();
         buyer.setAddress(transferUTF8.CtoUTF8(address));
         buyer.setRemark(transferUTF8.CtoUTF8(request.getRemark()));
         buyer.setExchangeId(pronum);  //外键
@@ -146,7 +146,7 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
 
         //删除已下单预约
         accountRepository.delete(bo);
-
+        System.out.println("创建订单");
         res=new Result(ResultCode.SUCCESS);
         return res;
     }
@@ -214,9 +214,7 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
     public Result sellerAfter(String number) {
         //订单状态修改
         ExchangeInfo ex;
-        String proNum = OrderCodeUtils.createCode("TK");
         ex=exRepository.findByNumber(number);
-        ex.setNumber(proNum);
         ex.setStatus(transferUTF8.CtoUTF8("已退款"));
         exRepository.save(ex);
 
@@ -303,8 +301,8 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         reason.setRefundReason(remark_parts[2]);
         reason.setDescription(remark_parts[3]);
         reason.setTotal(ex.getPrice());
-        reason.setRefundReason(sdf.format(buyer.getRefundTime()));
-        res=new Result(ResultCode.SUCCESS);
+        reason.setRefundTime(sdf.format(buyer.getRefundTime()));
+        res=new Result(ResultCode.SUCCESS,reason);
         return res;
     }
 
@@ -319,6 +317,8 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
     public Result sellerDelete(String number) {
         ExchangeInfo ex;
         ex=exRepository.findByNumber(number);
+        System.out.println(ex);
+        System.out.println(number);
         if(ex.getIsDelete()==2){
             exRepository.delete(ex);
         }
@@ -370,7 +370,7 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
             bookDto.setName(pro.getName());
             bookDto.setState(transferUTF8.UTF8toC(ex.getStatus()));
             bookDto.setCount(ex.getOrdersNum());
-//            //图片信息
+            //图片信息
 //            String path = "";
 //            if (pro.getPicture_count() == 0) {
 //                bookDto.setCoverPic(path);
@@ -649,7 +649,7 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
 
             bookDto.setName(pro.getName());
             bookDto.setState(transferUTF8.UTF8toC(booking.getStatus()));
-//            //图片信息
+            //图片信息
 //            String path = "";
 //            if (pro.getPicture_count() == 0) {
 //                bookDto.setCoverPic(path);
@@ -780,39 +780,40 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         }
         List<BookDetails> bidList=new ArrayList<>();
         for (Booking value : bookLst) {
-            BookDetails bookDto=new BookDetails();
-            User user2=userRepository.findByPhone(value.getBuyerId()).get();
-            bookDto.setPhone(user2.getPhone());
-            bookDto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
-            bookDto.setNumber(number);
-            String status=transferUTF8.UTF8toC(value.getStatus());
-            if(Objects.equals(status, "已预约")){
-                bookDto.setState("待处理");
+            if(!Objects.equals(value.getStatus(), transferUTF8.CtoUTF8("已拒绝"))){
+                BookDetails bookDto=new BookDetails();
+                User user2=userRepository.findByPhone(value.getBuyerId()).get();
+                bookDto.setPhone(user2.getPhone());
+                bookDto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
+                bookDto.setNumber(value.getNumber());
+                String status=transferUTF8.UTF8toC(value.getStatus());
+                if(Objects.equals(status, "已预约")){
+                    bookDto.setState("待处理");
+                }
+                else
+                    bookDto.setState(transferUTF8.UTF8toC(value.getStatus()));
+                //图片路径
+                String picture1;
+                if(user2.getAvatar()==null||user2.getAvatar().isEmpty()){
+                    //默认图片
+                    picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
+                    bookDto.setAvatar(picture1);
+                }
+                else{
+                    picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()),avatar_width,avatar_height);
+                    bookDto.setAvatar(picture1);
+                }
+                bookDto.setCount(value.getOrdersNum());
+                bidList.add(bookDto);
             }
-            else
-                bookDto.setState(transferUTF8.UTF8toC(value.getStatus()));
-            //图片路径
-            String picture1;
-            if(user2.getAvatar()==null||user2.getAvatar().isEmpty()){
-                //默认图片
-                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
-                bookDto.setAvatar(picture1);
-            }
-            else{
-                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()),avatar_width,avatar_height);
-                bookDto.setAvatar(picture1);
-            }
-            bookDto.setCount(value.getOrdersNum());
-            bidList.add(bookDto);
         }
         for (ExchangeInfo value : exList) {
             BookDetails bookDto=new BookDetails();
-            //Seller seller=sel.findByExchangeId(value.getNumber());
             Buyer buyer=buy.findByExchangeId(value.getNumber());
             User user2=userRepository.findByPhone(buyer.getPhone()).get();
             bookDto.setPhone(user2.getPhone());
             bookDto.setNickName(transferUTF8.UTF8toC(user2.getUserName()));
-            bookDto.setNumber(number);
+            bookDto.setNumber(value.getNumber());
             String status=transferUTF8.UTF8toC(value.getStatus());
             if(Objects.equals(status, "已购买")){
                 bookDto.setState("已卖出");
