@@ -10671,6 +10671,7 @@ function responseError(res) {
   switch (res.data.message) {
 
     case '401':
+    case '用户错误，请重新登录':
       uni.showToast({
 
         title: '身份验证失败，请重新登录!',
