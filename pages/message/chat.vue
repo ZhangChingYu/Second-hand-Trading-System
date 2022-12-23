@@ -6,7 +6,7 @@
 		 enable-flex
 		 :scroll-into-view="scrollToView"
 		 :scroll-with-animation="needScrollAnimation"
-		 :style="{height:scrollViewHeight}">
+		 :style="{height:scrollViewHeight,'padding-bottom':'20rpx','box-sizing': 'border-box'}">
 			<!-- 一条聊天记录  -->
 			<view class="chat-item" v-for="(item,index) in chatMsg" :key="item.id" :id="'msg' + item.id">
 				<!-- 时间  -->
@@ -293,7 +293,7 @@
 		
 	}
 	.chat {
-		padding: 20rpx 20rpx 128rpx;
+		// padding-bottom: 20rpx;
 		// min-height: 100vh;
 		// height:calc(100vh - 128rpx);
 	}
