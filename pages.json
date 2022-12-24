@@ -55,6 +55,42 @@
             }
             
         }
+		,{
+		    "path" : "pages/manage/others/reportManage",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "举报审核",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/manage/others/reportDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "举报详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/manage/others/agreementManage",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "用户协议",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/manage/others/agreementDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "协议详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         
     ],
 	"globalStyle": {

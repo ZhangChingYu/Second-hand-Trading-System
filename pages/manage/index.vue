@@ -44,7 +44,17 @@
 				// 用户管理:用户审核、用户信息、账号...
 				userItem:[],
 				// 其他管理:首页轮播图、公告、用户协议....
-				otherItem:[],
+				otherItem:[
+					{
+						title: '举报审核',
+						url: 'pages/manage/others/reportManage',
+						icon: 'https://img0.baidu.com/it/u=3327668379,4177683952&fm=253&fmt=auto&app=138&f=JPEG?w=439&h=499',
+					},{
+						title: '用户协议',
+						url: 'pages/manage/others/agreementManage',
+						icon: 'https://img1.baidu.com/it/u=2274835460,799751483&fm=253&fmt=auto&app=138&f=JPEG?w=396&h=500'
+					}
+				],
 			}
 		},
 		methods: {

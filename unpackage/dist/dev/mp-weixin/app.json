@@ -5,7 +5,11 @@
     "pages/me/index",
     "pages/manage/product/catalog",
     "pages/manage/product/query",
-    "pages/manage/product/review"
+    "pages/manage/product/review",
+    "pages/manage/others/reportManage",
+    "pages/manage/others/reportDetail",
+    "pages/manage/others/agreementManage",
+    "pages/manage/others/agreementDetail"
   ],
   "subPackages": [],
   "window": {
