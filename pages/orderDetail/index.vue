@@ -149,6 +149,8 @@
 				payImage:"",
 				// 卖家信息：avatar(头像)，userName(昵称)
 				sellerMess:{},
+				// 总价
+				total:0,
 				// 订单时间信息的显示
 				isDelivery:false,
 				noSelf:false,
@@ -168,6 +170,7 @@
 			this.getSeller();
 			this.getCoverPic();
 			this.getOneOrder();	
+			this.total = this.order.total;
 		},
 		onLoad(option){
 			this.oneOrderGoods = JSON.parse(option.item);
@@ -289,7 +292,7 @@
 			toCancel(){
 				var oneGoods = JSON.stringify(this.oneOrderGoods)
 				uni.navigateTo({
-					url:'/pages/applyRefund/index?orderGoods='+ oneGoods + '&total='+ this.order.total
+					url:'/pages/applyRefund/index?orderGoods='+ oneGoods + '&total='+ this.total
 				})
 			},
 			

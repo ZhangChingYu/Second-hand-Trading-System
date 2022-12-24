@@ -128,7 +128,7 @@
 					this.status = -1;
 				}
 				else if(state == '已通过'){
-					this.allcolor = '';
+					this.allcolor = '#efefef';
 					this.allfont = 'gray';
 					this.firstcolor = '#b34c26',
 					this.firstfont = 'white';

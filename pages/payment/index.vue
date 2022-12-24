@@ -160,6 +160,21 @@
 			this.total = this.oneBook.price;
 		},
 		methods: {
+			map(){
+				const that = this;
+				uni.chooseLocation({
+					latitude:29.59744,
+					longitude:106.298386,
+					success: function (res) {
+						that.myAddress.region = res.name;
+						that.myAddress.addressDetail = res.address;
+					},
+					fail:(res=>{
+						console.log(res);
+					})
+				});
+			},
+			
 			// 获取商品图片
 			async getCoverPic(){
 				const that  = this;
@@ -252,6 +267,8 @@
 				if(this.isAlipay) pay = '支付宝';
 				else pay = '微信';
 				
+				// this.submit();
+				
 				const that  = this;
 				try{
 					let res = await this.api.post('/orders/build',{bookNum:this.oneBook.bookNum,myAddress:this.myAddress,expressDelivery:delivery,price:this.total,payment:pay,discounts:this.discount});	
@@ -270,6 +287,41 @@
 					that.$toast(e)
 				}
 			},
+			
+			// 调用微信支付
+			async submit() {
+				//获取用户信息，没有信息的从新登录
+				if (!uni.getStorageSync('user')) {
+					uni.navigateTo({
+						url: 'pages/login/index'
+					})
+					return
+				}
+				//先调用后台接口获取调用支付需要用到的参数
+				let [code, res] = await this.$http.post('', {})
+				let data = res.data.data
+				//调用微信支付功能
+				uni.requestPayment({
+					appId: data.appid,//小程序的appid
+					timeStamp: data.timeStamp,//时间戳，要字符串类型的
+					nonceStr: data.nonceStr,//随机字符串，长度为32个字符以下。
+					package: data.package,//prepay_id 参数值，提交格式如：prepay_id=xx
+					signType: data.signType, //MD5类型
+					paySign: data.paySign,//签名
+					success: function(res) {
+						//支付成功的回调    成功之后你想做什么在这里操作  比如弹窗一个提示:支付成功等
+						uni.showToast({
+							title: '支付成功！',
+							icon: 'success'
+						})
+					},
+					fail: function(err) {
+						//支付失败的回调   失败之后你想做什么在这里操作  比如弹窗一个提示:支付失败等
+						console.log(err);
+					}
+				});
+			},
+
 			
 			// 获取该卖家信息
 			async getSeller(){

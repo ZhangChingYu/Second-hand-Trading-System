@@ -91,7 +91,7 @@
 				order:{
 					price:0,
 				},
-				total: 0,
+				total:0,
 				// 货物状态
 				goodsState:[
 					{state:'未收到货',},
@@ -144,8 +144,7 @@
 					//TODO handle the exception
 					that.$toast(e)
 				}
-			},
-			
+			},		
 			
 			toSubmit(){
 				if(this.isReason && this.isState){

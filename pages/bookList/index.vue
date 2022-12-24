@@ -23,7 +23,7 @@
 						<!-- 卖家头像 -->
 						<image @click="" :src="item.avatar" class="location"></image>
 						<!-- 卖家昵称 -->
-						<text>{{item.userName}}</text>
+						<text>{{item.nickName}}</text>
 					</view>
 					<!-- 商品信息 -->
 					<view class="goods-box" @click="toGoodsDetail">
@@ -50,14 +50,14 @@
 						<view class="twoState">
 							<text style="font-size: 30rpx;">退款申请</text>
 							<view class="subLine" ></view>						
-							<text>退款金额： {{applyRefund.refund}}</text>
+							<text>退款金额： ￥ {{applyRefund.total.toFixed(2)}}</text>
 							<text>货物状态： {{applyRefund.goodsState}}</text>
-							<text>退款原因： {{applyRefund.reason}}</text>
+							<text>退款原因： {{applyRefund.refundReason}}</text>
 							<text>申请退款时间： {{applyRefund.refundTime}}</text>
 							<view class="subLine" ></view>
 							<text>补充描述</text>
 							<view class="subLine" ></view>
-							<text style="height: 160rpx;line-height: 160rpx;">{{applyRefund.supplement}}</text>
+							<text style="height: 160rpx;line-height: 160rpx;">{{applyRefund.description}}</text>
 							<view class="somebt">
 								<button @click="refuse(item,index)" style="background-color: gray;color: white;">拒绝</button>
 								<button @click="confirm(item,index)" style="background-color: #b34c26;color: white;">同意</button>
@@ -71,10 +71,8 @@
 							<text>收货人： {{order.consignee}} {{order.phone}}</text>
 							<text>收货地址： {{order.address}}</text>
 							<text>配送方式： {{order.delivery}}</text>
-							<text>收货地址： {{order.address}}</text>
-							<text>配送方式： {{order.delivery}}</text>
-							<text>优惠： {{order.discount}}</text>
-							<text>成交价格： {{order.total}}</text>
+							<text>优惠： ￥ {{order.discount.toFixed(2)}}</text>
+							<text>成交价格： ￥ {{order.total.toFixed(2)}}</text>
 							<text>支付方式： {{order.pay}}</text>
 							<text>订单生成时间： {{order.payTime}}</text>
 							<text>发货时间： {{order.deliveryTime}}</text>
@@ -121,9 +119,14 @@
 				// 快递单号
 				deliveryId:'',
 				// 退款申请
-				applyRefund:{},
+				applyRefund:{
+					total:0,
+				},
 				// 订单其他信息
-				order:{},
+				order:{
+					total:0,
+					discount:0,
+				},
 				// 订单时间信息的显示
 				noSelf:false,
 				isConfirm:false,
@@ -145,7 +148,7 @@
 			async openState2(item){
 				const that  = this;
 				try{
-					let res = await this.api.get('/orders/after/reason',{number:this.item.number});
+					let res = await this.api.get('/orders/after/reason',{number:item.number});
 					that.applyRefund = res.data;
 				}catch(e){
 					//TODO handle the exception
@@ -157,7 +160,7 @@
 			async openState3(item){
 				const that  = this;
 				try{
-					let res = await this.api.get('/orders/details',{number:this.item.number});
+					let res = await this.api.get('/orders/details',{number:item.number});
 					that.order = res.data;
 				}catch(e){
 					//TODO handle the exception
@@ -173,7 +176,7 @@
 				if(this.deliveryId != ''){
 					try{
 						// 订单编号
-						let res = await this.api.put('/orders/receiving',{number:this.item.number,deliveryId:this.deliveryId});
+						let res = await this.api.put('/orders/receiving',{number:item.number,deliveryId:this.deliveryId});
 						this.oneBookList[index].state = '待收货';
 						this.$refs.pop1[0].close();
 					}catch(e){
@@ -381,7 +384,7 @@
 			async confirmBook(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.put('/booking/acquire',{number:this.item.number});
+					let res = await this.api.put('/booking/acquire',{number:item.number});
 					this.oneBookList[index].state = '待下单';
 				}catch(e){
 					//TODO handle the exception
@@ -393,7 +396,7 @@
 			async refuseBook(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.put('/orders/cancel/booking',{number:this.item.number,isbuyer:0});
+					let res = await this.api.put('/orders/cancel/booking',{number:item.number,isbuyer:0});
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -404,7 +407,7 @@
 			async confirm(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.put('/orders/refund',{number:this.item.number});
+					let res = await this.api.put('/orders/refund',{number:item.number});
 					this.oneBookList[index].state = '已退款';
 					this.$refs.pop2[0].close();
 				}catch(e){
@@ -417,7 +420,7 @@
 			async refuse(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.put('/orders/disagree',{number:this.item.number});
+					let res = await this.api.put('/orders/disagree',{number:item.number});
 					this.oneBookList[index].state = res.data;
 					this.$refs.pop2[0].close();
 				}catch(e){
@@ -434,7 +437,7 @@
 			async deleteOrder(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.put('/orders/seller/delete',{number:this.item.number});
+					let res = await this.api.put('/orders/seller/delete',{number:item.number});
 					that.oneBookList.splice(index,1);
 				}catch(e){
 					//TODO handle the exception
