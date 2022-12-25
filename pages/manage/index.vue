@@ -42,7 +42,17 @@
 					}
 				],
 				// 用户管理:用户审核、用户信息、账号...
-				userItem:[],
+				userItem:[
+					{
+						title: '用户信息管理',
+						url: 'pages/userManage/userManage',
+						icon: 'http://img95.699pic.com/element/40149/2920.png_860.png'
+					},{
+						title: '实名认证管理',
+						url: 'pages/realName/realName',
+						icon: 'https://bpic.588ku.com/element_origin_min_pic/20/08/26/632c752cfe4b9a6bf92cb50442e26f67.jpg'
+					},
+				],
 				// 其他管理:首页轮播图、公告、用户协议....
 				otherItem:[
 					{

@@ -1,0 +1,49 @@
+
+.content {
+	margin: 5% 5%;
+	justify-content: center;
+	align-items: center;
+	font-size: small;
+}
+.picture {
+	border: 2rpx solid #d04b41;
+	width: 100%;
+}
+.info{
+	margin-bottom: 10%;
+}
+.info>view {
+	margin-top: 5%;
+	border-bottom: 2rpx solid #ccc;
+	border-left: 5rpx solid #d04b41;
+	padding-bottom: 3%;
+}
+.operation {
+	margin-top: 5%;
+	padding-top: 5%;
+	border-top: 3rpx solid #d04b41;
+}
+.title{
+	font-size: medium;
+	font-weight: 600;
+	color: #d04b41;
+}
+.operation>view {
+	margin-bottom: 3%;
+}
+.text {
+	width: 95%;
+	height: 400rpx;
+	background-color: #f1e9e2;
+	border: #e8e5e1;
+	padding: 2% 3%;
+}
+.commitbtn {
+	background-color: #d04b41;
+	width: 30%;
+	justify-content: center;
+	margin-top: 5%;
+	color: white;
+	font-size: small;
+}
+

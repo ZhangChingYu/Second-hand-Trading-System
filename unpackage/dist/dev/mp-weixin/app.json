@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/login/login",
     "pages/main/index",
     "pages/manage/index",
     "pages/me/index",
@@ -9,7 +10,11 @@
     "pages/manage/others/reportManage",
     "pages/manage/others/reportDetail",
     "pages/manage/others/agreementManage",
-    "pages/manage/others/agreementDetail"
+    "pages/manage/others/agreementDetail",
+    "pages/userManage/userManage",
+    "pages/realName/realName",
+    "pages/userDetail/userDetail",
+    "pages/realNameDetail/realNameDetail"
   ],
   "subPackages": [],
   "window": {
