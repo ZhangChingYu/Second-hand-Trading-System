@@ -1,5 +1,6 @@
 package dev.silvia.wechattrade.handlers.fileHandler;
 
+import dev.silvia.wechattrade.vo.PrincipleVo;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
@@ -8,8 +9,10 @@ import java.util.*;
 @Component
 public class ReadFile {
     private String picture_url = FileDirector.PRODUCT_URL;
+    private String help_url = FileDirector.HELP_URL;
     private String auth_url = FileDirector.AUTH_URL;
     private String auth_temp_url = FileDirector.AUTHENTICATION_TEMP_URL;
+    private String principle_url = FileDirector.USER_PRINCIPLE_URL;
     public static String getBaseFile(String filePath){
         if(filePath==null){
             return null;
@@ -116,6 +119,31 @@ public class ReadFile {
         return filePath;
     }
 
+    // 確認該問題是否已存在(存在返回true)
+    public boolean checkHelpQuestion(String catalog, String question){
+        String filePath = help_url+"/"+catalog;
+        File folder = new File(filePath);
+        File[] files = folder.listFiles();
+        for(File file : files){
+            String fileName = file.getName();
+            String name = fileName.substring(0, fileName.indexOf("."));
+            if(question.equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+    // 確認分類文件夾下是否還有問題
+    public boolean checkHelpExist(String catalog){
+        String filePath = help_url+"/" + catalog;
+        File folder = new File(filePath);
+        File[] files = folder.listFiles();
+        if(files == null || files.length == 0){
+            return true;
+        }
+        return false;
+    }
+
     public String readHelpFile(String filePath){
         File file = new File(filePath);
         BufferedReader in = null;
@@ -141,6 +169,74 @@ public class ReadFile {
             }
         }
         return out;
+    }
+
+    public boolean checkPrincipleVersion(String version){   // 若存在返回true
+        File folder = new File(picture_url);
+        File[] files = folder.listFiles();
+        for(File file : files){
+            String file_name = file.getName();
+            String name = file_name.substring(0, file_name.lastIndexOf("."));
+            if(name.equals(name)){
+                return true;
+            }
+        }
+        return false;
+    }
+    // 讀取用戶協議
+    public PrincipleVo readPrinciple(String filePath){
+        PrincipleVo principleVo = new PrincipleVo();
+        // 讀取順序為: version, date, content
+        List<String> out = new ArrayList<>();
+        File file = new File(filePath);
+        BufferedReader in = null;
+        try {   // 用UTF-8讀取會出否則會出現亂碼
+            in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            String line = "";
+            while ((line = in.readLine())!=null){
+                System.out.println(line);   // 一次讀一行
+                out.add(line);
+            }
+        } catch (FileNotFoundException e){
+            System.out.println("File Not Fond!");
+            principleVo.setContent("File Not Fond!");
+            return principleVo;
+        } catch (IOException e){
+            principleVo.setContent("Read Exception!");
+            return principleVo;
+        } finally {
+            if(null != in){
+                try {
+                    in.close();
+                } catch (IOException e){
+                    principleVo.setContent(e.getMessage());
+                    return principleVo;
+                }
+            }
+        }
+        principleVo.setVersion(out.get(0));
+        principleVo.setDate(out.get(1));
+        principleVo.setContent(out.get(2));
+        return principleVo;
+    }
+
+    public String getNewestFile(String folderPath){
+        File folder = new File(folderPath);
+        File[] files = folder.listFiles();
+        File newest = null;
+        Long lastModifiedTime = Long.MIN_VALUE;
+        if(files != null || files.length==0){
+            for(File file : files){
+                if(file.lastModified()>lastModifiedTime){
+                    newest = file;
+                    lastModifiedTime = file.lastModified();
+                }
+            }
+            String name = newest.getName().substring(0,newest.getName().lastIndexOf("."));
+            return name;
+        }else {
+            return null;
+        }
     }
 
     public List<String> getProductPictureURL(String number){    // 獲取商品文件目錄下所有圖片的地址

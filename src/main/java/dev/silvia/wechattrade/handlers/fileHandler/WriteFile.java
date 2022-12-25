@@ -4,12 +4,16 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 @Component
 public class WriteFile {
     private String feedback_url = FileDirector.FEEDBACK_URL;
+    private String help_url = FileDirector.HELP_URL;
+    private String principle_url = FileDirector.USER_PRINCIPLE_URL;
     private String picture_url = FileDirector.PRODUCT_URL;
     private String auth_url = FileDirector.AUTH_URL;
     private String auth_temp_url = FileDirector.AUTHENTICATION_TEMP_URL;
@@ -166,6 +170,82 @@ public class WriteFile {
         String newName = phone;
         storeMultipartFile(pathName,newName,picture);
         return 201; // 存儲成功
+    }
+    // 創建幫助類型文件夾
+    public Integer newHelpCatalog(String name){
+        if(createDir(help_url, name) != null){
+            return 200;
+        }
+        return 422;
+    }
+    // 創建幫助文件
+    public Integer newHelp(String catalog, String question, String answer) {
+        // 創建幫助(問題+答案)
+        String file_path = help_url + "/" + catalog + "/" + question + ".txt";
+        File file = new File(file_path);
+        answer = answer.replaceAll("\n", "\n\r");
+        BufferedWriter out = null;
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+            out.write(answer);
+        } catch (FileNotFoundException e) {
+            System.out.println("File is not fond!");
+            return 404;
+        } catch (IOException e) {
+            System.out.println("Write Exception!");
+            return 422;
+        } finally {
+            if (null != out) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    return 800;
+                }
+            }
+        }
+        return 200;
+    }
+    // 更改文件夾名字
+    public Integer updateHelpCatalog(String oldName, String newName){
+        String filePath = help_url + "/" + oldName;
+        File folder = new File(filePath);
+        File newFile = new File(help_url+"/"+newName);
+        if(folder.renameTo(newFile)){
+            return 200;
+        }
+        return 422;
+    }
+    // 創建用戶協議
+    public Integer createPrinciple(String version, String content){
+        String filePath = principle_url;
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        File file = new File(filePath+"/"+version+".txt");
+        BufferedWriter out = null;
+        try {
+            out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),"UTF-8"));
+            out.write("Version: "+version+"\r\n");
+            out.write("Date: "+sdf.format(date)+"\r\n");
+            out.write(content+"\r\n"); // 寫入"換行"時一定要用\r\n否則無效
+        } catch (FileNotFoundException e) {
+            System.out.println("File is not fond!");
+            return 422;
+        } catch (IOException e) {
+            System.out.println("Read or Write Exception!");
+            return 422;
+        } finally {     // BufferedWriter out 一定要close()否則不會寫入
+            if(null != out){
+                try {
+                    out.close();
+                } catch (IOException e){
+                    e.printStackTrace();
+                }
+                return 200;
+            }
+            System.out.println("Create file path failed on month!");
+            return 422;
+        }
     }
 
     private String createDir(String root, String dir){

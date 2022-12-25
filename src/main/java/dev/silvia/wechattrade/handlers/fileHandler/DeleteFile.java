@@ -8,6 +8,8 @@ import java.io.File;
 public class DeleteFile {
     private String product_picture_url = FileDirector.PRODUCT_URL;
     private String auth_temp_url = FileDirector.AUTHENTICATION_TEMP_URL;
+    private String help_url = FileDirector.HELP_URL;
+    private String principle_url = FileDirector.USER_PRINCIPLE_URL;
 
     private static boolean deleteOneFile(String filePath){    // 刪除某路徑下單個文件
         boolean flag = false;
@@ -86,5 +88,32 @@ public class DeleteFile {
         // 最後把目錄也刪除
         dir.delete();
         //System.out.println(dir.getName()+":: directory has been deleted.");
+    }
+
+    // 刪除幫助文件
+    public Integer deleteHelp(String catalog, String question){
+        String filePath = help_url+"/"+catalog+"/"+question+".txt";
+        if(deleteOneFile(filePath)){
+            return 204;
+        }
+        else {
+            return 422;
+        }
+    }
+    // 刪除幫助分類文件夾
+    public Integer deleteHelpCatalog(String catalog){
+        String filePath = help_url+"/"+catalog;
+        if(deleteOneFile(filePath)){
+            return 204;
+        }
+        return 422;
+    }
+    // 刪除用戶協議
+    public Integer deletePrinciple(String version){
+        String filePath = principle_url+"/"+version;
+        if(deleteOneFile(filePath)){
+            return 204;
+        }
+        return 422;
     }
 }
