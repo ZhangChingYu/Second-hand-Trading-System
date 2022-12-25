@@ -2192,3 +2192,339 @@
  *          },....{}
  *      ]
  */
+
+/**
+ * @api {post} /help/catalog 創建新的幫助分類
+ * @apiName CreateNewHelpCatalog
+ * @apiGroup 服務端:幫助管理
+ * @apiPermission none
+ *
+ * @apiDescription 創建新的幫助分類
+ *
+ * @apiParam {String} name 分類的名字
+ *
+ * @apiSuccessExample 創建成功
+ *     {
+ *       200
+ *     }
+ * @apiErrorExample 創建失敗
+ *     {
+ *       422
+ *     }
+ */
+
+/**
+ * @api {post} /help/help 創建新的幫助
+ * @apiName CreateNewHelp
+ * @apiGroup 服務端:幫助管理
+ * @apiPermission none
+ *
+ * @apiDescription 創建新的幫助
+ *
+ * @apiParam {String} catalog 分類的名字
+ * @apiParam {String} question 問題
+ * @apiParam {String} answer 答案
+ *
+ * @apiSuccessExample 創建成功
+ *     {
+ *       200
+ *     }
+ * @apiErrorExample 創建失敗(文件不存在)
+ *     {
+ *       404
+ *     }
+ * @apiErrorExample 創建失敗(寫入失敗)
+ *     {
+ *       422
+ *     }
+ * @apiErrorExample 創建失敗(文件操作失敗)
+ *     {
+ *       800
+ *     }
+ */
+
+/**
+ * @api {delete} /help/help 刪除幫助
+ * @apiName DeleteHelp
+ * @apiGroup 服務端:幫助管理
+ * @apiPermission none
+ *
+ * @apiDescription 刪除幫助
+ *
+ * @apiParam {String} catalog 分類
+ * @apiParam {String} question 問題
+ *
+ * @apiSuccessExample 刪除成功
+ *     {
+ *       204
+ *     }
+ * @apiErrorExample 刪除失敗
+ *     {
+ *       422
+ *     }
+ */
+
+/**
+ * @api {delete} /help/catalog 刪除幫助分類
+ * @apiName DeleteHelpCatalog
+ * @apiGroup 服務端:幫助管理
+ * @apiPermission none
+ *
+ * @apiDescription 刪除幫助分類
+ *
+ * @apiParam {String} catalog 分類
+ *
+ * @apiSuccessExample 刪除成功
+ *     {
+ *       204
+ *     }
+ * @apiErrorExample 刪除失敗
+ *     {
+ *       422
+ *     }
+ * @apiErrorExample 刪除失敗(分類下還有問題存在)
+ *     {
+ *       400
+ *     }
+ */
+
+/**
+ * @api {put} /help/help 更新幫助
+ * @apiName UpdateHelp
+ * @apiGroup 服務端:幫助管理
+ * @apiPermission none
+ *
+ * @apiDescription 更新幫助
+ *
+ * @apiParam {String} catalog 分類
+ * @apiParam {String} question 問題
+ * @apiParam {String} newAnswer 更新的答案
+ *
+ * @apiSuccessExample 更新成功
+ *     {
+ *       200
+ *     }
+ * @apiErrorExample 更新失敗(文件不存在)
+ *     {
+ *       404
+ *     }
+ * @apiErrorExample 更新失敗(寫入失敗)
+ *     {
+ *       422
+ *     }
+ * @apiErrorExample 更新失敗(版本不存在)
+ *     {
+ *       400
+ *     }
+ * @apiErrorExample 更新失敗(文件操作失敗)
+ *     {
+ *       800
+ *     }
+ */
+
+/**
+ * @api {put} /help/catalog 更新幫助分類
+ * @apiName UpdateHelpCatalog
+ * @apiGroup 服務端:幫助管理
+ * @apiPermission none
+ *
+ * @apiDescription 更新幫助分類
+ *
+ * @apiParam {String} catalog 分類
+ *
+ * @apiSuccessExample 更新成功
+ *     {
+ *       200
+ *     }
+ * @apiErrorExample 更新失敗(寫入失敗)
+ *     {
+ *       422
+ *     }
+ */
+
+/**
+ * @api {GET} /help/catalogs 獲取幫助問題的類型
+ * @apiName ShowHelpCatalogs
+ * @apiGroup 服務端:幫助管理
+ * @apiPermission none
+ *
+ * @apiDescription 獲取幫助問題的類型
+ *
+ * @apiSuccessExample 成功返回問題類型(例子)
+ *    [
+ *        {
+ *             "index":"0",
+ *             "catalog":"商品上傳"
+ *        },
+ *        {
+ *             "index":"1",
+ *             "catalog":"關於"
+ *        }
+ *     ]
+ * @apiErrorExample 失敗
+ *     {
+ *        null
+ *     }
+ */
+
+/**
+ * @api {GET} /help/catalog/questions 獲取相應問題類型的問題
+ * @apiName ShowHelpQuestions
+ * @apiGroup 服務端:幫助管理
+ * @apiPermission none
+ *
+ * @apiDescription 獲取相應問題類型的問題
+ *
+ * @apiParam {String} catalog 分類
+ *
+ * @apiSuccessExample 成功返回問相應類型的問題(以"商品上傳"為例)
+ *    [
+ *        {
+ *             "index":"0",
+ *             "catalog":"如何上傳商品"
+ *        },
+ *        {
+ *             "index":"1",
+ *             "catalog":"為何上傳商品後沒有成功上架"
+ *        }
+ *     ]
+ * @apiErrorExample 失敗
+ *     {
+ *        null
+ *     }
+ */
+
+/**
+ * @api {GET} /help/catalog/question/answer 獲取對應問題解答
+ * @apiName ShowHelpAnswer
+ * @apiGroup 服務端:幫助管理
+ * @apiPermission none
+ *
+ * @apiDescription 獲得問題的解答。
+ *
+ * @apiParam {String} catalog 分類
+ * @apiParam {String} question 問題
+ *
+ * @apiSuccessExample 成功(以"為何上傳商品後沒有成功上架"為例)
+ *    {
+ *         閒置重重的商品上架流程為: 用戶上傳商品-->管理員審核通過-->用戶商品上架。
+ *         可以在個人中心查看商品的審核進度，若顯示[審核中]請用戶耐心等待管理員審核結果，一般不會超過24h。
+ *         若顯示[已駁回]表示管理員判斷該商品有違規嫌疑，具體細節由系統發送通知說明。
+ *     }
+ * @apiErrorExample 失敗
+ *     {
+ *        null
+ *     }
+ */
+
+/**
+ * @api {POST} /principle 創建用戶協議
+ * @apiName CreateUserPrinciple
+ * @apiGroup 服務端:用戶協議
+ * @apiPermission none
+ *
+ * @apiDescription 創建用戶協議。
+ *
+ * @apiParam {String} version 版本
+ * @apiParam {String} content 協議內容
+ *
+ * @apiSuccessExample 創建成功
+ *    {
+ *         200
+ *     }
+ * @apiErrorExample 創建失敗(文件操作錯誤)
+ *     {
+ *        422
+ *     }
+ * @apiErrorExample 創建失敗(版本號已存在)
+ *     {
+ *        404
+ *     }
+ */
+
+/**
+ * @api {DELETE} /principle 刪除用戶協議
+ * @apiName DeleteUserPrinciple
+ * @apiGroup 服務端:用戶協議
+ * @apiPermission none
+ *
+ * @apiDescription 刪除用戶協議。
+ *
+ * @apiParam {String} version 版本
+ *
+ * @apiSuccessExample 刪除成功
+ *    {
+ *         204
+ *     }
+ * @apiErrorExample 刪除失敗
+ *     {
+ *        422
+ *     }
+ */
+
+/**
+ * @api {PUT} /principle 更新用戶協議
+ * @apiName UpdateUserPrinciple
+ * @apiGroup 服務端:用戶協議
+ * @apiPermission none
+ *
+ * @apiDescription 更新用戶協議。
+ *
+ * @apiParam {String} version 版本
+ * @apiParam {String} content 協議內容
+ *
+ * @apiSuccessExample 更新成功
+ *    {
+ *         200
+ *     }
+ * @apiErrorExample 更新失敗(文件操作錯誤)
+ *     {
+ *        422
+ *     }
+ * @apiErrorExample 更新失敗(版本號不存在)
+ *     {
+ *        404
+ *     }
+ */
+
+/**
+ * @api {GET} /principle 獲取用戶協議
+ * @apiName GetUserPrinciple
+ * @apiGroup 服務端:用戶協議
+ * @apiPermission none
+ *
+ * @apiDescription 獲取用戶協議
+ *
+ * @apiParam {String} version 版本
+ *
+ * @apiSuccessExample 請求成功(0.0)
+ *    {
+ *         "version": "0.0",
+ *         "date":"2022-12-25 15:38:32",
+ *         "content", "測試"
+ *     }
+ * @apiErrorExample 請求失敗
+ *     {
+ *        "content":"File Not Fond!"
+ *     }
+ */
+
+/**
+ * @api {GET} /principle/new 獲取最新版本的用戶協議
+ * @apiName GetNewUserPrinciple
+ * @apiGroup 服務端:用戶協議
+ * @apiPermission none
+ *
+ * @apiDescription 獲取最新版本的用戶協議
+ *
+ * @apiSuccessExample 請求成功
+ *    {
+ *         "version": "0.0",
+ *         "date":"2022-12-25 15:38:32",
+ *         "content", "測試"
+ *     }
+ * @apiErrorExample 請求失敗
+ *     {
+ *        "content":"File Not Fond!"
+ *     }
+ */

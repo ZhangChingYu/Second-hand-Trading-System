@@ -2214,6 +2214,734 @@
     "groupTitle": "服務端:商品管理"
   },
   {
+    "type": "post",
+    "url": "/help/help",
+    "title": "創建新的幫助",
+    "name": "CreateNewHelp",
+    "group": "服務端:幫助管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>創建新的幫助</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "catalog",
+            "description": "<p>分類的名字</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "question",
+            "description": "<p>問題</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "answer",
+            "description": "<p>答案</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "創建成功",
+          "content": "{\n  200\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "創建失敗(文件不存在)",
+          "content": "{\n  404\n}",
+          "type": "json"
+        },
+        {
+          "title": "創建失敗(寫入失敗)",
+          "content": "{\n  422\n}",
+          "type": "json"
+        },
+        {
+          "title": "創建失敗(文件操作失敗)",
+          "content": "{\n  800\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:幫助管理"
+  },
+  {
+    "type": "post",
+    "url": "/help/catalog",
+    "title": "創建新的幫助分類",
+    "name": "CreateNewHelpCatalog",
+    "group": "服務端:幫助管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>創建新的幫助分類</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "name",
+            "description": "<p>分類的名字</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "創建成功",
+          "content": "{\n  200\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "創建失敗",
+          "content": "{\n  422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:幫助管理"
+  },
+  {
+    "type": "delete",
+    "url": "/help/help",
+    "title": "刪除幫助",
+    "name": "DeleteHelp",
+    "group": "服務端:幫助管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>刪除幫助</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "catalog",
+            "description": "<p>分類</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "question",
+            "description": "<p>問題</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "刪除成功",
+          "content": "{\n  204\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "刪除失敗",
+          "content": "{\n  422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:幫助管理"
+  },
+  {
+    "type": "delete",
+    "url": "/help/catalog",
+    "title": "刪除幫助分類",
+    "name": "DeleteHelpCatalog",
+    "group": "服務端:幫助管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>刪除幫助分類</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "catalog",
+            "description": "<p>分類</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "刪除成功",
+          "content": "{\n  204\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "刪除失敗",
+          "content": "{\n  422\n}",
+          "type": "json"
+        },
+        {
+          "title": "刪除失敗(分類下還有問題存在)",
+          "content": "{\n  400\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:幫助管理"
+  },
+  {
+    "type": "GET",
+    "url": "/help/catalog/question/answer",
+    "title": "獲取對應問題解答",
+    "name": "ShowHelpAnswer",
+    "group": "服務端:幫助管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲得問題的解答。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "catalog",
+            "description": "<p>分類</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "question",
+            "description": "<p>問題</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "成功(以\"為何上傳商品後沒有成功上架\"為例)",
+          "content": "{\n     閒置重重的商品上架流程為: 用戶上傳商品-->管理員審核通過-->用戶商品上架。\n     可以在個人中心查看商品的審核進度，若顯示[審核中]請用戶耐心等待管理員審核結果，一般不會超過24h。\n     若顯示[已駁回]表示管理員判斷該商品有違規嫌疑，具體細節由系統發送通知說明。\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "失敗",
+          "content": "{\n   null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:幫助管理"
+  },
+  {
+    "type": "GET",
+    "url": "/help/catalogs",
+    "title": "獲取幫助問題的類型",
+    "name": "ShowHelpCatalogs",
+    "group": "服務端:幫助管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取幫助問題的類型</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回問題類型(例子)",
+          "content": "[\n    {\n         \"index\":\"0\",\n         \"catalog\":\"商品上傳\"\n    },\n    {\n         \"index\":\"1\",\n         \"catalog\":\"關於\"\n    }\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "失敗",
+          "content": "{\n   null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:幫助管理"
+  },
+  {
+    "type": "GET",
+    "url": "/help/catalog/questions",
+    "title": "獲取相應問題類型的問題",
+    "name": "ShowHelpQuestions",
+    "group": "服務端:幫助管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取相應問題類型的問題</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "catalog",
+            "description": "<p>分類</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "成功返回問相應類型的問題(以\"商品上傳\"為例)",
+          "content": "[\n    {\n         \"index\":\"0\",\n         \"catalog\":\"如何上傳商品\"\n    },\n    {\n         \"index\":\"1\",\n         \"catalog\":\"為何上傳商品後沒有成功上架\"\n    }\n ]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "失敗",
+          "content": "{\n   null\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:幫助管理"
+  },
+  {
+    "type": "put",
+    "url": "/help/help",
+    "title": "更新幫助",
+    "name": "UpdateHelp",
+    "group": "服務端:幫助管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>更新幫助</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "catalog",
+            "description": "<p>分類</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "question",
+            "description": "<p>問題</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "newAnswer",
+            "description": "<p>更新的答案</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "更新成功",
+          "content": "{\n  200\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "更新失敗(文件不存在)",
+          "content": "{\n  404\n}",
+          "type": "json"
+        },
+        {
+          "title": "更新失敗(寫入失敗)",
+          "content": "{\n  422\n}",
+          "type": "json"
+        },
+        {
+          "title": "更新失敗(版本不存在)",
+          "content": "{\n  400\n}",
+          "type": "json"
+        },
+        {
+          "title": "更新失敗(文件操作失敗)",
+          "content": "{\n  800\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:幫助管理"
+  },
+  {
+    "type": "put",
+    "url": "/help/catalog",
+    "title": "更新幫助分類",
+    "name": "UpdateHelpCatalog",
+    "group": "服務端:幫助管理",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>更新幫助分類</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "catalog",
+            "description": "<p>分類</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "更新成功",
+          "content": "{\n  200\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "更新失敗(寫入失敗)",
+          "content": "{\n  422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:幫助管理"
+  },
+  {
+    "type": "POST",
+    "url": "/principle",
+    "title": "創建用戶協議",
+    "name": "CreateUserPrinciple",
+    "group": "服務端:用戶協議",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>創建用戶協議。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "version",
+            "description": "<p>版本</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>協議內容</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "創建成功",
+          "content": "{\n     200\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "創建失敗(文件操作錯誤)",
+          "content": "{\n   422\n}",
+          "type": "json"
+        },
+        {
+          "title": "創建失敗(版本號已存在)",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:用戶協議"
+  },
+  {
+    "type": "DELETE",
+    "url": "/principle",
+    "title": "刪除用戶協議",
+    "name": "DeleteUserPrinciple",
+    "group": "服務端:用戶協議",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>刪除用戶協議。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "version",
+            "description": "<p>版本</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "刪除成功",
+          "content": "{\n     204\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "刪除失敗",
+          "content": "{\n   422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:用戶協議"
+  },
+  {
+    "type": "GET",
+    "url": "/principle/new",
+    "title": "獲取最新版本的用戶協議",
+    "name": "GetNewUserPrinciple",
+    "group": "服務端:用戶協議",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取最新版本的用戶協議</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功",
+          "content": "{\n     \"version\": \"0.0\",\n     \"date\":\"2022-12-25 15:38:32\",\n     \"content\", \"測試\"\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "請求失敗",
+          "content": "{\n   \"content\":\"File Not Fond!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:用戶協議"
+  },
+  {
+    "type": "GET",
+    "url": "/principle",
+    "title": "獲取用戶協議",
+    "name": "GetUserPrinciple",
+    "group": "服務端:用戶協議",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取用戶協議</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "version",
+            "description": "<p>版本</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功(0.0)",
+          "content": "{\n     \"version\": \"0.0\",\n     \"date\":\"2022-12-25 15:38:32\",\n     \"content\", \"測試\"\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "請求失敗",
+          "content": "{\n   \"content\":\"File Not Fond!\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:用戶協議"
+  },
+  {
+    "type": "PUT",
+    "url": "/principle",
+    "title": "更新用戶協議",
+    "name": "UpdateUserPrinciple",
+    "group": "服務端:用戶協議",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>更新用戶協議。</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "version",
+            "description": "<p>版本</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "String",
+            "optional": false,
+            "field": "content",
+            "description": "<p>協議內容</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "更新成功",
+          "content": "{\n     200\n }",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "更新失敗(文件操作錯誤)",
+          "content": "{\n   422\n}",
+          "type": "json"
+        },
+        {
+          "title": "更新失敗(版本號不存在)",
+          "content": "{\n   404\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:用戶協議"
+  },
+  {
     "type": "GET",
     "url": "/authentication/requests",
     "title": "顯示所有實名認證請求",

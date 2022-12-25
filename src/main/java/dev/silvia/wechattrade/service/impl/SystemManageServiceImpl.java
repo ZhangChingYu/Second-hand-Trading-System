@@ -59,7 +59,7 @@ public class SystemManageServiceImpl extends ServiceImpl<UserDao, User> implemen
             // 問題存在方可修改
             return writeFile.newHelp(catalog,question,newAnswer);
         }
-        return null;
+        return 400;
     }
 
     @Override
