@@ -177,11 +177,22 @@ public class ReadFile {
         for(File file : files){
             String file_name = file.getName();
             String name = file_name.substring(0, file_name.lastIndexOf("."));
-            if(name.equals(name)){
+            if(name.equals(version)){
                 return true;
             }
         }
         return false;
+    }
+    // 獲取所有用戶協議路徑
+    public List<String> getAllPrincipleUrl(){
+        List<String> file_urls = new ArrayList<>();
+        File folder = new File(principle_url);
+        File[] files = folder.listFiles();
+        for(File file : files){
+            String file_url = file.getPath();
+            file_urls.add(file_url);
+        }
+        return file_urls;
     }
     // 讀取用戶協議
     public PrincipleVo readPrinciple(String filePath){

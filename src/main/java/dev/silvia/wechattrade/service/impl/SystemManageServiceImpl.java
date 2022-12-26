@@ -12,6 +12,7 @@ import dev.silvia.wechattrade.vo.PrincipleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -119,6 +120,20 @@ public class SystemManageServiceImpl extends ServiceImpl<UserDao, User> implemen
         String filePath = FileDirector.USER_PRINCIPLE_URL+"/"+version+".txt";
         PrincipleVo principleVo = readFile.readPrinciple(filePath);
         return principleVo;
+    }
+
+    @Override
+    public List<PrincipleVo> showAllPrinciple() {
+        List<String> principle_urls = readFile.getAllPrincipleUrl();
+        if(principle_urls == null || principle_urls.isEmpty()){
+            return null;
+        }
+        List<PrincipleVo> principleVos = new ArrayList<>();
+        for(String principle_url : principle_urls){
+            PrincipleVo principleVo = readFile.readPrinciple(principle_url);
+            principleVos.add(principleVo);
+        }
+        return principleVos;
     }
 
     @Override

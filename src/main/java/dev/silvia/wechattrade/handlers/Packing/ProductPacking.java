@@ -96,6 +96,8 @@ public class ProductPacking {
         myProduct.setName(transferUTF8.UTF8toC(product.getName()));
         myProduct.setPrice(product.getPrice());
         myProduct.setStatus(product.getStatus());
+        myProduct.setStorage(product.getStorage());
+        myProduct.setIntro(transferUTF8.UTF8toC(product.getIntro()));
         if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
             Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
             myProduct.setCoverPic(map.get("picture").toString());

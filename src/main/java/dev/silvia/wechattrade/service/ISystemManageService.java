@@ -34,6 +34,8 @@ public interface ISystemManageService extends IService<User> {
     Integer updateUserPrinciple(String version, String content);
     // 顯示用戶協議
     PrincipleVo showPrinciple(String version);
+    // 顯示所有用戶協議
+    List<PrincipleVo> showAllPrinciple();
     // 顯示最新版用戶協議
     PrincipleVo showNewestPrinciple();
 }

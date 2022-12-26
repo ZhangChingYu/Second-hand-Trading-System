@@ -106,6 +106,12 @@ public class SystemManagerController {
         String version = request.getParameter("version");
         return gson.toJson(service.showPrinciple(version));
     }
+
+    @RequestMapping(value = "/principles", method = RequestMethod.GET)
+    public String showAllPrinciple(){
+        return gson.toJson(service.showAllPrinciple());
+    }
+
     @PassToken
     @RequestMapping(value = "/principle/new", method = RequestMethod.GET)
     public String showNewestPrinciple(){
