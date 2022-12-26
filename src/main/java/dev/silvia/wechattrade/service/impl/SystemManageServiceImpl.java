@@ -8,12 +8,15 @@ import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
 import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.ISystemManageService;
+import dev.silvia.wechattrade.vo.AdsVo;
 import dev.silvia.wechattrade.vo.PrincipleVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class SystemManageServiceImpl extends ServiceImpl<UserDao, User> implements ISystemManageService {
@@ -144,6 +147,46 @@ public class SystemManageServiceImpl extends ServiceImpl<UserDao, User> implemen
         String version = readFile.getNewestFile(FileDirector.USER_PRINCIPLE_URL);
         PrincipleVo principleVo = readFile.readPrinciple(FileDirector.USER_PRINCIPLE_URL+"/"+version+".txt");
         return principleVo;
+    }
+
+    @Override
+    public Integer postAdsPicture(MultipartFile file) {
+        // 檢查是否可上傳，圖片數量不可超過4
+        // 若可以則上傳，不行則返回
+        return writeFile.save_ads_pic(file);
+    }
+
+    @Override
+    public Integer deleteAdsPicture(Integer index) {
+        // 刪除某一圖片
+        return deleteFile.delete_ads_pic(index);
+    }
+
+    @Override
+    public Integer updateAdsPicture(Integer index, MultipartFile file) {
+        // 刪掉原本的在寫入新的
+        if(deleteFile.delete_ads_pic(index) == 204){
+            return writeFile.save_ads_pic(file);
+        }
+        return 402; // 刪除失敗
+    }
+
+    @Override
+    public List<AdsVo> showAllAdsPicture() {
+        List<Map<String,Object>> mapList = readFile.readAdsPictures();
+        if(mapList == null || mapList.size()==0){
+            return null;
+        }
+        List<AdsVo> adsVos = new ArrayList<>();
+        for(int i = 0 ; i < mapList.size() ; i ++){
+            AdsVo adsVo = new AdsVo();
+            Map<String, Object> map = mapList.get(i);
+            adsVo.setIndex(i);
+            adsVo.setFormat(map.get("format").toString());
+            adsVo.setPicture(map.get("picture").toString());
+            adsVos.add(adsVo);
+        }
+        return adsVos;
     }
 
 }

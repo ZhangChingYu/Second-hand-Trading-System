@@ -17,6 +17,7 @@ public class WriteFile {
     private String picture_url = FileDirector.PRODUCT_URL;
     private String auth_url = FileDirector.AUTH_URL;
     private String auth_temp_url = FileDirector.AUTHENTICATION_TEMP_URL;
+    private String ads_url = FileDirector.ADS_URL;
     public static void storeMultipartFile(String filePath, String newName, MultipartFile file){
         OutputStream os = null;
         InputStream inputStream = null;
@@ -247,7 +248,26 @@ public class WriteFile {
             return 422;
         }
     }
-
+    // 上傳輪播圖圖片
+    public Integer save_ads_pic(MultipartFile file){
+        String file_path = ads_url;
+        String file_name = "";
+        File folder = new File(file_path);
+        File[] files = folder.listFiles();
+        if(files!=null&&files.length>=4){
+            return 403;
+        }
+        for(File f : files){    // 避免命名重複
+            if(f.getName().equals(file.getOriginalFilename())){
+                file_name = String.valueOf(System.currentTimeMillis());
+            }
+        }
+        if(file_name.equals("")){
+            file_name = file.getOriginalFilename().substring(0,file.getOriginalFilename().lastIndexOf("."));
+        }
+        storeMultipartFile(file_path, file_name,file);
+        return 200;
+    }
     private String createDir(String root, String dir){
         File url = new File(root+"/"+dir);
         if(!url.isDirectory()){

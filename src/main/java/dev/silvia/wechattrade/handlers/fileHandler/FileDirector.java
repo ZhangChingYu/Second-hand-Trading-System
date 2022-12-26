@@ -15,4 +15,6 @@ public interface FileDirector {// 整理所有文件路徑相關的參數
     String AUTHENTICATION_TEMP_URL = "C:/Users/Sunny/Desktop/User/AuthTemp";
     // 用戶協議存放路徑
     String USER_PRINCIPLE_URL = "C:/Users/Sunny/Desktop/User/Principle";
+    // 首頁輪播圖路徑(放在項目路徑的static下)
+    String ADS_URL = "D:/大四上學期/畢業實習/WechatTrade/src/main/resources/static";
 }

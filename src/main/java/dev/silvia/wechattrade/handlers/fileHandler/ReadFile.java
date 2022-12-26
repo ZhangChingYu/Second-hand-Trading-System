@@ -14,6 +14,7 @@ public class ReadFile {
     private String auth_url = FileDirector.AUTH_URL;
     private String auth_temp_url = FileDirector.AUTHENTICATION_TEMP_URL;
     private String principle_url = FileDirector.USER_PRINCIPLE_URL;
+    private String ads_url = FileDirector.ADS_URL;
     public static String getBaseFile(String filePath){
         if(filePath==null){
             return null;
@@ -265,6 +266,24 @@ public class ReadFile {
             pictures.add(picture);
         }
         return pictures;
+    }
+    // 讀取首頁輪播圖
+    public List<Map<String,Object>> readAdsPictures(){
+        File folder = new File(ads_url);
+        File[] files = folder.listFiles();
+        if(files==null || files.length==0){
+            return null;
+        }
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for(File file : files){
+            Map<String, Object> map = new HashMap<>();
+            String picture = getBaseFile(file.getPath());
+            String format = file.getName().substring(file.getName().lastIndexOf(".")+1);
+            map.put("picture", picture);
+            map.put("format", format);
+            mapList.add(map);
+        }
+        return mapList;
     }
 
     public List<String> getSubFileNames(String root){

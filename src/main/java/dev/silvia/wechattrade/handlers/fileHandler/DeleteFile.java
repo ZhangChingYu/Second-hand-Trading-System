@@ -10,6 +10,7 @@ public class DeleteFile {
     private String auth_temp_url = FileDirector.AUTHENTICATION_TEMP_URL;
     private String help_url = FileDirector.HELP_URL;
     private String principle_url = FileDirector.USER_PRINCIPLE_URL;
+    private String ads_url = FileDirector.ADS_URL;
 
     private static boolean deleteOneFile(String filePath){    // 刪除某路徑下單個文件
         boolean flag = false;
@@ -112,6 +113,18 @@ public class DeleteFile {
     public Integer deletePrinciple(String version){
         String filePath = principle_url+"/"+version;
         if(deleteOneFile(filePath)){
+            return 204;
+        }
+        return 422;
+    }
+    // 刪除首頁輪播圖
+    public Integer delete_ads_pic(Integer index){
+        File folder = new File(ads_url);
+        File[] files = folder.listFiles();
+        if(files == null || files.length == 0 || files.length < index+1){
+            return 403;
+        }
+        if(deleteOneFile(files[index].getPath())){
             return 204;
         }
         return 422;

@@ -1,6 +1,8 @@
 package dev.silvia.wechattrade.controller;
 
 import com.google.gson.Gson;
+import dev.silvia.wechattrade.dto.ads.AdsPost;
+import dev.silvia.wechattrade.dto.ads.AdsUpdate;
 import dev.silvia.wechattrade.handlers.common.annotation.PassToken;
 import dev.silvia.wechattrade.service.ISystemManageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,5 +118,26 @@ public class SystemManagerController {
     @RequestMapping(value = "/principle/new", method = RequestMethod.GET)
     public String showNewestPrinciple(){
         return gson.toJson(service.showNewestPrinciple());
+    }
+
+    @RequestMapping(value = "/homepage/ads", method = RequestMethod.POST)
+    public Integer postAdsPicture(AdsPost adsPost){
+        return service.postAdsPicture(adsPost.getPicture());
+    }
+
+    @RequestMapping(value = "/homepage/ads", method = RequestMethod.DELETE)
+    public Integer deleteAdsPicture(@RequestBody Map<String, Object> param){
+        Integer index = Integer.parseInt(param.get("index").toString());
+        return service.deleteAdsPicture(index);
+    }
+
+    @RequestMapping(value = "/homepage/ads", method = RequestMethod.PUT)
+    public Integer updateAdsPicture(AdsUpdate adsUpdate){
+        return service.updateAdsPicture(adsUpdate.getIndex(), adsUpdate.getPicture());
+    }
+
+    @RequestMapping(value = "/homepage/ads", method = RequestMethod.GET)
+    public String showAdsPicture(){
+        return gson.toJson(service.showAllAdsPicture());
     }
 }

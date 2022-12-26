@@ -2,7 +2,9 @@ package dev.silvia.wechattrade.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import dev.silvia.wechattrade.entity.User;
+import dev.silvia.wechattrade.vo.AdsVo;
 import dev.silvia.wechattrade.vo.PrincipleVo;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -38,4 +40,13 @@ public interface ISystemManageService extends IService<User> {
     List<PrincipleVo> showAllPrinciple();
     // 顯示最新版用戶協議
     PrincipleVo showNewestPrinciple();
+    /** 首頁輪播圖管理 */
+    // 上傳圖片
+    Integer postAdsPicture(MultipartFile file);
+    // 刪除圖片
+    Integer deleteAdsPicture(Integer index);
+    // 更換圖片
+    Integer updateAdsPicture(Integer index, MultipartFile file);
+    // 獲取所有圖片
+    List<AdsVo> showAllAdsPicture();
 }
