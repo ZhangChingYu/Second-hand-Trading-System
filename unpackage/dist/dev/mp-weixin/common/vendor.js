@@ -10525,8 +10525,8 @@ module.exports = index_cjs;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(uni) {// const commoneUrl  = "http://localhost:8080"; //公共路径 
-var commoneUrl = "http://192.168.1.11:8080"; //手机测试公共路径 
+/* WEBPACK VAR INJECTION */(function(uni) {var commoneUrl = "http://localhost:8080"; //公共路径 
+// const commoneUrl  = "http://192.168.1.11:8080"; //手机测试公共路径 
 // const commoneUrl  = null; //公共路径 
 
 var userId = uni.getStorageSync("user").id; //用户id
