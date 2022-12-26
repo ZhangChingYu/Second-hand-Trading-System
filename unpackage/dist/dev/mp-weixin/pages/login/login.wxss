@@ -1,0 +1,68 @@
+
+.login.data-v-b237504c {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	margin-top: 50rpx;
+
+	flex-direction: column;
+
+	align-items: center;
+}
+.title.data-v-b237504c {
+	font-size: 2rem;
+	color: orangered;
+	font-weight: 650;
+	text-align: center;
+}
+.main.data-v-b237504c {
+	margin-top: 300rpx;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 80%;
+	padding: 60rpx;
+}
+.main .username.data-v-b237504c,
+.main .password.data-v-b237504c {
+	width: 90%;
+	position: relative;
+}
+.main .username>text.data-v-b237504c,
+.main .password>text.data-v-b237504c {
+	position: absolute;
+	top: 1.24rem;
+	right: 0.16rem;
+	color: red;
+	font-size: 0.88rem;
+	font-weight: 600;
+}
+.main input.data-v-b237504c {
+	width: 100%;
+	height: 2.5rem;
+	background-color: azure;
+	border: 1px solid darkgray;
+	border-radius: 0.2rem;
+	margin-bottom: 20rpx;
+	font-family: 'Courier New';
+	font-size: 1rem;
+	padding-left: 0.68rem;
+}
+.main>button.data-v-b237504c {
+	width: 85%;
+	height: 2.48rem;
+	background-color: orangered;
+	border-radius: 0.5rem;
+	margin: 0.5rem;
+	color: aliceblue;
+	line-height: 2.48rem;
+	font-weight: 600;
+}
+.main>.btn text.data-v-b237504c {
+	margin: 0.86rem 0.48rem;
+	font-size: 0.92rem;
+}
+.main>text.data-v-b237504c {
+	color: red;
+}
+

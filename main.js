@@ -17,23 +17,7 @@ Vue.prototype.$toast = function(title,duration=850,icon='none'){
 		duration:duration
 	});
 }
-// 登陆获取token,后期删除
-import {login} from '@/common/request/api.js'
-login().then(res=>{
-	if(res.code == 666){
-		console.log(res)
-		let user = res.user;
-		let token = res.token;
-		uni.setStorage({
-			key:'user',data:user
-		})
-		uni.setStorage({
-			key:'token',data:token
-		})
-		Vue.prototype.$toast('登录成功！',1270);
-	}
-	
-})
+
 
 
 // #ifndef VUE3

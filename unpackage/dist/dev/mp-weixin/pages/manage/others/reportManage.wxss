@@ -1,0 +1,51 @@
+
+.reportMan {
+	margin: 20px 20px 0;
+}
+.top {
+	display: flex;
+	align-items: center;
+	height: 100rpx;
+}
+.report-title {
+	margin: 20rpx 0;
+	width: 35%;
+	font-size: 32rpx;
+	color: #be0000;
+	padding-bottom: 36rpx;
+	text-shadow: 5rpx 5rpx 2rpx #24c3be;
+}
+.reload{
+	margin-left: 10rpx;
+	padding-bottom: 36rpx;
+}
+.sort{
+	margin-left: 50rpx;
+	font-size: 28rpx;
+	color: #be0000;
+	font-weight: 600;
+	text-shadow: 5rpx 5rpx 2rpx #24c3be;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width: 65%;
+}
+.one{
+	text-align: center;
+}
+.report-list{
+	font-size: 28rpx;
+}
+.oper{
+	width: 125rpx;
+	height: 60rpx;
+	font-size: 28rpx;
+	color: #be0000;
+	text-shadow: 5rpx 5rpx 2rpx #24c3be;
+	text-align: center;
+	line-height: 60rpx;
+	font-weight: 600;
+	background-color: white;
+	border: none;
+}
+

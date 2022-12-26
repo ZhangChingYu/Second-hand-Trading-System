@@ -42,9 +42,29 @@
 					}
 				],
 				// 用户管理:用户审核、用户信息、账号...
-				userItem:[],
+				userItem:[
+					{
+						title: '用户信息管理',
+						url: 'pages/userManage/userManage',
+						icon: 'http://img95.699pic.com/element/40149/2920.png_860.png'
+					},{
+						title: '实名认证管理',
+						url: 'pages/realName/realName',
+						icon: 'https://bpic.588ku.com/element_origin_min_pic/20/08/26/632c752cfe4b9a6bf92cb50442e26f67.jpg'
+					},
+				],
 				// 其他管理:首页轮播图、公告、用户协议....
-				otherItem:[],
+				otherItem:[
+					{
+						title: '举报审核',
+						url: 'pages/manage/others/reportManage',
+						icon: 'https://img0.baidu.com/it/u=3327668379,4177683952&fm=253&fmt=auto&app=138&f=JPEG?w=439&h=499',
+					},{
+						title: '用户协议',
+						url: 'pages/manage/others/agreementManage',
+						icon: 'https://img1.baidu.com/it/u=2274835460,799751483&fm=253&fmt=auto&app=138&f=JPEG?w=396&h=500'
+					}
+				],
 			}
 		},
 		methods: {

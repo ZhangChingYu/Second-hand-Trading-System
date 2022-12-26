@@ -1,6 +1,14 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		
+		{
+		    "path" : "pages/login/login",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "登录",
+		        "enablePullDownRefresh": true
+		    }
+		},
 	    {
             "path" : "pages/main/index",
             "style" :                                                                                    
@@ -55,6 +63,78 @@
             }
             
         }
+		,{
+		    "path" : "pages/manage/others/reportManage",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "举报审核",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/manage/others/reportDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "举报详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/manage/others/agreementManage",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "用户协议",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/manage/others/agreementDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "协议详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		
+		
+		{
+		    "path" : "pages/userManage/userManage",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "用户管理",
+		        "enablePullDownRefresh": true
+		    }
+		},
+		{
+		    "path" : "pages/realName/realName",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "实名认证",
+		        "enablePullDownRefresh": true
+		    }
+		},
+		{
+		    "path" : "pages/userDetail/userDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "用户详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+		,{
+		    "path" : "pages/realNameDetail/realNameDetail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "查看实名认证详情",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
         
     ],
 	"globalStyle": {
