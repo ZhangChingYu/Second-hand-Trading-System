@@ -6,15 +6,15 @@
 			<view class="title">历史用户协议</view>		
 		</view>
 		
-		<view class="list" v-if="agreements != ''">
+		<view class="list">
 			<uni-table ref="table" :loading="loading" border stripe emptyText="暂无更多数据" @selection-change="selectionChange">
 				<uni-tr>
-					<uni-th width="60" align="center">编号</uni-th>
+					<uni-th width="60" align="center">版本</uni-th>
 					<uni-th align="center" width="200">发布日期</uni-th>
 					<uni-th align="center">操作</uni-th>
 				</uni-tr>
 				<uni-tr v-for="(item, index) in agreements" :key="index">
-					<uni-td align="center">{{item.id}}</uni-td>
+					<uni-td align="center">{{item.version}}</uni-td>
 					<uni-td align="center">{{item.date}}</uni-td>
 					<uni-td align="center">
 						<view class="someOper">
@@ -31,8 +31,12 @@
 			<view class="title">更新用户协议</view>		
 		</view>
 		
+		<view class="id">
+			<uni-easyinput type="textarea" autoHeight v-model="version" placeholder="请输入用户协议版本编号~"></uni-easyinput>
+		</view>
+		
 		<view class="agreement">
-			<uni-easyinput type="textarea" autoHeight v-model="agreement" placeholder="请输入相关用户协议~" maxlength="-1"></uni-easyinput>
+			<uni-easyinput type="textarea" autoHeight v-model="agreement" placeholder="请输入相关用户协议内容~" maxlength="-1"></uni-easyinput>
 		</view>
 		
 		<view class="bt">
@@ -45,24 +49,15 @@
 	export default {
 		data() {
 			return {
-				agreements:[
-					{
-						id:1,
-						date:'Dec 5, 2022, 4:47:48 PM',
-					},
-					{
-						id:1,
-						date:'Dec 5, 2022, 4:47:48 PM',
-					},
-					{
-						id:1,
-						date:'Dec 5, 2022, 4:47:48 PM',
-					},
-				],
+				agreements:[],
+				version:'',
 				agreement:'',
 			}
 		},
 		mounted() {
+			this.getAgreements();
+		},
+		onShow(){
 			this.getAgreements();
 		},
 		methods: {
@@ -70,7 +65,7 @@
 			async getAgreements(){
 				const that  = this;
 				try{
-					that.agreements = await this.api.get('');
+					that.agreements = await this.api.get('/principles');
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -80,7 +75,7 @@
 			// 发布新的用户协议
 			newOne(){
 				let that = this;
-				if(this.agreement != ''){
+				if(this.agreement != '' && this.version != ''){
 					uni.showModal({
 						title: '协议发布',
 						// 提示文字
@@ -105,7 +100,10 @@
 			async postOne(){
 				const that  = this;
 				try{
-					let res = await this.api.post('',{agreement:this.agreement});
+					let res = await this.api.post('/principle',{version:this.version,content:this.agreement});
+					if(res == 200) this.$toast('发布成功！');
+					else if(res == 404) this.$toast('发布失败，版本已存在！');
+					else this.$toast('发布失败！');
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -145,7 +143,12 @@
 			async confirmDel(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.del('',{id:item.id});
+					let res = await this.api.del('/principle',{version:item.version});
+					if(res == 204) {
+						this.$toast('删除成功！');
+						this.getAgreements();
+					}
+					else this.toast('删除失败！');
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -204,6 +207,9 @@
 	}
 	.bt{
 		margin-top: 25rpx;
+	}
+	.id{
+		height: 80rpx;
 	}
 	.up{
 		height: 60rpx;

@@ -7,7 +7,7 @@
 			</view>
 			
 			<!-- 中间举报状态分类 -->
-			<view class="sort" v-if="reportItem != ''">
+			<view class="sort">
 				<text class="one" @click="toOne(state0)" ref="全部" :style="{color: allfont}">{{state0}}</text>
 				<text class="one" @click="toOne(state1)" ref="已通过" :style="{color: firstfont}">{{state1}}</text>
 				<text class="one" @click="toOne(state2)" ref="待审核" :style="{color: secondfont}">{{state2}}</text>
@@ -15,7 +15,7 @@
 			</view>
 		</view>
 		
-		<view class="report-list" v-if="reportItem != ''">
+		<view class="report-list">
 			<uni-table ref="table" :loading="loading" border stripe emptyText="暂无更多数据" @selection-change="selectionChange">
 				<uni-tr>
 					<uni-th width="60" align="center">编号</uni-th>

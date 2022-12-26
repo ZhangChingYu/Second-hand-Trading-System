@@ -2,10 +2,10 @@
 	<view class="main">
 		<view class="top">
 			<image src="../../../static/image/agreement.png" class="topImg"></image>
-			<view class="title">用户协议ID： {{one.id}}</view>		
+			<view class="title">用户协议版本： {{one.version}}</view>		
 		</view>
 		<view class="content">
-			<rich-text>{{oneAgreement}}</rich-text>
+			<rich-text>{{oneAgreement.content}}</rich-text>
 		</view>
 		<view class="bt">
 			<button class="up" @click="showOne">发布</button>
@@ -19,7 +19,7 @@
 		data() {
 			return {
 				one:{},
-				oneAgreement:'222222222222222222222222222222222222222',
+				oneAgreement:{},
 			}
 		},
 		mounted() {
@@ -33,7 +33,7 @@
 			async getDetail(){
 				const that  = this;
 				try{
-					that.oneAgreement = await this.api.get('',{id:this.one.id});
+					that.oneAgreement = await this.api.get('/principle',{version:this.one.version});
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -65,7 +65,14 @@
 			async confirmDel(){
 				const that  = this;
 				try{
-					let res = await this.api.del('',{id:this.one.id});
+					let res = await this.api.del('/principle',{version:this.one.version});
+					if(res == 204) {
+						this.$toast('删除成功！');
+						uni.navigateBack({
+							delta:1, //返回层数，2则上上页
+						})
+					}
+					else this.toast('删除失败！');
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -97,7 +104,14 @@
 			async confirmShow(){
 				const that  = this;
 				try{
-					let res = await this.api.put('',{id:this.one.id});
+					let res = await this.api.put('/principle',{version:this.one.version,content:this.oneAgreement.content});
+					if(res == 200) {
+						this.$toast('发布成功！');
+						uni.navigateBack({
+							delta:1, //返回层数，2则上上页
+						})
+					}
+					else this.toast('发布失败！');
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
