@@ -3520,6 +3520,198 @@
     "groupTitle": "服務端:舉報審核"
   },
   {
+    "type": "DELETE",
+    "url": "/homepage/ads",
+    "title": "刪除輪播圖圖片",
+    "name": "DeleteAdsPicture",
+    "group": "服務端:首頁輪播圖",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>刪除輪播圖圖片</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "index",
+            "description": "<p>圖片序號</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "刪除成功",
+          "content": "{\n  204\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "刪除失敗(index錯誤)",
+          "content": "{\n  403\n}",
+          "type": "json"
+        },
+        {
+          "title": "刪除失敗(文件操作錯誤)",
+          "content": "{\n  422\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:首頁輪播圖"
+  },
+  {
+    "type": "GET",
+    "url": "/homepage/ads",
+    "title": "獲取輪播圖圖片",
+    "name": "GetAdsPicture",
+    "group": "服務端:首頁輪播圖",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>獲取輪播圖圖片，客戶端也是共用這個接口</p>",
+    "success": {
+      "examples": [
+        {
+          "title": "請求成功",
+          "content": "[\n  {\n      \"index\":0,\n      \"format\":\"jpg\",\n      \"picture\":\"base64編碼...\n  },\n  {\n      \"index\":1,\n      \"format\":\"jpg\",\n      \"picture\":\"base64編碼...\n  },\n  {\n      \"index\":2,\n      \"format\":\"jpg\",\n      \"picture\":\"base64編碼...\n  },\n  {\n      \"index\":3,\n      \"format\":\"jpg\",\n      \"picture\":\"base64編碼...\n  }\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "請求失敗(或者沒有圖片存在)",
+          "content": "[\n  null\n]",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:首頁輪播圖"
+  },
+  {
+    "type": "post",
+    "url": "/homepage/ads",
+    "title": "上傳輪播圖圖片",
+    "name": "PostAdsPicture",
+    "group": "服務端:首頁輪播圖",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>上傳輪播圖圖片</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "MultipartFile",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>圖片文件</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "上傳成功",
+          "content": "{\n  200\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "上傳失敗(圖片數量超過上限4張)",
+          "content": "{\n  403\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:首頁輪播圖"
+  },
+  {
+    "type": "PUT",
+    "url": "/homepage/ads",
+    "title": "更新輪播圖圖片",
+    "name": "UpdateAdsPicture",
+    "group": "服務端:首頁輪播圖",
+    "permission": [
+      {
+        "name": "none"
+      }
+    ],
+    "description": "<p>更新輪播圖圖片</p>",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "Integer",
+            "optional": false,
+            "field": "index",
+            "description": "<p>圖片序號</p>"
+          },
+          {
+            "group": "Parameter",
+            "type": "MultipartFile",
+            "optional": false,
+            "field": "picture",
+            "description": "<p>圖片文件</p>"
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "更新成功",
+          "content": "{\n  200\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "更新失敗(圖片數量超過上限4張)",
+          "content": "{\n  403\n}",
+          "type": "json"
+        },
+        {
+          "title": "更新失敗(原圖片刪除失敗)",
+          "content": "{\n  402\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "version": "0.0.0",
+    "filename": "src/example.js",
+    "groupTitle": "服務端:首頁輪播圖"
+  },
+  {
     "type": "GET",
     "url": "/my/comment/reports",
     "title": "獲取用戶所有留言舉報",

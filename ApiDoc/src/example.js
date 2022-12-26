@@ -2562,3 +2562,109 @@
  *        "content":"File Not Fond!"
  *     }
  */
+
+/**
+ * @api {post} /homepage/ads 上傳輪播圖圖片
+ * @apiName PostAdsPicture
+ * @apiGroup 服務端:首頁輪播圖
+ * @apiPermission none
+ *
+ * @apiDescription 上傳輪播圖圖片
+ *
+ * @apiParam {MultipartFile} picture 圖片文件
+ *
+ * @apiSuccessExample 上傳成功
+ *     {
+ *       200
+ *     }
+ * @apiErrorExample 上傳失敗(圖片數量超過上限4張)
+ *     {
+ *       403
+ *     }
+ */
+
+/**
+ * @api {DELETE} /homepage/ads 刪除輪播圖圖片
+ * @apiName DeleteAdsPicture
+ * @apiGroup 服務端:首頁輪播圖
+ * @apiPermission none
+ *
+ * @apiDescription 刪除輪播圖圖片
+ *
+ * @apiParam {Integer} index 圖片序號
+ *
+ * @apiSuccessExample 刪除成功
+ *     {
+ *       204
+ *     }
+ * @apiErrorExample 刪除失敗(index錯誤)
+ *     {
+ *       403
+ *     }
+ * @apiErrorExample 刪除失敗(文件操作錯誤)
+ *     {
+ *       422
+ *     }
+ */
+
+/**
+ * @api {PUT} /homepage/ads 更新輪播圖圖片
+ * @apiName UpdateAdsPicture
+ * @apiGroup 服務端:首頁輪播圖
+ * @apiPermission none
+ *
+ * @apiDescription 更新輪播圖圖片
+ *
+ * @apiParam {Integer} index 圖片序號
+ * @apiParam {MultipartFile} picture 圖片文件
+ *
+ * @apiSuccessExample 更新成功
+ *     {
+ *       200
+ *     }
+ * @apiErrorExample 更新失敗(圖片數量超過上限4張)
+ *     {
+ *       403
+ *     }
+ * @apiErrorExample 更新失敗(原圖片刪除失敗)
+ *     {
+ *       402
+ *     }
+ */
+
+/**
+ * @api {GET} /homepage/ads 獲取輪播圖圖片
+ * @apiName GetAdsPicture
+ * @apiGroup 服務端:首頁輪播圖
+ * @apiPermission none
+ *
+ * @apiDescription 獲取輪播圖圖片，客戶端也是共用這個接口
+ *
+ * @apiSuccessExample 請求成功
+ *     [
+ *       {
+ *           "index":0,
+ *           "format":"jpg",
+ *           "picture":"base64編碼...
+ *       },
+ *       {
+ *           "index":1,
+ *           "format":"jpg",
+ *           "picture":"base64編碼...
+ *       },
+ *       {
+ *           "index":2,
+ *           "format":"jpg",
+ *           "picture":"base64編碼...
+ *       },
+ *       {
+ *           "index":3,
+ *           "format":"jpg",
+ *           "picture":"base64編碼...
+ *       }
+ *     ]
+ * @apiErrorExample 請求失敗(或者沒有圖片存在)
+ *     [
+ *       null
+ *     ]
+ */
