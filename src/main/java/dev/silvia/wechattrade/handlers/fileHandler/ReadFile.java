@@ -4,6 +4,7 @@ import dev.silvia.wechattrade.vo.PrincipleVo;
 import org.springframework.stereotype.Component;
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Component
@@ -197,16 +198,19 @@ public class ReadFile {
     // 讀取用戶協議
     public PrincipleVo readPrinciple(String filePath){
         PrincipleVo principleVo = new PrincipleVo();
-        // 讀取順序為: version, date, content
-        List<String> out = new ArrayList<>();
+        String out ="";
         File file = new File(filePath);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long time = file.lastModified();
+        String date = sdf.format(new Date(time));
+        String version = file.getName().substring(0,file.getName().lastIndexOf(".txt"));
         BufferedReader in = null;
         try {   // 用UTF-8讀取會出否則會出現亂碼
             in = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
             String line = "";
             while ((line = in.readLine())!=null){
                 System.out.println(line);   // 一次讀一行
-                out.add(line);
+                out+=line;
             }
         } catch (FileNotFoundException e){
             System.out.println("File Not Fond!");
@@ -225,9 +229,9 @@ public class ReadFile {
                 }
             }
         }
-        principleVo.setVersion(out.get(0));
-        principleVo.setDate(out.get(1));
-        principleVo.setContent(out.get(2));
+        principleVo.setVersion(version);
+        principleVo.setDate(date);
+        principleVo.setContent(out);
         return principleVo;
     }
 

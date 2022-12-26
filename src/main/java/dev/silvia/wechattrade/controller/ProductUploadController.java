@@ -25,7 +25,7 @@ public class ProductUploadController {
     @Autowired
     private Gson gson;
 
-    @UserLoginToken
+    //@UserLoginToken
     @RequestMapping(value = "/product", method = RequestMethod.POST)
     public String productUploadRequest(@RequestBody ProductUploadDto productUploadDto){
         productUploadDto.setNumber(productUploadDto.getCatalog()+System.currentTimeMillis());
@@ -39,7 +39,7 @@ public class ProductUploadController {
         return service.ProductPictureUpload(pictureUploadDto);
     }
 
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/my/products", method = RequestMethod.GET)
     public String showAllMyProduct(HttpServletRequest request){
         String phone = request.getParameter("phone");
