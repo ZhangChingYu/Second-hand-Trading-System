@@ -19873,13 +19873,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.mixin = vo
 /* 197 */,
 /* 198 */,
 /* 199 */,
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */
+/* 200 */
 /*!***********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
   \***********************************************************************************************/
@@ -19896,12 +19890,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.mixin = vo
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */
 /*!********************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/touch.js ***!
   \********************************************************************************/
@@ -19968,7 +19962,7 @@ function getDirection(x, y) {
     } } };exports.default = _default;
 
 /***/ }),
-/* 213 */
+/* 207 */
 /*!****************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
   \****************************************************************************************************/
@@ -20017,7 +20011,7 @@ function getDirection(x, y) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 214 */
+/* 208 */
 /*!**************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
   \**************************************************************************************************/
@@ -20040,16 +20034,16 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     } } };exports.default = _default;
 
 /***/ }),
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
 /* 215 */,
 /* 216 */,
 /* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */
+/* 218 */
 /*!****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-empty/props.js ***!
   \****************************************************************************************/
@@ -20116,14 +20110,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
 /* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */
+/* 226 */
 /*!***************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-icon/icons.js ***!
   \***************************************************************************************/
@@ -20346,7 +20340,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'uicon-en': "\uE692" };exports.default = _default;
 
 /***/ }),
-/* 233 */
+/* 227 */
 /*!***************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-icon/props.js ***!
   \***************************************************************************************/
@@ -20443,14 +20437,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
 /* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */,
-/* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */
+/* 235 */
 /*!****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-popup/props.js ***!
   \****************************************************************************************/
@@ -20537,14 +20531,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
 /* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */,
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */
+/* 243 */
 /*!****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-input/props.js ***!
   \****************************************************************************************/
@@ -20739,12 +20733,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 250 */,
-/* 251 */,
-/* 252 */,
-/* 253 */,
-/* 254 */,
-/* 255 */
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */
 /*!***********************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/openType.js ***!
   \***********************************************************************************/
@@ -20777,7 +20771,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     } } };exports.default = _default;
 
 /***/ }),
-/* 256 */
+/* 250 */
 /*!*********************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/button.js ***!
   \*********************************************************************************/
@@ -20798,7 +20792,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     openType: String } };exports.default = _default;
 
 /***/ }),
-/* 257 */
+/* 251 */
 /*!***********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
   \***********************************************************************************************/
@@ -20860,14 +20854,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
 /* 258 */,
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */,
-/* 263 */,
-/* 264 */,
-/* 265 */
+/* 259 */
 /*!*****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swiper/props.js ***!
   \*****************************************************************************************/
@@ -21000,8 +20994,80 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
 /* 266 */,
-/* 267 */,
+/* 267 */
+/*!***********************************************************************************************!*\
+  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
+  props: {
+    // 是否显示组件
+    show: {
+      type: Boolean,
+      default: uni.$u.props.loadingIcon.show },
+
+    // 颜色
+    color: {
+      type: String,
+      default: uni.$u.props.loadingIcon.color },
+
+    // 提示文字颜色
+    textColor: {
+      type: String,
+      default: uni.$u.props.loadingIcon.textColor },
+
+    // 文字和图标是否垂直排列
+    vertical: {
+      type: Boolean,
+      default: uni.$u.props.loadingIcon.vertical },
+
+    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
+    mode: {
+      type: String,
+      default: uni.$u.props.loadingIcon.mode },
+
+    // 图标大小，单位默认px
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.size },
+
+    // 文字大小
+    textSize: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.textSize },
+
+    // 文字内容
+    text: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.text },
+
+    // 动画模式
+    timingFunction: {
+      type: String,
+      default: uni.$u.props.loadingIcon.timingFunction },
+
+    // 动画执行周期时间
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.duration },
+
+    // mode=circle时的暗边颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.loadingIcon.inactiveColor } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
+
+/***/ }),
 /* 268 */,
 /* 269 */,
 /* 270 */,
@@ -21009,11 +21075,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 272 */,
 /* 273 */,
 /* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */
+/* 275 */
 /*!*******************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-textarea/props.js ***!
   \*******************************************************************************************/
@@ -21140,12 +21202,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
 /* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */
+/* 281 */
 /*!*****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-button/props.js ***!
   \*****************************************************************************************/
@@ -21314,14 +21376,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
 /* 286 */,
 /* 287 */,
 /* 288 */,
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */
+/* 289 */
 /*!******************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-overlay/props.js ***!
   \******************************************************************************************/
@@ -21353,14 +21415,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
 /* 294 */,
 /* 295 */,
 /* 296 */,
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */
+/* 297 */
 /*!*********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-transition/props.js ***!
   \*********************************************************************************************/
@@ -21392,7 +21454,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 302 */
+/* 298 */
 /*!**************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-transition/transition.js ***!
   \**************************************************************************************************/
@@ -21403,7 +21465,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 38));
 
 
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 303));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 299));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
 var nextTick = function nextTick() {return new Promise(function (resolve) {return setTimeout(resolve, 1000 / 50);});}; // nvue动画模块实现细节抽离在外部文件
 
 // 定义类名，通过给元素动态切换类名，赋予元素一定的css动画样式
@@ -21557,7 +21619,7 @@ var getClassNames = function getClassNames(name) {return {
     } } };exports.default = _default;
 
 /***/ }),
-/* 303 */
+/* 299 */
 /*!****************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
   \****************************************************************************************************/
@@ -21633,14 +21695,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     'leave-to': { opacity: 0, transform: 'scale(0.95)' } } };exports.default = _default;
 
 /***/ }),
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
 /* 304 */,
 /* 305 */,
 /* 306 */,
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */
+/* 307 */
 /*!*********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-status-bar/props.js ***!
   \*********************************************************************************************/
@@ -21656,14 +21718,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
 /* 312 */,
 /* 313 */,
 /* 314 */,
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */
+/* 315 */
 /*!**********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
   \**********************************************************************************************/
@@ -21675,6 +21737,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   props: {} };exports.default = _default;
 
 /***/ }),
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
 /* 320 */,
 /* 321 */,
 /* 322 */,
@@ -21685,11 +21751,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 327 */,
 /* 328 */,
 /* 329 */,
-/* 330 */,
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */
+/* 330 */
 /*!***************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-line/props.js ***!
   \***************************************************************************************/
@@ -21730,88 +21792,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
 /* 335 */,
 /* 336 */,
 /* 337 */,
-/* 338 */,
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */
-/*!***********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
-  \***********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _default = {
-  props: {
-    // 是否显示组件
-    show: {
-      type: Boolean,
-      default: uni.$u.props.loadingIcon.show },
-
-    // 颜色
-    color: {
-      type: String,
-      default: uni.$u.props.loadingIcon.color },
-
-    // 提示文字颜色
-    textColor: {
-      type: String,
-      default: uni.$u.props.loadingIcon.textColor },
-
-    // 文字和图标是否垂直排列
-    vertical: {
-      type: Boolean,
-      default: uni.$u.props.loadingIcon.vertical },
-
-    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
-    mode: {
-      type: String,
-      default: uni.$u.props.loadingIcon.mode },
-
-    // 图标大小，单位默认px
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.size },
-
-    // 文字大小
-    textSize: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.textSize },
-
-    // 文字内容
-    text: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.text },
-
-    // 动画模式
-    timingFunction: {
-      type: String,
-      default: uni.$u.props.loadingIcon.timingFunction },
-
-    // 动画执行周期时间
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.duration },
-
-    // mode=circle时的暗边颜色
-    inactiveColor: {
-      type: String,
-      default: uni.$u.props.loadingIcon.inactiveColor } } };exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
-
-/***/ }),
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */,
-/* 348 */,
-/* 349 */,
-/* 350 */
+/* 338 */
 /*!**************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-gap/props.js ***!
   \**************************************************************************************/
@@ -21843,14 +21831,14 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */
 /*!***************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swiper-indicator/props.js ***!
   \***************************************************************************************************/
