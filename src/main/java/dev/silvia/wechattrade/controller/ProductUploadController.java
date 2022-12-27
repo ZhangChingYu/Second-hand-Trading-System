@@ -25,7 +25,7 @@ public class ProductUploadController {
     @Autowired
     private Gson gson;
 
-    //@UserLoginToken
+    @UserLoginToken
     @RequestMapping(value = "/product", method = RequestMethod.POST)
     public String productUploadRequest(@RequestBody ProductUploadDto productUploadDto){
         productUploadDto.setNumber(productUploadDto.getCatalog()+System.currentTimeMillis());
