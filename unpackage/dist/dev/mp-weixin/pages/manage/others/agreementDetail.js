@@ -153,7 +153,7 @@ var _default =
   data: function data() {
     return {
       one: {},
-      oneAgreement: '222222222222222222222222222222222222222' };
+      oneAgreement: {} };
 
   },
   mounted: function mounted() {
@@ -167,7 +167,7 @@ var _default =
     getDetail: function getDetail() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 that = _this;_context.prev = 1;_context.next = 4;return (
 
-                  _this.api.get('', { id: _this.one.id }));case 4:that.oneAgreement = _context.sent;_context.next = 10;break;case 7:_context.prev = 7;_context.t0 = _context["catch"](1);
+                  _this.api.get('/principle', { version: _this.one.version }));case 4:that.oneAgreement = _context.sent;_context.next = 10;break;case 7:_context.prev = 7;_context.t0 = _context["catch"](1);
 
                 //TODO handle the exception
                 that.$toast(_context.t0);case 10:case "end":return _context.stop();}}}, _callee, null, [[1, 7]]);}))();
@@ -199,10 +199,17 @@ var _default =
     confirmDel: function confirmDel() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 that = _this2;_context2.prev = 1;_context2.next = 4;return (
 
-                  _this2.api.del('', { id: _this2.one.id }));case 4:res = _context2.sent;_context2.next = 10;break;case 7:_context2.prev = 7;_context2.t0 = _context2["catch"](1);
+                  _this2.api.del('/principle', { version: _this2.one.version }));case 4:res = _context2.sent;
+                if (res == 204) {
+                  _this2.$toast('删除成功！');
+                  uni.navigateBack({
+                    delta: 1 //返回层数，2则上上页
+                  });
+                } else
+                _this2.toast('删除失败！');_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context2.t0);case 10:case "end":return _context2.stop();}}}, _callee2, null, [[1, 7]]);}))();
+                that.$toast(_context2.t0);case 11:case "end":return _context2.stop();}}}, _callee2, null, [[1, 8]]);}))();
 
     },
 
@@ -231,10 +238,17 @@ var _default =
     confirmShow: function confirmShow() {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var that, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
                 that = _this3;_context3.prev = 1;_context3.next = 4;return (
 
-                  _this3.api.put('', { id: _this3.one.id }));case 4:res = _context3.sent;_context3.next = 10;break;case 7:_context3.prev = 7;_context3.t0 = _context3["catch"](1);
+                  _this3.api.put('/principle', { version: _this3.one.version, content: _this3.oneAgreement.content }));case 4:res = _context3.sent;
+                if (res == 200) {
+                  _this3.$toast('发布成功！');
+                  uni.navigateBack({
+                    delta: 1 //返回层数，2则上上页
+                  });
+                } else
+                _this3.toast('发布失败！');_context3.next = 11;break;case 8:_context3.prev = 8;_context3.t0 = _context3["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context3.t0);case 10:case "end":return _context3.stop();}}}, _callee3, null, [[1, 7]]);}))();
+                that.$toast(_context3.t0);case 11:case "end":return _context3.stop();}}}, _callee3, null, [[1, 8]]);}))();
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

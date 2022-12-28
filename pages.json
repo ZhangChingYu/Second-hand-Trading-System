@@ -136,6 +136,15 @@
 		    
 		}
         
+        ,{
+            "path" : "pages/manage/others/swiper",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "轮播图管理",
+                "enablePullDownRefresh": false
+            }
+            
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",

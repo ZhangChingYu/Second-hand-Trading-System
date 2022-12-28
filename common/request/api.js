@@ -34,3 +34,19 @@ export const getAllProducts = () => request.get('/products')
 //分类获取商品
 export const getCatalogProducts = (data) => request.get('/catalog/products',data)
 
+
+
+//新增轮播图
+export const addSwiper = (data) => request.post('/homepage/ads',data)
+
+//删除轮播图
+export const deleteSwiper = (data) => request.del('/homepage/ads',data)
+
+//修改轮播图
+export const updateSwiper = (data) => request.put('/homepage/ads',data)
+
+//获取轮播图
+export const getSwiper = () => request.get('/homepage/ads')
+
+
+

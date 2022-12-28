@@ -1,0 +1,7 @@
+{
+  "navigationBarTitleText": "轮播图管理",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-upload": "/uni_modules/uview-ui/components/u-upload/u-upload"
+  }
+}

@@ -210,28 +210,23 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 var _default =
 {
   data: function data() {
     return {
-      agreements: [
-      {
-        id: 1,
-        date: 'Dec 5, 2022, 4:47:48 PM' },
-
-      {
-        id: 1,
-        date: 'Dec 5, 2022, 4:47:48 PM' },
-
-      {
-        id: 1,
-        date: 'Dec 5, 2022, 4:47:48 PM' }],
-
-
+      agreements: [],
+      version: '',
       agreement: '' };
 
   },
   mounted: function mounted() {
+    this.getAgreements();
+  },
+  onShow: function onShow() {
     this.getAgreements();
   },
   methods: {
@@ -239,7 +234,7 @@ var _default =
     getAgreements: function getAgreements() {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
                 that = _this;_context.prev = 1;_context.next = 4;return (
 
-                  _this.api.get(''));case 4:that.agreements = _context.sent;_context.next = 10;break;case 7:_context.prev = 7;_context.t0 = _context["catch"](1);
+                  _this.api.get('/principles'));case 4:that.agreements = _context.sent;_context.next = 10;break;case 7:_context.prev = 7;_context.t0 = _context["catch"](1);
 
                 //TODO handle the exception
                 that.$toast(_context.t0);case 10:case "end":return _context.stop();}}}, _callee, null, [[1, 7]]);}))();
@@ -249,7 +244,7 @@ var _default =
     // 发布新的用户协议
     newOne: function newOne() {
       var that = this;
-      if (this.agreement != '') {
+      if (this.agreement != '' && this.version != '') {
         uni.showModal({
           title: '协议发布',
           // 提示文字
@@ -274,10 +269,13 @@ var _default =
     postOne: function postOne() {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
                 that = _this2;_context2.prev = 1;_context2.next = 4;return (
 
-                  _this2.api.post('', { agreement: _this2.agreement }));case 4:res = _context2.sent;_context2.next = 10;break;case 7:_context2.prev = 7;_context2.t0 = _context2["catch"](1);
+                  _this2.api.post('/principle', { version: _this2.version, content: _this2.agreement }));case 4:res = _context2.sent;
+                if (res == 200) _this2.$toast('发布成功！');else
+                if (res == 404) _this2.$toast('发布失败，版本已存在！');else
+                _this2.$toast('发布失败！');_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context2.t0);case 10:case "end":return _context2.stop();}}}, _callee2, null, [[1, 7]]);}))();
+                that.$toast(_context2.t0);case 11:case "end":return _context2.stop();}}}, _callee2, null, [[1, 8]]);}))();
 
     },
 
@@ -314,10 +312,15 @@ var _default =
     confirmDel: function confirmDel(item, index) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var that, res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:
                 that = _this3;_context3.prev = 1;_context3.next = 4;return (
 
-                  _this3.api.del('', { id: item.id }));case 4:res = _context3.sent;_context3.next = 10;break;case 7:_context3.prev = 7;_context3.t0 = _context3["catch"](1);
+                  _this3.api.del('/principle', { version: item.version }));case 4:res = _context3.sent;
+                if (res == 204) {
+                  _this3.$toast('删除成功！');
+                  _this3.getAgreements();
+                } else
+                _this3.toast('删除失败！');_context3.next = 11;break;case 8:_context3.prev = 8;_context3.t0 = _context3["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context3.t0);case 10:case "end":return _context3.stop();}}}, _callee3, null, [[1, 7]]);}))();
+                that.$toast(_context3.t0);case 11:case "end":return _context3.stop();}}}, _callee3, null, [[1, 8]]);}))();
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
