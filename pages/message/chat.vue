@@ -243,8 +243,21 @@
 				content:'',	//消息内容
 				time:'' ,//消息时间
 			}
+			this.mySocket();
 		},
 		methods: {
+			mySocket(){
+				uni.connectSocket({
+				  url: 'wss://www.example.com/socket'
+				});
+				uni.onSocketOpen(function (res) {
+				  console.log('WebSocket连接已打开！');
+				});
+				uni.onSocketError(function (res) {
+				  console.log('WebSocket连接打开失败，请检查！');
+				});
+
+			},
 			resetSendMsg(){
 				this.sendMsg.content = '';	//消息内容
 				this.sendMsg.time = '' ;//消息时间
@@ -252,6 +265,7 @@
 			send(){
 				this.sendMsg["time"] = uni.$u.timeFormat(new Date(), 'yyyy-mm-dd hh:MM:ss');
 				
+				if(this.sendMsg.content === '') return;
 				console.log("发送的数据:",this.sendMsg)
 				this.chatMsg.push({id:this.chatMsg[this.chatMsg.length - 1].id + 1,types:'0',isShowTime: true,...this.sendMsg});
 				this.resetSendMsg();

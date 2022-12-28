@@ -7,7 +7,6 @@
     "pages/publish/index",
     "pages/message/index",
     "pages/message/chat",
-    "pages/findback/findback",
     "pages/my/index",
     "pages/my-address/address",
     "pages/my-address/add-address",
