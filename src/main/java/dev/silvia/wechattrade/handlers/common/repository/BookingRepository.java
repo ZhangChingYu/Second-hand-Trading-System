@@ -30,4 +30,8 @@ public interface BookingRepository extends JpaRepository<Booking, String> {
     List<Booking> findByProductIdAndStatus(String number,String status);
 
     List<Booking> findByProductIdAndBuyerId(String number, String phone);
+
+    List<Booking> findByNameLikeAndSellerId(String name, String phone);
+
+    List<Booking> findByNameLikeAndBuyerId(String name, String phone);
 }

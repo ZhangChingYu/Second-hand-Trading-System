@@ -12,4 +12,6 @@ public interface BuyerRepository extends JpaRepository<Buyer, String> {
     List<Buyer> findAllByPhone(String phone);
 
     List<Buyer> findByExchangeIdAndPhone(String number, String phone);
+
+    List<Buyer> findByPhone(String phone);
 }

@@ -27,8 +27,14 @@ public interface IOrderService extends IService<Product> {
     //卖家确认退款、售后
     Result sellerAfter(String number);
 
-    //卖家确认退款、售后
+    //买家取消退款
     Result cancelAfter(String number);
+
+    //卖家不同意退款
+    Result noAfter(String number);
+
+    //卖家不同意退款
+    Result afterReason(String number);
 
     //管理员删除订单
     Result delete(String number);
@@ -60,7 +66,7 @@ public interface IOrderService extends IService<Product> {
     Result selectAll(String status);
 
     //根据商品名称模糊搜索
-    Result selectAllByName(String name, Integer type, Integer isbuyer);  //订单查询
+    Result selectAllByName(String name, String phone, Integer type, Integer isbuyer);  //订单查询
 
     //卖方根据商品编号查询预约
     Result sellerBookingByName(String number, String state);  //预约查询
@@ -80,4 +86,6 @@ public interface IOrderService extends IService<Product> {
     Result sellerDeleteBooking(String number);
 
     Result buyerDeleteBooking(String number);
+
+    Result orderProductPic(String number);
 }

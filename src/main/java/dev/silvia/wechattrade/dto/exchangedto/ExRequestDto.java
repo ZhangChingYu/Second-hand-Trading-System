@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class ExRequestDto {
     private String bookNum;      //预约编号
-    private String myAddress;        //收货地址
+    private myAddress myAddress;        //收货地址
     private String expressDelivery;  //收货方式
     private Double price;          //交易价格
     private String payment;        //付款方式

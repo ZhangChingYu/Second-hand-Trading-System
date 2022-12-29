@@ -1,5 +1,8 @@
 package dev.silvia.wechattrade.handlers.fileHandler;
+import cn.hutool.core.io.resource.ClassPathResource;
+import cn.hutool.core.io.resource.Resource;
 import dev.silvia.wechattrade.vo.FeedbackVo;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -168,6 +171,34 @@ public class WriteFile {
         storeMultipartFile(pathName,newName,picture);
         return 201; // 存儲成功
     }
+
+//    public int storeDefaultAvatarPicture(){
+//        File tempFile = new File(FileDirector.AVATAR_URL);
+//        if (!tempFile.exists()) {
+//            String pathName = auth_url + "Default/default";
+//            try {
+//                Resource resource = new ClassPathResource("default/default.jpg");
+//                String fileName = resource.getName();
+//                String fileNameNoExtension = null;
+//                if ((fileName != null) && (fileName.length() > 0)) {
+//                    int dot = fileName.lastIndexOf('.');
+//                    if ((dot > -1) && (dot < (fileName.length()))) {
+//                        fileNameNoExtension= fileName.substring(0, dot);
+//                    }
+//                    else
+//                        fileNameNoExtension=fileName;
+//                }
+//                InputStream inputStream = resource.getStream();
+//                assert fileNameNoExtension != null;
+//                MultipartFile multipartFile =  new MockMultipartFile(fileNameNoExtension, fileName, "jpg", inputStream);
+//                storeMultipartFile(pathName,"default",multipartFile);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//            return 808;
+//        }
+//        return 404;
+//    }
 
     private String createDir(String root, String dir){
         File url = new File(root+"/"+dir);

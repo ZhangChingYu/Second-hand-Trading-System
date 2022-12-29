@@ -18,10 +18,10 @@ public class OrderDetails {
     private String phone;    //收货人手机号
     private Double total;    // 成交价格
 
-    private Date payTime;;     // 订单生成时间
-    private Date deliveryTime;;    // 发货时间
-    private Date confirmTime;;    // 收货时间
-    private Date applyTime;;    //
-    private Date refundTime;;    // 卖家同意退款时间
+    private String payTime;;     // 订单生成时间
+    private String deliveryTime;;    // 发货时间
+    private String confirmTime;;    // 收货时间
+    private String applyTime;;    //
+    private String refundTime;;    // 卖家同意退款时间
     private String remark;;    //买家备注
 }

@@ -35,3 +35,17 @@ spring:
 weixin:
   appid: wxf3c9f3b16d188314
   secret: 2b42c039c419097c2d256e87bf5a0df2
+#微信支付配置
+tenpayconfig:
+  #商户APPID
+  appId: asdfg12345
+  #商户号
+  mchId: 12345678
+  #商户的key(API密匙)
+  key: qwertyuiop
+  #API支付请求地址
+  payUrl: https://api.mch.weixin.qq.com/pay/unifiedorder
+  #API查询请求地址
+  queryUrl: https://api.mch.weixin.qq.com/pay/orderquery
+  #package
+  packageValue: Sign=WXPay

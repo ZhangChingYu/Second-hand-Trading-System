@@ -33,6 +33,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerService {
@@ -41,13 +42,13 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
     @Autowired
     TransferUTF8 transferUTF8 = new TransferUTF8();
     @Autowired
-    FeedbackRepository feedbackRepository;
+    private FeedbackRepository feedbackRepository;
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
     @Autowired
-    BuyerRepository buyerRepository;
+    private BuyerRepository buyerRepository;
     @Autowired
-    SellerRepository sellerRepository;
+    private SellerRepository sellerRepository;
     private Result res;
     @Autowired
     private ReadFile readFile = new ReadFile();
@@ -62,33 +63,39 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
 
     @Override
     public Result selectUser(String phone) {
-        User user=userRepository.findByPhone(phone).get();
-        user=transferUTF8.switchUtf8Tc(user);
-        UserInfo userInfo=modelMapper.map(user,UserInfo.class);
-//        //图片路径
-        String picture1;
-        if (user.getAvatar()==null||user.getAvatar().isEmpty()) {
-            //默认图片
-            picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
-            userInfo.setAvatar(picture1);
-        } else {
-            picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user.getPhone()),avatar_width,avatar_height);
-            userInfo.setAvatar(picture1);
+        Optional<User> user1=userRepository.findByPhone(phone);
+        if(user1.isPresent()){
+            User user=user1.get();
+            user=transferUTF8.switchUtf8Tc(user);
+            UserInfo userInfo=modelMapper.map(user,UserInfo.class);
+            //图片路径
+            String picture1;
+            if (user.getAvatar()==null||user.getAvatar().isEmpty()) {
+                //默认图片
+                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
+                userInfo.setAvatar(picture1);
+            } else {
+                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user.getPhone()),avatar_width,avatar_height);
+                userInfo.setAvatar(picture1);
+            }
+            Integer auth = user.getAuthority();
+            if (auth == 0) {
+                userInfo.setAuthority("已认证");
+            } else if (auth == 1) {
+                userInfo.setAuthority("未认证");
+            } else {
+                userInfo.setAuthority("已禁用");
+            }
+            List<Buyer> buyer = buyerRepository.findAllByPhone(phone);
+            List<Seller> seller = sellerRepository.findAllByPhone(phone);
+            userInfo.setBuy(buyer.size());
+            userInfo.setSell(seller.size());
+            res=new Result(ResultCode.SUCCESS,userInfo);
+            return res;
         }
-        Integer auth = user.getAuthority();
-        if (auth == 0) {
-            userInfo.setAuthority("已认证");
-        } else if (auth == 1) {
-            userInfo.setAuthority("未认证");
-        } else {
-            userInfo.setAuthority("已禁用");
-        }
-        List<Buyer> buyer = buyerRepository.findAllByPhone(phone);
-        List<Seller> seller = sellerRepository.findAllByPhone(phone);
-        userInfo.setBuy(buyer.size());
-        userInfo.setSell(seller.size());
-        res=new Result(ResultCode.SUCCESS,userInfo);
-        return res;
+        else
+            res=new Result(ResultCode.FAIL,"用户不存在");
+            return res;
     }
     @Override
     public Result addFeedBack(FeedbackDto feed) {
@@ -169,17 +176,18 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
 
     @Override
     public Result deleteUser(List<Integer> ids) {
+        StringBuilder msg = new StringBuilder(" ");
         for (Integer id : ids) {
             User user=userRepository.findById(id).get();
-            if(user.getAvatar()!=null){
-                deleteFile.deleteOneFile(readFile.getAvatarPicture(user.getPhone()));
+            String phone=user.getPhone();
+            if(deleteFile.deleteAvatarPictures(user.getPhone())) {
+                msg = new StringBuilder("已成功删除" + phone + "用户的头像和认证图片");
             }
-            if(user.getPicture()!=null){
-                deleteFile.deleteOneFile(readFile.getAuthPicture(user.getPhone()));
-            }
+            else
+                msg = new StringBuilder("删除" + phone + "用户的头像和认证图片失败");
             userRepository.delete(user);
         }
-        res=new Result(ResultCode.SUCCESS);
+        res=new Result("666", msg.toString(),1);
         return res;
     }
 

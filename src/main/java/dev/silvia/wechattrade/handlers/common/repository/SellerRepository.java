@@ -11,5 +11,7 @@ public interface SellerRepository extends JpaRepository<Seller, String> {
     Seller findByExchangeId(String number);
 
     List<Seller> findAllByPhone(String phone);
+
+    List<Seller> findByPhone(String phone);
 }
 

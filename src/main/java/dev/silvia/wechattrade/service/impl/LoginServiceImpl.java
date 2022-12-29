@@ -14,6 +14,7 @@ import dev.silvia.wechattrade.handlers.common.cryto.Sign;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
 import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
 import dev.silvia.wechattrade.handlers.fileHandler.ReadFile;
+import dev.silvia.wechattrade.handlers.fileHandler.WriteFile;
 import dev.silvia.wechattrade.service.ILoginService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,6 +55,9 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
 
     @Autowired
     private ReadFile readFile = new ReadFile();
+
+    @Autowired
+    private WriteFile writeFile=new WriteFile();
     // 正则匹配用户输入的格式，用户是：用户名，或手机号，或邮箱登录
     private final String em = "^\\w+([-+.]\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$";
     private final String ph =  "^[1][3578]\\d{9}$";
@@ -75,11 +79,15 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         String picture1;
                         if(u.getAvatar()==null||u.getAvatar().isEmpty()){
                             //默认图片
-                            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-                            u.setAvatar(picture1);
+//                            if(writeFile.storeDefaultAvatarPicture()==808) {
+//                                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+//                                u.setAvatar(picture1);
+//                            }
+//                            else
+                                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+                                u.setAvatar(picture1);
                         }
                         else{
-                            //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
                             picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(u.getPhone()));
                             u.setAvatar(picture1);
                         }
@@ -138,6 +146,9 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                             use=new Result(ResultCode.USER_LOGIN_ERROR);
                         }
                         else{
+                            User u=user.get();
+                            u.setIsOnline(1);
+                            accountRepository.save(u);
                             use=new Result(ResultCode.SUCCESS,account);
                         }
                     }
@@ -228,6 +239,14 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
             user3.setPicture(picture2);
         }
         use=new Result(ResultCode.SUCCESS,picture2);
+        return use;
+    }
+    @Override
+    public Result outLogin(String phone) {
+        User user4=accountRepository.findByPhone(phone).get();
+        user4.setIsOnline(0);
+        accountRepository.save(user4);
+        use=new Result(ResultCode.SUCCESS);
         return use;
     }
 }

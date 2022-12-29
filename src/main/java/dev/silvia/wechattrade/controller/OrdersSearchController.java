@@ -3,18 +3,27 @@ package dev.silvia.wechattrade.controller;
 import dev.silvia.wechattrade.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 @RestController
 public class OrdersSearchController {
     @Autowired
     @Resource
     private IOrderService service;
+
+    //退款原因   输入订单编号number
+    @RequestMapping(value ="/orders/after/reason",method = RequestMethod.GET)
+    public ResponseEntity<?> afterReason(HttpServletRequest request){
+        String number = request.getParameter("number");
+        return ResponseEntity.ok(service.afterReason(number));
+    }
 
     //查找全部buyer预约
     @RequestMapping(value ="/booking/select/buyer",method = RequestMethod.GET)
@@ -75,16 +84,18 @@ public class OrdersSearchController {
     @RequestMapping(value ="/orders/fuzzy/name",method = RequestMethod.GET)
     public ResponseEntity<?> selectOrdersByName(HttpServletRequest request){
         String name= request.getParameter("name");
+        String phone= request.getParameter("phone");
         Integer isbuyer= Integer.valueOf(request.getParameter("isbuyer"));
-        return ResponseEntity.ok(service.selectAllByName(name,1,isbuyer));
+        return ResponseEntity.ok(service.selectAllByName(name,phone,1,isbuyer));
     }
 
     //在预约中根据商品名称模糊搜索
     @RequestMapping(value ="/booking/fuzzy/name",method = RequestMethod.GET)
     public ResponseEntity<?> selectBookingByName(HttpServletRequest request){
         String name= request.getParameter("name");
+        String phone= request.getParameter("phone");
         Integer isbuyer= Integer.valueOf(request.getParameter("isbuyer"));
-        return ResponseEntity.ok(service.selectAllByName(name,0,isbuyer));
+        return ResponseEntity.ok(service.selectAllByName(name,phone,0,isbuyer));
     }
 
     //根据订单编号获取订单详情
@@ -124,5 +135,12 @@ public class OrdersSearchController {
         String phone= request.getParameter("phone");
         String number= request.getParameter("number");
         return ResponseEntity.ok(service.orderByBuyer(phone,number));
+    }
+
+    //根据商品编号获取商品图片
+    @RequestMapping(value ="/orders/product/pic",method = RequestMethod.GET)
+    public ResponseEntity<?> orderProductPic(HttpServletRequest request){
+        String number= request.getParameter("number");
+        return ResponseEntity.ok(service.orderProductPic(number));
     }
 }

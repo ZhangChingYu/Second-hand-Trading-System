@@ -7,8 +7,9 @@ import java.io.File;
 @Component
 public class DeleteFile {
     private String product_picture_url = FileDirector.PRODUCT_URL;
+    private String auth_temp_url = FileDirector.AUTHENTICATION_TEMP_URL;
 
-    public boolean deleteOneFile(String filePath){    // 刪除某路徑下單個文件
+    private static boolean deleteOneFile(String filePath){    // 刪除某路徑下單個文件
         boolean flag = false;
         // 根據路徑創建文件對象
         File file = new File(filePath);
@@ -18,6 +19,22 @@ public class DeleteFile {
         }
         // 刪除失敗的話flag會是false
         return flag;
+    }
+    // 刪除用戶暫存圖片
+    public boolean deleteAuthTempPicture(String phone){
+        String filePath = "";
+        File folder = new File(auth_temp_url);
+        File[] files = folder.listFiles();
+        for(File file : files){
+            if(file.getName().contains(phone)){
+                filePath = file.getPath();
+            }
+        }
+        if(filePath != ""){
+            return deleteOneFile(filePath);
+        }
+        System.out.println("[DELETE] File not found.");
+        return false;
     }
 
     public boolean deleteProductPictures(String product_number){    // 根據商品編號刪除商品圖片檔
@@ -37,6 +54,40 @@ public class DeleteFile {
         }
         return flag;
     }
+
+    public boolean deleteAvatarPictures(String phone){    // 根據用户手机号編號刪除头像和认证图片
+        boolean flag = false;
+        String dirPath = FileDirector.AUTH_URL + phone;
+        System.out.println(dirPath);
+        File dir = new File(dirPath);
+        if(dir.exists()){
+            deleteDirFile(dir);
+            if(!dir.exists()){  // 檢查檔案是否還存在，不存在則刪除成功
+                flag = true;
+            }
+            System.out.println("File delete failed!");
+        }else {
+            System.out.println("File does not exist!");
+        }
+        return flag;
+    }
+//
+//    public boolean deleteDefaultAvatarPictures(){    // 根據用户手机号編號刪除默认头像
+//        boolean flag = false;
+//        String dirPath = FileDirector.AUTH_URL+"Default";
+//        System.out.println(dirPath);
+//        File dir = new File(dirPath);
+//        if(dir.exists()){
+//            deleteDirFile(dir);
+//            if(!dir.exists()){  // 檢查檔案是否還存在，不存在則刪除成功
+//                flag = true;
+//            }
+//            System.out.println("File delete failed!");
+//        }else {
+//            System.out.println("File does not exist!");
+//        }
+//        return flag;
+//    }
 
     private static void deleteDirFile(File dir){   // 刪除文件目錄需遞歸刪除所有子文件後，再刪除該目錄
         // 獲取目錄下所有子文件和目錄

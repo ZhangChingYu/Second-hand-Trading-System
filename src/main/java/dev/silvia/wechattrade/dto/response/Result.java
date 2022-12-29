@@ -43,7 +43,7 @@ public class Result<T> {
         return new Result(ResultCode.FAIL);
     }
 
-    public static Result FAIL(String msg) {
-        return new Result(msg);
+    public static <T> Result FAIL(T data) {
+        return new Result(ResultCode.SUCCESS, data);
     }
 }

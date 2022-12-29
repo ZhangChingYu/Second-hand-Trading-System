@@ -888,6 +888,55 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * 前端api: **GET** manage/select/trade
 * json语句:无
 * 返回同获取违规目录
+####聊天相关
+1，判断是否是第一次聊天  返回聊天双方number    
+* 前端api: **GET**  /chat/checkIsFirstChat
+* json语句: "toId":"聊天对象电话“
+* 返回信息(Object):Result(msg: ”是第一次聊天/不是第一次聊天“; code:"666" ;data: 聊天双方number)
+2，获取聊天列表
+* 前端api: **GET**  /chat/getChatList
+* json语句: 无
+* 返回信息(Object):Result(msg: ; code:"666" ;data:List<ChatListData>)
+  ChatListData {
+      number:两者的关联id;
+      toName:聊天对象用户名;
+      toId:聊天对象电话;
+      toAvatar:聊天对象的头像;
+      lastMessage;最后一条信息;   
+      unread:未读数;
+      time:最后一条信息发送时间;
+      fromWindow:发送者在哪个聊天框 0：表示不在窗口，1：表示在窗口;
+  }
+3，获取聊天列表记录
+* 前端api: **GET**  /chat/getChatRecords
+* json语句: "toId":"聊天对象电话"  startIndex:第几页   0、1 ...  pageSize: 页面大小
+* 返回信息(Object):Result(msg: ; code:"666" ;data:List<chatMessageData>)
+  ChatMessageData {
+     fromId:  发送者电话;
+     content:   信息内容;
+     time:  发送时间;
+     types:信息类型 0:文本,1:图片,2:视频;
+  }
+4，跟对方建立连接 更新窗口值，判断对方是否在线
+* 前端api: **GET**  /chat/inWindows
+* json语句: "toId":"聊天对象电话“
+* 返回信息(Object):Result(msg: ; code:"666";data: 1:是，0:不是)
+5，监听窗口关闭事件，当窗口关闭时（用户退出聊天界面时） 重置窗口值
+* 前端api: **GET**  /chat/resetWindows
+* json语句: 无
+* 返回信息(Object):Result(msg: ; code:"666";data: )
+6：获取用户的未读信息
+* 前端api: **GET**  /chat/unread
+* json语句: 无
+* 返回信息(Object):Result(msg: ; code:"666";data: 未读数 )
+7：websocket onMessage 收到客户端消息后调用的方法
+   需要{"content":"消息内容","toUser":"接收者电话","types":消息类型}
+   传给接收者  ChatMessageData {
+         fromId:  发送者电话;
+         content:   信息内容;
+         time:  发送时间;
+         types:信息类型 0:文本,1:图片,2:视频;
+       }
 # 關於RestFul api的一些規範
 什么是RestFul架构：
 1. 每一个URI代表一种资源；

@@ -3,6 +3,7 @@ package dev.silvia.wechattrade.controller;
 import dev.silvia.wechattrade.dto.booking.BoReDto;
 import dev.silvia.wechattrade.dto.exchangedto.ExRequestDto;
 import dev.silvia.wechattrade.dto.exchangedto.RefundDto;
+import dev.silvia.wechattrade.dto.exchangedto.myAddress;
 import dev.silvia.wechattrade.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -51,6 +52,7 @@ public class ExchangeController {
     //卖家确认预约
     @RequestMapping(value ="/booking/acquire",method = RequestMethod.PUT)
     public ResponseEntity<?> acquireAppointments(@RequestBody Map<String, Object> param) {
+        System.out.println("AAAA");
         String number = param.get("number").toString();
         return ResponseEntity.ok(service.acquireAppointments(number));
     }
@@ -98,6 +100,12 @@ public class ExchangeController {
         String number = param.get("number").toString();
         return ResponseEntity.ok(service.cancelAfter(number));
     }
+    //不同意退款   输入订单编号number
+    @RequestMapping(value ="/orders/disagree",method = RequestMethod.PUT)
+    public ResponseEntity<?> ordersDisagree(@RequestBody Map<String, Object> param) {
+        String number = param.get("number").toString();
+        return ResponseEntity.ok(service.noAfter(number));
+    }
 
 
     //删除订单     输入订单编号number
@@ -105,7 +113,6 @@ public class ExchangeController {
     public ResponseEntity<?> delete(@RequestBody Map<String, Object> param) {
         String number = param.get("number").toString();
         return ResponseEntity.ok(service.delete(number));
-
     }
 
     //seller删除订单  输入订单编号number
@@ -126,7 +133,7 @@ public class ExchangeController {
     @RequestMapping(value ="seller/delete",method = RequestMethod.DELETE)
     public ResponseEntity<?> Delete(@RequestBody Map<String, Object> param) {
         String number = param.get("number").toString();
-        if(number.startsWith("YY")){
+        if(number.contains("YY")){
             return ResponseEntity.ok(service.sellerDeleteBooking(number));
         }
         else{

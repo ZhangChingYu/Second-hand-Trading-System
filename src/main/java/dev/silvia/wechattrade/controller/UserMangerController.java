@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.*;
@@ -97,6 +98,7 @@ public class UserMangerController {
         String phone= request.getParameter("phone");    //权限
         return ResponseEntity.ok(service.selectUser(phone));
     }
+
 
     //获取权限目录
     @RequestMapping(value ="/manage/select/authority",method = RequestMethod.GET)

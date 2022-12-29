@@ -53,4 +53,6 @@ public class User implements Serializable {
     private String avatar;
 
     private String picture;
+
+    private Integer isOnline;
 }

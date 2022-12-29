@@ -104,10 +104,8 @@ public class AuthorizeInterceptor extends HandlerInterceptorAdapter {
             return true;
         }
 
-        String auth1 = request.getHeader(HttpHeaders.AUTHORIZATION);
-        if (StringUtils.isEmpty(auth1)) {
-            return true;
-        }
+        Integer auth1 = Integer.valueOf(request.getHeader(HttpHeaders.AUTHORIZATION));
+
         return true;
     }
 }
