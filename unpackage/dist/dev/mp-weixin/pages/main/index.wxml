@@ -1,1 +1,1 @@
-<view class="home data-v-255f3f96"><view class="title data-v-255f3f96"><text class="data-v-255f3f96">闲置虫虫二手交易服务端主页</text></view></view>
+<view class="home data-v-255f3f96"><view class="top data-v-255f3f96"><text class="welcome data-v-255f3f96">{{"管理员："+user.userName+"("+user.realName+")"}}</text><text data-event-opts="{{[['tap',[['logout',['$event']]]]]}}" class="logout data-v-255f3f96" bindtap="__e">退出登陆</text></view><view class="title data-v-255f3f96"><text class="data-v-255f3f96">闲置虫虫二手交易服务端主页</text></view></view>

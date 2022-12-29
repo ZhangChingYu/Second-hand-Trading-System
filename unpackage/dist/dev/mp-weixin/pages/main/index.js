@@ -132,7 +132,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0; //
+//
+//
+//
+//
 //
 //
 //
@@ -143,11 +147,29 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 var _default =
 {
   data: function data() {
-    return {};
-
+    return {
+      user: {} };
 
   },
-  methods: {} };exports.default = _default;
+  created: function created() {
+    this.user = uni.getStorageSync('user');
+  },
+  methods: {
+    logout: function logout() {
+      uni.showModal({
+        title: '提示',
+        content: '是否退出登陆？',
+        success: function success(res) {
+          if (res.confirm) {
+            uni.clearStorage();
+            uni.redirectTo({
+              url: '/pages/login/login' });
+
+          }
+        } });
+
+    } } };exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
 

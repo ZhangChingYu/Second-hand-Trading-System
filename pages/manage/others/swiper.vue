@@ -1,6 +1,6 @@
 <template>
 	<view class="swiper">
-		<view class="swiper-title">轮播图列表</view>
+		<view class="swiper-title">轮播图列表（{{swiperList.length}} / 4）</view>
 		<view class="container">
 			<view class="pic" v-for="(item,index) of swiperList" :key="item.index" @longtap="remove(item.index)">
 				<image mode="aspectFill" :src="item.picture"></image>
@@ -97,7 +97,6 @@ import {addSwiper,deleteSwiper,updateSwiper,getSwiper} from '@/common/request/ap
 				this.getPictureList()
 			},
 			uploadFilePromise(url) {
-				// console.log(url)
 				let ip = this.api.ip + '/homepage/ads'
 				return new Promise((resolve, reject) => {
 					let a = uni.uploadFile({
@@ -160,7 +159,7 @@ import {addSwiper,deleteSwiper,updateSwiper,getSwiper} from '@/common/request/ap
 		margin: 20rpx 2em;
 		font-size: 30rpx;
 		color: #be0000;
-		text-shadow: 5rpx 5rpx 2rpx #24c3be;
+		text-shadow: 5rpx 5rpx 2rpx #a1bac3;
 	}
 	
 	.container {

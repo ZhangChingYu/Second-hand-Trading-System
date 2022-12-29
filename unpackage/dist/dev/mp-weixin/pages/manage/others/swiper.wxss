@@ -43,7 +43,7 @@
   margin: 20rpx 2em;
   font-size: 30rpx;
   color: #be0000;
-  text-shadow: 5rpx 5rpx 2rpx #24c3be;
+  text-shadow: 5rpx 5rpx 2rpx #a1bac3;
 }
 .container.data-v-99d6771a {
   display: flex;

@@ -26,16 +26,7 @@
                 "enablePullDownRefresh": true
             }
             
-        },
-		{
-		    "path" : "pages/me/index",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "我的",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}
+        }
         ,{
             "path" : "pages/manage/product/catalog",
             "style" :                                                                                    
@@ -160,22 +151,22 @@
 	},
 	"uniIdRouter": {},
 	"tabBar": {
-		"color": "#b1b5cc",
-		"selectedColor": "#0bb3fa",
+		"color": "#505050",
+		"selectedColor": "#ffff7f",
 		"borderStyle": "black",
-		"backgroundColor": "#ffffff",
+		"backgroundColor": "#f1bf0b",
 		"list": [
 			{
 				"text": "主页",
-				"pagePath": "pages/main/index"
+				"pagePath": "pages/main/index",
+				"iconPath": "static/image/home.png",
+				"selectedIconPath": "static/image/home_sel.png"
 			},
 			{
 				"text": "管理",
-				"pagePath": "pages/manage/index"
-			},
-			{
-				"text": "我的",
-				"pagePath": "pages/me/index"
+				"pagePath": "pages/manage/index",
+				"iconPath": "static/image/manage.png",
+				"selectedIconPath": "static/image/manage_sel.png"
 			}
 		]
 	}
