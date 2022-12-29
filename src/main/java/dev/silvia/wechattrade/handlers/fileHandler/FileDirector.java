@@ -6,15 +6,15 @@ public interface FileDirector {// 整理所有文件路徑相關的參數
     // 用戶反饋路徑
     String FEEDBACK_URL="C:/Users/Sunny/Desktop/Feedback/";
     // 幫助文檔路徑(注意!!!後面少一個斜槓喔!!!)
-    String HELP_URL = "C:/Users/Sunny/Desktop/Help";
+    String HELP_URL = "D:/大四上學期/畢業實習/WechatTrade/src/main/resources/Help";
     // 头像和认证文件存储路径
-    String AUTH_URL = "C:/Users/Sunny/Desktop/User/";
+    String AUTH_URL = "D:/大四上學期/畢業實習/WechatTrade/src/main/resources/User/";
     //默认头像路径
-    String  AVATAR_URL= "C:/Users/Sunny/Desktop/User/Default/default/default.jpg";
+    String  AVATAR_URL= "D:/大四上學期/畢業實習/WechatTrade/src/main/resources/User/Default/default/default.jpg";
     // 證件照站存處(注意!!!後面少一個斜槓喔!!!)
-    String AUTHENTICATION_TEMP_URL = "C:/Users/Sunny/Desktop/User/AuthTemp";
+    String AUTHENTICATION_TEMP_URL = "D:/大四上學期/畢業實習/WechatTrade/src/main/resources/User/AuthTemp";
     // 用戶協議存放路徑
-    String USER_PRINCIPLE_URL = "C:/Users/Sunny/Desktop/User/Principle";
+    String USER_PRINCIPLE_URL = "D:/大四上學期/畢業實習/WechatTrade/src/main/resources/User/Principle";
     // 首頁輪播圖路徑(放在項目路徑的static下)
     String ADS_URL = "D:/大四上學期/畢業實習/WechatTrade/src/main/resources/static";
 }
