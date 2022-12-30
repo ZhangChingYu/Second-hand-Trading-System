@@ -1464,7 +1464,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8556,7 +8556,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8577,14 +8577,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8670,7 +8670,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9084,9 +9084,9 @@ internalMixin(Vue);
 
 /***/ }),
 /* 5 */
-/*!**************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/pages.json ***!
-  \**************************************************/
+/*!***********************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/pages.json ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9227,9 +9227,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 12 */
-/*!******************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/store/index.js ***!
-  \******************************************************/
+/*!***************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/store/index.js ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10507,9 +10507,9 @@ module.exports = index_cjs;
 
 /***/ }),
 /* 14 */
-/*!******************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/common/uni.css ***!
-  \******************************************************/
+/*!***************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/common/uni.css ***!
+  \***************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10519,9 +10519,9 @@ module.exports = index_cjs;
 
 /***/ }),
 /* 15 */
-/*!*****************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/common/request/request.js ***!
-  \*****************************************************************/
+/*!**************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/common/request/request.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10639,9 +10639,9 @@ module.exports = {
 
 /***/ }),
 /* 16 */
-/*!*********************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/index.js ***!
-  \*********************************************************************/
+/*!******************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/index.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10728,9 +10728,9 @@ var install = function install(Vue) {
 
 /***/ }),
 /* 17 */
-/*!********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/mixin.js ***!
-  \********************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/mixin/mixin.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10897,9 +10897,9 @@ var install = function install(Vue) {
 
 /***/ }),
 /* 18 */
-/*!**********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/mpMixin.js ***!
-  \**********************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/mixin/mpMixin.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10912,9 +10912,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 19 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/index.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/index.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10925,9 +10925,9 @@ _Request.default;exports.default = _default;
 
 /***/ }),
 /* 20 */
-/*!**********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/core/Request.js ***!
-  \**********************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/core/Request.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11133,9 +11133,9 @@ Request = /*#__PURE__*/function () {
 
 /***/ }),
 /* 21 */
-/*!******************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/core/dispatchRequest.js ***!
-  \******************************************************************************************************/
+/*!***************************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/core/dispatchRequest.js ***!
+  \***************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11146,9 +11146,9 @@ function _default(config) {return (0, _index.default)(config);};exports.default 
 
 /***/ }),
 /* 22 */
-/*!************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/adapters/index.js ***!
-  \************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/adapters/index.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11254,9 +11254,9 @@ function _default(config) {return new Promise(function (resolve, reject) {
 
 /***/ }),
 /* 23 */
-/*!**************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/helpers/buildURL.js ***!
-  \**************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/helpers/buildURL.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11333,9 +11333,9 @@ function buildURL(url, params) {
 
 /***/ }),
 /* 24 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/utils.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/utils.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11474,9 +11474,9 @@ function isUndefined(val) {
 
 /***/ }),
 /* 25 */
-/*!****************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/core/buildFullPath.js ***!
-  \****************************************************************************************************/
+/*!*************************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/core/buildFullPath.js ***!
+  \*************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11504,9 +11504,9 @@ function buildFullPath(baseURL, requestedURL) {
 
 /***/ }),
 /* 26 */
-/*!*******************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/helpers/isAbsoluteURL.js ***!
-  \*******************************************************************************************************/
+/*!****************************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/helpers/isAbsoluteURL.js ***!
+  \****************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11528,9 +11528,9 @@ function isAbsoluteURL(url) {
 
 /***/ }),
 /* 27 */
-/*!*****************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/helpers/combineURLs.js ***!
-  \*****************************************************************************************************/
+/*!**************************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/helpers/combineURLs.js ***!
+  \**************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11552,9 +11552,9 @@ function combineURLs(baseURL, relativeURL) {
 
 /***/ }),
 /* 28 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/core/settle.js ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/core/settle.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11578,9 +11578,9 @@ function settle(resolve, reject, response) {var
 
 /***/ }),
 /* 29 */
-/*!*********************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/core/InterceptorManager.js ***!
-  \*********************************************************************************************************/
+/*!******************************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/core/InterceptorManager.js ***!
+  \******************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11638,9 +11638,9 @@ InterceptorManager;exports.default = _default;
 
 /***/ }),
 /* 30 */
-/*!**************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/core/mergeConfig.js ***!
-  \**************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/core/mergeConfig.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11751,9 +11751,9 @@ function _default(globalsConfig) {var config2 = arguments.length > 1 && argument
 
 /***/ }),
 /* 31 */
-/*!***********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/core/defaults.js ***!
-  \***********************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/core/defaults.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11789,9 +11789,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 32 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/luch-request/utils/clone.js ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/luch-request/utils/clone.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12060,7 +12060,7 @@ var clone = function () {
 }();var _default =
 
 clone;exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/buffer/index.js */ 33).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../HBuilder/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 33).Buffer))
 
 /***/ }),
 /* 33 */
@@ -14137,17 +14137,17 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 /* 37 */
-/*!*******************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/util/route.js ***!
-  \*******************************************************************************/
+/*!****************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/util/route.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 38));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}function _classCallCheck(instance, Constructor) {if (!(instance instanceof Constructor)) {throw new TypeError("Cannot call a class as a function");}}function _defineProperties(target, props) {for (var i = 0; i < props.length; i++) {var descriptor = props[i];descriptor.enumerable = descriptor.enumerable || false;descriptor.configurable = true;if ("value" in descriptor) descriptor.writable = true;Object.defineProperty(target, descriptor.key, descriptor);}}function _createClass(Constructor, protoProps, staticProps) {if (protoProps) _defineProperties(Constructor.prototype, protoProps);if (staticProps) _defineProperties(Constructor, staticProps);return Constructor;} /**
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 路由跳转方法，该方法相对于直接使用uni.xxx的好处是使用更加简单快捷
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            * 并且带有路由拦截功能
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            */var
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         * 路由跳转方法，该方法相对于直接使用uni.xxx的好处是使用更加简单快捷
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         * 并且带有路由拦截功能
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         */var
 
 Router = /*#__PURE__*/function () {
   function Router() {_classCallCheck(this, Router);
@@ -15060,9 +15060,9 @@ if (hadRuntime) {
 
 /***/ }),
 /* 41 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/function/colorGradient.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/function/colorGradient.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15203,9 +15203,9 @@ function colorToRgba(color, alpha) {
 
 /***/ }),
 /* 42 */
-/*!**********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/function/test.js ***!
-  \**********************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/function/test.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15500,9 +15500,9 @@ function regExp(o) {
 
 /***/ }),
 /* 43 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/function/debounce.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/function/debounce.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15539,9 +15539,9 @@ debounce;exports.default = _default;
 
 /***/ }),
 /* 44 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/function/throttle.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/function/throttle.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15579,9 +15579,9 @@ throttle;exports.default = _default;
 
 /***/ }),
 /* 45 */
-/*!***********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/function/index.js ***!
-  \***********************************************************************************/
+/*!********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/function/index.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16294,9 +16294,9 @@ function setConfig(_ref3)
 
 /***/ }),
 /* 46 */
-/*!***********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/function/digit.js ***!
-  \***********************************************************************************/
+/*!********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/function/digit.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16469,9 +16469,9 @@ function enableBoundaryChecking() {var flag = arguments.length > 0 && arguments[
 
 /***/ }),
 /* 47 */
-/*!**********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/config.js ***!
-  \**********************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/config.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16512,9 +16512,9 @@ if (true) {
 
 /***/ }),
 /* 48 */
-/*!*********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props.js ***!
-  \*********************************************************************************/
+/*!******************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16711,9 +16711,9 @@ _upload.default);exports.default = _default;
 
 /***/ }),
 /* 49 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/actionSheet.js ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/actionSheet.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16744,9 +16744,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 50 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/album.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/album.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16777,9 +16777,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 51 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/alert.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/alert.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16807,9 +16807,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 52 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/avatar.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/avatar.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16843,9 +16843,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 53 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/avatarGroup.js ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/avatarGroup.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16874,9 +16874,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 54 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/backtop.js ***!
-  \*****************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/backtop.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16908,9 +16908,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 55 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/badge.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/badge.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16943,9 +16943,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 56 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/button.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/button.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16993,9 +16993,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 57 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/calendar.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/calendar.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17043,9 +17043,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 58 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/carKeyboard.js ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/carKeyboard.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17066,9 +17066,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 59 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/cell.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/cell.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17109,9 +17109,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 60 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/cellGroup.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/cellGroup.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17134,9 +17134,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 61 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/checkbox.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/checkbox.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17169,9 +17169,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 62 */
-/*!***********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/checkboxGroup.js ***!
-  \***********************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/checkboxGroup.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17206,9 +17206,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 63 */
-/*!************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/circleProgress.js ***!
-  \************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/circleProgress.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17229,9 +17229,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 64 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/code.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/code.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17258,9 +17258,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 65 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/codeInput.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/codeInput.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17295,9 +17295,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 66 */
-/*!*************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/col.js ***!
-  \*************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/col.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17322,9 +17322,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 67 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/collapse.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/collapse.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17347,9 +17347,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 68 */
-/*!**********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/collapseItem.js ***!
-  \**********************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/collapseItem.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17380,9 +17380,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 69 */
-/*!**********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/columnNotice.js ***!
-  \**********************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/columnNotice.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17412,9 +17412,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 70 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/countDown.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/countDown.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17438,9 +17438,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 71 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/countTo.js ***!
-  \*****************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/countTo.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17471,9 +17471,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 72 */
-/*!************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/datetimePicker.js ***!
-  \************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/datetimePicker.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17515,9 +17515,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 73 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/divider.js ***!
-  \*****************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/divider.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17545,9 +17545,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 74 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/empty.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/empty.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17578,9 +17578,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 75 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/form.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/form.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17608,9 +17608,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 76 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/formItem.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/formItem.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17639,9 +17639,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 77 */
-/*!*************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/gap.js ***!
-  \*************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/gap.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17666,9 +17666,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 78 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/grid.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/grid.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17691,9 +17691,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 79 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/gridItem.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/gridItem.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17715,9 +17715,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 80 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/icon.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/icon.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17759,9 +17759,9 @@ var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 47));f
 
 /***/ }),
 /* 81 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/image.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/image.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17797,9 +17797,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 82 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/indexAnchor.js ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/indexAnchor.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17824,9 +17824,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 83 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/indexList.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/indexList.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17851,9 +17851,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 84 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/input.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/input.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17907,9 +17907,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 85 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/keyboard.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/keyboard.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17945,9 +17945,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 86 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/line.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/line.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17973,9 +17973,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 87 */
-/*!**********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/lineProgress.js ***!
-  \**********************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/lineProgress.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18000,9 +18000,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 88 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/link.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/link.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18034,9 +18034,9 @@ var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 47));f
 
 /***/ }),
 /* 89 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/list.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/list.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18070,9 +18070,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 90 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/listItem.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/listItem.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18093,9 +18093,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 91 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/loadingIcon.js ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/loadingIcon.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18131,9 +18131,9 @@ var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 47));f
 
 /***/ }),
 /* 92 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/loadingPage.js ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/loadingPage.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18162,9 +18162,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 93 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/loadmore.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/loadmore.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18202,9 +18202,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 94 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/modal.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/modal.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18240,9 +18240,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 95 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/navbar.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/navbar.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18279,9 +18279,9 @@ var _color = _interopRequireDefault(__webpack_require__(/*! ../color */ 96));fun
 
 /***/ }),
 /* 96 */
-/*!*********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/color.js ***!
-  \*********************************************************************************/
+/*!******************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/color.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18306,9 +18306,9 @@ color;exports.default = _default;
 
 /***/ }),
 /* 97 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/noNetwork.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/noNetwork.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18331,9 +18331,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 98 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/noticeBar.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/noticeBar.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18366,9 +18366,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 99 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/notify.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/notify.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18396,9 +18396,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 100 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/numberBox.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/numberBox.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18439,9 +18439,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 101 */
-/*!************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
-  \************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18464,9 +18464,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 102 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/overlay.js ***!
-  \*****************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/overlay.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18490,9 +18490,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 103 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/parse.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/parse.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18520,9 +18520,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 104 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/picker.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/picker.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18557,9 +18557,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 105 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/popup.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/popup.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18594,9 +18594,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 106 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/radio.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/radio.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18629,9 +18629,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 107 */
-/*!********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/radioGroup.js ***!
-  \********************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/radioGroup.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18667,9 +18667,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 108 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/rate.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/rate.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18701,9 +18701,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 109 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/readMore.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/readMore.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18731,9 +18731,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 110 */
-/*!*************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/row.js ***!
-  \*************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/row.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18756,9 +18756,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 111 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/rowNotice.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/rowNotice.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18785,9 +18785,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 112 */
-/*!********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/scrollList.js ***!
-  \********************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/scrollList.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18813,9 +18813,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 113 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/search.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/search.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18858,9 +18858,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 114 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/section.js ***!
-  \*****************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/section.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18890,9 +18890,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 115 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/skeleton.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/skeleton.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18923,9 +18923,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 116 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/slider.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/slider.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18956,9 +18956,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 117 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/statusBar.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/statusBar.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -18979,9 +18979,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 118 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/steps.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/steps.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19008,9 +19008,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 119 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/stepsItem.js ***!
-  \*******************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/stepsItem.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19034,9 +19034,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 120 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/sticky.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/sticky.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19062,9 +19062,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 121 */
-/*!********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/subsection.js ***!
-  \********************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/subsection.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19093,9 +19093,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 122 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/swipeAction.js ***!
-  \*********************************************************************************************/
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/swipeAction.js ***!
+  \******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19116,9 +19116,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 123 */
-/*!*************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/swipeActionItem.js ***!
-  \*************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/swipeActionItem.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19145,9 +19145,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 124 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/swiper.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/swiper.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19191,9 +19191,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 125 */
-/*!**************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/swipterIndicator.js ***!
-  \**************************************************************************************************/
+/*!***********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/swipterIndicator.js ***!
+  \***********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19218,9 +19218,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 126 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/switch.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/switch.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19250,9 +19250,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 127 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/tabbar.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/tabbar.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19280,9 +19280,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 128 */
-/*!********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/tabbarItem.js ***!
-  \********************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/tabbarItem.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19308,9 +19308,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 129 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/tabs.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/tabs.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19348,9 +19348,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 130 */
-/*!*************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/tag.js ***!
-  \*************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/tag.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19385,9 +19385,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 131 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/text.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/text.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19430,9 +19430,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 132 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/textarea.js ***!
-  \******************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/textarea.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19474,9 +19474,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 133 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/toast.js ***!
-  \***************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/toast.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19511,9 +19511,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 134 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/toolbar.js ***!
-  \*****************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/toolbar.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19539,9 +19539,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 135 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/tooltip.js ***!
-  \*****************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/tooltip.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19572,9 +19572,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 136 */
-/*!********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/transition.js ***!
-  \********************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/transition.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19598,9 +19598,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 137 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/props/upload.js ***!
-  \****************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/props/upload.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19642,9 +19642,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 138 */
-/*!**********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/config/zIndex.js ***!
-  \**********************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/config/zIndex.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19671,9 +19671,9 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 139 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/function/platform.js ***!
-  \**************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/function/platform.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19792,14 +19792,24 @@ platform;exports.default = _default;
 /* 174 */,
 /* 175 */,
 /* 176 */
+<<<<<<< HEAD
+/*!**********************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/common/request/api.js ***!
+  \**********************************************************************/
+=======
 /*!*************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/common/request/api.js ***!
   \*************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
+Object.defineProperty(exports, "__esModule", { value: true });exports.getCatalogProducts = exports.getAllProducts = exports.submitUpload = exports.uploadDetail = exports.catalogUpload = exports.allUpload = exports.removeCatalog = exports.updateCatalog = exports.addCatalog = exports.getCatalog = exports.login = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+=======
 Object.defineProperty(exports, "__esModule", { value: true });exports.getSwiper = exports.updateSwiper = exports.deleteSwiper = exports.addSwiper = exports.getCatalogProducts = exports.getAllProducts = exports.submitUpload = exports.uploadDetail = exports.catalogUpload = exports.allUpload = exports.removeCatalog = exports.updateCatalog = exports.addCatalog = exports.getCatalog = exports.login = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 
 
 // 登陆
@@ -19833,6 +19843,9 @@ exports.uploadDetail = uploadDetail;var submitUpload = function submitUpload(dat
 exports.submitUpload = submitUpload;var getAllProducts = function getAllProducts() {return _request.default.get('/products');};
 
 //分类获取商品
+<<<<<<< HEAD
+exports.getAllProducts = getAllProducts;var getCatalogProducts = function getCatalogProducts(data) {return _request.default.get('/catalog/products', data);};exports.getCatalogProducts = getCatalogProducts;
+=======
 exports.getAllProducts = getAllProducts;var getCatalogProducts = function getCatalogProducts(data) {return _request.default.get('/catalog/products', data);};
 
 
@@ -19848,6 +19861,7 @@ exports.deleteSwiper = deleteSwiper;var updateSwiper = function updateSwiper(dat
 
 //获取轮播图
 exports.updateSwiper = updateSwiper;var getSwiper = function getSwiper() {return _request.default.get('/homepage/ads');};exports.getSwiper = getSwiper;
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 
 /***/ }),
 /* 177 */,
@@ -19859,9 +19873,9 @@ exports.updateSwiper = updateSwiper;var getSwiper = function getSwiper() {return
 /* 183 */,
 /* 184 */,
 /* 185 */
-/*!************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/mixin.js ***!
-  \************************************************/
+/*!*********************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/mixin.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19959,6 +19973,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.mixin = vo
 /* 269 */,
 /* 270 */,
 /* 271 */,
+<<<<<<< HEAD
+/* 272 */
+/*!********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
+  \********************************************************************************************************/
+=======
 /* 272 */,
 /* 273 */,
 /* 274 */,
@@ -19971,6 +19991,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.mixin = vo
 /*!***********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
   \***********************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19984,6 +20005,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.mixin = vo
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */
+/*!*****************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/mixin/touch.js ***!
+  \*****************************************************************************************/
+=======
 /* 281 */,
 /* 282 */,
 /* 283 */,
@@ -19993,6 +20025,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.mixin = vo
 /*!********************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/touch.js ***!
   \********************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20056,10 +20089,17 @@ function getDirection(x, y) {
     } } };exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
+/* 279 */
+/*!*************************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
+  \*************************************************************************************************************/
+=======
 /* 287 */
 /*!****************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
   \****************************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20105,10 +20145,17 @@ function getDirection(x, y) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 280 */
+/*!***********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
+  \***********************************************************************************************************/
+=======
 /* 288 */
 /*!**************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
   \**************************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20129,6 +20176,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 
 /***/ }),
 /* 289 */,
+<<<<<<< HEAD
+/* 290 */
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-empty/props.js ***!
+  \*************************************************************************************************/
+=======
 /* 290 */,
 /* 291 */,
 /* 292 */,
@@ -20141,6 +20194,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-empty/props.js ***!
   \****************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20204,6 +20258,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-icon/icons.js ***!
+  \************************************************************************************************/
+=======
 /* 299 */,
 /* 300 */,
 /* 301 */,
@@ -20215,6 +20282,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!***************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-icon/icons.js ***!
   \***************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20434,10 +20502,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'uicon-en': "\uE692" };exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
+/* 299 */
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-icon/props.js ***!
+  \************************************************************************************************/
+=======
 /* 307 */
 /*!***************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-icon/props.js ***!
   \***************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20531,6 +20606,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-popup/props.js ***!
+  \*************************************************************************************************/
+=======
 /* 308 */,
 /* 309 */,
 /* 310 */,
@@ -20542,6 +20630,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-popup/props.js ***!
   \****************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20625,6 +20714,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */
+/*!*************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-input/props.js ***!
+  \*************************************************************************************************/
+=======
 /* 316 */,
 /* 317 */,
 /* 318 */,
@@ -20636,6 +20738,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-input/props.js ***!
   \****************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20827,6 +20930,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */,
+/* 321 */
+/*!********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/mixin/openType.js ***!
+  \********************************************************************************************/
+=======
 /* 324 */,
 /* 325 */,
 /* 326 */,
@@ -20836,6 +20950,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!***********************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/openType.js ***!
   \***********************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20865,10 +20980,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     } } };exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
+/* 322 */
+/*!******************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/mixin/button.js ***!
+  \******************************************************************************************/
+=======
 /* 330 */
 /*!*********************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/button.js ***!
   \*********************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20886,10 +21008,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     openType: String } };exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
+/* 323 */
+/*!********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
+  \********************************************************************************************************/
+=======
 /* 331 */
 /*!***********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
   \***********************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20948,6 +21077,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */,
+/* 331 */
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swiper/props.js ***!
+  \**************************************************************************************************/
+=======
 /* 332 */,
 /* 333 */,
 /* 334 */,
@@ -20959,6 +21101,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!*****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swiper/props.js ***!
   \*****************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21088,6 +21231,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */
+/*!********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
+  \********************************************************************************************************/
+=======
 /* 340 */,
 /* 341 */,
 /* 342 */,
@@ -21099,6 +21255,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!***********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
   \***********************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21162,6 +21319,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-textarea/props.js ***!
+  \****************************************************************************************************/
+=======
 /* 348 */,
 /* 349 */,
 /* 350 */,
@@ -21173,6 +21343,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!*******************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-textarea/props.js ***!
   \*******************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21296,6 +21467,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-button/props.js ***!
+  \**************************************************************************************************/
+=======
 /* 356 */,
 /* 357 */,
 /* 358 */,
@@ -21305,6 +21487,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!*****************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-button/props.js ***!
   \*****************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21504,6 +21687,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 393 */,
 /* 394 */,
 /* 395 */,
+<<<<<<< HEAD
+/* 396 */
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-overlay/props.js ***!
+  \***************************************************************************************************/
+=======
 /* 396 */,
 /* 397 */,
 /* 398 */,
@@ -21845,6 +22034,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!******************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-overlay/props.js ***!
   \******************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21873,6 +22063,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 397 */,
+/* 398 */,
+/* 399 */,
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-transition/props.js ***!
+  \******************************************************************************************************/
+=======
 /* 415 */,
 /* 416 */,
 /* 417 */,
@@ -21884,6 +22087,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!*********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-transition/props.js ***!
   \*********************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21912,10 +22116,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 405 */
+/*!***********************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-transition/transition.js ***!
+  \***********************************************************************************************************/
+=======
 /* 423 */
 /*!**************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-transition/transition.js ***!
   \**************************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22077,10 +22288,17 @@ var getClassNames = function getClassNames(name) {return {
     } } };exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
+/* 406 */
+/*!*************************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
+  \*************************************************************************************************************/
+=======
 /* 424 */
 /*!****************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
   \****************************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22153,6 +22371,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     'leave-to': { opacity: 0, transform: 'scale(0.95)' } } };exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
+/* 407 */,
+/* 408 */,
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */
+/*!******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-status-bar/props.js ***!
+  \******************************************************************************************************/
+=======
 /* 425 */,
 /* 426 */,
 /* 427 */,
@@ -22164,6 +22395,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!*********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-status-bar/props.js ***!
   \*********************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22176,6 +22408,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */
+/*!*******************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
+  \*******************************************************************************************************/
+=======
 /* 433 */,
 /* 434 */,
 /* 435 */,
@@ -22187,6 +22432,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!**********************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
   \**********************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22195,6 +22441,26 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   props: {} };exports.default = _default;
 
 /***/ }),
+<<<<<<< HEAD
+/* 423 */,
+/* 424 */,
+/* 425 */,
+/* 426 */,
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-line/props.js ***!
+  \************************************************************************************************/
+=======
 /* 441 */,
 /* 442 */,
 /* 443 */,
@@ -22213,6 +22479,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!***************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-line/props.js ***!
   \***************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22250,6 +22517,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 438 */,
+/* 439 */,
+/* 440 */,
+/* 441 */,
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */
+/*!***********************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-gap/props.js ***!
+  \***********************************************************************************************/
+=======
 /* 456 */,
 /* 457 */,
 /* 458 */,
@@ -22261,6 +22541,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!**************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-gap/props.js ***!
   \**************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22289,6 +22570,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+<<<<<<< HEAD
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */,
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */
+/*!************************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swiper-indicator/props.js ***!
+  \************************************************************************************************************/
+=======
 /* 464 */,
 /* 465 */,
 /* 466 */,
@@ -22300,6 +22594,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!***************************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swiper-indicator/props.js ***!
   \***************************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22336,6 +22631,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 472 */,
 /* 473 */,
 /* 474 */,
+<<<<<<< HEAD
+/* 475 */
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uni-icons/components/uni-icons/icons.js ***!
+  \****************************************************************************************************/
+=======
 /* 475 */,
 /* 476 */,
 /* 477 */,
@@ -22358,6 +22659,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /*!*******************************************************************************************!*\
   !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uni-icons/components/uni-icons/icons.js ***!
   \*******************************************************************************************/
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
