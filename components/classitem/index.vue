@@ -86,8 +86,6 @@
 			margin: 0 10rpx;
 			width: 160rpx;
 			height: 160rpx;
-			
-			background-color: #22d3c8;
 		}
 	}
 	.item .pro-name {

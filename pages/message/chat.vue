@@ -244,8 +244,18 @@
 				time:'' ,//消息时间
 			}
 			this.mySocket();
+			this.getchatMessage(0);
 		},
 		methods: {
+			async getchatMessage(page){
+				try{
+					let res = await this.api.get('/chat/getChatRecords',{toId:this.other.id,startIndex:page,pageSize:20})
+					this.chatMsg = res?.data || [];
+				}catch(e){
+					//TODO handle the exception
+					this.$toast(e)
+				}
+			},
 			mySocket(){
 				uni.connectSocket({
 				  url: 'wss://localhost:8080/websocket'

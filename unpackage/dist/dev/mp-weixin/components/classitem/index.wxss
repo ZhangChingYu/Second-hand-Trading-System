@@ -43,7 +43,6 @@
   margin: 0 10rpx;
   width: 160rpx;
   height: 160rpx;
-  background-color: #22d3c8;
 }
 .item .pro-name.data-v-2e5bcee3 {
   height: 72rpx;

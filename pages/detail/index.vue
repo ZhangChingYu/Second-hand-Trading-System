@@ -401,8 +401,18 @@
 			},
 			
 			// 联系卖家
-			contact(){
-				this.$toast('联系卖家');
+			async contact(){
+				try{
+					let res = await this.api.get('/booking/seller/info',{number:this.number});
+					if(res.code == '666') this.sellerId = res.data.phone;
+					
+					uni.navigateTo({
+						url:`/pages/message/chat?phone=${this.sellerId}&userName=${this.product.seller_name}&avatar=${this.product.seller_pic}`
+					})
+				}catch(e){
+					//TODO handle the exception
+					this.$toast(e)
+				}
 			},
 			showBook(){
 				this.show = true;
