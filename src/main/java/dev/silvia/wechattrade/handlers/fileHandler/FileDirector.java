@@ -2,9 +2,9 @@ package dev.silvia.wechattrade.handlers.fileHandler;
 
 public interface FileDirector {// 整理所有文件路徑相關的參數
     // 商品圖片路徑
-    String PRODUCT_URL ="C:/Users/Sunny/Desktop/Products/";
+    String PRODUCT_URL ="D:/大四上學期/畢業實習/WechatTrade/src/main/resources/Products/";
     // 用戶反饋路徑
-    String FEEDBACK_URL="C:/Users/Sunny/Desktop/Feedback/";
+    String FEEDBACK_URL="D:/大四上學期/畢業實習/WechatTrade/src/main/resources/Feedback/";
     // 幫助文檔路徑(注意!!!後面少一個斜槓喔!!!)
     String HELP_URL = "D:/大四上學期/畢業實習/WechatTrade/src/main/resources/Help";
     // 头像和认证文件存储路径
