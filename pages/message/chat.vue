@@ -248,7 +248,7 @@
 		methods: {
 			mySocket(){
 				uni.connectSocket({
-				  url: 'wss://www.example.com/socket'
+				  url: 'wss://localhost:8080/websocket'
 				});
 				uni.onSocketOpen(function (res) {
 				  console.log('WebSocket连接已打开！');

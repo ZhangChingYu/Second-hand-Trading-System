@@ -70,8 +70,24 @@
 				
 			}
 		},
+		mounted() {
+			this.getChatList()
+		},
+		onPullDownRefresh(){
+			this.getChatList()
+		},
 		
 		methods: {
+			async getChatList(){
+				try{
+					let res = await this.api.get('/chat/getChatList');
+					console.log(res);
+				}catch(e){
+					//TODO handle the exception
+					this.$toast(e);
+				}
+			},
+			
 			toChat(item){
 				uni.navigateTo({
 					url:`/pages/message/chat?phone=${item.phone}&userName=${item.userName}&avatar=${item.avatar}`
