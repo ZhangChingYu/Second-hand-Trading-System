@@ -180,18 +180,28 @@ public class ChatServiceImpl implements IChatService {
                 "order by send_time desc";
         chatListData= jdbcTemplate.query(sql,
                 new BeanPropertyRowMapper<>(ChatListData.class));
-
         for (ChatListData chatListDatum : chatListData) {
             String picture1;
             if (chatListDatum.getToAvatar() == null || chatListDatum.getToAvatar().isEmpty()) {
                 //默认图片
-                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL, avatar_width,avatar_height);
+                picture1 = readFile.getAvatarPicture(FileDirector.AVATAR_URL);
                 chatListDatum.setToAvatar(picture1);
             } else {
-                picture1 =PicUtil.resizeImageToSize(readFile.getAvatarPicture(chatListDatum.getToId()), avatar_width,avatar_height);
+                picture1 =readFile.getAvatarPicture(readFile.getAvatarPicture(chatListDatum.getToId()));
                 chatListDatum.setToAvatar(picture1);
             }
         }
+//        for (ChatListData chatListDatum : chatListData) {
+//            String picture1;
+//            if (chatListDatum.getToAvatar() == null || chatListDatum.getToAvatar().isEmpty()) {
+//                //默认图片
+//                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL, avatar_width,avatar_height);
+//                chatListDatum.setToAvatar(picture1);
+//            } else {
+//                picture1 =PicUtil.resizeImageToSize(readFile.getAvatarPicture(chatListDatum.getToId()), avatar_width,avatar_height);
+//                chatListDatum.setToAvatar(picture1);
+//            }
+//        }
         res=new Result(ResultCode.SUCCESS, chatListData);
         return res;
     }
