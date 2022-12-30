@@ -7,7 +7,7 @@
 		</view>
 		
 		<view class="list">
-			<uni-table ref="table" :loading="loading" border stripe emptyText="暂无更多数据" @selection-change="selectionChange">
+			<uni-table ref="table" :loading="loading" border stripe emptyText="暂无更多数据">
 				<uni-tr>
 					<uni-th width="60" align="center">版本</uni-th>
 					<uni-th align="center" width="200">发布日期</uni-th>
@@ -66,6 +66,7 @@
 				const that  = this;
 				try{
 					that.agreements = await this.api.get('/principles');
+					console.log(this.agreements);
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

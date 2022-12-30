@@ -70,7 +70,6 @@
 		},
 		onLoad(option){
 			this.oneReport = JSON.parse(option.oneReport);
-			console.log(this.oneReport);
 			if(this.oneReport.status == 1){
 				this.state = '已通过';
 				this.noOper = false;
@@ -83,7 +82,6 @@
 				this.state = '待处理';
 				this.noOper = true;
 			}
-			console.log(this.noOper);
 		},
 		methods: {
 			// 获取举报详情

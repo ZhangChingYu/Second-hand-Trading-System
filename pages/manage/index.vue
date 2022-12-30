@@ -63,7 +63,7 @@
 						title: '用户协议',
 						url: 'pages/manage/others/agreementManage',
 						icon: 'https://img1.baidu.com/it/u=2274835460,799751483&fm=253&fmt=auto&app=138&f=JPEG?w=396&h=500'
-					}
+					},
 				],
 			}
 		},

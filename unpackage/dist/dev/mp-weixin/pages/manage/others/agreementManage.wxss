@@ -48,6 +48,9 @@
 .bt{
 	margin-top: 25rpx;
 }
+.id{
+	height: 80rpx;
+}
 .up{
 	height: 60rpx;
 	font-size: 32rpx;
