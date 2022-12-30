@@ -79,10 +79,13 @@ public class LoginController {
 //   输入  {String encryptedData;String iv;String sessionId;}
 //   返回LoginResponseDto{code: "666" （成功）;mag:  ;User:user}
     @RequestMapping(value ="/weixin/authLogin", method = RequestMethod.POST)
-    public LoginResponseDto authLogin(@RequestBody WXAuth wxAuth) {
-        LoginResponseDto result = weixinService.authLogin(wxAuth);
-        return result;
+    public LoginResponseDto authLogin(@RequestBody WXAuth wxAuth, HttpSession session) {
+    LoginResponseDto result = weixinService.authLogin(wxAuth);
+    if(Objects.equals(result.getCode(), "666")){
+        session.setAttribute("user", result.getUser());
     }
+    return result;
+}
 
     @RequestMapping(value ="/lost",method = RequestMethod.POST)
     public ResponseEntity<?> lostPassword(@RequestBody LostPasswordDto request){
