@@ -5,6 +5,8 @@ public interface FileDirector {// 整理所有文件路徑相關的參數
     String PRODUCT_URL ="C:/Users/Sunny/Desktop/Products/";
     // 用戶反饋路徑
     String FEEDBACK_URL="C:/Users/Sunny/Desktop/Feedback/";
+    // 聊天图片存储路径
+    String CHAT_URL = "C:/Users/Sunny/Desktop/Chat/";
     // 幫助文檔路徑(注意!!!後面少一個斜槓喔!!!)
     String HELP_URL = "D:/大四上學期/畢業實習/WechatTrade/src/main/resources/Help";
     // 头像和认证文件存储路径

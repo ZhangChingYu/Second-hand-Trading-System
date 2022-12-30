@@ -58,9 +58,9 @@ public class DeleteFile {
         return flag;
     }
 
-    public boolean deleteAvatarPictures(String phone){    // 根據用户手机号編號刪除头像
+    public boolean deleteAvatarPictures(String phone){    // 根據用户手机号編號刪除头像和认证
         boolean flag = false;
-        String dirPath = FileDirector.AVATAR_URL+"Avatar"+"/"+phone;
+        String dirPath = FileDirector.AVATAR_URL+phone;
         System.out.println(dirPath);
         File dir = new File(dirPath);
         if(dir.exists()){

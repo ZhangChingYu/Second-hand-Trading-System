@@ -30,7 +30,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -170,17 +169,18 @@ public class IUserMangerServiceImpl extends ServiceImpl implements IUserMangerSe
 
     @Override
     public Result deleteUser(List<Integer> ids) {
+        StringBuilder msg = new StringBuilder(" ");
         for (Integer id : ids) {
             User user=userRepository.findById(id).get();
-            if(user.getAvatar()!=null){
-                deleteFile.deleteAvatarPictures(user.getPhone());
+            String phone=user.getPhone();
+            if(deleteFile.deleteAvatarPictures(user.getPhone())) {
+                msg = new StringBuilder("已成功删除" + phone + "用户的头像和认证图片");
             }
-            if(user.getPicture()!=null){
-                deleteFile.deleteAvatarPictures(user.getPhone());
-            }
+            else
+                msg = new StringBuilder("删除" + phone + "用户的头像和认证图片失败");
             userRepository.delete(user);
         }
-        res=new Result(ResultCode.SUCCESS);
+        res=new Result("666", msg.toString(),1);
         return res;
     }
 

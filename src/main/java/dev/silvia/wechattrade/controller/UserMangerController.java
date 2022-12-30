@@ -4,7 +4,6 @@ import dev.silvia.wechattrade.dto.feedback.FeedbackDto;
 import dev.silvia.wechattrade.dto.feedback.ViolationDto;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
-import dev.silvia.wechattrade.handlers.picSize.UploadUtil;
 import dev.silvia.wechattrade.service.IUserMangerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -112,16 +111,5 @@ public class UserMangerController {
     @RequestMapping(value ="/manage/select/violation",method = RequestMethod.GET)
     public ResponseEntity<?> selectViolation() {
         return ResponseEntity.ok(service.selectViolation());
-    }
-
-
-    //测试
-    @RequestMapping(value ="/manage/user/test")
-    @ResponseBody
-    public ResponseEntity<?> authentication(HttpServletRequest request) throws ParseException, IOException {
-        MultipartHttpServletRequest params=((MultipartHttpServletRequest) request);
-        MultipartFile files = ((MultipartHttpServletRequest) request).getFile("pictures");
-        UploadUtil.saveImage(files,"E:/Users/Sunny/Desktop/User/Default");
-        return ResponseEntity.ok(files);
     }
 }
