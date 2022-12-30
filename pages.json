@@ -68,12 +68,12 @@
         },
 		// 我的
 		
-		{
-			"path": "pages/findback/findback",
-			"style": {
-				"navigationBarTitleText": "找回密码"
-			}
-		},
+		// {
+		// 	"path": "pages/findback/findback",
+		// 	"style": {
+		// 		"navigationBarTitleText": "找回密码"
+		// 	}
+		// },
 		{
 			"path" : "pages/my/index",
 			"style" :                                                                                    

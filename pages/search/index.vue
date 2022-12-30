@@ -187,19 +187,19 @@
 				const that = this;
 				
 				uni.showModal({    // 弹框询问是否进行下一步事件
-				        title: '提示',
-				        content: '是否删除该记录',
-				        success: function(res) {
-				            if (res.confirm) {
-				                that.historyWords.splice(index,1);
-				                uni.setStorageSync('historyWords',that.historyWords);
-				
-				            } else if (res.cancel) {
-				                console.log('用户点击取消');
-				                return
-				            }
-				        }
-				    });
+					title: '提示',
+					content: '是否删除该记录',
+					success: function(res) {
+						if (res.confirm) {
+							that.historyWords.splice(index,1);
+							uni.setStorageSync('historyWords',that.historyWords);
+			
+						} else if (res.cancel) {
+							console.log('用户点击取消');
+							return
+						}
+					}
+				});
 				
 			},
 			toSearchIndex(){

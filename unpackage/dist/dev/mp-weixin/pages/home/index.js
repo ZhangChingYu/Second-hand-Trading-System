@@ -98,7 +98,11 @@ var components
 try {
   components = {
     uSwiper: function() {
+<<<<<<< HEAD
       return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swiper/u-swiper */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swiper/u-swiper")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swiper/u-swiper.vue */ 405))
+=======
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swiper/u-swiper */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swiper/u-swiper")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swiper/u-swiper.vue */ 397))
+>>>>>>> 519be19aa1668d3efba66a219c976d6f68fd4848
     }
   }
 } catch (e) {
@@ -155,7 +159,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 413));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Nomore = function Nomore() {__webpack_require__.e(/*! require.ensure | components/nomore/index */ "components/nomore/index").then((function () {return resolve(__webpack_require__(/*! @/components/nomore/index.vue */ 420));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+=======
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));
+>>>>>>> 519be19aa1668d3efba66a219c976d6f68fd4848
 
 
 
@@ -262,8 +270,10 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var _mixin = __webpack_require__(/*! @/mixin.js */ 194);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 405));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Nomore = function Nomore() {__webpack_require__.e(/*! require.ensure | components/nomore/index */ "components/nomore/index").then((function () {return resolve(__webpack_require__(/*! @/components/nomore/index.vue */ 412));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 {
   components: { Goods: Goods, Nomore: Nomore },
+  mixins: [_mixin.mixin],
   data: function data() {
     return {
       swiperItem: [
@@ -282,15 +292,18 @@ __webpack_require__.r(__webpack_exports__);
   onPullDownRefresh: function onPullDownRefresh() {
     this.getMostbookItem();
     this.getNewProduct();
+    this.getSwiperItem();
     this.getRecommendProduct();
   },
   onShow: function onShow() {
     this.getMostbookItem();
     this.getNewProduct();
+    this.getSwiperItem();
     this.getRecommendProduct();
 
   },
   methods: {
+
     toCatalog: function toCatalog(type) {
       uni.setStorageSync('choosedCatalog', type);
       uni.switchTab({
@@ -318,11 +331,13 @@ __webpack_require__.r(__webpack_exports__);
                 that = _this2;_context2.prev = 1;_context2.next = 4;return (
 
                   _this2.api.get('/homepage/promote/products'));case 4:res = _context2.sent;
-                that.recommendProductItem = res;_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
+                that.recommendProductItem = res;
+                console.log(12);
+                console.log(recommendProductItem);_context2.next = 13;break;case 10:_context2.prev = 10;_context2.t0 = _context2["catch"](1);
 
 
                 //TODO handle the exception
-                that.$toast(_context2.t0);case 11:case "end":return _context2.stop();}}}, _callee2, null, [[1, 8]]);}))();
+                that.$toast(_context2.t0);case 13:case "end":return _context2.stop();}}}, _callee2, null, [[1, 10]]);}))();
 
     },
 
@@ -330,14 +345,26 @@ __webpack_require__.r(__webpack_exports__);
                 that = _this3;_context3.prev = 1;_context3.next = 4;return (
 
                   _this3.api.get('/homepage/like/products'));case 4:res = _context3.sent;
-                that.mostbookItem = res;
-                console.log(that.mostbookItem);_context3.next = 12;break;case 9:_context3.prev = 9;_context3.t0 = _context3["catch"](1);
+                that.mostbookItem = res;_context3.next = 11;break;case 8:_context3.prev = 8;_context3.t0 = _context3["catch"](1);
 
 
                 //TODO handle the exception
-                that.$toast(_context3.t0);case 12:case "end":return _context3.stop();}}}, _callee3, null, [[1, 9]]);}))();
+                that.$toast(_context3.t0);case 11:case "end":return _context3.stop();}}}, _callee3, null, [[1, 8]]);}))();
 
 
+
+    },
+    getSwiperItem: function getSwiperItem() {var _this4 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee4() {var that, res;return _regenerator.default.wrap(function _callee4$(_context4) {while (1) {switch (_context4.prev = _context4.next) {case 0:
+                that = _this4;_context4.prev = 1;_context4.next = 4;return (
+
+                  _this4.api.get('/homepage/ads'));case 4:res = _context4.sent;
+                that.swiperItem = res === null || res === void 0 ? void 0 : res.map(function (item) {
+                  return _this4.imageSrcformat(item.picture, item.format);
+                });_context4.next = 11;break;case 8:_context4.prev = 8;_context4.t0 = _context4["catch"](1);
+
+
+                //TODO handle the exception
+                that.$toast(_context4.t0);case 11:case "end":return _context4.stop();}}}, _callee4, null, [[1, 8]]);}))();
 
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))

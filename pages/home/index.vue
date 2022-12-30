@@ -74,7 +74,7 @@
 		</view>
 		
 		<!-- 推荐物品 -->
-		<view class="recommend-product" v-if="recommendProductItem.length != 0">
+		<view class="recommend-product" v-if="recommendProductItem.length != 0 && recommendProductItem != null">
 			<view class="title">		
 				<text class="title-main">
 					<text class="recommend-bg main-icon"></text>
@@ -105,8 +105,10 @@
 <script>
 	import Goods from "@/components/goods/index.vue"
 	import Nomore from "@/components/nomore/index.vue"
+	import {mixin} from '@/mixin.js'
 	export default {
 		components:{Goods,Nomore},
+		mixins:[mixin],
 	    data() {
 	        return {
 	            swiperItem: [
@@ -125,15 +127,18 @@
 		onPullDownRefresh(){
 			this.getMostbookItem();
 			this.getNewProduct();
+			this.getSwiperItem();
 			this.getRecommendProduct();
 		},
 		onShow() {
 			this.getMostbookItem();
 			this.getNewProduct();
+			this.getSwiperItem();
 			this.getRecommendProduct();
 			
 		},
 	    methods: {
+			
 			toCatalog(type){
 				uni.setStorageSync('choosedCatalog',type);
 				uni.switchTab({
@@ -162,6 +167,8 @@
 				try{
 					let res = await this.api.get('/homepage/promote/products')
 					that.recommendProductItem = res;
+					console.log(12)
+					console.log(recommendProductItem)
 					
 				}catch(e){
 					//TODO handle the exception
@@ -174,7 +181,6 @@
 				try{
 					let res = await this.api.get('/homepage/like/products')
 					that.mostbookItem = res;
-					console.log(that.mostbookItem)
 					
 				}catch(e){
 					//TODO handle the exception
@@ -182,6 +188,19 @@
 				}
 				
 				
+			},
+			async getSwiperItem(){
+				const that  = this;
+				try{
+					let res = await this.api.get('/homepage/ads')
+					that.swiperItem = res?.map(item=>{
+						return this.imageSrcformat(item.picture,item.format);
+					})
+					
+				}catch(e){
+					//TODO handle the exception
+					that.$toast(e)
+				}
 			}
 	    }
 	}

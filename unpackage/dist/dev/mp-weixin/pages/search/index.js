@@ -98,7 +98,11 @@ var components
 try {
   components = {
     uEmpty: function() {
+<<<<<<< HEAD
       return Promise.all(/*! import() | uni_modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 427))
+=======
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-empty/u-empty.vue */ 419))
+>>>>>>> 519be19aa1668d3efba66a219c976d6f68fd4848
     }
   }
 } catch (e) {
@@ -155,7 +159,11 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+<<<<<<< HEAD
 /* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 413));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Search = function Search() {__webpack_require__.e(/*! require.ensure | components/search/index */ "components/search/index").then((function () {return resolve(__webpack_require__(/*! @/components/search/index.vue */ 435));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Nomore = function Nomore() {__webpack_require__.e(/*! require.ensure | components/nomore/index */ "components/nomore/index").then((function () {return resolve(__webpack_require__(/*! @/components/nomore/index.vue */ 420));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+=======
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var Goods = function Goods() {__webpack_require__.e(/*! require.ensure | components/goods/index */ "components/goods/index").then((function () {return resolve(__webpack_require__(/*! @/components/goods/index.vue */ 405));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Search = function Search() {__webpack_require__.e(/*! require.ensure | components/search/index */ "components/search/index").then((function () {return resolve(__webpack_require__(/*! @/components/search/index.vue */ 427));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var Nomore = function Nomore() {__webpack_require__.e(/*! require.ensure | components/nomore/index */ "components/nomore/index").then((function () {return resolve(__webpack_require__(/*! @/components/nomore/index.vue */ 412));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+>>>>>>> 519be19aa1668d3efba66a219c976d6f68fd4848
 
 
 

@@ -65,6 +65,7 @@
 		},
 		methods: {
 			...mapActions(['tologin']),
+
 			usernameInput(e) {
 				console.log(e);
 				var val = e.detail.value;
@@ -100,6 +101,7 @@
 					url: '../login/index',
 				})
 			},
+
 			confirm() {
 				let that = this;
 				that.api.post('/lost', this.user).then(res => {
@@ -133,6 +135,7 @@
 					}
 				})
 			},
+
 			sendcode() {
 				let that = this;
 				let phone = this.user.phone;
@@ -155,6 +158,7 @@
 		margin-top: 80rpx;
 		/*相对像素*/
 	}
+
 	.username {
 		display: flex;
 		flex-direction: row;
@@ -163,20 +167,24 @@
 		padding-bottom: 20rpx;
 		width: 100%;
 	}
+
 	.title {
 		width: 150rpx;
 		font-weight: hold;
 	}
+
 	.hr {
 		border: 2rpx solid #cccccc;
 		width: 90%;
 		margin: 0 auto;
 		opacity: 0.3;
 	}
+
 	.getcaptchaBtn {
 		margin-right: 50rpx;
 		height: 90%;
 	}
+
 	.confirmBtn {
 		margin-top: 300rpx;
 	}

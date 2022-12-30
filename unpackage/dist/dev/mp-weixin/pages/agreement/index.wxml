@@ -1,1 +1,5 @@
+<<<<<<< HEAD
 <view class="main"><view class="top"><view class="title">用户协议</view></view><view class="content"><rich-text>{{agreement.content}}</rich-text></view></view>
+=======
+<view class="main"><view class="top"><view class="title">用户协议</view></view><view class="content"><rich-text>{{agreement}}</rich-text></view></view>
+>>>>>>> 519be19aa1668d3efba66a219c976d6f68fd4848
