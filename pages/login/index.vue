@@ -122,7 +122,9 @@
 				
 			},
 			register(){
-				this.$toast('注册');
+				uni.navigateTo({
+					url:'/pages/register/index'
+				})
 			},
 			forgetPsd(){
 				this.$toast('忘记密码');

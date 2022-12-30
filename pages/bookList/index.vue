@@ -50,7 +50,7 @@
 						<view class="twoState">
 							<text style="font-size: 30rpx;">退款申请</text>
 							<view class="subLine" ></view>						
-							<text>退款金额： ￥ {{applyRefund.total.toFixed(2)}}</text>
+							<text>退款金额： ￥ {{parseFloat(applyRefund.total).toFixed(2)}}</text>
 							<text>货物状态： {{applyRefund.goodsState}}</text>
 							<text>退款原因： {{applyRefund.refundReason}}</text>
 							<text>申请退款时间： {{applyRefund.refundTime}}</text>
@@ -71,8 +71,8 @@
 							<text>收货人： {{order.consignee}} {{order.phone}}</text>
 							<text>收货地址： {{order.address}}</text>
 							<text>配送方式： {{order.delivery}}</text>
-							<text>优惠： ￥ {{order.discount.toFixed(2)}}</text>
-							<text>成交价格： ￥ {{order.total.toFixed(2)}}</text>
+							<text>优惠： ￥ {{parseFloat(order.discount).toFixed(2)}}</text>
+							<text>成交价格： ￥ {{parseFloat(order.total).toFixed(2)}}</text>
 							<text>支付方式： {{order.pay}}</text>
 							<text>订单生成时间： {{order.payTime}}</text>
 							<text>发货时间： {{order.deliveryTime}}</text>

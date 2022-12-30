@@ -142,18 +142,20 @@
   display: flex;
   flex-direction: column;
   text-align: center;
+  width: 100%;
+  color: black;
 }
 .subLine.data-v-12dbf08d {
   background-color: #b34c26;
-  width: 66%;
+  width: 100%;
   height: 6rpx;
-  margin-left: 17%;
 }
 .oneState > text.data-v-12dbf08d {
   height: 80rpx;
   line-height: 80rpx;
   padding: 10rpx;
   font-size: 26rpx;
+  color: grey;
 }
 /* 留言 */
 .evaluation.data-v-12dbf08d {

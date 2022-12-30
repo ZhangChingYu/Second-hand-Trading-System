@@ -20,7 +20,7 @@
 				<!-- 信息 -->
 				<view class="goods-msg">
 					<text class="detail-text">{{oneOrderGoods.name}}</text>
-					<text class="price">￥ {{oneOrderGoods.price.toFixed(2)}}</text>
+					<text class="price">￥ {{parseFloat(oneOrderGoods.price).toFixed(2)}}</text>
 				</view>
 			</view>
 		</view>
@@ -69,7 +69,7 @@
 			<!-- 优惠金额 -->
 			<view class="discountAmount">
 				<text>优惠金额：</text>
-				<text>￥ {{order.discount.toFixed(2)}}</text>
+				<text>￥ {{parseFloat(order.discount).toFixed(2)}}</text>
 			</view>
 		</view>
 		
@@ -122,7 +122,7 @@
 		
 		<!-- 合计 -->
 		<view class="total">
-			<view>合计：<text class="totalAmount">￥ {{order.total.toFixed(2)}}</text></view>
+			<view>合计：<text class="totalAmount">￥ {{parseFloat(order.total).toFixed(2)}}</text></view>
 			<button @click="toConfirm" style="background-color: red;" v-if="bt">确认收货</button>
 			<button @click="toCancel" style="background-color: gray;" v-if="bt">取消订单</button>
 			<button @click="cancelRefund" style="background-color: burlywood;" v-if="bt3">取消退款</button>
@@ -149,8 +149,6 @@
 				payImage:"",
 				// 卖家信息：avatar(头像)，userName(昵称)
 				sellerMess:{},
-				// 总价
-				total:0,
 				// 订单时间信息的显示
 				isDelivery:false,
 				noSelf:false,
@@ -170,7 +168,6 @@
 			this.getSeller();
 			this.getCoverPic();
 			this.getOneOrder();	
-			this.total = this.order.total;
 		},
 		onLoad(option){
 			this.oneOrderGoods = JSON.parse(option.item);
@@ -292,7 +289,7 @@
 			toCancel(){
 				var oneGoods = JSON.stringify(this.oneOrderGoods)
 				uni.navigateTo({
-					url:'/pages/applyRefund/index?orderGoods='+ oneGoods + '&total='+ this.total
+					url:'/pages/applyRefund/index?orderGoods='+ oneGoods + '&total='+ this.order.total
 				})
 			},
 			

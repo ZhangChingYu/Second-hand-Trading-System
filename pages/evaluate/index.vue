@@ -20,7 +20,7 @@
 				<!-- 信息 -->
 				<view class="goods-msg">
 					<text class="detail-text">{{orderGoods.name}}</text>
-					<text class="price">￥ {{orderGoods.price.toFixed(2)}}</text>
+					<text class="price">￥ {{parseFloat(orderGoods.price).toFixed(2)}}</text>
 				</view>
 			</view>
 		</view>
