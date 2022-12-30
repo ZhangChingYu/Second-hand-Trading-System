@@ -103,7 +103,7 @@
 				
 			</view>
 			<!-- 预约窗口 -->
-			<u-popup :show="show" :round="10" mode="bottom" @close="close" @open="open">
+			<u-popup :show="show" :round="10" mode="bottom" @close="close">
 					
 					<view class="popup-content">
 						<view class="book-count">
@@ -117,7 +117,7 @@
 			
 			<!-- 回复窗口 -->
 			<view>
-				<u-popup :show="showR" :round="10"  mode="bottom" @close="close" @open="open">
+				<u-popup :show="showR" :round="10"  mode="bottom" @close="close">
 					<view class="reply-box">
 						<view class="reply-input">
 							<u--input
@@ -159,9 +159,7 @@
 					priceType:'一口价',
 					reportText:'举报',
 					exit:"返回",
-					
-					src:'https://gw.alicdn.com/bao/uploaded/i1/409278028/O1CN01FvxEsF29AsLyowUSq_!!409278028.jpg_300x300q90.jpg_.webp',
-					
+										
 					// 留言输入
 					evaluation:'',
 					
@@ -295,8 +293,6 @@
 			},
 			
 			
-			open(){
-		    },
 		    close() {
 		        this.show = false;
 				this.showR = false;
@@ -418,11 +414,8 @@
 					this.$toast('请输入合法的数量')
 				}else{
 					this.close()
-					// /appointments/add
 					try{
-						// /appointments/getsellerinfo
-						let res = await this.api.get('/appointments/getsellerinfo',{number:this.number});
-						console.log(res)
+						let res = await this.api.get('/booking/seller/info',{number:this.number});
 						if(res.code == '666') this.sellerId = res.data.phone;
 						console.log(this.sellerId)
 						if(this.sellerId == '') {
@@ -430,7 +423,7 @@
 							return;
 						}
 						
-						let res1 = this.api.post('/appointments/add',{
+						let res1 = this.api.post('/booking/add',{
 							sellerId:this.sellerId,   //seller phone
 							buyerId:this.user.phone,    //buy phone
 							productId:this.number,   //product number
