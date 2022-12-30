@@ -63,7 +63,7 @@
 		methods: {
 			// 获取所有用户协议
 			async getAgreements(){
-				const that  = this;
+				const that = this;
 				try{
 					that.agreements = await this.api.get('/principles');
 					console.log(this.agreements);
