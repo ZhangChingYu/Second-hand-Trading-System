@@ -36,7 +36,7 @@
 				<!-- 信息 -->
 				<view class="goods-msg">
 					<text class="detail-text">{{oneBook.name}}</text>
-					<text class="price">￥ {{oneBook.price.toFixed(2)}}</text>
+					<text class="price">￥ {{parseFloat(oneBook.price).toFixed(2)}}</text>
 				</view>
 			</view>
 			<!-- 子分割线 -->
@@ -74,7 +74,7 @@
 			<!-- 优惠金额 -->
 			<view class="discountAmount">
 				<text>优惠金额：</text>
-				<text style="margin-right: 5%;font-size: 25rpx;">￥ {{discount.toFixed(2)}}</text>
+				<text style="margin-right: 5%;font-size: 25rpx;">￥ {{parseFloat(discount).toFixed(2)}}</text>
 			</view>
 		</view>
 		
@@ -104,8 +104,18 @@
 		
 		<!-- 合计 -->
 		<view class="total">
-			<view>合计：<text class="totalAmount">￥ {{total.toFixed(2)}}</text></view>
+			<view>合计：<text class="totalAmount">￥ {{parseFloat(total).toFixed(2)}}</text></view>
 			<button @click="toPay">确定下单</button>
+			<uni-popup ref="popdown" type="bottom" background-color="#fff">
+				<view class="pay">
+					<image src="../../static/image/return (2).png"></image>
+					<view class="payMoney">
+						<text>￥ </text>
+						<text>{{parseFloat(total).toFixed(2)}}</text>
+					</view>
+					<button @click="payMoney">确认支付</button>
+				</view>		
+			</uni-popup>
 		</view>
 		
 	</view>
@@ -253,8 +263,14 @@
 			// 确认下单
 			toPay(){
 				if(this.isAlipay || this.isWeChat){
-					this.generateOrder();
+					this.$refs.popdown.open('bottom');
 				}
+			},
+			
+			// 付款
+			payMoney(){
+				this.$refs.popdown.close();
+				this.generateOrder();
 			},
 			
 			// 生成订单
@@ -287,41 +303,6 @@
 					that.$toast(e)
 				}
 			},
-			
-			// 调用微信支付
-			async submit() {
-				//获取用户信息，没有信息的从新登录
-				if (!uni.getStorageSync('user')) {
-					uni.navigateTo({
-						url: 'pages/login/index'
-					})
-					return
-				}
-				//先调用后台接口获取调用支付需要用到的参数
-				let [code, res] = await this.$http.post('', {})
-				let data = res.data.data
-				//调用微信支付功能
-				uni.requestPayment({
-					appId: data.appid,//小程序的appid
-					timeStamp: data.timeStamp,//时间戳，要字符串类型的
-					nonceStr: data.nonceStr,//随机字符串，长度为32个字符以下。
-					package: data.package,//prepay_id 参数值，提交格式如：prepay_id=xx
-					signType: data.signType, //MD5类型
-					paySign: data.paySign,//签名
-					success: function(res) {
-						//支付成功的回调    成功之后你想做什么在这里操作  比如弹窗一个提示:支付成功等
-						uni.showToast({
-							title: '支付成功！',
-							icon: 'success'
-						})
-					},
-					fail: function(err) {
-						//支付失败的回调   失败之后你想做什么在这里操作  比如弹窗一个提示:支付失败等
-						console.log(err);
-					}
-				});
-			},
-
 			
 			// 获取该卖家信息
 			async getSeller(){
@@ -603,5 +584,13 @@
 		width: 50%;
 		line-height: 62rpx;
 		margin-right: 1%;
+	}
+	.pay{
+		display: flex;
+		flex-direction: column;
+	}
+	.payMoney{
+		display: flex;
+		flex-direction: row;
 	}
 </style>

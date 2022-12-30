@@ -37,7 +37,7 @@
 					<!-- 信息 -->
 					<view class="goods-msg">
 						<text class="detail-text">{{item.name}}</text>
-						<text class="price">￥{{item.price.toFixed(2)}}</text>
+						<text class="price">￥{{parseFloat(item.price).toFixed(2)}}</text>
 					</view>
 				</view>
 			</view>
@@ -470,7 +470,7 @@
 				else if(item.status==4){
 					this.state = '商品超级抢手，已售空！';
 					this.isCheck = true;
-					this.haveBook = false;
+					this.haveBook = true;
 					this.isDown = false;
 					this.isDel = false;
 				}
@@ -485,7 +485,7 @@
 					this.state = '商品已被您主动下架~';
 					this.isDown = true;
 					this.isCheck = false;
-					this.haveBook = false;
+					this.haveBook = true;
 					this.isDel = true;
 				}
 			},

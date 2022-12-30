@@ -3,5 +3,7 @@
   "enablePullDownRefresh": true,
   "navigationBarBackgroundColor": "#b34c26",
   "navigationBarTextStyle": "white",
-  "usingComponents": {}
+  "usingComponents": {
+    "uni-popup": "/uni_modules/uni-popup/components/uni-popup/uni-popup"
+  }
 }

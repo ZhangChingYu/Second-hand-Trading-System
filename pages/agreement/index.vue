@@ -4,7 +4,7 @@
 			<view class="title">用户协议</view>		
 		</view>
 		<view class="content">
-			<rich-text>{{agreement}}</rich-text>
+			<rich-text>{{agreement.content}}</rich-text>
 		</view>
 	</view>
 </template>
@@ -13,7 +13,7 @@
 	export default {
 		data() {
 			return {
-				agreement:'',
+				agreement:{},
 			}
 		},
 		mounted() {
@@ -24,7 +24,7 @@
 			async getDetail(){
 				const that  = this;
 				try{
-					that.agreement = await this.api.get('');
+					that.agreement = await this.api.get('/principle/new');
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -36,19 +36,21 @@
 
 <style>
 	.main{
-		margin: 20px 20px 0 20rpx;
+		margin: 20px 0 20rpx 0;
 	}
 	.top {
 		width: 100%;
 		text-align: center;
 	}
 	.title {
-		margin: 20rpx 0;
+		margin: 20rpx 0 0 0;
 		width: 100%;
 		font-size: 32rpx;
 		color: black;
 	}
 	.content{
 		margin-top: 25rpx;
+		width: 90%;
+		padding: 5%;
 	}
 </style>

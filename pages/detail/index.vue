@@ -50,7 +50,7 @@
 				</view>
 				<uni-popup ref="popdown" type="bottom" background-color="#fff">
 					<view class="oneState">
-						<text style="font-size: 30rpx;">请选择举报理由</text>
+						<text style="font-size: 30rpx;color:black;">请选择举报理由</text>
 						<view class="subLine" ></view>
 						<text v-for="(item,index) of reportReason" :key="index" @click="setReason(index)">{{item.reason}}</text>
 					</view>		
@@ -637,18 +637,21 @@
 		display: flex;
 		flex-direction: column;
 		text-align: center;
+		width:100%;
+		color: black;
 	}
 	.subLine{
 		background-color: #b34c26;
-		width: 66%;
+		width: 100%;
 		height: 6rpx;
-		margin-left: 17%;
+		
 	}
 	.oneState>text{
 		height: 80rpx;
 		line-height: 80rpx;
 		padding: 10rpx;
 		font-size: 26rpx;
+		color: grey;
 	}
 	
 	/* 留言 */

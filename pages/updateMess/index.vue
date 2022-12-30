@@ -26,7 +26,7 @@
 			
 			<view class="price">
 				<text class="label">商品价格</text>
-				<input type="text" v-model="price.toFixed(2)"/>
+				<input type="text" v-model="parseFloat(price).toFixed(2)"/>
 			</view>
 			
 			<!-- 子分割线 -->
@@ -84,6 +84,8 @@
 			this.one = JSON.parse(option.goods);
 			this.onename = this.one.name;
 			this.price = this.one.price;
+			this.storage = this.one.storage;
+			this.intro = this.one.intro;
 		},
 		methods: {
 			// 获取商品图片

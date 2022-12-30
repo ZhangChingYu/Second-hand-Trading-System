@@ -295,6 +295,39 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 地址 */
 .myAddress{
 	width: 94%;
@@ -543,5 +576,13 @@
 	width: 50%;
 	line-height: 62rpx;
 	margin-right: 1%;
+}
+.pay{
+	display: flex;
+	flex-direction: column;
+}
+.payMoney{
+	display: flex;
+	flex-direction: row;
 }
 

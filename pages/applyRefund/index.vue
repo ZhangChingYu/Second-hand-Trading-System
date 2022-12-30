@@ -11,7 +11,7 @@
 				<!-- 信息 -->
 				<view class="goods-msg">
 					<text class="detail-text">{{order.name}}</text>
-					<text class="price">￥ {{order.price.toFixed(2)}}</text>
+					<text class="price">￥ {{parseFloat(order.price).toFixed(2)}}</text>
 				</view>
 			</view>
 		</view>
@@ -57,7 +57,7 @@
 			<view class="subSplitLine"></view>
 			<view class="littleCell refundAmount">
 				<text>退款金额：</text>
-				<text class="totalAmount" style="margin-right: 3%;">￥ {{total.toFixed(2)}}</text>
+				<text class="totalAmount" style="margin-right: 3%;">￥ {{parseFloat(total).toFixed(2)}}</text>
 			</view>
 		</view>
 		
@@ -129,8 +129,6 @@
 		onLoad(option){
 			this.order = JSON.parse(option.orderGoods);
 			this.total = option.total;
-			console.log(this.order.price);
-			console.log(this.total);
 		},
 		methods: {
 			// 获取商品图片
