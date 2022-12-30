@@ -92,7 +92,6 @@ public class MyWebSocket {
         //从客户端传过来的数据是json数据，所以这里使用jackson进行转换为chatMsg对象，
         ObjectMapper objectMapper = new ObjectMapper();
         ChatMessage chatMsg;
-
         try {
             chatMsg = objectMapper.readValue(message, ChatMessage.class);
             //对chatMsg进行装箱
@@ -104,10 +103,6 @@ public class MyWebSocket {
             Session fromSession = map.get(chatMsg.getFromId());
             Session toSession = map.get(chatMsg.getToId());
 
-            if(chatMsg.getTypes()==1||chatMsg.getTypes().toString()=="1"){
-                String cont=chatMsg.getContent();
-                chatMsg.setContent(cont.substring(23));
-            }
 //            System.out.println(message+"   "+chatMsg.getFromId());
             //声明一个map，封装直接发送信息数据返回前端
             Map<String, Object> resultMap = new HashMap<>();
@@ -116,10 +111,10 @@ public class MyWebSocket {
             resultMap.put("time", chatMsg.getSendTime());
             resultMap.put("types", chatMsg.getTypes());
 
+            JSONObject json = new JSONObject(resultMap);
             // 发送给接收者
             // 文本.
             if(chatMsg.getTypes()==0||chatMsg.getTypes().toString()=="0"){
-                JSONObject json = new JSONObject(resultMap);
                 fromSession.getAsyncRemote().sendText(json.toString());
                 if (toSession != null && toSession.isOpen()) {
                     //发送给发送者.
@@ -128,10 +123,10 @@ public class MyWebSocket {
             }
             //图片
             if(chatMsg.getTypes()==1||chatMsg.getTypes().toString()=="1"){
-                fromSession.getBasicRemote().sendText(resultMap.toString());
+                fromSession.getAsyncRemote().sendText(json.toString());
                 if (toSession != null && toSession.isOpen()) {
                     //发送给发送者.
-                    toSession.getAsyncRemote().sendText(resultMap.toString());
+                    toSession.getAsyncRemote().sendText(json.toString());
                 }
             }
             // 1.判断接收方的toSession是否为null
@@ -147,6 +142,9 @@ public class MyWebSocket {
             //保存聊天记录信息
             if(chatMsg.getTypes()==1||chatMsg.getTypes().toString()=="1"){
                 //存储图片
+                String cont=chatMsg.getContent();
+                int index = cont.indexOf(",");
+                chatMsg.setContent(cont.substring(index+1));
                 String picPath=writeFile.getChatPicture(new Date(),chatMsg.getFromId(),chatMsg.getToId());
                 if(PicUtil.GenerateImage(chatMsg.getContent(),picPath)){
                     chatMsg.setContent(picPath);
