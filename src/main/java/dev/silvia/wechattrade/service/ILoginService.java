@@ -17,5 +17,7 @@ public interface ILoginService extends IService<User> {
     Result selectAvatar(String phone);
 
     Result selectAuth(String phone);
+
+    Result outLogin(String phone);
 }
 

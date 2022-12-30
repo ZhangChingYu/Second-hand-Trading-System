@@ -2,7 +2,8 @@ package dev.silvia.wechattrade.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import dev.silvia.wechattrade.dao.*;
+import dev.silvia.wechattrade.dao.NotificationDao;
+import dev.silvia.wechattrade.dao.ProductDao;
 import dev.silvia.wechattrade.dto.booking.BoReDto;
 import dev.silvia.wechattrade.dto.booking.BookDetails;
 import dev.silvia.wechattrade.dto.booking.BookingDto;
@@ -11,6 +12,7 @@ import dev.silvia.wechattrade.dto.response.Result;
 import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.*;
 import dev.silvia.wechattrade.handlers.OrderCodeUtils;
+import dev.silvia.wechattrade.handlers.Packing.OrderNotePacking;
 import dev.silvia.wechattrade.handlers.TransferUTF8;
 import dev.silvia.wechattrade.handlers.common.repository.*;
 import dev.silvia.wechattrade.handlers.fileHandler.FileDirector;
@@ -29,7 +31,10 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Objects;
 
 @Service
 public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implements IOrderService {
@@ -64,6 +69,9 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
 
     @Autowired
     ProductDao productDao;
+
+    @Autowired
+    NotificationDao notificationDao;
 
     private final String ph = "^[1][3578]\\d{9}$";
 
@@ -110,7 +118,8 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         ex.setOrdersNum(bo.getOrdersNum());
         ex.setPrice(request.getPrice());
         ex.setPayment(transferUTF8.CtoUTF8(request.getPayment()));
-        ex.setBuildTime(new Date());
+        Date date=new Date();
+        ex.setBuildTime(date);
         ex.setProductNum(bo.getProductId());
         ex.setName(pro.getName());
         ex.setExpressDelivery(transferUTF8.CtoUTF8(request.getExpressDelivery()));
@@ -140,13 +149,17 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         //卖家信息表
         Seller seller=new Seller();
         seller.setAddress(transferUTF8.CtoUTF8(pro.getAddress()));
+        if(Objects.equals(request.getExpressDelivery(), "自取")){
+            seller.setShippingTime(date);
+        }
         seller.setExchangeId(pronum);  //外键
         seller.setPhone(pro.getSPhone());
         sel.save(seller);
 
         //删除已下单预约
         accountRepository.delete(bo);
-        System.out.println("创建订单");
+        Notification notification= new OrderNotePacking().deliverAwait(seller.getPhone(),buyer.getPhone(),pro,bo);
+        notificationDao.insert(notification);
         res=new Result(ResultCode.SUCCESS);
         return res;
     }
@@ -197,15 +210,23 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
 
         //买家
         Buyer buyer=buy.findByExchangeId(refundDto.getNumber());
-        String remark=refundDto.getRefundRequest().getState()+"%"+
+        String remark=refundDto.getState()+"%"+
                 refundDto.getRefundRequest().getGoodsState()+"%"+
-                refundDto.getRefundRequest().getRefundReason()+"%"
-                +refundDto.getRefundRequest().getDescription();
+                refundDto.getRefundRequest().getRefundReason();
+        if(refundDto.getRefundRequest().getDescription()==null||refundDto.getRefundRequest().getDescription().isEmpty()){
+            remark=remark+"%"+"无";
+        }
+        else
+            remark=remark+"%"+refundDto.getRefundRequest().getDescription();
         buyer.setRemark(transferUTF8.CtoUTF8(remark));
         buyer.setRefundTime(new Date());
         buy.save(buyer);
 
+
+        Seller seller=sel.findByExchangeId(refundDto.getNumber());
         System.out.println("买家"+buyer.getPhone()+"退货");
+        Notification notification= new OrderNotePacking().refundRequest(seller.getPhone(),buyer.getPhone(),ex.getName(),ex.getNumber());
+        notificationDao.insert(notification);
         res=new Result(ResultCode.SUCCESS);
         return res;
     }
@@ -242,6 +263,11 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
 
         seller.setAddress(product.getAddress());
         sel.save(seller);
+
+        Buyer buyer=buy.findByExchangeId(number);
+
+        Notification notification= new OrderNotePacking().refundSuccess(seller.getPhone(),buyer.getPhone(),ex);
+        notificationDao.insert(notification);
         System.out.println("卖家"+seller.getPhone()+"同意退款");
         res=new Result(ResultCode.SUCCESS);
         return res;
@@ -279,7 +305,10 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         ex.setStatus(transferUTF8.CtoUTF8(remark_parts[0]));
         exRepository.save(ex);
 
-        System.out.println("卖家不同意退款");
+        Seller seller=sel.findByExchangeId(number);
+
+        Notification notification= new OrderNotePacking().disagreeRefund(seller.getPhone(),buyer.getPhone(),ex.getName(),ex.getNumber());
+        notificationDao.insert(notification);
         res=new Result(ResultCode.SUCCESS,remark_parts[0]);
         return res;
     }
@@ -300,6 +329,7 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         reason.setGoodsState(remark_parts[1]);
         reason.setRefundReason(remark_parts[2]);
         reason.setDescription(remark_parts[3]);
+
         reason.setTotal(ex.getPrice());
         reason.setRefundTime(sdf.format(buyer.getRefundTime()));
         res=new Result(ResultCode.SUCCESS,reason);
@@ -371,7 +401,7 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
             bookDto.setState(transferUTF8.UTF8toC(ex.getStatus()));
             bookDto.setCount(ex.getOrdersNum());
             //图片信息
-//            String path = "";
+            String path = "";
 //            if (pro.getPicture_count() == 0) {
 //                bookDto.setCoverPic(path);
 //            } else {
@@ -487,6 +517,8 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         booking.setName(transferUTF8.CtoUTF8(request.getProductName()));
         booking.setIsDelete(0);
         accountRepository.save(booking);
+        Notification notification= new OrderNotePacking().newOrder(booking.getSellerId(),booking.getBuyerId(),booking.getName(),booking);
+        notificationDao.insert(notification);
         res=new Result(ResultCode.SUCCESS);
         return res;
     }
@@ -687,7 +719,7 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
             List<ExchangeDto> bidList = new ArrayList<>();
             for (ExchangeInfo booking : ei) {
                 if((isbuyer==1&&booking.getIsDelete()!=2)
-                        ||(isbuyer==0&&booking.getIsDelete()!=1)){
+                    ||(isbuyer==0&&booking.getIsDelete()!=1)){
                     ExchangeDto ed=new ExchangeDto();
                     //获取商品图片
                     //获取商品信息
@@ -995,6 +1027,8 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
 
             res=new Result(ResultCode.SUCCESS,bo);
         }
+        Notification notification= new OrderNotePacking().agreeOrder(bo.getSellerId(),bo.getBuyerId(),product);
+        notificationDao.insert(notification);
         return res;
 
     }

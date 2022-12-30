@@ -1,4 +1,4 @@
-package dev.silvia.wechattrade.controller;
+package dev.silvia.wechattrade.entity;
 
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -17,16 +17,15 @@ public class ChatLink implements Serializable {
     private Integer id;
 
     //关系表id
-    private String linkId;
+    private String number;
 
     //发送者
-    private String fromUser;
+    private String fromId;
 
     //接收者
-    private String toUser;
+    private String toId;
 
     //创建时间
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
-
 }

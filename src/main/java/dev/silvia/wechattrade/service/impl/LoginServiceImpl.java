@@ -32,7 +32,7 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
 
     private static final String SALT = "123456";
     @Autowired
-    private  UserRepository accountRepository;
+    private UserRepository accountRepository;
 
     private static final ModelMapper modelMapper = new ModelMapper();
 
@@ -228,6 +228,14 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
             user3.setPicture(picture2);
         }
         use=new Result(ResultCode.SUCCESS,picture2);
+        return use;
+    }
+    @Override
+    public Result outLogin(String phone) {
+        User user4=accountRepository.findByPhone(phone).get();
+        user4.setIsOnline(0);
+        accountRepository.save(user4);
+        use=new Result(ResultCode.SUCCESS);
         return use;
     }
 }

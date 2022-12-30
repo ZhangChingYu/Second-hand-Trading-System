@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -52,10 +53,11 @@ public class LoginController {
         return ResponseEntity.ok(service.selectAuth(phone));
     }
     @RequestMapping(value ="/login",method = RequestMethod.POST)
-    public ResponseEntity<?> login(@RequestBody LoginRequestDto request) {
+    public ResponseEntity<?> login(@RequestBody LoginRequestDto request1, HttpSession session) {
         LoginResponseDto user1=new LoginResponseDto();
-        Optional<LoginResponseDto> user = this.service.login(request);
+        Optional<LoginResponseDto> user = this.service.login(request1);
         if (user.isPresent()) {
+            session.setAttribute("user", user.get().getUser());
             return ResponseEntity.ok(user.get());
         }
         else{
@@ -77,10 +79,13 @@ public class LoginController {
 //   输入  {String encryptedData;String iv;String sessionId;}
 //   返回LoginResponseDto{code: "666" （成功）;mag:  ;User:user}
     @RequestMapping(value ="/weixin/authLogin", method = RequestMethod.POST)
-    public LoginResponseDto authLogin(@RequestBody WXAuth wxAuth) {
-        LoginResponseDto result = weixinService.authLogin(wxAuth);
-        return result;
+    public LoginResponseDto authLogin(@RequestBody WXAuth wxAuth, HttpSession session) {
+    LoginResponseDto result = weixinService.authLogin(wxAuth);
+    if(Objects.equals(result.getCode(), "666")){
+        session.setAttribute("user", result.getUser());
     }
+    return result;
+}
 
     @RequestMapping(value ="/lost",method = RequestMethod.POST)
     public ResponseEntity<?> lostPassword(@RequestBody LostPasswordDto request){
@@ -118,5 +123,16 @@ public class LoginController {
             redto=new Result(ResultCode.USER_NOT_EXIST);
         }
         return ResponseEntity.ok(redto);
+    }
+
+    @RequestMapping(value ="/outLogin",method = RequestMethod.PUT)
+    public ResponseEntity<?> outLogin(HttpSession session) {
+        //修改用户的登录状态
+        User user = (User) session.getAttribute("user");
+        System.out.println( user.getPhone() + "退出登录");
+        Result res=service.outLogin(user.getPhone());
+        //清空session域中的user
+        session.invalidate();
+        return ResponseEntity.ok(res);
     }
 }

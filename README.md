@@ -290,19 +290,19 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 本系統主頁面的商品推送算法尚在開發中，為測試其他功能是否能正常運行，作為主頁面的商品顯示。
 商品查詢共分為分類查詢和搜索欄輸入兩種，分類檢索由用戶點選商品分類後，前端返回商品編碼(B,M,E...)給後端接收。
 搜索欄檢索則是由用戶在首頁搜索欄中輸入查詢信息，商品詳細信息的顯示是由用戶點選某一商品後，由前端返回商品的編碼(number)給後端。
-1. 主頁面商品顯示:
+> 1. 主頁面商品顯示:
 * 後端api: **GET**  /homepage
 * json語句: {"id":int}
 * 返回信息(Object): {"number":"商品編碼","coverPic":"商品封面照片","name":"商品名稱","price":"商品價格"},...,{}
-2. 分類檢索商品:
+> 2. 分類檢索商品:
 * 後端api: **GET**  /catalog/products
 * json語句: {"catalog":"商品編碼"}
 * 返回信息(Object): {"number":"商品編碼","coverPic":"商品封面照片","name":"商品名稱","price":"商品價格"},...,{}
-3. 搜索欄檢索:
+> 3. 搜索欄檢索:
 * 後端api: **GET**  /search/products
 * json語句: {"keyword":"輸入內容"}
 * 返回信息(Object): {"number":"商品編碼","coverPic":"商品封面照片","name":"商品名稱","price":"商品價格"},...,{}
-4. 商品詳細信息顯示:
+> 4. 商品詳細信息顯示:
 * 後端api: **GET**  /product/detail，
 * json語句: {"number":"商品編碼"}
 * 返回信息(Object): {"name":"商品名稱","seller_name":"賣家名稱","address":"地址" ,"date":"發布時間(yyyy-MM-dd,hh:mm:ss)","price":"價格","intro":"商品介紹","like_count":"收藏數","picture_count":"照片數", "pictures","照片的base64編碼list"}
@@ -347,27 +347,27 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * 0(添加日期:新-->舊), 1(添加日期:舊-->新), 2(商品價格:低-->高), 3(商品價格:高-->低)
 
 此外，用戶也可根據商品分類篩選收藏商品，且提供批量取消收藏的功能。
-1. 確認該商品是否已收藏:
+> 1. 確認該商品是否已收藏:
 * 後端api: **GET**  /like
 * json語句: {"phone":"用戶手機號", "number":"商品編碼"}
 * 返回信息(Boolean): True/False
-2. 添加/取消收藏:
+> 2. 添加/取消收藏:
 * 後端api: **POST**  /like
 * json語句: {"phone":"用戶手機號", "number":"商品編碼"}
 * 返回信息(int): 201(收藏成功), 204(取消收藏成功), 403(用戶無權限), 404(收藏失敗)
-3. 顯示所有收藏商品(默認排序:收藏日期新到舊):
+> 3. 顯示所有收藏商品(默認排序:收藏日期新到舊):
 * 後端api: **GET**  /all/likes
 * json語句: {"phone":"用戶手機號"}
 * 返回信息(Object): {"number":"商品編碼","coverPic":"商品封面照片","name":"商品名稱","price":"商品價格"},...,{}
-4. 照切換不同的排序方式:
+> 4. 照切換不同的排序方式:
 * 後端api: **GET**  /all/likes/order，
 * json語句: {"phone":"用戶手機號", "type":int}
 * 返回信息(Object): {"number":"商品編碼","coverPic":"商品封面照片","name":"商品名稱","price":"商品價格"},...,{}
-5. 依照商品分類顯示收藏商品:
+> 5. 依照商品分類顯示收藏商品:
 * 後端api: **GET**  /catalog/likes，
 * json語句: {"phone":"用戶手機號", "catalog":"分類編碼"}
 * 返回信息(Object): {"number":"商品編碼","coverPic":"商品封面照片","name":"商品名稱","price":"商品價格"},...,{}
-6. 批量取消收藏:
+> 6. 批量取消收藏:
 * 後端api: **DELETE**  /likes，
 * json語句: {"phone":"用戶手機號", "numbers": ["商品編碼1", "商品編碼2",...,"商品編碼N"]}
 * 返回信息(int): 204(取消收藏成功), 404(取消收藏失敗)
@@ -437,7 +437,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
     }
 ##订单、预约功能
 一，查找相关
-1. 根据手机号buyer查找所有订单  GET /orders/select/buyer  输入 phone  status（整型）:
+> 1. 根据手机号buyer查找所有订单  GET /orders/select/buyer  输入 phone  status（整型）:
 * 前端api: **GET**  /orders/select/buyer
 * json语句: {"phone":"手机号", "status":"状态（全部/已发货/未发货/..."}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<ExchangeDto>}
@@ -454,11 +454,11 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 
   String status;    //订单状态
   }
-2. 根据手机号seller查找所有订单:
+> 2. 根据手机号seller查找所有订单:
 * 前端api: **GET**  /orders/select/buyer
 * json语句: {"phone":"手机号", "status":"状态（全部/已发货/未发货/..."}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<ExchangeDto>}
-3. 根据手机号查找全部buyer预约:
+> 3. 根据手机号查找全部buyer预约:
 * 前端api: **GET**  /booking/select/buyer
 * json语句: {"phone":"手机号", "status":"状态（全部/已发货/未发货/..."}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDto>}
@@ -474,11 +474,11 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
       //
       //         String status;  //product status
       //    }
-4. 根据手机号查找全部seller预约:
+> 4. 根据手机号查找全部seller预约:
 * 前端api: **GET**  /booking/select/seller
 * json语句: {"phone":"手机号", "status":"状态（全部/已发货/未发货/..."}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDto>}
-  5,卖方根据商品编号查询预约:
+>  5,卖方根据商品编号查询预约:
 * 前端api: **GET**  /booking/select/bookings
 * json语句: {"number":"商品编号"}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDetails>}
@@ -489,7 +489,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   String nickName;  //买方昵称
   String state;
   Integer count;}
-  6,在订单中根据商品名称模糊搜索:
+>  6,在订单中根据商品名称模糊搜索:
 * 前端api: **GET**   /orders/fuzzy/name
 * json语句: {"name":"商品名称/电话","isbuyer":1未buyer，0为seller}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<ExchangeDto>}
@@ -497,11 +497,11 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * 前端api: **GET**  /booking/fuzzy/name
 * json语句: {"name":"商品名称/电话","isbuyer":1未buyer，0为seller}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDto>}
-  8,卖方根据买方手机号和商品编号在预约信息里查找:
+>   8,卖方根据买方手机号和商品编号在预约信息里查找:
 * 前端api: **GET**  /booking/select/phone
 * json语句: {"phone":"手机号","number":"商品编号"}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDetails>}
-  9,根据订单编号获取订单详情:
+>   9,根据订单编号获取订单详情:
 * 前端api: **GET** /orders/details
 * json语句: {"number":"订单编号"}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<OrderDetails>}
@@ -519,7 +519,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   Double discounts;  //优惠
   String status;    //订单状态
   }
-  10,买方根据买方手机号和商品编号在预约信息里查找:
+>   10,买方根据买方手机号和商品编号在预约信息里查找:
 * 前端api: **GET**  /booking/buyer/select
 * json语句: {"phone":"手机号","number":"商品编号"}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:List<BookingDetails>}
@@ -530,16 +530,16 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   String nickName;  //买方昵称
   String state;
   Integer count;}
-  11,买方根据买方手机号和商品编号判断该商品是否已预约:
+>   11,买方根据买方手机号和商品编号判断该商品是否已预约:
 * 前端api: **GET** /booking/buyer/judgment
 * json语句: {"phone":"手机号","number":"商品编号"}
 * 返回信息(Object):{code: "666" （成功）;mag:  ; data:“已预约”/"未预约“}
-  二，订单相关
-5. 查找seller:
+ ### 二，订单相关
+> 5. 查找seller:
 * 前端api: **GET**  /booking/seller/info
 * json语句: {"number":"商品编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:user)
-6. 生成订单:
+> 6. 生成订单:
 * 前端api: **POST**  /orders/build
 * ExRequestDto{
   String bookNum;   //预约 number
@@ -554,32 +554,32 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   Double discounts;      //优惠
 * json语句: {(ExRequestDto)（"projectNumber":"商品编号", "buyerPhone":"买家phone",...）}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  7.卖方确认发货   /orders/receiving:
+> 7.卖方确认发货   /orders/receiving:
 * 前端api: **PUT** /orders/receiving
 * json语句: {"number":"订单编号","deliveryId":"快递单号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-8. 买方确认收货:
+> 8. 买方确认收货:
 * 前端api: **PUT**  /orders/received
 * json语句: {"number":"订单编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-9. 买方退款:
+> 9. 买方退款:
 * 前端api: **PUT**  /orders/after
 * json语句: {"number":"订单编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-10. 卖方确认退款:
+> 10. 卖方确认退款:
 * 前端api: **PUT** /orders/refund
 * json语句: {"number":"订单编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-11. seller删除订单:
+> 11. seller删除订单:
 * 前端api: **DELETE**  /orders/seller/delete
 * json语句: {"number":"订单编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-12. buyer删除订单:
+> 12. buyer删除订单:
 * 前端api: **DELETE**  /orders/buyer/delete
 * json语句: {"number":"订单编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  三，预约相关
-13. 新增预约:
+###  三，预约相关
+> 13. 新增预约:
 * 前端api: **POST**  /booking/add
 * json语句: {（BoReDto）"sellerId":"seller phone","buyerId":"buyer phone"....}
 * BoReDto {         String sellerId;   //seller phone
@@ -589,19 +589,19 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   //                Integer ordersNum;   //product 数量
   //                Double price;   //product price}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  14买方删除已拒绝的预约:
+>   14买方删除已拒绝的预约:
 * 前端api: **DELETE**  /booking/delete
 * json语句: {"number":"预约编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  15卖家确认预约:
+>   15卖家确认预约:
 * 前端api: **PUT**  /booking/acquire
 * json语句: {"number":"预约编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  16买方取消预约/卖方拒绝预约:
+>   16买方取消预约/卖方拒绝预约:
 * 前端api: **PUT**  /orders/cancel/booking
 * json语句: {"number":"预约编号","isbuyer":1为buyer,0为seller}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  17,取消退款:
+ >  17,取消退款:
 * 前端api: **PUT**  /orders/cancel
 * json语句: {"number":"订单编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
@@ -622,7 +622,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
     0:  已上架，審核通過   --- 待预约
     4:  已售空
     5:  查预约
-###订单/预约查找相关  OrdersSearchController.java
+### 订单/预约查找相关  OrdersSearchController.java
 
     //buyer查找所有订单
     @RequestMapping(value ="/orders/select/buyer",method = RequestMethod.GET)
@@ -656,7 +656,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
         String status= request.getParameter("status");
         return ResponseEntity.ok(service.selectAllSeller(phone,status));
     }
-##订单相关接口    ExchangeController.java
+### 订单相关接口    ExchangeController.java
 
     //查找seller
     @RequestMapping(value ="/booking/seller/info",method = RequestMethod.GET)
@@ -721,7 +721,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
         return ResponseEntity.ok(service.buyerdelete(number));
     }
 
-####预约相关   ExchangeController.java
+### 预约相关   ExchangeController.java
     //新增预约  POST  
     @RequestMapping(value ="/booking/add",method = RequestMethod.POST)
     public ResponseEntity<?> addappointments(@RequestBody BoReDto request) {
@@ -751,24 +751,24 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
         return ResponseEntity.ok(service.cancelAppointments(number,isbuyer));
     }
 ***
-##一对一聊天   pom.xml
+### 一对一聊天   pom.xml
     <!--WebSocket-->
     <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-websocket</artifactId>
     </dependency>
 
-###反馈功能    UserMangerController.java
+### 反馈功能    UserMangerController.java
 反馈数据库 feedback.sql
-1，新增反馈:
+> 1，新增反馈:
 * 前端api: **POST**  /feedback/add
 * json语句: {"phone":"反馈人电话"，"content":"反馈人内容"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  2，删除反馈:
+>   2，删除反馈:
 * 前端api: **DELETE**  /feedback/delete
 * json语句: {"number":"反馈编号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  3，查找所有反馈:
+>   3，查找所有反馈:
 * 前端api: **GET**  /feedback/all
 * json语句: 无
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedbackDto>)
@@ -785,7 +785,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 
   Integer status;   //消息状态：已读为1，未读为0
   }
-  5，管理员查看所有有违规记录且authority暂未设置成违规的用户
+ >  5，管理员查看所有有违规记录且authority暂未设置成违规的用户
 * 前端api: **GET**  /feedback/user
 * json语句: 无
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
@@ -798,8 +798,8 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 
   Integer violationCount;    //违规次数
   }
-###用户管理    UserMangerController.java
-1，权限更改    普通-->违规用户 number=0  违规用户-->普通 number=1
+### 用户管理    UserMangerController.java
+> 1，权限更改    普通-->违规用户 number=0  违规用户-->普通 number=1
 * 前端api: **PUT**  /manage/user/authority
 * json语句: {
   "ids": [
@@ -808,11 +808,11 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   "number": 1
   }
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  2，根据手机查找用户信息
+>   2，根据手机查找用户信息
 * 前端api: **GET**  /manage/user
 * json语句: {"phone":"手机号"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:FeedUserDto)
-  3，查看所有用户:
+ >  3，查看所有用户:
 * 前端api: **GET**  /manage/user/all
 * json语句: 无
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
@@ -834,25 +834,25 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   private Integer sell;
 
 }
-4，根据权限、交易、违规筛选
+> 4，根据权限、交易、违规筛选
 * 前端api: **GET**  /manage/user/select
 * json语句: {"number1":权限, 为-1时为全部
 *           "number2":违规,为-1时为全部
 *            "number3":交易为-1时为全部}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
-  5，删除用户
+>   5，删除用户
 * 前端api: **DELETE**  /manage/user/delete
 * json语句: [1,2,3]
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  6，根据用户名或真实姓名模糊查询
+>   6，根据用户名或真实姓名模糊查询
 * 前端api: **GET**  /manage/user/name
 * json语句: {"name":"用户名或真实姓名"}
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<FeedUserDto>)
-  7，修改密码为123456
+ >  7，修改密码为123456
 * 前端api: **PUT**  /manage/user/password
 * json语句: [1,2,3]
 * 返回信息(Object):Result(msg: ; code:"666" ;data:)
-  8，获取权限目录
+ >  8，获取权限目录
 * 前端api: **GET**  manage/select/authority
 * json语句:无
 * 返回{
@@ -869,7 +869,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   "name": "已禁用"
   }  ]
   }
-  9，获取违规目录
+ >  9，获取违规目录
 * 前端api: **GET**  manage/select/violation
 * json语句:无
 * 返回{
@@ -884,10 +884,59 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
   "number": 1,
   "range": [  11,  20  ]
   }}
-  10，获取交易目录
+ >  10，获取交易目录
 * 前端api: **GET** manage/select/trade
 * json语句:无
 * 返回同获取违规目录
+### 聊天相关
+> 1，判断是否是第一次聊天  返回聊天双方number
+* 前端api: **GET**  /chat/checkIsFirstChat
+* json语句: "toId":"聊天对象电话“
+* 返回信息(Object):Result(msg: ”是第一次聊天/不是第一次聊天“; code:"666" ;data: 聊天双方number)
+>   2，获取聊天列表
+* 前端api: **GET**  /chat/getChatList
+* json语句: 无
+* 返回信息(Object):Result(msg: ; code:"666" ;data:List<ChatListData>)
+  ChatListData {
+  number:两者的关联id;
+  toName:聊天对象用户名;
+  toId:聊天对象电话;
+  toAvatar:聊天对象的头像;
+  lastMessage;最后一条信息;   
+  unread:未读数;
+  time:最后一条信息发送时间;
+  fromWindow:发送者在哪个聊天框 0：表示不在窗口，1：表示在窗口;
+  }
+ >  3，获取聊天列表记录
+* 前端api: **GET**  /chat/getChatRecords
+* json语句: "toId":"聊天对象电话"  startIndex:第几页   0、1 ...  pageSize: 页面大小
+* 返回信息(Object):Result(msg: ; code:"666" ;data:List<chatMessageData>)
+  ChatMessageData {
+  fromId:  发送者电话;
+  content:   信息内容;
+  time:  发送时间;
+  types:信息类型 0:文本,1:图片,2:视频;
+  }
+>   4，跟对方建立连接 更新窗口值，判断对方是否在线
+* 前端api: **GET**  /chat/inWindows
+* json语句: "toId":"聊天对象电话“
+* 返回信息(Object):Result(msg: ; code:"666";data: 1:是，0:不是)
+>   5，监听窗口关闭事件，当窗口关闭时（用户退出聊天界面时） 重置窗口值
+* 前端api: **GET**  /chat/resetWindows
+* json语句: 无
+* 返回信息(Object):Result(msg: ; code:"666";data: )
+>   6：获取用户的未读信息
+* 前端api: **GET**  /chat/unread
+* json语句: 无
+* 返回信息(Object):Result(msg: ; code:"666";data: 未读数 )
+>   7：websocket onMessage 收到客户端消息后调用的方法
+  需要{"content":"消息内容","toUser":"接收者电话","types":消息类型}
+  传给接收者  ChatMessageData {
+  fromId:  发送者电话;
+  content:   信息内容;
+  time:  发送时间;
+  types:信息类型 0:文本,1:图片,2:视频;
+  }
 # 關於RestFul api的一些規範
 什么是RestFul架构：
 1. 每一个URI代表一种资源；

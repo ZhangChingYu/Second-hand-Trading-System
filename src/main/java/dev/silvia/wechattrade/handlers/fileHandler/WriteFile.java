@@ -18,6 +18,7 @@ public class WriteFile {
     private String auth_url = FileDirector.AUTH_URL;
     private String auth_temp_url = FileDirector.AUTHENTICATION_TEMP_URL;
     private String ads_url = FileDirector.ADS_URL;
+    private String chat_url = FileDirector.CHAT_URL;
     public static void storeMultipartFile(String filePath, String newName, MultipartFile file){
         OutputStream os = null;
         InputStream inputStream = null;
@@ -276,6 +277,28 @@ public class WriteFile {
             }
         }
         return root+"/"+dir;
+    }
+
+    public String getChatPicture(Date date,String fromUser,String toUser){
+        // C:/Users/Sunny/Desktop/Chat/fromUser/toUser/时间/随机图片名.jpg
+        SimpleDateFormat simpleDateFormat;
+        simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
+        String str = simpleDateFormat.format(date);
+
+        SimpleDateFormat simpleDateFormat1;
+        simpleDateFormat1 = new SimpleDateFormat("HHmmSS");
+        String str1 = simpleDateFormat1.format(date);
+
+        String pathName = chat_url + fromUser+"/"+toUser+"/"+str;
+        int j = (int) (Math.random() * 90000 + 10000);
+        String newName = str1+ "_" + j;
+        File url = new File(pathName);
+        if(!url.isDirectory()){
+            if(!url.mkdirs()){
+                return null;
+            }
+        }
+        return pathName+"/"+newName + ".jpg";
     }
 }
 

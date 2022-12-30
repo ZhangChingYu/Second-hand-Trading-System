@@ -3,8 +3,6 @@ import lombok.Data;
 
 @Data
 public class RefundRequest {
-    private String state;
-
     private String goodsState;
     // 退款原因
     private String refundReason;
