@@ -30,7 +30,7 @@
 					{
 						title: '商品查询',
 						url: 'pages/manage/product/query',
-						icon: 'https://t11.baidu.com/it/u=2685890614,3511995960&fm=173&app=49&f=JPEG?w=500&h=502&s=9404FC160FE24E8492A6E97C0300806B'
+						icon: 'https://img2.baidu.com/it/u=4170078635,925514702&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=526'
 					},{
 						title: '商品类别',
 						url: 'pages/manage/product/catalog',
@@ -63,7 +63,15 @@
 						title: '用户协议',
 						url: 'pages/manage/others/agreementManage',
 						icon: 'https://img1.baidu.com/it/u=2274835460,799751483&fm=253&fmt=auto&app=138&f=JPEG?w=396&h=500'
+<<<<<<< HEAD
 					},
+=======
+					},{
+						title: '轮播图',
+						url: 'pages/manage/others/swiper',
+						icon: 'https://img2.baidu.com/it/u=1982708071,4271452793&fm=253&fmt=auto&app=138&f=JPEG?w=500&h=500'
+					}
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 				],
 			}
 		},

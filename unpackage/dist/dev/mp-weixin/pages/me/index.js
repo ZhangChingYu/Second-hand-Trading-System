@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/me/index"],{
 
 /***/ 164:
@@ -149,3 +150,6 @@ var _default =
 
 },[[164,"common/runtime","common/vendor"]]]);
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/me/index.js.map
+=======
+Component({})
+>>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
