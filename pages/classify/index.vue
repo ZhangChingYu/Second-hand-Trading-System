@@ -42,14 +42,7 @@
 		<!-- 商品列表 -->
 		<view v-if="showProductList.length !== 0" class="class-result">
 			
-			<!-- <Goods class="goods"
-				v-for="(item,index) of showProductList" 
-				:key="index"
-				:goods="item"
-			 >
-			 </Goods> -->
-			 
-			 
+			
 			 <Classitem class="goods"
 				v-for="(item,index) of showProductList"
 				:key="index"
@@ -168,6 +161,8 @@
 				if(this.class_selected != catalog) this.class_selected = catalog;
 				// 加载提示
 				this.loading();
+				this.productList = [];
+				this.showProductList = [];
 				try{
 					if(catalog != -1) {
 						this.productList = await this.api.get('/catalog/products',{catalog});
@@ -317,7 +312,7 @@
 		width: 47.5%;
 		// width: 90%;
 		height: 340rpx;
-		margin: 30rpx 5rpx;
+		margin: 16rpx 5rpx;
 		background-color: #fff;
 		// z-index: -1;
 		}

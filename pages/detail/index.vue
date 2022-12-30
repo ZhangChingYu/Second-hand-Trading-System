@@ -126,11 +126,10 @@
 								v-model="replyContent"
 								@confirm="replyEvaluation"
 								confirm-type="send"
-								focus='true'
 							  ></u--input>
 						</view>
 						<view class="reply-btn" @click="replyEvaluation">
-							 <u-button type="primary" text="留言"></u-button>
+							 <u-button type="primary" text="回复"></u-button>
 						</view>
 					</view>
 				</u-popup>
@@ -258,6 +257,7 @@
 						return;
 					}
 					let res = await this.api.post('/product/comment',{number:this.number,phone:this.user.phone,content:this.evaluation});
+					this.evaluation = '';
 					let title = '请稍后重试！';
 					switch(res){
 						case 201:
@@ -423,14 +423,15 @@
 							return;
 						}
 						
-						let res1 = this.api.post('/booking/add',{
+						let res1 = await this.api.post('/booking/add',{
 							sellerId:this.sellerId,   //seller phone
 							buyerId:this.user.phone,    //buy phone
 							productId:this.number,   //product number
+							productName:this.product.name,
 							ordersNum:this.bookNumber,  //product 数量
 							price:this.product.price
 						})
-						if(res.code == '666'){
+						if(res.code == '666' && res.msg == '操作成功！'){
 							this.$toast('预约成功！')
 							//预约成功
 							this.isBooked = true;
@@ -438,6 +439,7 @@
 					}catch(e){
 						//TODO handle the exception
 						this.$toast('预约失败')
+						this.isBooked = false;
 					}
 					
 					
@@ -445,20 +447,10 @@
 				
 				
 			},
-			async cancelBook(){
-				this.$toast('取消预约');
-				try{
-					let res = await this.api.put('/orders/cancelappointments',{
-						number:this.Bnumber,
-						isbuyer:true
-					});
-					if(res.code == "666") this.$toast('成功取消预约！')
-					else this.$toast('请稍后重试！');
-				}catch(e){
-					//TODO handle the exception
-				}
-				
-				this.isBooked = false;
+			cancelBook(){
+				uni.navigateTo({
+					url:"/pages/myAppointment/index"
+				})
 			},
 			
 			

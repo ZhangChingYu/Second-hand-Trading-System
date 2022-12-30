@@ -33,20 +33,21 @@
 					<text>最多预约</text>
 				</text>
 				
-				<text class="more">
-					<text>更多</text>
+				<text class="more" @click="getmore = !getmore">
+					<text v-if="getmore">收起</text>
+					<text v-else>更多</text>
 					<text class="more-bg main-icon"></text>
 				</text>
 			</view>
 			<view class="book-detail">
-				<Goods  class="goods" :goods="mostbookItem[0]"></Goods>
-				<Goods v-if="mostbookItem.length > 1" class="goods" :goods="mostbookItem[1]"></Goods>
-				<!-- <Goods class="goods"
+				<Goods v-if ="!getmore" class="goods" :goods="mostbookItem[0]"></Goods>
+				<Goods v-if="mostbookItem.length > 1 && !getmore" class="goods" :goods="mostbookItem[1]"></Goods>
+				<Goods v-if="getmore" class="goods"
 					v-for="(item,index) of mostbookItem" 
 					:key="index"
 					:goods="item"
 				 >
-				 </Goods> -->
+				 </Goods>
 				
 			</view>
 		</view>
@@ -116,7 +117,7 @@
 					'https://cdn.uviewui.com/uview/swiper/swiper2.png',
 					'https://cdn.uviewui.com/uview/swiper/swiper1.png',
 				],
-				  
+				getmore:false,
 	            mostbookItem:[],
 				newProductItem:[],
 				recommendProductItem:[],
@@ -283,7 +284,6 @@
 	/* 预约 */
 	.most-book {
 		width: 95vw;
-		height: 400rpx;
 		margin: 10rpx auto;
 		background-color: #efefef;
 	}
@@ -333,9 +333,15 @@
 	
 	/* 预定展示 */
 	.book-detail {
-		width: 100%;
+		/* width: 100%;
 		height: 350rpx;
 		display: flex;
+		flex-wrap: wrap;
+		justify-content: space-between; */
+		width: 100%;
+		margin:20rpx 0;
+		display: flex;
+		flex-wrap: wrap;
 		justify-content: space-between;
 	}
 	.goods{

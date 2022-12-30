@@ -1,7 +1,6 @@
 .item.data-v-2e5bcee3 {
   height: 360rpx;
-  margin-bottom: 20px;
-  box-shadow: 0 9px 10px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 20rpx;
 }
 .item .footer-price.data-v-2e5bcee3 {
   height: 108rpx;
@@ -36,7 +35,7 @@
 .item .img.data-v-2e5bcee3 {
   height: 180rpx;
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   flex-wrap: wrap;
   align-items: center;
 }
@@ -49,6 +48,7 @@
 .item .pro-name.data-v-2e5bcee3 {
   height: 72rpx;
   margin-left: 1em;
+  text-align: center;
 }
 .item .pro-name text.data-v-2e5bcee3 {
   display: block;

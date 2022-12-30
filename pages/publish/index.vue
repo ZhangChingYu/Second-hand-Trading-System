@@ -190,6 +190,11 @@
 					}
 				}
 				this.$toast('商品发布成功，正在等待审核！')
+				setTimeout(()=>{
+					uni.navigateTo({
+						url:'/pages/myItem/index'
+					})
+				},500);
 			},
 			
 			uploadFilePromise(url,number,index) {
