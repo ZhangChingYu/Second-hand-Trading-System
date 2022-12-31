@@ -172,9 +172,9 @@ public class ChatServiceImpl implements IChatService {
         //查询获取用户的聊天列表
         String sql;
         List<ChatListData> chatListData ;
-        sql=    " select cl.number as number, cl.to_name as toName, cl.to_id as toId" +
-                ", cl.to_avatar as toAvatar," +
-                " content as lastMessage, unread, send_time as time, from_window" +
+        sql=    " select cl.number as number, cl.to_name as userNme, cl.to_id as phone" +
+                ", cl.to_avatar as avatar," +
+                " content as lastChat, unread, send_time as time, from_window" +
                 " from chat_list as cl, chat_message as cm where cl.from_id='"
                 + fromUser+ "' and cl.number = cm.number and cm.is_latest = 1 " +
                 "order by send_time desc";
@@ -182,13 +182,13 @@ public class ChatServiceImpl implements IChatService {
                 new BeanPropertyRowMapper<>(ChatListData.class));
         for (ChatListData chatListDatum : chatListData) {
             String picture1;
-            if (chatListDatum.getToAvatar() == null || chatListDatum.getToAvatar().isEmpty()) {
+            if (chatListDatum.getAvatar() == null || chatListDatum.getAvatar().isEmpty()) {
                 //默认图片
                 picture1 = readFile.getAvatarPicture(FileDirector.AVATAR_URL);
-                chatListDatum.setToAvatar(picture1);
+                chatListDatum.setAvatar(picture1);
             } else {
-                picture1 =readFile.getAvatarPicture(readFile.getAvatarPicture(chatListDatum.getToId()));
-                chatListDatum.setToAvatar(picture1);
+                picture1 =readFile.getAvatarPicture(readFile.getAvatarPicture(chatListDatum.getPhone()));
+                chatListDatum.setAvatar(picture1);
             }
         }
 //        for (ChatListData chatListDatum : chatListData) {
@@ -211,7 +211,7 @@ public class ChatServiceImpl implements IChatService {
         //获取两者之间的关联id
         String linkId = selectAssociation(fromUser,toUser);
         String sql;
-        sql=    " select from_id as fromId, content, send_time as time, types from chat_message" +
+        sql=    " select id, from_id as fromId, content, send_time as time, types from chat_message" +
                 " where number = '"
                 + linkId+ "' ORDER BY time desc limit " + startIndex +
                 ", "+pageSize+"";

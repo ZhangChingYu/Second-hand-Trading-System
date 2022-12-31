@@ -8,16 +8,16 @@ public class ChatListData {
     private String number;
 
     //聊天对象用户名
-    private String toName;
+    private String userName;
 
     //聊天对象电话
-    private String toId;
+    private String phone;
 
     //聊天对象的头像
-    private String toAvatar;
+    private String avatar;
 
     //最后一条信息
-    private String lastMessage;
+    private String lastChat;
 
     //未读数
     private int unread;
