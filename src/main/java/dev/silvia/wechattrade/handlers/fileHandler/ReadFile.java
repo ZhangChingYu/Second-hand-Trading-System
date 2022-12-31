@@ -41,6 +41,9 @@ public class ReadFile {
             return null;
         }
         List<String> picture_urls = getProductPictureURL(number);
+        if(picture_urls==null||picture_urls.size()==0){
+            return null;
+        }
         for(String picture_url : picture_urls){
             Integer index = picture_url.lastIndexOf(".");
             String format = picture_url.substring(index).substring(1);
@@ -57,6 +60,9 @@ public class ReadFile {
             return null;    // 如果該商品沒有照片，則返回null
         }
         List<String> pictures_url = getProductPictureURL(number);   // 獲取該商品文件目錄下所有圖片路徑
+        if(pictures_url==null || pictures_url.size()==0){
+            return null;
+        }
         for(String pic_url : pictures_url){
             String url = pic_url;
             String base64 = ReadFile.getBaseFile(url);
@@ -97,6 +103,9 @@ public class ReadFile {
     public Map<String, Object> getProductCoverPic(String number){
         Map<String, Object> cover_pic = new HashMap<>();
         List<String> picture_urls = getProductPictureURL(number);
+        if(picture_urls == null || picture_urls.size()==0){
+            return null;
+        }
         String cover_url = picture_urls.get(0);
         Integer index = cover_url.lastIndexOf(".");
         String format = cover_url.substring(index).substring(1);
@@ -261,6 +270,9 @@ public class ReadFile {
         String root = picture_url + catalog + "/" + number;
         File product_file = new File(root);
         File[] pic_url = product_file.listFiles();
+        if(pic_url==null || pic_url.length==0){
+            return null;
+        }
         for(File pic : pic_url){
             String picture = pic.getPath();
             pictures.add(picture);

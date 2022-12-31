@@ -41,7 +41,7 @@ public class ProductPacking {
         outline.setName(transferUTF8.UTF8toC(product.getName()));
         outline.setNumber(product.getNumber());
         outline.setPrice(product.getPrice());
-        if(product.getPicture() > 0){   // 有圖片的話取第一張做封面
+        if(product.getPicture() > 0 && readFile.getProductCoverPic(product.getNumber())!=null){   // 有圖片的話取第一張做封面
             Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
             outline.setCoverPic(map.get("picture").toString());
             outline.setCoverPicFormat(map.get("format").toString());
@@ -57,7 +57,7 @@ public class ProductPacking {
         likeVo.setName(transferUTF8.UTF8toC(product.getName()));
         likeVo.setNumber(product.getNumber());
         likeVo.setPrice(product.getPrice());
-        if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
+        if(product.getPicture() > 0 && readFile.getProductCoverPic(product.getNumber())!=null){ // 檢查是否有圖片，若有則用第一張照片做封面
             Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
             likeVo.setCoverPic(map.get("picture").toString());
             likeVo.setCoverPicFormat(map.get("format").toString());
@@ -98,7 +98,7 @@ public class ProductPacking {
         myProduct.setStatus(product.getStatus());
         myProduct.setStorage(product.getStorage());
         myProduct.setIntro(transferUTF8.UTF8toC(product.getIntro()));
-        if(product.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
+        if(product.getPicture() > 0 && readFile.getProductCoverPic(product.getNumber())!=null){ // 檢查是否有圖片，若有則用第一張照片做封面
             Map<String, Object> map = readFile.getProductCoverPic(product.getNumber());
             myProduct.setCoverPic(map.get("picture").toString());
             myProduct.setCoverPicFormat(map.get("format").toString());
