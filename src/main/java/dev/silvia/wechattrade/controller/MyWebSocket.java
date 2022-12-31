@@ -93,6 +93,7 @@ public class MyWebSocket {
         ObjectMapper objectMapper = new ObjectMapper();
         ChatMessage chatMsg;
         try {
+            System.out.println(message);
             chatMsg = objectMapper.readValue(message, ChatMessage.class);
             //对chatMsg进行装箱
             chatMsg.setFromId(username);
