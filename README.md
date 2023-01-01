@@ -895,7 +895,10 @@ websocket部分
       {fromId:来自哪个用户；content：,time: ,types}
  用户发送消息时后端需要
       {types: 0,  content: ,  toId: ,
-       number: "861b1529-c964-482f-9fc3-69422f3d8ca5"}
+       number: "861b1529-c964-482f-9fc3-69422f3d8ca5"，time}
+  传文件的时候需要将文件名传过来（图片，下一点的文件都可以传）
+      {toId，content，number，time，fileName，types}
+      
 > 打开聊天窗口后判断是否是第一次聊天/chat/checkIsFirstChat
 > ，不是的话获取聊天记录/chat/getChatRecords 
 > ，然后 更新窗口值，判断对方是否在线/chat/inWindows
