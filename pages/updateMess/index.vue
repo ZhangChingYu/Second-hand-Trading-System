@@ -93,8 +93,8 @@
 				const that  = this;
 				try{
 					let res = await this.api.get('/orders/product/pic',{number:this.one.number});
-					that.coverPic = res.data;
-					this.coverPic = this.imageSrcformat(that.coverPic,'jpg');
+					that.coverPic = res.msg;
+					this.coverPic = this.imageSrcformat(that.coverPic,res.data);
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

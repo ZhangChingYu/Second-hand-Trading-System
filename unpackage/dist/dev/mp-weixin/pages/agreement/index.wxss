@@ -1,31 +1,20 @@
 
 .main{
-<<<<<<< HEAD
 	margin: 20px 0 20rpx 0;
-=======
-	margin: 20px 20px 0 20rpx;
->>>>>>> 519be19aa1668d3efba66a219c976d6f68fd4848
 }
 .top {
 	width: 100%;
 	text-align: center;
 }
 .title {
-<<<<<<< HEAD
 	margin: 20rpx 0 0 0;
-=======
-	margin: 20rpx 0;
->>>>>>> 519be19aa1668d3efba66a219c976d6f68fd4848
 	width: 100%;
 	font-size: 32rpx;
 	color: black;
 }
 .content{
 	margin-top: 25rpx;
-<<<<<<< HEAD
 	width: 90%;
 	padding: 5%;
-=======
->>>>>>> 519be19aa1668d3efba66a219c976d6f68fd4848
 }
 

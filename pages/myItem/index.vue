@@ -114,6 +114,22 @@
 			this.getMyGoods();	
 		},
 		onShow(){
+			this.allcolor = '#b34c26';
+			this.allfont = 'white';
+			this.firstcolor = '#efefef',
+			this.firstfont = 'gray';
+			this.secondcolor = '#efefef';
+			this.secondfont = 'gray';
+			this.thirdcolor = '#efefef';
+			this.thirdfont = 'gray';
+			this.fourthcolor = '#efefef';
+			this.fourthfont = 'gray';
+			this.fifthcolor = '#efefef';
+			this.fifthfont = 'gray';
+			this.sixthcolor = '#efefef';
+			this.sixthfont = 'gray';
+			this.seventhcolor = '#efefef';
+			this.seventhfont = 'gray';
 			this.getMyGoods();	
 		},
 		methods: {
@@ -418,7 +434,7 @@
 				}
 				else{
 					try{
-						that.myGoodsItem = await this.api.get('/my/products',{phone:this.user.phone,status:this.status});
+						that.myGoodsItem = await this.api.get('/my/products/status',{phone:this.user.phone,status:this.status});
 						for(let i = 0;i<this.myGoodsItem.length;i++){
 							this.myGoodsItem[i].coverPic = this.imageSrcformat(that.myGoodsItem[i].coverPic,that.myGoodsItem[i].coverPicFormat);
 						}
