@@ -60,7 +60,7 @@ public class PicUtil {
     public static boolean GenerateImage(String base64Str, String imgFilePath) {
         if (base64Str == null) {
             // 图像数据为空
-            System.out.println("12313");
+            System.out.println("图像数据为空");
             return false;
         }
 
@@ -80,6 +80,18 @@ public class PicUtil {
             out.close();
             return true;
         } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public static boolean saveFile(File file, byte[] message)
+    {
+        try (OutputStream os = new FileOutputStream(file, true)) {
+            os.write(message, 0, message.length);
+            return true;
+        }
+        catch (IOException e) {
+            e.printStackTrace();
             return false;
         }
     }

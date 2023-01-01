@@ -889,45 +889,58 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * json语句:无
 * 返回同获取违规目录
 ### 聊天相关
-> 1，判断是否是第一次聊天  返回聊天双方number
+websocket部分
+      url: 'wss://主机ip:443/websocket/'+this.user.phone
+ 调onSocketMessage返回
+      {fromId:来自哪个用户；content：,time: ,types}
+ 用户发送消息时后端需要
+      {types: 0,  content: ,  toId: ,
+       number: "861b1529-c964-482f-9fc3-69422f3d8ca5"}
+> 打开聊天窗口后判断是否是第一次聊天/chat/checkIsFirstChat
+> ，不是的话获取聊天记录/chat/getChatRecords 
+> ，然后 更新窗口值，判断对方是否在线/chat/inWindows
+> 用户退出聊天界面时 重置窗口值 /chat/resetWindows
+> 1，判断是否是第一次聊天  返回聊天双方number，如果是第一次聊天，后端关联两者电话；
 * 前端api: **GET**  /chat/checkIsFirstChat
-* json语句: "toId":"聊天对象电话“
+* json语句: {"fromId":"自己的电话", "toId":"聊天对象电话“ }
 * 返回信息(Object):Result(msg: ”是第一次聊天/不是第一次聊天“; code:"666" ;data: 聊天双方number)
 >   2，获取聊天列表
 * 前端api: **GET**  /chat/getChatList
-* json语句: 无
+* json语句: "fromId":"自己的电话"
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<ChatListData>)
   ChatListData {
   number:两者的关联id;
-  toName:聊天对象用户名;
-  toId:聊天对象电话;
-  toAvatar:聊天对象的头像;
-  lastMessage;最后一条信息;   
+  userName:聊天对象用户名;
+  phone:聊天对象电话;
+  avatar:聊天对象的头像;
+  lastChat;最后一条信息;   
   unread:未读数;
   time:最后一条信息发送时间;
-  fromWindow:发送者在哪个聊天框 0：表示不在窗口，1：表示在窗口;
+  fromWindow:发送者在哪个聊天框 0：表示不在窗口，1：表示在窗口;  //fromWindow这个应该对前端没影响的
   }
  >  3，获取聊天列表记录
-* 前端api: **GET**  /chat/getChatRecords
-* json语句: "toId":"聊天对象电话"  startIndex:第几页   0、1 ...  pageSize: 页面大小
+* 前端api: **GET**  /chat/getChatRecords   
+* json语句: "fromId":"自己的电话" "toId":"聊天对象电话"  startIndex:第几页   0、1 ...  pageSize: 页面大小
 * 返回信息(Object):Result(msg: ; code:"666" ;data:List<chatMessageData>)
   ChatMessageData {
+  id: (这个字段只是和前端的一样，没值)
   fromId:  发送者电话;
   content:   信息内容;
+  isShowTime: true;
   time:  发送时间;
   types:信息类型 0:文本,1:图片,2:视频;
   }
->   4，跟对方建立连接 更新窗口值，判断对方是否在线
+>   4，跟对方建立连接后 更新窗口值，判断对方是否在线
 * 前端api: **GET**  /chat/inWindows
-* json语句: "toId":"聊天对象电话“
+* json语句: "fromId":"自己的电话","toId":"聊天对象电话“
 * 返回信息(Object):Result(msg: ; code:"666";data: 1:是，0:不是)
 >   5，监听窗口关闭事件，当窗口关闭时（用户退出聊天界面时） 重置窗口值
 * 前端api: **GET**  /chat/resetWindows
-* json语句: 无
+* json语句: "fromId":"自己的电话"
 * 返回信息(Object):Result(msg: ; code:"666";data: )
 >   6：获取用户的未读信息
 * 前端api: **GET**  /chat/unread
-* json语句: 无
+* json语句: "fromId":"自己的电话"
 * 返回信息(Object):Result(msg: ; code:"666";data: 未读数 )
 >   7：websocket onMessage 收到客户端消息后调用的方法
   需要{"content":"消息内容","toUser":"接收者电话","types":消息类型}

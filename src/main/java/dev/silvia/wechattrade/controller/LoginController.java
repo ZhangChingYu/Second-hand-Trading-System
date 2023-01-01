@@ -135,4 +135,8 @@ public class LoginController {
         session.invalidate();
         return ResponseEntity.ok(res);
     }
+    @RequestMapping("/websocket/test")
+    public String test() {
+        return "Hello World";
+    }
 }

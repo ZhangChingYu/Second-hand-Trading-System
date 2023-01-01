@@ -86,11 +86,11 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         String picture1;
         if(user4.getAvatar()==null||user4.getAvatar().isEmpty()){
             //默认图片
-            picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
+            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
             user4.setAvatar(picture1);
         }
         else{
-            picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user4.getPhone()),avatar_width,avatar_height);
+            picture1 = readFile.readAvatarPicture(user4.getPhone());
             user4.setAvatar(picture1);
         }
         res=new Result(ResultCode.SUCCESS,user4);
@@ -519,6 +519,13 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         accountRepository.save(booking);
         Notification notification= new OrderNotePacking().newOrder(booking.getSellerId(),booking.getBuyerId(),booking.getName(),booking);
         notificationDao.insert(notification);
+
+        //修改商品状态
+        QueryWrapper<Product> productWrapper = new QueryWrapper<>();
+        productWrapper.eq("number", booking.getProductId());
+        Product product = productDao.selectOne(productWrapper);
+        product.setStatus(5);
+        productDao.updateById(product);
         res=new Result(ResultCode.SUCCESS);
         return res;
     }
@@ -828,11 +835,11 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
                 String picture1;
                 if(user2.getAvatar()==null||user2.getAvatar().isEmpty()){
                     //默认图片
-                    picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
+                    picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                     bookDto.setAvatar(picture1);
                 }
                 else{
-                    picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()),avatar_width,avatar_height);
+                    picture1 = readFile.readAvatarPicture(user2.getPhone());
                     bookDto.setAvatar(picture1);
                 }
                 bookDto.setCount(value.getOrdersNum());
@@ -856,11 +863,11 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
             String picture1;
             if(user2.getAvatar()==null||user2.getAvatar().isEmpty()){
                 //默认图片
-                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL,avatar_width,avatar_height);
+                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                 bookDto.setAvatar(picture1);
             }
             else{
-                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()),avatar_width,avatar_height);
+                picture1 = readFile.readAvatarPicture(user2.getPhone());
                 bookDto.setAvatar(picture1);
             }
             bookDto.setCount(value.getOrdersNum());
@@ -887,10 +894,10 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
             String picture1;
             if (user2.getAvatar() == null || user2.getAvatar().isEmpty()) {
                 //默认图片
-                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL, avatar_width, avatar_height);
+                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                 bookDto.setAvatar(picture1);
             } else {
-                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()), avatar_width, avatar_height);
+                picture1 = readFile.readAvatarPicture(user2.getPhone());
                 bookDto.setAvatar(picture1);
             }
             details.add(bookDto);
@@ -916,10 +923,10 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
             String picture1;
             if (user2.getAvatar() == null || user2.getAvatar().isEmpty()) {
                 //默认图片
-                picture1 = PicUtil.resizeImageToSize(FileDirector.AVATAR_URL, avatar_width, avatar_height);
+                picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
                 bookDto.setAvatar(picture1);
             } else {
-                picture1 = PicUtil.resizeImageToSize(readFile.getAvatarPicture(user2.getPhone()), avatar_width, avatar_height);
+                picture1 = readFile.getAvatarPicture(user2.getPhone());
                 bookDto.setAvatar(picture1);
             }
             details.add(bookDto);

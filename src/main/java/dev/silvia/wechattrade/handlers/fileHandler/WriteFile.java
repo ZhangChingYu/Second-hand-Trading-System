@@ -279,26 +279,23 @@ public class WriteFile {
         return root+"/"+dir;
     }
 
-    public String getChatPicture(Date date,String fromUser,String toUser){
+    public String getChatFile(Date date, String fromUser, String toUser, String fileName){
         // C:/Users/Sunny/Desktop/Chat/fromUser/toUser/时间/随机图片名.jpg
         SimpleDateFormat simpleDateFormat;
         simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
         String str = simpleDateFormat.format(date);
-
-        SimpleDateFormat simpleDateFormat1;
-        simpleDateFormat1 = new SimpleDateFormat("HHmmSS");
-        String str1 = simpleDateFormat1.format(date);
-
+        String n=fileName.substring(0,fileName.lastIndexOf("."));
+        String n1=fileName.substring(fileName.lastIndexOf("."));
         String pathName = chat_url + fromUser+"/"+toUser+"/"+str;
         int j = (int) (Math.random() * 90000 + 10000);
-        String newName = str1+ "_" + j;
+        String newName = n+ "_" +j+ n1;
         File url = new File(pathName);
         if(!url.isDirectory()){
             if(!url.mkdirs()){
                 return null;
             }
         }
-        return pathName+"/"+newName + ".jpg";
+        return pathName+"/"+newName;
     }
 }
 

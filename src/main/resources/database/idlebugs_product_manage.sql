@@ -15,7 +15,7 @@ create table product_manage
 2: 未上架，審核不通過
 3: 已下架，檢舉違規的商品
 4: 已上架，商品已售空
-5: 已上架，商品待預約
+5: 已上架，商品查預約
 6: 已下架，該商品已由用戶手動下架',
     report_count int default 0              null comment '商品經舉報的次數',
     catalog      varchar(255)               not null comment '商品類型編號',
