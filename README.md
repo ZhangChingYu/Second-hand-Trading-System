@@ -889,6 +889,7 @@ The developers of this system are : 張晴渝, 楊單詞, 謝杭靜, 普文平, 
 * json语句:无
 * 返回同获取违规目录
 ### 聊天相关
+小程序端口：https://localhost:443
 websocket部分
       url: 'wss://主机ip:443/websocket/'+this.user.phone
  调onSocketMessage返回
