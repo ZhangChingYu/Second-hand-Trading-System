@@ -75,12 +75,12 @@ public class LoginServiceImpl extends ServiceImpl<UserDao, User> implements ILog
                         String picture1;
                         if(u.getAvatar()==null||u.getAvatar().isEmpty()){
                             //默认图片
-                            picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
+                            picture1 = readFile.getBaseFile(FileDirector.AVATAR_URL);
                             u.setAvatar(picture1);
                         }
                         else{
                             //  picture1 = readFile.getpictureBase64("Avatar",u.getPhone(),1);
-                            picture1= ReadFile.getBaseFile(readFile.getAvatarPicture(u.getPhone()));
+                            picture1= readFile.readAvatarPicture(u.getPhone());
                             u.setAvatar(picture1);
                         }
                         if(u.getPicture()!=null){

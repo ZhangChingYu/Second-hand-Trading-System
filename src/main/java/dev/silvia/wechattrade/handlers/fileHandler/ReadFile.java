@@ -113,6 +113,53 @@ public class ReadFile {
         cover_pic.put("format", format);
         return cover_pic;
     }
+
+    // 獲取用户头像圖片
+    public Map<String, Object> getUserAvatarPic(String phone){
+        Map<String, Object> cover_pic = new HashMap<>();
+        File avatar_file = new File(auth_url+phone+"/Avatar");
+        File[] picture_url = avatar_file.listFiles();   // 拿第一張就行
+        String filePath = picture_url[0].getPath();
+        if(filePath == null){
+            return null;
+        }
+        Integer index = filePath.lastIndexOf(".");
+        String format = filePath.substring(index).substring(1);
+        cover_pic.put("picture", getBaseFile(filePath));
+        cover_pic.put("format", format);
+        return cover_pic;
+    }
+    // 獲取用户默认头像圖片
+    public Map<String, Object> getDefaultAvatarPic(){
+        Map<String, Object> cover_pic = new HashMap<>();
+        File avatar_file = new File(FileDirector.DEFAULT_AVATAR_URL);
+        File[] picture_url = avatar_file.listFiles();   // 拿第一張就行
+        String filePath = picture_url[0].getPath();
+        if(filePath == null){
+            return null;
+        }
+        Integer index = filePath.lastIndexOf(".");
+        String format = filePath.substring(index).substring(1);
+        cover_pic.put("picture", getBaseFile(filePath));
+        cover_pic.put("format", format);
+        return cover_pic;
+    }
+    // 獲取用户的认证圖片
+    public Map<String, Object> getUserAuthPic(String phone){
+        Map<String, Object> cover_pic = new HashMap<>();
+        File avatar_file = new File(auth_url+phone+"/Authentication");
+        File[] picture_url = avatar_file.listFiles();   // 拿第一張就行
+        String filePath = picture_url[0].getPath();
+        if(filePath == null){
+            return null;
+        }
+        Integer index = filePath.lastIndexOf(".");
+        String format = filePath.substring(index).substring(1);
+        cover_pic.put("picture", getBaseFile(filePath));
+        cover_pic.put("format", format);
+        return cover_pic;
+    }
+
     public String readAvatarPicture(String phone){  // 根據用戶手機號返回頭像的base64編碼
         File avatar_file = new File(auth_url+phone+"/Avatar");
         File[] picture_url = avatar_file.listFiles();   // 拿第一張就行

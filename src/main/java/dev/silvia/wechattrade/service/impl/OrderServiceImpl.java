@@ -31,10 +31,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implements IOrderService {
@@ -88,12 +85,17 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
             //默认图片
             picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
             user4.setAvatar(picture1);
+            res=new Result("666","jpg",user4);
         }
         else{
-            picture1 = readFile.readAvatarPicture(user4.getPhone());
-            user4.setAvatar(picture1);
+            if(readFile.getUserAvatarPic(user4.getPhone())!=null){   // 有圖片的話取第一張做封面
+                Map<String, Object> map = readFile.getUserAvatarPic(user4.getPhone());
+                user4.setAvatar(map.get("picture").toString());
+                res=new Result("666",map.get("format").toString(),user4);
+            }else {
+                res=new Result("666",null,user4);
+            }
         }
-        res=new Result(ResultCode.SUCCESS,user4);
         return res;
     }
 
@@ -832,15 +834,20 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
                 else
                     bookDto.setState(transferUTF8.UTF8toC(value.getStatus()));
                 //图片路径
-                String picture1;
                 if(user2.getAvatar()==null||user2.getAvatar().isEmpty()){
                     //默认图片
-                    picture1 = ReadFile.getBaseFile(FileDirector.AVATAR_URL);
-                    bookDto.setAvatar(picture1);
+                    if(readFile.getDefaultAvatarPic()!=null){   // 有圖片的話取第一張做封面
+                        Map<String, Object> map = readFile.getDefaultAvatarPic();
+                        bookDto.setTypes(map.get("format").toString());
+                        bookDto.setAvatar(map.get("picture").toString());
+                    }
                 }
                 else{
-                    picture1 = readFile.readAvatarPicture(user2.getPhone());
-                    bookDto.setAvatar(picture1);
+                    if(readFile.getUserAvatarPic(user2.getPhone())!=null){   // 有圖片的話取第一張做封面
+                        Map<String, Object> map = readFile.getUserAvatarPic(user2.getPhone());
+                        bookDto.setTypes(map.get("format").toString());
+                        bookDto.setAvatar(map.get("picture").toString());
+                    }
                 }
                 bookDto.setCount(value.getOrdersNum());
                 bidList.add(bookDto);
@@ -1000,13 +1007,11 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
         QueryWrapper<Product> productWrapper = new QueryWrapper<>();
         productWrapper.eq("number", number);
         Product pro = productDao.selectOne(productWrapper);
-
-        //图片信息
-        String path = "";
-        if(pro!=null&&pro.getPicture() > 0){ // 檢查是否有圖片，若有則用第一張照片做封面
-            String url = picture_url+pro.getCatalog()+"/"+pro.getNumber()+"/"+pro.getNumber()+"_0.jpg";
-            path= ReadFile.getBaseFile(url);
-            res=new Result(ResultCode.SUCCESS,path);
+        if(pro.getPicture() > 0 && readFile.getProductCoverPic(pro.getNumber())!=null){   // 有圖片的話取第一張做封面
+            Map<String, Object> map = readFile.getProductCoverPic(pro.getNumber());
+            res=new Result("666",map.get("picture").toString(),map.get("format").toString());
+        }else {
+            res=new Result("666",null,null);
         }
         return res;
     }
@@ -1057,8 +1062,8 @@ public class OrderServiceImpl extends ServiceImpl<ProductDao, Product> implement
             bookDto.setNumber(number);
             String address=transferUTF8.UTF8toC(bu.getAddress());
             String[] address_parts = address.split("%");
-            bookDto.setConsignee(address_parts[0]);
-            bookDto.setPhone(address_parts[1]);
+            bookDto.setConsignee(address_parts[1]);
+            bookDto.setPhone(address_parts[0]);
             String add=address_parts[2]+address_parts[3];
             bookDto.setAddress(add);
             bookDto.setTotal(bidList.getPrice());

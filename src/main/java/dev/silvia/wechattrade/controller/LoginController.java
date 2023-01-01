@@ -8,6 +8,7 @@ import dev.silvia.wechattrade.dto.response.ResultCode;
 import dev.silvia.wechattrade.entity.User;
 import dev.silvia.wechattrade.entity.WXAuth;
 import dev.silvia.wechattrade.handlers.common.repository.UserRepository;
+import dev.silvia.wechattrade.handlers.picSize.PicUtil;
 import dev.silvia.wechattrade.service.ILoginService;
 import dev.silvia.wechattrade.service.IWeixinService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
@@ -126,17 +128,19 @@ public class LoginController {
     }
 
     @RequestMapping(value ="/outLogin",method = RequestMethod.PUT)
-    public ResponseEntity<?> outLogin(HttpSession session) {
+    public ResponseEntity<?> outLogin(@RequestParam String phone) {
         //修改用户的登录状态
-        User user = (User) session.getAttribute("user");
-        System.out.println( user.getPhone() + "退出登录");
-        Result res=service.outLogin(user.getPhone());
-        //清空session域中的user
-        session.invalidate();
+        Result res=service.outLogin(phone);
+
         return ResponseEntity.ok(res);
     }
-    @RequestMapping("/websocket/test")
-    public String test() {
-        return "Hello World";
+    @RequestMapping(value ="/picture",method = RequestMethod.POST)
+    public ResponseEntity<?> outLogin1(@RequestBody  String base64) {
+        //修改用户的登录状态
+        if(PicUtil.GenerateImage(base64,"E:\\ab.jpg")){
+            return ResponseEntity.ok("ok");
+        }
+        else
+            return ResponseEntity.ok("false");
     }
 }

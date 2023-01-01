@@ -10,4 +10,5 @@ public class BookDetails {
     private String nickName;  //买方昵称
     private String state;
     private Integer count;
+    private String types;
 }
