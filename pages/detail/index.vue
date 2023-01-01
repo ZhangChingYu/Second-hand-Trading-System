@@ -103,7 +103,7 @@
 				
 			</view>
 			<!-- 预约窗口 -->
-			<u-popup :show="show" :round="10" mode="bottom" @close="close" @open="open">
+			<u-popup :show="show" :round="10" mode="bottom" @close="close">
 					
 					<view class="popup-content">
 						<view class="book-count">
@@ -117,7 +117,7 @@
 			
 			<!-- 回复窗口 -->
 			<view>
-				<u-popup :show="showR" :round="10"  mode="bottom" @close="close" @open="open">
+				<u-popup :show="showR" :round="10"  mode="bottom" @close="close">
 					<view class="reply-box">
 						<view class="reply-input">
 							<u--input
@@ -126,11 +126,10 @@
 								v-model="replyContent"
 								@confirm="replyEvaluation"
 								confirm-type="send"
-								focus='true'
 							  ></u--input>
 						</view>
 						<view class="reply-btn" @click="replyEvaluation">
-							 <u-button type="primary" text="留言"></u-button>
+							 <u-button type="primary" text="回复"></u-button>
 						</view>
 					</view>
 				</u-popup>
@@ -159,9 +158,7 @@
 					priceType:'一口价',
 					reportText:'举报',
 					exit:"返回",
-					
-					src:'https://gw.alicdn.com/bao/uploaded/i1/409278028/O1CN01FvxEsF29AsLyowUSq_!!409278028.jpg_300x300q90.jpg_.webp',
-					
+										
 					// 留言输入
 					evaluation:'',
 					
@@ -260,6 +257,7 @@
 						return;
 					}
 					let res = await this.api.post('/product/comment',{number:this.number,phone:this.user.phone,content:this.evaluation});
+					this.evaluation = '';
 					let title = '请稍后重试！';
 					switch(res){
 						case 201:
@@ -295,8 +293,6 @@
 			},
 			
 			
-			open(){
-		    },
 		    close() {
 		        this.show = false;
 				this.showR = false;
@@ -405,8 +401,18 @@
 			},
 			
 			// 联系卖家
-			contact(){
-				this.$toast('联系卖家');
+			async contact(){
+				try{
+					let res = await this.api.get('/booking/seller/info',{number:this.number});
+					if(res.code == '666') this.sellerId = res.data.phone;
+					
+					uni.navigateTo({
+						url:`/pages/message/chat?phone=${this.sellerId}&userName=${this.product.seller_name}&avatar=${this.product.seller_pic}`
+					})
+				}catch(e){
+					//TODO handle the exception
+					this.$toast(e)
+				}
 			},
 			showBook(){
 				this.show = true;
@@ -418,11 +424,8 @@
 					this.$toast('请输入合法的数量')
 				}else{
 					this.close()
-					// /appointments/add
 					try{
-						// /appointments/getsellerinfo
-						let res = await this.api.get('/appointments/getsellerinfo',{number:this.number});
-						console.log(res)
+						let res = await this.api.get('/booking/seller/info',{number:this.number});
 						if(res.code == '666') this.sellerId = res.data.phone;
 						console.log(this.sellerId)
 						if(this.sellerId == '') {
@@ -430,14 +433,15 @@
 							return;
 						}
 						
-						let res1 = this.api.post('/appointments/add',{
+						let res1 = await this.api.post('/booking/add',{
 							sellerId:this.sellerId,   //seller phone
 							buyerId:this.user.phone,    //buy phone
 							productId:this.number,   //product number
+							productName:this.product.name,
 							ordersNum:this.bookNumber,  //product 数量
 							price:this.product.price
 						})
-						if(res.code == '666'){
+						if(res.code == '666' && res.msg == '操作成功！'){
 							this.$toast('预约成功！')
 							//预约成功
 							this.isBooked = true;
@@ -445,6 +449,7 @@
 					}catch(e){
 						//TODO handle the exception
 						this.$toast('预约失败')
+						this.isBooked = false;
 					}
 					
 					
@@ -452,20 +457,10 @@
 				
 				
 			},
-			async cancelBook(){
-				this.$toast('取消预约');
-				try{
-					let res = await this.api.put('/orders/cancelappointments',{
-						number:this.Bnumber,
-						isbuyer:true
-					});
-					if(res.code == "666") this.$toast('成功取消预约！')
-					else this.$toast('请稍后重试！');
-				}catch(e){
-					//TODO handle the exception
-				}
-				
-				this.isBooked = false;
+			cancelBook(){
+				uni.navigateTo({
+					url:"/pages/myAppointment/index"
+				})
 			},
 			
 			

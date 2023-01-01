@@ -125,7 +125,7 @@
 .class-result .goods.data-v-75edbac0 {
   width: 47.5%;
   height: 340rpx;
-  margin: 30rpx 5rpx;
+  margin: 16rpx 5rpx;
   background-color: #fff;
 }
 /* 没有结果 */

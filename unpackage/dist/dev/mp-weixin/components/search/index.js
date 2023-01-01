@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["components/search/index"],{
 
 /***/ 427:
@@ -190,12 +191,19 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
+=======
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["components/search/index"],{435:function(n,e,t){"use strict";t.r(e);var r=t(436),o=t(438);for(var u in o)"default"!==u&&function(n){t.d(e,n,(function(){return o[n]}))}(u);t(440);var c,i=t(11),a=Object(i["default"])(o["default"],r["render"],r["staticRenderFns"],!1,null,null,null,!1,r["components"],c);a.options.__file="components/search/index.vue",e["default"]=a.exports},436:function(n,e,t){"use strict";t.r(e);var r=t(437);t.d(e,"render",(function(){return r["render"]})),t.d(e,"staticRenderFns",(function(){return r["staticRenderFns"]})),t.d(e,"recyclableRender",(function(){return r["recyclableRender"]})),t.d(e,"components",(function(){return r["components"]}))},437:function(n,e,t){"use strict";var r;t.r(e),t.d(e,"render",(function(){return o})),t.d(e,"staticRenderFns",(function(){return c})),t.d(e,"recyclableRender",(function(){return u})),t.d(e,"components",(function(){return r}));var o=function(){var n=this,e=n.$createElement,t=(n._self._c,n.goods.price.toFixed(2));n.$mp.data=Object.assign({},{$root:{g0:t}})},u=!1,c=[];o._withStripped=!0},438:function(n,e,t){"use strict";t.r(e);var r=t(439),o=t.n(r);for(var u in r)"default"!==u&&function(n){t.d(e,n,(function(){return r[n]}))}(u);e["default"]=o.a},439:function(n,e,t){"use strict";(function(n){Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var t={props:["goods"],name:"search",data:function(){return{}},methods:{toGoodsDetail:function(){var e=this;n.navigateTo({url:"/pages/detail/index?number=".concat(e.goods.number)})}}};e.default=t}).call(this,t(1)["default"])},440:function(n,e,t){"use strict";t.r(e);var r=t(441),o=t.n(r);for(var u in r)"default"!==u&&function(n){t.d(e,n,(function(){return r[n]}))}(u);e["default"]=o.a},441:function(n,e,t){}}]);
+>>>>>>> f389a74830640a25d744260829cfc14811c3c4b7
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/components/search/index.js.map
 ;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
     'components/search/index-create-component',
     {
         'components/search/index-create-component':(function(module, exports, __webpack_require__){
+<<<<<<< HEAD
             __webpack_require__('1')['createComponent'](__webpack_require__(427))
+=======
+            __webpack_require__('1')['createComponent'](__webpack_require__(435))
+>>>>>>> f389a74830640a25d744260829cfc14811c3c4b7
         })
     },
     [['components/search/index-create-component']]

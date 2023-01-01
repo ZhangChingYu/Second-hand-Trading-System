@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["components/uni/mpvue-citypicker/mpvueCityPicker"],{
 
 /***/ 500:
@@ -294,12 +295,19 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 }]);
+=======
+(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["components/uni/mpvue-citypicker/mpvueCityPicker"],{508:function(t,e,i){"use strict";i.r(e);var n=i(509),a=i(511);for(var r in a)"default"!==r&&function(t){i.d(e,t,(function(){return a[t]}))}(r);i(516);var u,c=i(11),l=Object(c["default"])(a["default"],n["render"],n["staticRenderFns"],!1,null,null,null,!1,n["components"],u);l.options.__file="components/uni/mpvue-citypicker/mpvueCityPicker.vue",e["default"]=l.exports},509:function(t,e,i){"use strict";i.r(e);var n=i(510);i.d(e,"render",(function(){return n["render"]})),i.d(e,"staticRenderFns",(function(){return n["staticRenderFns"]})),i.d(e,"recyclableRender",(function(){return n["recyclableRender"]})),i.d(e,"components",(function(){return n["components"]}))},510:function(t,e,i){"use strict";var n;i.r(e),i.d(e,"render",(function(){return a})),i.d(e,"staticRenderFns",(function(){return u})),i.d(e,"recyclableRender",(function(){return r})),i.d(e,"components",(function(){return n}));var a=function(){var t=this,e=t.$createElement;t._self._c},r=!1,u=[];a._withStripped=!0},511:function(t,e,i){"use strict";i.r(e);var n=i(512),a=i.n(n);for(var r in n)"default"!==r&&function(t){i.d(e,t,(function(){return n[t]}))}(r);e["default"]=a.a},512:function(t,e,i){"use strict";Object.defineProperty(e,"__esModule",{value:!0}),e.default=void 0;var n=u(i(513)),a=u(i(514)),r=u(i(515));function u(t){return t&&t.__esModule?t:{default:t}}var c={data:function(){return{pickerValue:[0,0,0],provinceDataList:n.default,cityDataList:a.default[0],areaDataList:r.default[0][0],showPicker:!1}},created:function(){this.init()},props:{pickerValueDefault:{type:Array,default:function(){return[0,0,0]}},themeColor:String},watch:{pickerValueDefault:function(){this.init()}},methods:{init:function(){this.handPickValueDefault();var t=this.pickerValueDefault;this.cityDataList=a.default[t[0]],this.areaDataList=r.default[t[0]][t[1]],this.pickerValue=t},show:function(){var t=this;setTimeout((function(){t.showPicker=!0}),0)},maskClick:function(){this.pickerCancel()},pickerCancel:function(){this.showPicker=!1,this._$emit("onCancel")},pickerConfirm:function(t){this.showPicker=!1,this._$emit("onConfirm")},showPickerView:function(){this.showPicker=!0},handPickValueDefault:function(){var t=this.pickerValueDefault,e=t[0],i=t[1],u=t[2];0===e&&0===i&&0===u||(e>n.default.length-1&&(this.pickerValueDefault[0]=e=n.default.length-1),i>a.default[e].length-1&&(this.pickerValueDefault[1]=i=a.default[e].length-1),u>r.default[e][i].length-1&&(this.pickerValueDefault[2]=r.default[e][i].length-1))},pickerChange:function(t){var e=t.mp.detail.value;this.pickerValue[0]!==e[0]?(this.cityDataList=a.default[e[0]],this.areaDataList=r.default[e[0]][0],e[1]=0,e[2]=0):this.pickerValue[1]!==e[1]&&(this.areaDataList=r.default[e[0]][e[1]],e[2]=0),this.pickerValue=e,this._$emit("onChange")},_$emit:function(t){var e={label:this._getLabel(),value:this.pickerValue,cityCode:this._getCityCode()};this.$emit(t,e)},_getLabel:function(){var t=this.provinceDataList[this.pickerValue[0]].label+"-"+this.cityDataList[this.pickerValue[1]].label+"-"+this.areaDataList[this.pickerValue[2]].label;return t},_getCityCode:function(){return this.areaDataList[this.pickerValue[2]].value}}};e.default=c},516:function(t,e,i){"use strict";i.r(e);var n=i(517),a=i.n(n);for(var r in n)"default"!==r&&function(t){i.d(e,t,(function(){return n[t]}))}(r);e["default"]=a.a},517:function(t,e,i){}}]);
+>>>>>>> f389a74830640a25d744260829cfc14811c3c4b7
 //# sourceMappingURL=../../../../.sourcemap/mp-weixin/components/uni/mpvue-citypicker/mpvueCityPicker.js.map
 ;(global["webpackJsonp"] = global["webpackJsonp"] || []).push([
     'components/uni/mpvue-citypicker/mpvueCityPicker-create-component',
     {
         'components/uni/mpvue-citypicker/mpvueCityPicker-create-component':(function(module, exports, __webpack_require__){
+<<<<<<< HEAD
             __webpack_require__('1')['createComponent'](__webpack_require__(500))
+=======
+            __webpack_require__('1')['createComponent'](__webpack_require__(508))
+>>>>>>> f389a74830640a25d744260829cfc14811c3c4b7
         })
     },
     [['components/uni/mpvue-citypicker/mpvueCityPicker-create-component']]

@@ -207,6 +207,7 @@
 
 
 
+
 /* 顶部搜索 */
 .top-search.data-v-71e217db {
 	display: flex;
@@ -279,7 +280,6 @@
 /* 预约 */
 .most-book.data-v-71e217db {
 	width: 95vw;
-	height: 400rpx;
 	margin: 10rpx auto;
 	background-color: #efefef;
 }
@@ -326,9 +326,15 @@
 
 /* 预定展示 */
 .book-detail.data-v-71e217db {
-	width: 100%;
+	/* width: 100%;
 	height: 350rpx;
 	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between; */
+	width: 100%;
+	margin:20rpx 0;
+	display: flex;
+	flex-wrap: wrap;
 	justify-content: space-between;
 }
 .goods.data-v-71e217db{
