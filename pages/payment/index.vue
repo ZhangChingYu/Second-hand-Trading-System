@@ -173,7 +173,7 @@
 		onLoad(option){
 			//this.oneBook = JSON.parse(decodeURIComponent(option.oneBookItem));
 			this.oneBook = JSON.parse(decodeURIComponent(option.item));
-			this.total = this.oneBook.price;
+			this.total = this.oneBook.price * this.oneBook.count;
 		},
 		onShow(){
 			this.getAddress();

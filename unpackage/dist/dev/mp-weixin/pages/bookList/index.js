@@ -299,7 +299,9 @@ var _default =
 
       // 订单时间信息的显示
       noSelf: false,
-      isConfirm: false };
+      isConfirm: false,
+      one: {},
+      index: 0 };
 
   },
   mounted: function mounted() {
@@ -311,50 +313,57 @@ var _default =
   },
   methods: {
 
-    openState1: function openState1() {
+    openState1: function openState1(item, index) {
       this.$refs.pop1[0].open('center');
+      this.one = item;
+      this.index = index;
     },
 
-    openState2: function openState2(item) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
-                that = _this;_context.prev = 1;_context.next = 4;return (
+    openState2: function openState2(item, index) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var that, res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:
+                _this.one = item;
+                _this.index = index;
+                that = _this;_context.prev = 3;_context.next = 6;return (
 
-                  _this.api.get('/orders/after/reason', { number: item.number }));case 4:res = _context.sent;
-                that.applyRefund = res.data;_context.next = 11;break;case 8:_context.prev = 8;_context.t0 = _context["catch"](1);
+                  _this.api.get('/orders/after/reason', { number: item.number }));case 6:res = _context.sent;
+                that.applyRefund = res.data;_context.next = 13;break;case 10:_context.prev = 10;_context.t0 = _context["catch"](3);
 
                 //TODO handle the exception
-                that.$toast(_context.t0);case 11:
+                that.$toast(_context.t0);case 13:
 
-                _this.$refs.pop2[0].open('center');case 12:case "end":return _context.stop();}}}, _callee, null, [[1, 8]]);}))();
+                _this.$refs.pop2[0].open('center');case 14:case "end":return _context.stop();}}}, _callee, null, [[3, 10]]);}))();
     },
 
-    openState3: function openState3(item) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
-                that = _this2;_context2.prev = 1;_context2.next = 4;return (
+    openState3: function openState3(item, index) {var _this2 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee2() {var that, res;return _regenerator.default.wrap(function _callee2$(_context2) {while (1) {switch (_context2.prev = _context2.next) {case 0:
+                _this2.one = item;
+                _this2.index = index;
+                that = _this2;_context2.prev = 3;_context2.next = 6;return (
 
-                  _this2.api.get('/orders/details', { number: item.number }));case 4:res = _context2.sent;
-                that.order = res.data;_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
+                  _this2.api.get('/orders/details', { number: item.number }));case 6:res = _context2.sent;
+                that.order = res.data;_context2.next = 13;break;case 10:_context2.prev = 10;_context2.t0 = _context2["catch"](3);
 
                 //TODO handle the exception
-                that.$toast(_context2.t0);case 11:
+                that.$toast(_context2.t0);case 13:
 
                 if (_this2.order.delivery == '快递') _this2.noSelf = true;else
                 _this2.noSelf = false;
-                _this2.$refs.pop3[0].open('center');case 13:case "end":return _context2.stop();}}}, _callee2, null, [[1, 8]]);}))();
+                _this2.$refs.pop3[0].open('center');case 15:case "end":return _context2.stop();}}}, _callee2, null, [[3, 10]]);}))();
     },
 
     // 卖家确认发货
     confirmOrder: function confirmOrder(item, index) {var _this3 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee3() {var res;return _regenerator.default.wrap(function _callee3$(_context3) {while (1) {switch (_context3.prev = _context3.next) {case 0:if (!(
-                _this3.deliveryId != '')) {_context3.next = 14;break;}_context3.prev = 1;_context3.next = 4;return (
+                _this3.deliveryId != '')) {_context3.next = 15;break;}
+                console.log(_this3.one.number);_context3.prev = 2;_context3.next = 5;return (
 
 
-                  _this3.api.put('/orders/receiving', { number: item.number, deliveryId: _this3.deliveryId }));case 4:res = _context3.sent;
-                _this3.oneBookList[index].state = '待收货';
-                _this3.$refs.pop1[0].close();_context3.next = 12;break;case 9:_context3.prev = 9;_context3.t0 = _context3["catch"](1);
+                  _this3.api.put('/orders/receiving', { number: _this3.one.number, deliveryId: _this3.deliveryId }));case 5:res = _context3.sent;
+                _this3.oneBookList[_this3.index].state = '待收货';
+                _this3.$refs.pop1[0].close();_context3.next = 13;break;case 10:_context3.prev = 10;_context3.t0 = _context3["catch"](2);
 
                 //TODO handle the exception
-                that.$toast(_context3.t0);case 12:_context3.next = 15;break;case 14:
+                that.$toast(_context3.t0);case 13:_context3.next = 16;break;case 15:
 
 
-                _this3.$toast('请填写快递单号~');case 15:case "end":return _context3.stop();}}}, _callee3, null, [[1, 9]]);}))();
+                _this3.$toast('请填写快递单号~');case 16:case "end":return _context3.stop();}}}, _callee3, null, [[2, 10]]);}))();
     },
 
     // 获取该商品的预约列表
@@ -532,21 +541,21 @@ var _default =
 
       } else
       if (item.state == '待发货') {
-        this.openState1();
+        this.openState1(item, index);
       } else
       if (item.state == '待退款') {
-        this.openState2(item);
+        this.openState2(item, index);
       } else
       if (item.state == '待下单') {
         this.$toast('请等待买家下单哟~');
       } else
       if (item.state == '待收货') {
         this.isConfirm = false;
-        this.openState3(item);
+        this.openState3(item, index);
       } else
       {
         this.isConfirm = true;
-        this.openState3(item);
+        this.openState3(item, index);
       }
     },
 
@@ -566,10 +575,11 @@ var _default =
     refuseBook: function refuseBook(item, index) {var _this7 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee7() {var that, res;return _regenerator.default.wrap(function _callee7$(_context7) {while (1) {switch (_context7.prev = _context7.next) {case 0:
                 that = _this7;_context7.prev = 1;_context7.next = 4;return (
 
-                  _this7.api.put('/orders/cancel/booking', { number: item.number, isbuyer: 0 }));case 4:res = _context7.sent;_context7.next = 10;break;case 7:_context7.prev = 7;_context7.t0 = _context7["catch"](1);
+                  _this7.api.put('/orders/cancel/booking', { number: item.number, isbuyer: 0 }));case 4:res = _context7.sent;
+                that.oneBookList.splice(index, 1);_context7.next = 11;break;case 8:_context7.prev = 8;_context7.t0 = _context7["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context7.t0);case 10:case "end":return _context7.stop();}}}, _callee7, null, [[1, 7]]);}))();
+                that.$toast(_context7.t0);case 11:case "end":return _context7.stop();}}}, _callee7, null, [[1, 8]]);}))();
 
     },
 
@@ -577,8 +587,8 @@ var _default =
     confirm: function confirm(item, index) {var _this8 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee8() {var that, res;return _regenerator.default.wrap(function _callee8$(_context8) {while (1) {switch (_context8.prev = _context8.next) {case 0:
                 that = _this8;_context8.prev = 1;_context8.next = 4;return (
 
-                  _this8.api.put('/orders/refund', { number: item.number }));case 4:res = _context8.sent;
-                _this8.oneBookList[index].state = '已退款';
+                  _this8.api.put('/orders/refund', { number: _this8.one.number }));case 4:res = _context8.sent;
+                _this8.oneBookList[_this8.index].state = '已退款';
                 _this8.$refs.pop2[0].close();_context8.next = 12;break;case 9:_context8.prev = 9;_context8.t0 = _context8["catch"](1);
 
                 //TODO handle the exception
@@ -590,8 +600,8 @@ var _default =
     refuse: function refuse(item, index) {var _this9 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee9() {var that, res;return _regenerator.default.wrap(function _callee9$(_context9) {while (1) {switch (_context9.prev = _context9.next) {case 0:
                 that = _this9;_context9.prev = 1;_context9.next = 4;return (
 
-                  _this9.api.put('/orders/disagree', { number: item.number }));case 4:res = _context9.sent;
-                _this9.oneBookList[index].state = res.data;
+                  _this9.api.put('/orders/disagree', { number: _this9.one.number }));case 4:res = _context9.sent;
+                _this9.oneBookList[_this9.index].state = res.data;
                 _this9.$refs.pop2[0].close();_context9.next = 12;break;case 9:_context9.prev = 9;_context9.t0 = _context9["catch"](1);
 
                 //TODO handle the exception
@@ -607,8 +617,8 @@ var _default =
     deleteOrder: function deleteOrder(item, index) {var _this10 = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee10() {var that, res;return _regenerator.default.wrap(function _callee10$(_context10) {while (1) {switch (_context10.prev = _context10.next) {case 0:
                 that = _this10;_context10.prev = 1;_context10.next = 4;return (
 
-                  _this10.api.put('/orders/seller/delete', { number: item.number }));case 4:res = _context10.sent;
-                that.oneBookList.splice(index, 1);_context10.next = 11;break;case 8:_context10.prev = 8;_context10.t0 = _context10["catch"](1);
+                  _this10.api.put('/orders/seller/delete', { number: _this10.one.number }));case 4:res = _context10.sent;
+                that.oneBookList.splice(_this10.index, 1);_context10.next = 11;break;case 8:_context10.prev = 8;_context10.t0 = _context10["catch"](1);
 
                 //TODO handle the exception
                 that.$toast(_context10.t0);case 11:case "end":return _context10.stop();}}}, _callee10, null, [[1, 8]]);}))();

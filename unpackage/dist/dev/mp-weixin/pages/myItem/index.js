@@ -356,13 +356,14 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 155);function _interopReq
                     icon: 'warning',
                     duration: 30000 });
 
-                }_context.next = 11;break;case 8:_context.prev = 8;_context.t0 = _context["catch"](1);
+                }
+                _this.getMyGoods();_context.next = 12;break;case 9:_context.prev = 9;_context.t0 = _context["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context.t0);case 11:
+                that.$toast(_context.t0);case 12:
 
 
-                _this.$refs.popCenter.close();case 12:case "end":return _context.stop();}}}, _callee, null, [[1, 8]]);}))();
+                _this.$refs.popCenter.close();case 13:case "end":return _context.stop();}}}, _callee, null, [[1, 9]]);}))();
     },
 
     // 下架商品
@@ -397,13 +398,14 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 155);function _interopReq
                     icon: 'warning',
                     duration: 30000 });
 
-                }_context2.next = 11;break;case 8:_context2.prev = 8;_context2.t0 = _context2["catch"](1);
+                }
+                _this2.getMyGoods();_context2.next = 12;break;case 9:_context2.prev = 9;_context2.t0 = _context2["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context2.t0);case 11:
+                that.$toast(_context2.t0);case 12:
 
 
-                _this2.$refs.popCenter.close();case 12:case "end":return _context2.stop();}}}, _callee2, null, [[1, 8]]);}))();
+                _this2.$refs.popCenter.close();case 13:case "end":return _context2.stop();}}}, _callee2, null, [[1, 9]]);}))();
     },
 
     // 删除商品
@@ -438,13 +440,14 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 155);function _interopReq
                     icon: 'warning',
                     duration: 30000 });
 
-                }_context3.next = 11;break;case 8:_context3.prev = 8;_context3.t0 = _context3["catch"](1);
+                }
+                _this3.getMyGoods();_context3.next = 12;break;case 9:_context3.prev = 9;_context3.t0 = _context3["catch"](1);
 
                 //TODO handle the exception
-                that.$toast(_context3.t0);case 11:
+                that.$toast(_context3.t0);case 12:
 
 
-                _this3.$refs.popCenter.close();case 12:case "end":return _context3.stop();}}}, _callee3, null, [[1, 8]]);}))();
+                _this3.$refs.popCenter.close();case 13:case "end":return _context3.stop();}}}, _callee3, null, [[1, 9]]);}))();
     },
 
     // 预约状态分类

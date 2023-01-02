@@ -80,10 +80,10 @@ var components
 try {
   components = {
     uLoadingIcon: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-loading-icon/u-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-loading-icon/u-loading-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-loading-icon/u-loading-icon.vue */ 564))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-loading-icon/u-loading-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-loading-icon/u-loading-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-loading-icon/u-loading-icon.vue */ 578))
     },
     uSwiperIndicator: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swiper-indicator/u-swiper-indicator */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swiper-indicator/u-swiper-indicator")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swiper-indicator/u-swiper-indicator.vue */ 572))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swiper-indicator/u-swiper-indicator */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swiper-indicator/u-swiper-indicator")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swiper-indicator/u-swiper-indicator.vue */ 586))
     }
   }
 } catch (e) {

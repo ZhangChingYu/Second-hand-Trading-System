@@ -181,9 +181,13 @@ var _vuex = __webpack_require__(/*! vuex */ 13);function _interopRequireDefault(
   data: function data() {
     return {
       title: '欢迎来到闲置虫虫',
+      // forms:{
+      // 	username:'15083622395',
+      // 	password:'clYE3F1KSz',
+      // },
       forms: {
-        username: '15083622395',
-        password: 'clYE3F1KSz' },
+        username: '15059417755',
+        password: 'c215mk4b' },
 
       // 判断是邮箱还是手机号/微信号
       userType: '',

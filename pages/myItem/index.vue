@@ -182,6 +182,7 @@
 							duration: 30000
 						})
 					}
+					this.getMyGoods();	
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -223,6 +224,7 @@
 							duration: 30000
 						})
 					}
+					this.getMyGoods();	
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -264,6 +266,7 @@
 							duration: 30000
 						})
 					}
+					this.getMyGoods();	
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

@@ -130,6 +130,8 @@
 				// 订单时间信息的显示
 				noSelf:false,
 				isConfirm:false,
+				one:{},
+				index:0,
 			}
 		},
 		mounted() {
@@ -141,11 +143,15 @@
 		},
 		methods: {
 			
-			openState1(){
+			openState1(item,index){
 			    this.$refs.pop1[0].open('center');
+				this.one = item;
+				this.index = index;
 			},
 			
-			async openState2(item){
+			async openState2(item,index){
+				this.one = item;
+				this.index = index;
 				const that  = this;
 				try{
 					let res = await this.api.get('/orders/after/reason',{number:item.number});
@@ -157,7 +163,9 @@
 			    this.$refs.pop2[0].open('center');
 			},
 			
-			async openState3(item){
+			async openState3(item,index){
+				this.one = item;
+				this.index = index;
 				const that  = this;
 				try{
 					let res = await this.api.get('/orders/details',{number:item.number});
@@ -174,10 +182,11 @@
 			// 卖家确认发货
 			async confirmOrder(item,index){
 				if(this.deliveryId != ''){
+					console.log(this.one.number);
 					try{
 						// 订单编号
-						let res = await this.api.put('/orders/receiving',{number:item.number,deliveryId:this.deliveryId});
-						this.oneBookList[index].state = '待收货';
+						let res = await this.api.put('/orders/receiving',{number:this.one.number,deliveryId:this.deliveryId});
+						this.oneBookList[this.index].state = '待收货';
 						this.$refs.pop1[0].close();
 					}catch(e){
 						//TODO handle the exception
@@ -362,21 +371,21 @@
 					})
 				}
 				else if(item.state == '待发货'){
-					this.openState1();
+					this.openState1(item,index);
 				}
 				else if(item.state == '待退款'){
-					this.openState2(item);
+					this.openState2(item,index);
 				}
 				else if(item.state == '待下单'){
 					this.$toast('请等待买家下单哟~');
 				}
 				else if(item.state == '待收货'){
 					this.isConfirm = false;
-					this.openState3(item);
+					this.openState3(item,index);
 				}
 				else{
 					this.isConfirm = true;
-					this.openState3(item);
+					this.openState3(item,index);
 				}
 			},
 			
@@ -397,6 +406,7 @@
 				const that  = this;
 				try{
 					let res = await this.api.put('/orders/cancel/booking',{number:item.number,isbuyer:0});
+					that.oneBookList.splice(index,1);
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -407,8 +417,8 @@
 			async confirm(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.put('/orders/refund',{number:item.number});
-					this.oneBookList[index].state = '已退款';
+					let res = await this.api.put('/orders/refund',{number:this.one.number});
+					this.oneBookList[this.index].state = '已退款';
 					this.$refs.pop2[0].close();
 				}catch(e){
 					//TODO handle the exception
@@ -420,8 +430,8 @@
 			async refuse(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.put('/orders/disagree',{number:item.number});
-					this.oneBookList[index].state = res.data;
+					let res = await this.api.put('/orders/disagree',{number:this.one.number});
+					this.oneBookList[this.index].state = res.data;
 					this.$refs.pop2[0].close();
 				}catch(e){
 					//TODO handle the exception
@@ -437,8 +447,8 @@
 			async deleteOrder(item,index){
 				const that  = this;
 				try{
-					let res = await this.api.put('/orders/seller/delete',{number:item.number});
-					that.oneBookList.splice(index,1);
+					let res = await this.api.put('/orders/seller/delete',{number:this.one.number});
+					that.oneBookList.splice(this.index,1);
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
