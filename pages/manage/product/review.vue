@@ -174,9 +174,11 @@
 								this.getProductList(this.catalog)
 							}
 							else if(res == 422) this.$toast('处理失败！')
-							this.review.number = '';
-							this.review.decision = '';
-							this.review.explain = '';
+							this.$nextTick(()=>{
+								this.review.number = '';
+								this.review.decision = '';
+								this.review.explain = '';
+							})
 						}catch(e){
 							//TODO handle the exception
 						}
