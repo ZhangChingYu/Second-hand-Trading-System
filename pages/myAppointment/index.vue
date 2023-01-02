@@ -228,7 +228,7 @@
 				// 待下单状态到达下单界面
 				else{
 					uni.navigateTo({
-						url:'/pages/payment/index?item=' + oneitem
+						url:'/pages/payment/index?item=' + encodeURIComponent(oneitem)
 					})
 				}
 			},

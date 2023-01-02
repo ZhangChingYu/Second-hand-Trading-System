@@ -117,7 +117,7 @@
 				//let data = encodeURIComponent(JSON.stringify(item));
 				var oneitem = JSON.stringify(item)
 				uni.navigateTo({
-					url:'/pages/orderDetail/index?item=' + oneitem
+					url:'/pages/orderDetail/index?item=' + encodeURIComponent(oneitem)
 				})
 			},
 			

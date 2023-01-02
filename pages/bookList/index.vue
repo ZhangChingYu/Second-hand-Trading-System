@@ -21,7 +21,7 @@
 					<!-- 卖家信息 -->
 					<view class="buyerMess" @click="contactBuyer">
 						<!-- 卖家头像 -->
-						<image @click="" :src="item.avatar" class="location"></image>
+						<image @click="" :src="'data:image/jpg;base64,' + item.avatar" class="location"></image>
 						<!-- 卖家昵称 -->
 						<text>{{item.nickName}}</text>
 					</view>
@@ -194,9 +194,9 @@
 				try{
 					let res = await this.api.get('/booking/select/bookings',{number:this.oneNum,state:state});
 					that.oneBookList = res.data;
-					for(let i = 0;i<this.oneBookList.length;i++){
-						this.oneBookList[i].avatar = this.imageSrcformat(that.oneBookList[i].avatar,'jpg');
-					}
+					//for(let i = 0;i<this.oneBookList.length;i++){
+						//this.oneBookList[i].avatar = this.imageSrcformat(that.oneBookList[i].avatar,'jpg');
+					//}
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

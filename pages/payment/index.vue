@@ -31,7 +31,7 @@
 			<view class="goods-box" @click="toGoodsDetail">
 				<!-- 图片 -->
 				<view class="goods-img">
-					<image :src="coverPic" mode="widthFix" @error="doDefault"></image>
+					<image :src="'data:image/jpg;base64,' + coverPic" mode="widthFix" @error="doDefault"></image>
 				</view>						
 				<!-- 信息 -->
 				<view class="goods-msg">
@@ -172,7 +172,7 @@
 		},
 		onLoad(option){
 			//this.oneBook = JSON.parse(decodeURIComponent(option.oneBookItem));
-			this.oneBook = JSON.parse(option.item);
+			this.oneBook = JSON.parse(decodeURIComponent(option.item));
 			this.total = this.oneBook.price;
 		},
 		onShow(){
@@ -200,7 +200,7 @@
 				try{
 					let res = await this.api.get('/orders/product/pic',{number:this.oneBook.number});
 					that.coverPic = res.msg;
-					this.coverPic = this.imageSrcformat(that.coverPic,res.data);
+					//this.coverPic = this.imageSrcformat(that.coverPic,res.data);
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

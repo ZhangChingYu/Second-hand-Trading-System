@@ -151,7 +151,7 @@
 			updateOne(){
 				var oneitem = JSON.stringify(this.one);
 				uni.navigateTo({
-					url:'/pages/updateMess/index?goods=' + oneitem
+					url:'/pages/updateMess/index?goods=' + encodeURIComponent(oneitem)
 				})
 				this.$refs.popCenter.close();
 			},

@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 (global["webpackJsonp"] = global["webpackJsonp"] || []).push([["pages/message/chat"],{
 
 /***/ 189:
@@ -99,10 +98,10 @@ var components
 try {
   components = {
     uAvatar: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-avatar/u-avatar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-avatar/u-avatar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-avatar/u-avatar.vue */ 484))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-avatar/u-avatar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-avatar/u-avatar")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-avatar/u-avatar.vue */ 492))
     },
     uIcon: function() {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 451))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-icon/u-icon.vue */ 459))
     }
   }
 } catch (e) {
@@ -188,7 +187,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;
+/* WEBPACK VAR INJECTION */(function(uni) {Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 39));
 
 
 
@@ -278,7 +277,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _mixin = __webpack_require__(/*! ../../mixin.js */ 155);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
+var _mixin = __webpack_require__(/*! ../../mixin.js */ 155);function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};}var _default =
 {
   mixins: [_mixin.mixin],
   data: function data() {
@@ -434,11 +433,21 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 155);function ownKeys(obj
       time: '' //消息时间
     };
     this.mySocket();
+    this.getchatMessage(0);
   },
   methods: {
+    getchatMessage: function getchatMessage(page) {var _this = this;return _asyncToGenerator( /*#__PURE__*/_regenerator.default.mark(function _callee() {var res;return _regenerator.default.wrap(function _callee$(_context) {while (1) {switch (_context.prev = _context.next) {case 0:_context.prev = 0;_context.next = 3;return (
+
+                  _this.api.get('/chat/getChatRecords', { toId: _this.other.id, startIndex: page, pageSize: 20 }));case 3:res = _context.sent;
+                _this.chatMsg = (res === null || res === void 0 ? void 0 : res.data) || [];_context.next = 10;break;case 7:_context.prev = 7;_context.t0 = _context["catch"](0);
+
+                //TODO handle the exception
+                _this.$toast(_context.t0);case 10:case "end":return _context.stop();}}}, _callee, null, [[0, 7]]);}))();
+
+    },
     mySocket: function mySocket() {
       uni.connectSocket({
-        url: 'wss://www.example.com/socket' });
+        url: 'wss://localhost:8080/websocket' });
 
       uni.onSocketOpen(function (res) {
         console.log('WebSocket连接已打开！');
@@ -470,13 +479,13 @@ var _mixin = __webpack_require__(/*! ../../mixin.js */ 155);function ownKeys(obj
       this.getHeight(".operate-box");
     },
     // 获取指定选择器元素的高度
-    getHeight: function getHeight(classNa) {var _this = this;
+    getHeight: function getHeight(classNa) {var _this2 = this;
       setTimeout(function () {
-        var query = uni.createSelectorQuery().in(_this);
+        var query = uni.createSelectorQuery().in(_this2);
         query.select(classNa).boundingClientRect(function (data) {
-          _this.scrollViewHeight = "calc(100vh - ".concat(data.height, "px)");
-          _this.scrollToView = '';
-          _this.$nextTick(function () {
+          _this2.scrollViewHeight = "calc(100vh - ".concat(data.height, "px)");
+          _this2.scrollToView = '';
+          _this2.$nextTick(function () {
             this.scrollToView = 'msg' + this.chatMsg[this.chatMsg.length - 1].id;
           });
         }).exec();
@@ -521,7 +530,4 @@ __webpack_require__.r(__webpack_exports__);
 /***/ })
 
 },[[189,"common/runtime","common/vendor"]]]);
-=======
-(global["webpackJsonp"]=global["webpackJsonp"]||[]).push([["pages/message/chat"],{189:function(e,t,n){"use strict";(function(e){n(5);o(n(4));var t=o(n(190));function o(e){return e&&e.__esModule?e:{default:e}}wx.__webpack_require_UNI_MP_PLUGIN__=n,e(t.default)}).call(this,n(1)["createPage"])},190:function(e,t,n){"use strict";n.r(t);var o=n(191),i=n(193);for(var r in i)"default"!==r&&function(e){n.d(t,e,(function(){return i[e]}))}(r);n(195);var s,c=n(11),a=Object(c["default"])(i["default"],o["render"],o["staticRenderFns"],!1,null,"042db559",null,!1,o["components"],s);a.options.__file="pages/message/chat.vue",t["default"]=a.exports},191:function(e,t,n){"use strict";n.r(t);var o=n(192);n.d(t,"render",(function(){return o["render"]})),n.d(t,"staticRenderFns",(function(){return o["staticRenderFns"]})),n.d(t,"recyclableRender",(function(){return o["recyclableRender"]})),n.d(t,"components",(function(){return o["components"]}))},192:function(e,t,n){"use strict";var o;n.r(t),n.d(t,"render",(function(){return i})),n.d(t,"staticRenderFns",(function(){return s})),n.d(t,"recyclableRender",(function(){return r})),n.d(t,"components",(function(){return o}));try{o={uAvatar:function(){return Promise.all([n.e("common/vendor"),n.e("uni_modules/uview-ui/components/u-avatar/u-avatar")]).then(n.bind(null,492))},uIcon:function(){return Promise.all([n.e("common/vendor"),n.e("uni_modules/uview-ui/components/u-icon/u-icon")]).then(n.bind(null,459))}}}catch(c){if(-1===c.message.indexOf("Cannot find module")||-1===c.message.indexOf(".vue"))throw c;console.error(c.message),console.error("1. 排查组件名称拼写是否正确"),console.error("2. 排查组件是否符合 easycom 规范，文档：https://uniapp.dcloud.net.cn/collocation/pages?id=easycom"),console.error("3. 若组件不符合 easycom 规范，需手动引入，并在 components 中注册该组件")}var i=function(){var e=this,t=e.$createElement,n=(e._self._c,e.__map(e.chatMsg,(function(t,n){var o=e.__get_orig(t),i=t.isShowTime?e.handleTime(t.time):null,r=t.fromId!==e.other.id&&t.fromId===e.user.phone?e.imageSrcformat(e.user.avatar,"jpg"):null;return{$orig:o,m0:i,m1:r}})));e._isMounted||(e.e0=function(t){e.mic=!e.mic}),e.$mp.data=Object.assign({},{$root:{l0:n}})},r=!1,s=[];i._withStripped=!0},193:function(e,t,n){"use strict";n.r(t);var o=n(194),i=n.n(o);for(var r in o)"default"!==r&&function(e){n.d(t,e,(function(){return o[e]}))}(r);t["default"]=i.a},194:function(e,t,n){"use strict";(function(e){Object.defineProperty(t,"__esModule",{value:!0}),t.default=void 0;var o=r(n(39)),i=n(155);function r(e){return e&&e.__esModule?e:{default:e}}function s(e,t){var n=Object.keys(e);if(Object.getOwnPropertySymbols){var o=Object.getOwnPropertySymbols(e);t&&(o=o.filter((function(t){return Object.getOwnPropertyDescriptor(e,t).enumerable}))),n.push.apply(n,o)}return n}function c(e){for(var t=1;t<arguments.length;t++){var n=null!=arguments[t]?arguments[t]:{};t%2?s(Object(n),!0).forEach((function(t){a(e,t,n[t])})):Object.getOwnPropertyDescriptors?Object.defineProperties(e,Object.getOwnPropertyDescriptors(n)):s(Object(n)).forEach((function(t){Object.defineProperty(e,t,Object.getOwnPropertyDescriptor(n,t))}))}return e}function a(e,t,n){return t in e?Object.defineProperty(e,t,{value:n,enumerable:!0,configurable:!0,writable:!0}):e[t]=n,e}function u(e,t,n,o,i,r,s){try{var c=e[r](s),a=c.value}catch(u){return void n(u)}c.done?t(a):Promise.resolve(a).then(o,i)}function d(e){return function(){var t=this,n=arguments;return new Promise((function(o,i){var r=e.apply(t,n);function s(e){u(r,o,i,s,c,"next",e)}function c(e){u(r,o,i,s,c,"throw",e)}s(void 0)}))}}var l={mixins:[i.mixin],data:function(){return{other:{id:"",name:"",avatar:""},sendMsg:{},user:{},chatMsg:[{id:1,fromId:"15083622395",types:"0",content:"你好！",isShowTime:!0,time:"2022-11-05 14:06:22"},{id:2,fromId:"18187865081",types:"0",content:"在的",isShowTime:!0,time:"2022-11-05 14:06:22"},{id:3,fromId:"15083622395",types:"0",content:"这个衣服是新的吗？",isShowTime:!1,time:"2022-11-05 14:06:22"},{id:4,fromId:"15083622395",types:"0",content:"是九成新吗",isShowTime:!0,time:"2022-11-05 14:06:22"},{id:5,fromId:"18187865081",types:"0",content:"是的。",isShowTime:!1,time:"2022-11-05 14:06:22"},{id:6,fromId:"15083622395",types:"0",content:"你好！",isShowTime:!0,time:"2022-11-05 14:06:22"},{id:7,fromId:"18187865081",types:"0",content:"在的",isShowTime:!0,time:"2022-11-05 14:06:22"},{id:8,fromId:"15083622395",types:"0",content:"这个衣服是新的吗？",isShowTime:!1,time:"2022-11-05 14:06:22"},{id:9,fromId:"15083622395",types:"0",content:"是九成新吗",isShowTime:!0,time:"2022-11-05 14:06:22"},{id:10,fromId:"18187865081",types:"0",content:"是的。",isShowTime:!1,time:"2022-11-05 14:06:22"},{id:11,fromId:"15083622395",types:"0",content:"这个衣服是新的吗？",isShowTime:!1,time:"2022-11-05 14:06:22"},{id:12,fromId:"15083622395",types:"0",content:"是九成新吗",isShowTime:!0,time:"2022-11-05 14:06:22"},{id:13,fromId:"18187865081",types:"0",content:"是的。",isShowTime:!1,time:"2022-11-05 14:06:22"}],tapPlus:!1,mic:!1,scrollToView:"",scrollViewHeight:"calc(100vh - 128rpx)",height:"",needScrollAnimation:!0}},onLoad:function(t){this.other.id=t.phone,this.other.name=t.userName,this.other.avatar=t.avatar,console.log("对方的手机号是:",this.other.id),e.setNavigationBarTitle({title:this.other.name}),this.user=e.getStorageSync("user"),console.log(this.user.phone),this.scrollToView="msg"+this.chatMsg[this.chatMsg.length-1].id,this.sendMsg={recivId:this.other.id,fromId:this.user.phone,content:"",time:""},this.mySocket(),this.getchatMessage(0)},methods:{getchatMessage:function(e){var t=this;return d(o.default.mark((function n(){var i;return o.default.wrap((function(n){while(1)switch(n.prev=n.next){case 0:return n.prev=0,n.next=3,t.api.get("/chat/getChatRecords",{toId:t.other.id,startIndex:e,pageSize:20});case 3:i=n.sent,t.chatMsg=(null===i||void 0===i?void 0:i.data)||[],n.next=10;break;case 7:n.prev=7,n.t0=n["catch"](0),t.$toast(n.t0);case 10:case"end":return n.stop()}}),n,null,[[0,7]])})))()},mySocket:function(){e.connectSocket({url:"wss://localhost:8080/websocket"}),e.onSocketOpen((function(e){console.log("WebSocket连接已打开！")})),e.onSocketError((function(e){console.log("WebSocket连接打开失败，请检查！")}))},resetSendMsg:function(){this.sendMsg.content="",this.sendMsg.time=""},send:function(){this.sendMsg["time"]=e.$u.timeFormat(new Date,"yyyy-mm-dd hh:MM:ss"),""!==this.sendMsg.content&&(console.log("发送的数据:",this.sendMsg),this.chatMsg.push(c({id:this.chatMsg[this.chatMsg.length-1].id+1,types:"0",isShowTime:!0},this.sendMsg)),this.resetSendMsg(),this.$nextTick((function(){this.scrollToView="",this.scrollToView="msg"+this.chatMsg[this.chatMsg.length-1].id,console.log(this.scrollToView)})))},switchMenu:function(){this.tapPlus=!this.tapPlus,this.getHeight(".operate-box")},getHeight:function(t){var n=this;setTimeout((function(){var o=e.createSelectorQuery().in(n);o.select(t).boundingClientRect((function(e){n.scrollViewHeight="calc(100vh - ".concat(e.height,"px)"),n.scrollToView="",n.$nextTick((function(){this.scrollToView="msg"+this.chatMsg[this.chatMsg.length-1].id}))})).exec()}),10)},handleTime:function(e){return e}}};t.default=l}).call(this,n(1)["default"])},195:function(e,t,n){"use strict";n.r(t);var o=n(196),i=n.n(o);for(var r in o)"default"!==r&&function(e){n.d(t,e,(function(){return o[e]}))}(r);t["default"]=i.a},196:function(e,t,n){}},[[189,"common/runtime","common/vendor"]]]);
->>>>>>> f389a74830640a25d744260829cfc14811c3c4b7
 //# sourceMappingURL=../../../.sourcemap/mp-weixin/pages/message/chat.js.map
