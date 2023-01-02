@@ -60,6 +60,10 @@
 			this.getReport();	
 		},
 		onShow(){
+			this.allfont = '#b34c26';
+			this.firstfont = 'gray';
+			this.secondfont = 'gray';
+			this.thirdfont = 'gray';
 			this.getReport();
 		},
 		methods: {

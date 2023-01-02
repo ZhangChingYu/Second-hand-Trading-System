@@ -158,8 +158,7 @@
 			proStatus(){
 				if(this.product.status == 0) return '已上架'
 				else if(this.product.status == 1) return '待审核'
-				else return '未审核通过'
-				
+				else return '未审核通过'	
 			}
 		},
 		methods: {

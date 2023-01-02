@@ -1,6 +1,6 @@
-// const commoneUrl  = "http://localhost:8080"; //公共路径 
+const commoneUrl  = "http://localhost:8080"; //公共路径 
 
-const commoneUrl  = "http://192.168.1.12:8080"; //手机测试公共路径 
+//const commoneUrl  = "http://192.168.1.12:8080"; //手机测试公共路径 
 
 const userId = uni.getStorageSync("user").id //用户id
 

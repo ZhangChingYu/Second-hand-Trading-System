@@ -1464,7 +1464,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8556,7 +8556,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8577,14 +8577,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -8670,7 +8670,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_NAME":"Second-Hand-Service","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -10525,9 +10525,9 @@ module.exports = index_cjs;
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function(uni) {// const commoneUrl  = "http://localhost:8080"; //公共路径 
+/* WEBPACK VAR INJECTION */(function(uni) {var commoneUrl = "http://localhost:8080"; //公共路径 
 
-var commoneUrl = "http://192.168.1.12:8080"; //手机测试公共路径 
+//const commoneUrl  = "http://192.168.1.12:8080"; //手机测试公共路径 
 
 var userId = uni.getStorageSync("user").id; //用户id
 
@@ -19785,31 +19785,15 @@ platform;exports.default = _default;
 /* 167 */,
 /* 168 */,
 /* 169 */,
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */
-<<<<<<< HEAD
+/* 170 */
 /*!**********************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/common/request/api.js ***!
   \**********************************************************************/
-=======
-/*!*************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/common/request/api.js ***!
-  \*************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-<<<<<<< HEAD
-Object.defineProperty(exports, "__esModule", { value: true });exports.getCatalogProducts = exports.getAllProducts = exports.submitUpload = exports.uploadDetail = exports.catalogUpload = exports.allUpload = exports.removeCatalog = exports.updateCatalog = exports.addCatalog = exports.getCatalog = exports.login = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
-=======
 Object.defineProperty(exports, "__esModule", { value: true });exports.getSwiper = exports.updateSwiper = exports.deleteSwiper = exports.addSwiper = exports.getCatalogProducts = exports.getAllProducts = exports.submitUpload = exports.uploadDetail = exports.catalogUpload = exports.allUpload = exports.removeCatalog = exports.updateCatalog = exports.addCatalog = exports.getCatalog = exports.login = void 0;var _request = _interopRequireDefault(__webpack_require__(/*! ./request.js */ 15));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 
 
 // 登陆
@@ -19843,9 +19827,6 @@ exports.uploadDetail = uploadDetail;var submitUpload = function submitUpload(dat
 exports.submitUpload = submitUpload;var getAllProducts = function getAllProducts() {return _request.default.get('/products');};
 
 //分类获取商品
-<<<<<<< HEAD
-exports.getAllProducts = getAllProducts;var getCatalogProducts = function getCatalogProducts(data) {return _request.default.get('/catalog/products', data);};exports.getCatalogProducts = getCatalogProducts;
-=======
 exports.getAllProducts = getAllProducts;var getCatalogProducts = function getCatalogProducts(data) {return _request.default.get('/catalog/products', data);};
 
 
@@ -19861,18 +19842,17 @@ exports.deleteSwiper = deleteSwiper;var updateSwiper = function updateSwiper(dat
 
 //获取轮播图
 exports.updateSwiper = updateSwiper;var getSwiper = function getSwiper() {return _request.default.get('/homepage/ads');};exports.getSwiper = getSwiper;
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 
 /***/ }),
+/* 171 */,
+/* 172 */,
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
 /* 177 */,
 /* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */
+/* 179 */
 /*!*********************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/mixin.js ***!
   \*********************************************************/
@@ -19887,6 +19867,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.mixin = vo
     } } };exports.mixin = mixin;
 
 /***/ }),
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */,
 /* 186 */,
 /* 187 */,
 /* 188 */,
@@ -19973,25 +19959,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.mixin = vo
 /* 269 */,
 /* 270 */,
 /* 271 */,
-<<<<<<< HEAD
-/* 272 */
+/* 272 */,
+/* 273 */,
+/* 274 */
 /*!********************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
   \********************************************************************************************************/
-=======
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */
-/*!***********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
-  \***********************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20005,27 +19978,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.mixin = vo
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 273 */,
-/* 274 */,
 /* 275 */,
 /* 276 */,
 /* 277 */,
-/* 278 */
+/* 278 */,
+/* 279 */,
+/* 280 */
 /*!*****************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/mixin/touch.js ***!
   \*****************************************************************************************/
-=======
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */
-/*!********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/touch.js ***!
-  \********************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20089,17 +20050,10 @@ function getDirection(x, y) {
     } } };exports.default = _default;
 
 /***/ }),
-<<<<<<< HEAD
-/* 279 */
+/* 281 */
 /*!*************************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
   \*************************************************************************************************************/
-=======
-/* 287 */
-/*!****************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
-  \****************************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20145,17 +20099,10 @@ function getDirection(x, y) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 280 */
+/* 282 */
 /*!***********************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
   \***********************************************************************************************************/
-=======
-/* 288 */
-/*!**************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
-  \**************************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20175,26 +20122,19 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     } } };exports.default = _default;
 
 /***/ }),
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
 /* 289 */,
-<<<<<<< HEAD
-/* 290 */
+/* 290 */,
+/* 291 */,
+/* 292 */
 /*!*************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-empty/props.js ***!
   \*************************************************************************************************/
-=======
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */,
-/* 298 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-empty/props.js ***!
-  \****************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20258,31 +20198,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 291 */,
-/* 292 */,
 /* 293 */,
 /* 294 */,
 /* 295 */,
 /* 296 */,
 /* 297 */,
-/* 298 */
+/* 298 */,
+/* 299 */,
+/* 300 */
 /*!************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-icon/icons.js ***!
   \************************************************************************************************/
-=======
-/* 299 */,
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */,
-/* 306 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-icon/icons.js ***!
-  \***************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20502,17 +20428,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   'uicon-en': "\uE692" };exports.default = _default;
 
 /***/ }),
-<<<<<<< HEAD
-/* 299 */
+/* 301 */
 /*!************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-icon/props.js ***!
   \************************************************************************************************/
-=======
-/* 307 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-icon/props.js ***!
-  \***************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20606,31 +20525,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 300 */,
-/* 301 */,
 /* 302 */,
 /* 303 */,
 /* 304 */,
 /* 305 */,
 /* 306 */,
-/* 307 */
+/* 307 */,
+/* 308 */,
+/* 309 */
 /*!*************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-popup/props.js ***!
   \*************************************************************************************************/
-=======
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */,
-/* 314 */,
-/* 315 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-popup/props.js ***!
-  \****************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20714,31 +20619,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 308 */,
-/* 309 */,
 /* 310 */,
 /* 311 */,
 /* 312 */,
 /* 313 */,
 /* 314 */,
-/* 315 */
+/* 315 */,
+/* 316 */,
+/* 317 */
 /*!*************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-input/props.js ***!
   \*************************************************************************************************/
-=======
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */,
-/* 321 */,
-/* 322 */,
-/* 323 */
-/*!****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-input/props.js ***!
-  \****************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20930,27 +20821,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 316 */,
-/* 317 */,
 /* 318 */,
 /* 319 */,
 /* 320 */,
-/* 321 */
+/* 321 */,
+/* 322 */,
+/* 323 */
 /*!********************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/mixin/openType.js ***!
   \********************************************************************************************/
-=======
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */,
-/* 329 */
-/*!***********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/openType.js ***!
-  \***********************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20980,17 +20859,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     } } };exports.default = _default;
 
 /***/ }),
-<<<<<<< HEAD
-/* 322 */
+/* 324 */
 /*!******************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/libs/mixin/button.js ***!
   \******************************************************************************************/
-=======
-/* 330 */
-/*!*********************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/libs/mixin/button.js ***!
-  \*********************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21008,17 +20880,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     openType: String } };exports.default = _default;
 
 /***/ }),
-<<<<<<< HEAD
-/* 323 */
+/* 325 */
 /*!********************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
   \********************************************************************************************************/
-=======
-/* 331 */
-/*!***********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
-  \***********************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21077,31 +20942,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 324 */,
-/* 325 */,
 /* 326 */,
 /* 327 */,
 /* 328 */,
 /* 329 */,
 /* 330 */,
-/* 331 */
+/* 331 */,
+/* 332 */,
+/* 333 */
 /*!**************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swiper/props.js ***!
   \**************************************************************************************************/
-=======
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */,
-/* 337 */,
-/* 338 */,
-/* 339 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swiper/props.js ***!
-  \*****************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21231,31 +21082,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 332 */,
-/* 333 */,
 /* 334 */,
 /* 335 */,
 /* 336 */,
 /* 337 */,
 /* 338 */,
-/* 339 */
+/* 339 */,
+/* 340 */,
+/* 341 */
 /*!********************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
   \********************************************************************************************************/
-=======
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */
-/*!***********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
-  \***********************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21319,31 +21156,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 340 */,
-/* 341 */,
 /* 342 */,
 /* 343 */,
 /* 344 */,
 /* 345 */,
 /* 346 */,
-/* 347 */
+/* 347 */,
+/* 348 */,
+/* 349 */
 /*!****************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-textarea/props.js ***!
   \****************************************************************************************************/
-=======
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-textarea/props.js ***!
-  \*******************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21467,27 +21290,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 348 */,
-/* 349 */,
 /* 350 */,
 /* 351 */,
 /* 352 */,
-/* 353 */
+/* 353 */,
+/* 354 */,
+/* 355 */
 /*!**************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-button/props.js ***!
   \**************************************************************************************************/
-=======
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-button/props.js ***!
-  \*****************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21653,6 +21464,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
 /* 362 */,
 /* 363 */,
 /* 364 */,
@@ -21687,24 +21504,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 393 */,
 /* 394 */,
 /* 395 */,
-<<<<<<< HEAD
-/* 396 */
-/*!***************************************************************************************************!*\
-  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-overlay/props.js ***!
-  \***************************************************************************************************/
-=======
 /* 396 */,
 /* 397 */,
-/* 398 */,
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */,
-/* 404 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-upload/utils.js ***!
-  \*****************************************************************************************/
+/* 398 */
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-upload/utils.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21863,10 +21668,10 @@ function chooseFile(_ref)
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-/* 405 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-upload/mixin.js ***!
-  \*****************************************************************************************/
+/* 399 */
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-upload/mixin.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21891,10 +21696,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
       } } } };exports.default = _default;
 
 /***/ }),
-/* 406 */
-/*!*****************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-upload/props.js ***!
-  \*****************************************************************************************/
+/* 400 */
+/*!**************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-upload/props.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22023,18 +21828,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
 /* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */,
-/* 414 */
-/*!******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-overlay/props.js ***!
-  \******************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
+/* 408 */
+/*!***************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-overlay/props.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22063,31 +21867,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 397 */,
-/* 398 */,
-/* 399 */,
-/* 400 */,
-/* 401 */,
-/* 402 */,
-/* 403 */,
-/* 404 */
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */
 /*!******************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-transition/props.js ***!
   \******************************************************************************************************/
-=======
-/* 415 */,
-/* 416 */,
-/* 417 */,
-/* 418 */,
-/* 419 */,
-/* 420 */,
-/* 421 */,
-/* 422 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-transition/props.js ***!
-  \*********************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22116,17 +21906,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 405 */
+/* 417 */
 /*!***********************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-transition/transition.js ***!
   \***********************************************************************************************************/
-=======
-/* 423 */
-/*!**************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-transition/transition.js ***!
-  \**************************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22134,7 +21917,7 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 Object.defineProperty(exports, "__esModule", { value: true });exports.default = void 0;var _regenerator = _interopRequireDefault(__webpack_require__(/*! ./node_modules/@babel/runtime/regenerator */ 38));
 
 
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 424));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 418));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) {try {var info = gen[key](arg);var value = info.value;} catch (error) {reject(error);return;}if (info.done) {resolve(value);} else {Promise.resolve(value).then(_next, _throw);}}function _asyncToGenerator(fn) {return function () {var self = this,args = arguments;return new Promise(function (resolve, reject) {var gen = fn.apply(self, args);function _next(value) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value);}function _throw(err) {asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err);}_next(undefined);});};} // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
 var nextTick = function nextTick() {return new Promise(function (resolve) {return setTimeout(resolve, 1000 / 50);});}; // nvue动画模块实现细节抽离在外部文件
 
 // 定义类名，通过给元素动态切换类名，赋予元素一定的css动画样式
@@ -22288,17 +22071,10 @@ var getClassNames = function getClassNames(name) {return {
     } } };exports.default = _default;
 
 /***/ }),
-<<<<<<< HEAD
-/* 406 */
+/* 418 */
 /*!*************************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
   \*************************************************************************************************************/
-=======
-/* 424 */
-/*!****************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
-  \****************************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22371,31 +22147,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
     'leave-to': { opacity: 0, transform: 'scale(0.95)' } } };exports.default = _default;
 
 /***/ }),
-<<<<<<< HEAD
-/* 407 */,
-/* 408 */,
-/* 409 */,
-/* 410 */,
-/* 411 */,
-/* 412 */,
-/* 413 */,
-/* 414 */
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */,
+/* 425 */,
+/* 426 */
 /*!******************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-status-bar/props.js ***!
   \******************************************************************************************************/
-=======
-/* 425 */,
-/* 426 */,
-/* 427 */,
-/* 428 */,
-/* 429 */,
-/* 430 */,
-/* 431 */,
-/* 432 */
-/*!*********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-status-bar/props.js ***!
-  \*********************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22408,31 +22170,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 415 */,
-/* 416 */,
-/* 417 */,
-/* 418 */,
-/* 419 */,
-/* 420 */,
-/* 421 */,
-/* 422 */
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */
 /*!*******************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
   \*******************************************************************************************************/
-=======
-/* 433 */,
-/* 434 */,
-/* 435 */,
-/* 436 */,
-/* 437 */,
-/* 438 */,
-/* 439 */,
-/* 440 */
-/*!**********************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
-  \**********************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22441,26 +22189,12 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
   props: {} };exports.default = _default;
 
 /***/ }),
-<<<<<<< HEAD
-/* 423 */,
-/* 424 */,
-/* 425 */,
-/* 426 */,
-/* 427 */,
-/* 428 */,
-/* 429 */,
-/* 430 */,
-/* 431 */,
-/* 432 */,
-/* 433 */,
-/* 434 */,
 /* 435 */,
 /* 436 */,
-/* 437 */
-/*!************************************************************************************************!*\
-  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-line/props.js ***!
-  \************************************************************************************************/
-=======
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */,
 /* 441 */,
 /* 442 */,
 /* 443 */,
@@ -22469,17 +22203,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 446 */,
 /* 447 */,
 /* 448 */,
-/* 449 */,
-/* 450 */,
-/* 451 */,
-/* 452 */,
-/* 453 */,
-/* 454 */,
-/* 455 */
-/*!***************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-line/props.js ***!
-  \***************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
+/* 449 */
+/*!************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-line/props.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22517,31 +22244,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 438 */,
-/* 439 */,
-/* 440 */,
-/* 441 */,
-/* 442 */,
-/* 443 */,
-/* 444 */,
-/* 445 */
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */,
+/* 454 */,
+/* 455 */,
+/* 456 */,
+/* 457 */
 /*!***********************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-gap/props.js ***!
   \***********************************************************************************************/
-=======
-/* 456 */,
-/* 457 */,
-/* 458 */,
-/* 459 */,
-/* 460 */,
-/* 461 */,
-/* 462 */,
-/* 463 */
-/*!**************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-gap/props.js ***!
-  \**************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22570,31 +22283,17 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
-<<<<<<< HEAD
-/* 446 */,
-/* 447 */,
-/* 448 */,
-/* 449 */,
-/* 450 */,
-/* 451 */,
-/* 452 */,
-/* 453 */
+/* 458 */,
+/* 459 */,
+/* 460 */,
+/* 461 */,
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */
 /*!************************************************************************************************************!*\
   !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uview-ui/components/u-swiper-indicator/props.js ***!
   \************************************************************************************************************/
-=======
-/* 464 */,
-/* 465 */,
-/* 466 */,
-/* 467 */,
-/* 468 */,
-/* 469 */,
-/* 470 */,
-/* 471 */
-/*!***************************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uview-ui/components/u-swiper-indicator/props.js ***!
-  \***************************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22628,15 +22327,15 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),
+/* 466 */,
+/* 467 */,
+/* 468 */,
+/* 469 */,
+/* 470 */,
+/* 471 */,
 /* 472 */,
 /* 473 */,
 /* 474 */,
-<<<<<<< HEAD
-/* 475 */
-/*!****************************************************************************************************!*\
-  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uni-icons/components/uni-icons/icons.js ***!
-  \****************************************************************************************************/
-=======
 /* 475 */,
 /* 476 */,
 /* 477 */,
@@ -22649,17 +22348,10 @@ Object.defineProperty(exports, "__esModule", { value: true });exports.default = 
 /* 484 */,
 /* 485 */,
 /* 486 */,
-/* 487 */,
-/* 488 */,
-/* 489 */,
-/* 490 */,
-/* 491 */,
-/* 492 */,
-/* 493 */
-/*!*******************************************************************************************!*\
-  !*** E:/Hbuilder/Second-Hand-Service/uni_modules/uni-icons/components/uni-icons/icons.js ***!
-  \*******************************************************************************************/
->>>>>>> 57cc9a6c8fae09bb9e027ca0c05549014acf7d4a
+/* 487 */
+/*!****************************************************************************************************!*\
+  !*** G:/Second-hand-Trading-System/service-ui/uni_modules/uni-icons/components/uni-icons/icons.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
