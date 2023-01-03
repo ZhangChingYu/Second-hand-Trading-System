@@ -4,7 +4,7 @@
 		<view class="main">
 			<!-- 图片 -->
 			<view class="goodsImg">
-				<image :src="coverPic" mode="widthFix" @error="doDefault"></image>
+				<image :src="'data:image/jpg;base64,' + coverPic" mode="widthFix" @error="doDefault"></image>
 			</view>
 			
 			<!-- 相关信息 -->
@@ -81,7 +81,7 @@
 			this.getCoverPic();
 		},
 		onLoad(option){
-			this.one = JSON.parse(option.goods);
+			this.one = JSON.parse(decodeURIComponent(option.goods));
 			this.onename = this.one.name;
 			this.price = this.one.price;
 			this.storage = this.one.storage;
@@ -93,8 +93,8 @@
 				const that  = this;
 				try{
 					let res = await this.api.get('/orders/product/pic',{number:this.one.number});
-					that.coverPic = res.data;
-					this.coverPic = this.imageSrcformat(that.coverPic,'jpg');
+					that.coverPic = res.msg;
+					//this.coverPic = this.imageSrcformat(that.coverPic,res.data);
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

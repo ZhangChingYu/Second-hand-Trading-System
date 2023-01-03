@@ -3,7 +3,7 @@
 		<!-- 收货地址 -->
 		<view class="myAddress">
 			<!-- 地图定位 -->
-			<image @click="Map" src="../../static/image/location.png" class="location"></image>
+			<image @click="map" src="../../static/image/location.png" class="location"></image>
 			<view class="someMess">
 				<!-- 默认地址的收件人姓名，号码，详细地址 -->
 				<view class="userName"><text>收货人：{{myAddress.receiverName}} {{myAddress.receiverPhone}}</text></view>
@@ -31,7 +31,7 @@
 			<view class="goods-box" @click="toGoodsDetail">
 				<!-- 图片 -->
 				<view class="goods-img">
-					<image :src="coverPic" mode="widthFix" @error="doDefault"></image>
+					<image :src="'data:image/jpg;base64,' + coverPic" mode="widthFix" @error="doDefault"></image>
 				</view>						
 				<!-- 信息 -->
 				<view class="goods-msg">
@@ -108,7 +108,7 @@
 			<button @click="toPay">确定下单</button>
 			<uni-popup ref="popdown" type="bottom" background-color="#fff">
 				<view class="pay">
-					<image src="../../static/image/return (2).png"></image>
+					<image src="../../static/image/return (2).png" @click="returnPay"></image>
 					<view class="payMoney">
 						<text>￥ </text>
 						<text>{{parseFloat(total).toFixed(2)}}</text>
@@ -128,7 +128,12 @@
 		data() {
 			return {
 				user:{},
-				myAddress:{},
+				myAddress:{
+					receiverName:'',
+					receiverPhone:'',
+					region:'',
+					addressDetail:'',
+				},
 				title:'确认订单',
 				items: [{
 					value: 'self',
@@ -161,13 +166,17 @@
 		},
 		mounted() {
 			this.user = uni.getStorageSync('user');	
+			this.getAddress();
 			this.getSeller();	
 			this.getCoverPic();
 		},
 		onLoad(option){
 			//this.oneBook = JSON.parse(decodeURIComponent(option.oneBookItem));
-			this.oneBook = JSON.parse(option.item);
-			this.total = this.oneBook.price;
+			this.oneBook = JSON.parse(decodeURIComponent(option.item));
+			this.total = this.oneBook.price * this.oneBook.count;
+		},
+		onShow(){
+			this.getAddress();
 		},
 		methods: {
 			map(){
@@ -190,8 +199,8 @@
 				const that  = this;
 				try{
 					let res = await this.api.get('/orders/product/pic',{number:this.oneBook.number});
-					that.coverPic = res.data;
-					this.coverPic = this.imageSrcformat(that.coverPic,'jpg');
+					that.coverPic = res.msg;
+					//this.coverPic = this.imageSrcformat(that.coverPic,res.data);
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)
@@ -262,15 +271,24 @@
 			
 			// 确认下单
 			toPay(){
-				if(this.isAlipay || this.isWeChat){
-					this.$refs.popdown.open('bottom');
+				if(this.myAddress.receiverName != '' && this.myAddress.receiverPhone != '' && this.myAddress.region != '' && this.myAddress.addressDetail != ''){
+					if(this.isAlipay || this.isWeChat){
+						this.$refs.popdown.open('bottom');
+					}
+					else this.$toast('请选择支付方式~');
 				}
+				else this.$toast('请填写收货人和收货地址~');
 			},
 			
 			// 付款
 			payMoney(){
 				this.$refs.popdown.close();
 				this.generateOrder();
+			},
+			
+			// 不付款
+			returnPay(){
+				this.$refs.popdown.close();
 			},
 			
 			// 生成订单
@@ -586,11 +604,31 @@
 		margin-right: 1%;
 	}
 	.pay{
-		display: flex;
-		flex-direction: column;
-	}
-	.payMoney{
-		display: flex;
-		flex-direction: row;
-	}
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+		}
+		.pay>image{
+			width: 52rpx;
+			height: 52rpx;
+			margin-left: 25rpx;
+			margin-top: 25rpx;
+		}
+		.payMoney{
+			display: flex;
+			flex-direction: row;
+			color: red;
+			text-align: center;
+			margin: 66rpx 40% 66rpx 40%;
+			width: 20%;
+			font-size: 42rpx;
+		}
+		.pay>button{
+			width: 360rpx;
+			height: 62rpx;
+			font-size: 28rpx;
+			color: white;
+			background-color: greenyellow;
+			margin-bottom: 25rpx;
+		}
 </style>

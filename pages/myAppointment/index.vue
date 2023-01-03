@@ -79,6 +79,14 @@
 			this.allBook = that.mybookItem;
 		},
 		onShow(){
+			this.allcolor = '#b34c26';
+			this.allfont = 'white';
+			this.firstcolor = '#efefef',
+			this.firstfont = 'gray';
+			this.secondcolor = '#efefef';
+			this.secondfont = 'gray';
+			this.thirdcolor = '#efefef';
+			this.thirdfont = 'gray';
 			this.getMybook();
 		},
 		methods: {
@@ -220,7 +228,7 @@
 				// 待下单状态到达下单界面
 				else{
 					uni.navigateTo({
-						url:'/pages/payment/index?item=' + oneitem
+						url:'/pages/payment/index?item=' + encodeURIComponent(oneitem)
 					})
 				}
 			},

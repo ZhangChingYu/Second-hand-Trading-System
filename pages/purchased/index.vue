@@ -84,6 +84,18 @@
 			this.getMyOrder();					
 		},
 		onShow(){
+			this.allcolor = '#b34c26';
+			this.allfont = 'white';
+			this.firstcolor = '#efefef',
+			this.firstfont = 'gray';
+			this.secondcolor = '#efefef';
+			this.secondfont = 'gray';
+			this.thirdcolor = '#efefef';
+			this.thirdfont = 'gray';
+			this.fourthcolor = '#efefef';
+			this.fourthfont = 'gray';
+			this.fifthcolor = '#efefef';
+			this.fifthfont = 'gray';
 			this.getMyOrder();	
 		},
 		methods: {
@@ -105,7 +117,7 @@
 				//let data = encodeURIComponent(JSON.stringify(item));
 				var oneitem = JSON.stringify(item)
 				uni.navigateTo({
-					url:'/pages/orderDetail/index?item=' + oneitem
+					url:'/pages/orderDetail/index?item=' + encodeURIComponent(oneitem)
 				})
 			},
 			

@@ -6,7 +6,7 @@
 			<view class="goods-box">
 				<!-- 图片 -->
 				<view class="goods-img">
-					<image :src="coverPic" mode="widthFix" @error="doDefault"></image>
+					<image :src="'data:image/jpg;base64,' + coverPic" mode="widthFix" @error="doDefault"></image>
 				</view>						
 				<!-- 信息 -->
 				<view class="goods-msg">
@@ -127,7 +127,7 @@
 			this.getCoverPic();
 		},
 		onLoad(option){
-			this.order = JSON.parse(option.orderGoods);
+			this.order = JSON.parse(decodeURIComponent(option.orderGoods));
 			this.total = option.total;
 		},
 		methods: {
@@ -136,8 +136,8 @@
 				const that  = this;
 				try{
 					let res = await this.api.get('/orders/product/pic',{number:this.order.proNumber});
-					that.coverPic = res.data;
-					this.coverPic = this.imageSrcformat(that.coverPic,'jpg');
+					that.coverPic = res.msg;
+					//this.coverPic = this.imageSrcformat(that.coverPic,res.data);
 				}catch(e){
 					//TODO handle the exception
 					that.$toast(e)

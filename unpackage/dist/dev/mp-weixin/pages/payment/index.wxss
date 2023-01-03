@@ -328,6 +328,24 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* 地址 */
 .myAddress{
 	width: 94%;
@@ -578,11 +596,31 @@
 	margin-right: 1%;
 }
 .pay{
-	display: flex;
-	flex-direction: column;
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+}
+.pay>image{
+		width: 52rpx;
+		height: 52rpx;
+		margin-left: 25rpx;
+		margin-top: 25rpx;
 }
 .payMoney{
-	display: flex;
-	flex-direction: row;
+		display: flex;
+		flex-direction: row;
+		color: red;
+		text-align: center;
+		margin: 66rpx 40% 66rpx 40%;
+		width: 20%;
+		font-size: 42rpx;
+}
+.pay>button{
+		width: 360rpx;
+		height: 62rpx;
+		font-size: 28rpx;
+		color: white;
+		background-color: greenyellow;
+		margin-bottom: 25rpx;
 }
 
