@@ -102,6 +102,7 @@
 					
 				},
 				user:{},
+				// chatMsg:[],
 				chatMsg:[
 					{
 						id:1,
@@ -124,7 +125,7 @@
 						id:3,
 						fromId:'15083622395',
 						types:'0',
-						content:'这个衣服是新的吗？',
+						content:'这个是新的吗？',
 						isShowTime:false,
 						time:'2022-11-05 14:06:22'
 					},
@@ -143,72 +144,6 @@
 						content:'是的。',
 						isShowTime:false,
 						time:'2022-11-05 14:06:22'
-					},
-					
-					{
-						id:6,
-						fromId:'15083622395',  //这个只是对方或者我的手机号
-						types:'0',			//判断是文字信息、图片、视频...
-						content:'你好！',	//消息内容
-						isShowTime: true,  //在聊天窗口是否显示时间 ，比如一般的短时间内的聊天不显示时间
-						time:'2022-11-05 14:06:22' ,//消息时间
-						//如果是图片，音频，视频等需要格式，如format:'jpg'
-					},
-					{
-						id:7,
-						fromId:'18187865081', 
-						types:'0',
-						content:'在的',
-						isShowTime:true,
-						time:'2022-11-05 14:06:22'
-					},
-					{
-						id:8,
-						fromId:'15083622395',
-						types:'0',
-						content:'这个衣服是新的吗？',
-						isShowTime:false,
-						time:'2022-11-05 14:06:22'
-					},
-					{
-						id:9,
-						fromId:'15083622395',
-						types:'0',
-						content:'是九成新吗',
-						isShowTime:true,
-						time:'2022-11-05 14:06:22'
-					},
-					{
-						id:10,
-						fromId:'18187865081',
-						types:'0',
-						content:'是的。',
-						isShowTime:false,
-						time:'2022-11-05 14:06:22'
-					},
-					{
-						id:11,
-						fromId:'15083622395',
-						types:'0',
-						content:'这个衣服是新的吗？',
-						isShowTime:false,
-						time:'2022-11-05 14:06:22'
-					},
-					{
-						id:12,
-						fromId:'15083622395',
-						types:'0',
-						content:'是九成新吗',
-						isShowTime:true,
-						time:'2022-11-05 14:06:22'
-					},
-					{
-						id:13,
-						fromId:'18187865081',
-						types:'0',
-						content:'是的。',
-						isShowTime:false,
-						time:'2022-11-05 14:06:22'
 					}
 				],
 				// 点击加号
@@ -222,6 +157,7 @@
 				height:'',
 				// 动画
 				needScrollAnimation:true,
+				socketOpen : false
 			}
 		},
 		onLoad: function (option) {
@@ -243,13 +179,15 @@
 				content:'',	//消息内容
 				time:'' ,//消息时间
 			}
-			this.mySocket();
+			
 			this.getchatMessage(0);
+			// 打开websocket连接
+			this.mySocket();
 		},
 		methods: {
 			async getchatMessage(page){
 				try{
-					let res = await this.api.get('/chat/getChatRecords',{toId:this.other.id,startIndex:page,pageSize:20})
+					let res = await this.api.get('/chat/getChatRecords',{toId:this.other.id,fromId:this.user.phone,startIndex:page,pageSize:20})
 					this.chatMsg = res?.data || [];
 				}catch(e){
 					//TODO handle the exception
@@ -257,11 +195,16 @@
 				}
 			},
 			mySocket(){
+				const that = this;
 				uni.connectSocket({
-				  url: 'wss://localhost:8080/websocket'
+				  url: `wss://localhost:443/websocket/${this.other.id}`
 				});
 				uni.onSocketOpen(function (res) {
+					that.socketOpen = true;
 				  console.log('WebSocket连接已打开！');
+				});
+				uni.onSocketMessage(function (res) {
+				  console.log('收到服务器内容：' + res.data);
 				});
 				uni.onSocketError(function (res) {
 				  console.log('WebSocket连接打开失败，请检查！');
@@ -277,7 +220,22 @@
 				
 				if(this.sendMsg.content === '') return;
 				console.log("发送的数据:",this.sendMsg)
-				this.chatMsg.push({id:this.chatMsg[this.chatMsg.length - 1].id + 1,types:'0',isShowTime: true,...this.sendMsg});
+				let id = this.chatMsg.length == 0?0:this.chatMsg[this.chatMsg.length - 1].id + 1
+				this.chatMsg.push({id:id,types:'0',isShowTime: true,...this.sendMsg});
+				
+				if (this.socketOpen) {
+				    uni.sendSocketMessage({
+						data: {
+							types:0,
+							toId:this.other.id,
+							number: "861b1529-c964-482f-9fc3-69422f3d8ca5",
+							content:this.sendMsg.content,
+							time:this.sendMsg.time,
+					  
+					  }
+				    });
+				  }
+				
 				this.resetSendMsg();
 				this.$nextTick(function(){
 					this.scrollToView = '';

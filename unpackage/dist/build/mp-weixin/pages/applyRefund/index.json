@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "申请退款",
+  "enablePullDownRefresh": true,
+  "navigationBarBackgroundColor": "#b34c26",
+  "navigationBarTextStyle": "white",
+  "usingComponents": {
+    "uni-popup": "/uni_modules/uni-popup/components/uni-popup/uni-popup"
+  }
+}

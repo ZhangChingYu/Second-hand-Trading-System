@@ -1,0 +1,1 @@
+<view class="content data-v-013035f8"><view class="title data-v-013035f8">{{datas.title}}</view><view class="date data-v-013035f8">{{datas.date}}</view><view class="to data-v-013035f8">{{"亲爱的"+datas.to+"用户："}}</view><view class="text data-v-013035f8">{{datas.content}}</view><view class="from data-v-013035f8">{{"来自"+datas.from}}</view></view>

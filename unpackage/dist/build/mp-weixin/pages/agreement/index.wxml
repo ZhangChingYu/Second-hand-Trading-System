@@ -1,0 +1,1 @@
+<view class="main"><view class="top"><view class="title">用户协议</view></view><view class="content"><rich-text>{{agreement.content}}</rich-text></view></view>

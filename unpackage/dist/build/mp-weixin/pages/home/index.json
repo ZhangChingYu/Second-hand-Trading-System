@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "主页",
+  "enablePullDownRefresh": true,
+  "usingComponents": {
+    "u-swiper": "/uni_modules/uview-ui/components/u-swiper/u-swiper",
+    "goods": "/components/goods/index",
+    "nomore": "/components/nomore/index"
+  }
+}

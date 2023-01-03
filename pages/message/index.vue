@@ -34,7 +34,7 @@
 		data() {
 			return {
 				status:'nomore',
-				
+				user:{},
 				chatList:[
 					{
 						phone:'15355960093',
@@ -71,6 +71,7 @@
 			}
 		},
 		mounted() {
+			this.user = uni.getStorageSync('user');
 			this.getChatList()
 		},
 		onPullDownRefresh(){
@@ -80,8 +81,9 @@
 		methods: {
 			async getChatList(){
 				try{
-					let res = await this.api.get('/chat/getChatList');
+					let res = await this.api.get('/chat/getChatList',{fromId:this.user.phone});
 					console.log(res);
+					// this.chatList = res.data
 				}catch(e){
 					//TODO handle the exception
 					this.$toast(e);

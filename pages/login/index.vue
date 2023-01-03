@@ -111,7 +111,7 @@
 					}catch(e){
 						//TODO handle the exception
 						this.loginHide();
-						that.$toast(err);
+						that.$toast(e);
 					}
 					
 				}else {
